@@ -52,6 +52,13 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — ES Backlinks discontinued page and fake catalog CTA withdrawn
+- Previous ES link-strategy commit 29e6cb9c: CI #38790360032 Hugo+retired-routes PASS; context guard #38790360037 PASS; 19 retired URLs across 47 HTML, 85 diagnostic findings/22 affected pages, release BLOCKED.
+- content/services/backlinks/index.es.md replaced in white-seo-rebuild with a small draft-only stub; full original saved in main. Old URL /servicios-de-link-building/backlinks/.
+- content/services/_index.es.md: removed exactly two obsolete blocks, including a fake «Backlinks» button formerly pointing to homepage '/' and a matching image without a destination. True commercial SEO services kept intact.
+- Added URL to docs/retired-routes-en.txt, report docs/research/2026-10-15-es-backlinks-retirement.md. New CI must confirm output and links; GSC, 301/410, external links and live audit still missing. Main, production and /go/vdsina/ unchanged.
+- Next: when CI PASS, ES artificial Domain Rating page and misleading button/image; then review remaining old RU/ES hubs and legitimate service migration. Strict release gate BLOCKED.
+
 ### 2026-10-15 — ES paid tier link strategy retired and homepage link corrected
 - Previous RU DR commit d26527d7: Hugo and retired URL CI #38790050825 PASS; context guard #38790050904 PASS. Retired URL count 18 over 48 HTML; diagnostic findings 93 in 23 files; RELEASE READINESS BLOCKED.
 - /servicios-de-link-building/estrategia-de-link-building/: old multi-level link sales removed from the white-seo-rebuild candidate by replacing content/services/estrategia-de-link-building/index.es.md with an unpublished draft stub; full original remains in main.
@@ -358,7 +365,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Проверить Actions после ES link strategy retire, включая ES homepage /es/news/. Затем ES Backlinks и Domain Rating по одной странице с карточками, контекстом и аудитом. После чистки прямых серых услуг — новые /ru/uslugi/ и /es/servicios/ и миграция легитимных семантики/консультаций без авто-301 старых link-building каталогов. Без публикации на сервер.
+Сначала проверить CI после ES Backlinks retire. Далее отдельным коммитом ES /servicios-de-link-building/domain-rating/ и убрать обе его карточки (включая ложный переход на главную). После этого обследовать оставшиеся RU/ES каталоги, приготовить новую истинно SEO-архитектуру и сохранять ценные семантику/консультации. Не публиковать до GSC/QA; сервер/main без изменений.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 
