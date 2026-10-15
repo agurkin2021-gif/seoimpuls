@@ -16,3 +16,10 @@ Public English-language examples reviewed 2026-10-15: https://www.seoevaluate.co
 
 ## QA still needed
 CI-generated HTML: one H1, correct canonical, all four paths, no broken anchor and no unrelated affiliates. Real browser 390/1280 and live network assets; SERP/GSC remain pending. Publication is preview only; production untouched.
+
+## H1 keyword selection confirmed from owner’s Keyword Planner screenshot (2026-10-15)
+- Selected commercial head term: `professional seo services` (not `SEO agency`, since owner represents specialists and offers broad SEO services).
+- Screenshot: **1,000–10,000 average monthly searches**, **All locations**, **English**, **Google**, LOW **Google Ads** competition. These metrics are not proof of lower organic SEO competition or demand in one specific market.
+- New H1/Title: `Professional SEO Services`.
+- Visible subtitle and meta description: `Complete SEO solutions from experienced specialists: technical SEO, on-page optimization, keyword research, content strategy and international SEO.`
+- Real first-ten Google organic competitors, organic ranking difficulty, GSC query signals and target geo remain SERP_UNVERIFIED / GSC_PENDING.

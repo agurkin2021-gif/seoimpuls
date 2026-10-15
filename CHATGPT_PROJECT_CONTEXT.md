@@ -60,6 +60,14 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — EN homepage primary H1 set to Professional SEO Services
+- User confirmed using Google Keyword Planner screenshot: phrase `professional seo services` shows 1k–10k average monthly searches under **All locations / English / Google**; advertising competition LOW (not organic ranking difficulty). Frequency is a broad bucket and target-country organic SERP difficulty remains unverified.
+- Updated ONLY English content/_index.md: H1/Title changed from "SEO Services: Technical Audits, Keywords & Content Strategy" to "Professional SEO Services". Visible subtitle/meta description changed to the owner-approved "Complete SEO solutions from experienced specialists: technical SEO, on-page optimization, keyword research, content strategy and international SEO.".
+- Updated EN homepage generated-HTML QA assertion in .github/workflows/rebuild-qa.yml to check new H1 and visible subtitle, and documented keyword selection and uncertainty in the EN research note. No homeJson/URLs/design edits.
+- Opera browser connection verified in this session: published Pages Preview initially displayed previous H1 and subtitle, with the expected `/seoimpuls/` subpath on page; this commit will auto-trigger fresh Preview publishing. Browser validation of the *new* commit still required.
+- RU/ES pages unchanged; main and production https://seoimpuls.com/ untouched. Next: verify Actions/preview and check EN H1/subtitle live; independently repair wrong Preview root-relative links before relying on CTA click tests, without altering production URL semantics.
+
+
 ### 2026-10-15 — Context checkpoint aligned with actual EN-home progress
 - Updated section 6 of CHATGPT_PROJECT_CONTEXT.md with current EN-home visual/commercial commits, accurate Preview URL, strict EN-only scope, and exact pending CI/browser/SERP/GSC checks. Removed obsolete Pages setup sequence from next action.
 - Updated AGENTS.md outdated repository privacy and Pages wording: repository is PUBLIC; isolated preview for white-seo-rebuild is permitted; main/production remain out of scope. No visual/site content change in this checkpoint.

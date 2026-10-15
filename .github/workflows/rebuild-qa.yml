@@ -702,10 +702,11 @@ jobs:
                      'xrumer','gsa ser','xevil','vps hosting','controlled authority growth','sample article body for visual testing']
           legacy=[x for x in forbidden if x in visible]
           if legacy:raise SystemExit('Legacy grey copy on EN homepage: '+str(legacy))
-          if ''.join(page.h1).strip()!='SEO Services: Technical Audits, Keywords & Content Strategy':
+          if ''.join(page.h1).strip()!='Professional SEO Services':
               raise SystemExit('Incorrect EN homepage H1: '+str(page.h1))
           if '/seo/' not in page.links or '/services/' not in page.links or '/services/keyword-research/' not in page.links:
               raise SystemExit('Required EN service routes missing')
+          if 'complete seo solutions from experienced specialists: technical seo, on-page optimization, keyword research, content strategy and international seo.' not in visible:raise SystemExit('EN homepage subtitle mismatch')
           if '/go/vdsina/' in page.links:raise SystemExit('Unrelated hosting affiliate remains')
           if 'how-it-works' not in page.ids:raise SystemExit('SEO process anchor missing: '+str(page.ids[:40]))
           if page.canonical!=['https://seoimpuls.com/']:raise SystemExit('Unexpected canonical: '+str(page.canonical))
