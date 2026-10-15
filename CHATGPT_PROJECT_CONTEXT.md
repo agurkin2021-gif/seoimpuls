@@ -52,6 +52,14 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — RU technical SEO page rebuilt for diagnostic intent
+- Previous ES About commit cfb14ac5: Hugo QA #38798766459 PASS, context #38798766384 PASS. RU/ES About now brand/navigational, with no unverified old statistics or link-selling claims; retired URLs 30, 44 HTML, diagnostic 11 findings/8 files, RELEASE BLOCKED.
+- Rewrote content/seo/index.ru.md in place at /ru/seo/ (URL unchanged, preserving existing link signals). Title/H1 «Технический SEO-аудит и оптимизация сайта». Converted generic/unsupported marketing copy into 11 blocks covering crawl/indexability, HTTP redirects, canonical/robots/sitemap, on-page structure, content intent separation, international SEO and practical issue priority.
+- Preserved translationKey=seo-overview; kept menu/Hugo builder and existing design. Added genuine internal links /ru/uslugi/, /ru/uslugi/semanticheskoe-yadro/, /ru/uslugi/seo-konsultaciya/ and no link-selling claims or guaranteed positions. Source image assets already exist.
+- Comparison and independent commercial SEO intent: docs/research/2026-10-15-ru-technical-seo-review.md. Public examples are SERP_UNVERIFIED, NOT claimed as geo-fixed Google top 10. QA in .github/workflows/rebuild-qa.yml verifies generated H1, self canonical, EN/ES hreflang, four section anchors, local links and no obsolete promotion.
+- This commit's CI PENDING; all main/production/DNS/Pages untouched. No fabricated results; actual Search Console, exact SERP and 390/1280px visual tests pending.
+- Next: after PASS, rewrite ES /es/seo/ with Spanish technical SEO intent and matching anchors, then RU/ES homepages and EN FAQ. Whole-site release gate remains BLOCKED.
+
 ### 2026-10-15 — ES About rewritten for verifiable company presentation
 - Previous RU About commit 585839d4: Hugo QA #38798382949 PASS; context #38798382835 PASS; 30 retired URLs/44 HTML, 12 scanner findings in 9 pages, RELEASE BLOCKED. RU About H1/canonical/EN+ES hreflang, service links and removal of old 2900+/1690+/rating claims verified.
 - Replaced content/about/index.es.md with new «Sobre SEOImpuls»: business approach, technical SEO/semantics/consultation/site-development service scope, fact-based validation, historic Kwork caveat and contact CTAs. Removed old link selling and unverified historical aggregate ratings/counts. Retained existing Kwork.com profile as reference, not proof of current SEO service outcomes.
@@ -470,7 +478,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Проверить GitHub Actions ES About /es/about/ с H1/canonical/hreflang и очищенными историческими статистиками. Далее по одной странице RU /ru/seo/ и ES /es/seo/: реальный технический SEO-интент, проверяемые диагностические действия и рекомендации, убрать backlink guarantees; затем RU/ES главные и EN FAQ. Релизный сканер + точный SERP/GSC/390px/1280px QA до публикации. Main и сервер не менять.
+Проверить Actions RU /ru/seo/: H1/canonical, EN/ES hreflang, технические anchors, genuine service links and no gray copy. Затем ES /es/seo/ (отдельно) с локализованным техническим SEO-интентом. После этих правок RU/ES главные, EN FAQ и context-aware affiliate audit. Strict release, GSC, verified SERP top10 and browser visual QA remain blocked. Server/main unchanged.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 

@@ -531,6 +531,41 @@ jobs:
               assert forbidden not in visible,(forbidden,visible[:200])
           print('PASS: ES About H1/canonical/EN-RU alternates and clean factual presentation')
           PY
+      - name: Check RU technical SEO page intent and metadata
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          from html.parser import HTMLParser
+          class P(HTMLParser):
+              def __init__(self):
+                  super().__init__();self.onh=False;self.h=[];self.canon=[];self.alts={};self.hrefs=[];self.ids=[];self.visible=[]
+              def handle_starttag(self,t,attrs):
+                  a=dict(attrs)
+                  if a.get('id'):self.ids.append(a['id'])
+                  if t=='h1':self.onh=True
+                  if t=='a':self.hrefs.append(a.get('href',''))
+                  if t=='link' and a.get('rel')=='canonical':self.canon.append(a.get('href',''))
+                  if t=='link' and a.get('rel')=='alternate':self.alts[a.get('hreflang')]=a.get('href','')
+              def handle_endtag(self,t):
+                  if t=='h1':self.onh=False
+              def handle_data(self,s):
+                  self.visible.append(s)
+                  if self.onh:self.h.append(s)
+          p=P();p.feed(Path('public/ru/seo/index.html').read_text(encoding='utf-8'))
+          visible=' '.join(' '.join(p.visible).split()).casefold()
+          assert ''.join(p.h).strip()=='Технический SEO-аудит и оптимизация сайта',p.h
+          assert p.canon==['https://seoimpuls.com/ru/seo/'],p.canon
+          assert p.alts.get('en-us')=='https://seoimpuls.com/seo/',p.alts
+          assert p.alts.get('es-es')=='https://seoimpuls.com/es/seo/',p.alts
+          for section in ('technical-seo','on-page-seo','content-strategy','international-seo'):
+              assert section in p.ids,('Missing technical section',section)
+          for href in ('/ru/uslugi/','/ru/uslugi/semanticheskoe-yadro/','/ru/uslugi/seo-konsultaciya/'):
+              assert href in p.hrefs,('Missing real internal link',href)
+          for forbidden in ('линкбилдинг','обратные ссылки'):
+              assert forbidden not in visible,forbidden
+          print('PASS: RU technical SEO H1/canonical/hreflang, scope, anchors and clean service links')
+          PY
       - name: Inventory rendered affiliate placements (diagnostic, no deployment)
         run: python3 scripts/audit_affiliate_links.py --site public --max-details 150
       - name: Report whole-site white-hat release blockers (diagnostic, never deploy)
