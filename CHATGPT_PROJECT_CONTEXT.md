@@ -52,6 +52,14 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — ES legacy SEO Strategy Builder retired; homepage entry points corrected
+- Предыдущий RU step commit 0426a46e: GitHub Actions Hugo+retired-route+RU hero validation #38786675935 PASS, project context #38786676085 PASS. Было 152 находки в 31 из 56 HTML; strict release gate BLOCKED.
+- content/strategy-builder/index.es.md: draft:true; /es/constructor-estrategias-seo/ перестаёт генерироваться обычным Hugo. Старый контент сочетал link-building tactics и контролируемый рост позиций, поэтому не подходит для новой белой SEO-компании.
+- content/_index.es.md: heroBuilderUrl → /es/seo/, heroCasesUrl → /es/about/, offerItem8 убрал ссылку на старый конструктор. layouts/index.html: испанские подписи CTA → «Servicios SEO» / «Sobre nosotros», ES fallback → /es/seo/. EN/RU CTA не менялись.
+- docs/retired-routes-en.txt: добавлен /es/constructor-estrategias-seo/. В .github/workflows/rebuild-qa.yml добавлен парсер generated ES HTML, проверяющий реальные URL, подписи и наличие страниц назначения. docs/research/2026-10-15-es-builder-retirement.md описывает SEO-решение и отсутствие live-редиректа.
+- Файл контекста обновлён в том же коммите. GitHub Actions данного коммита ещё предстоит проверить; при найденных старых ссылках исправить конкретный источник. Исторический URL не получает 301/410 до live/GSC проверки. Страницы ES SEO/About остаются legacy и требуют последующего SERP/контент-аудита, не считать их готовыми.
+- Далее: CI, затем по одной отключать RU/ES услуги Tier/сателлитов с сохранением честной тематической партнёрки на отдельных уместных страницах. Main/production/Pages без изменений. Строгий релизный gate BLOCKED.
+
 ### 2026-10-15 — RU legacy SEO Strategy Builder retired; homepage entry points corrected
 - Предыдущий коммит e493ca97: GitHub Actions Hugo #38784891265 PASS, project context #38784891338 PASS. ES VPS CTA с корректным affiliate disclosure сохранена. Для всей сборки ранее 154 замечания; strict release gate не пройден.
 - content/strategy-builder/index.ru.md для /ru/konstruktor-seo-strategii/: draft=false → true. Устаревший конструктор продвигал линкбилдинг/схемы; не подменяем его новой услугой с тем же URL.
@@ -293,7 +301,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Проверить GitHub Actions после отключения /ru/konstruktor-seo-strategii/, исправления RU hero CTA и EN/RU fallback. Если успешны — следующим ограниченным коммитом отключить ES /es/constructor-estrategias-seo/, заменить CTA испанской главной на существующие честно подписанные ES SEO/About страницы, записать URL в retired manifest. Затем Tier и сателлиты по одному. Main/сервер/Pages не трогать; релизный gate BLOCKED.
+Проверить GitHub Actions после отключения /es/constructor-estrategias-seo/; при PASS переходить к отдельной оценке RU /uslugi-linkbildinga/tier-1-2-3/ и ES /servicios-de-link-building/tier-1-2-3/ без подмены коммерческого интента. При снятии каждой страницы: draft + retired route + фиксация входящих ссылок, QA и запись в этот файл. Сохранить реальную партнёрку /go/vdsina/ только в уместном контексте. Main/production не трогать.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 

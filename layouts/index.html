@@ -2,7 +2,7 @@
 {{- $lang := .Site.Language.Lang -}}
 {{- $isRU := eq $lang "ru" -}}
 {{- $isES := eq $lang "es" -}}
-{{- $builderURL := cond $isRU "/ru/seo/" (cond $isES "/es/constructor-estrategias-seo/" "/seo/") -}}
+{{- $builderURL := cond $isRU "/ru/seo/" (cond $isES "/es/seo/" "/seo/") -}}
 {{- $newsListURL := cond $isRU "/ru/news/" (cond $isES "/es/news/" "/news/") -}}
 {{- $servicesURL := cond $isRU "/uslugi-linkbildinga/" (cond $isES "/servicios-de-link-building/" "/link-building-services/") -}}
 {{- $seoURL := cond $isRU "/ru/seo/" (cond $isES "/es/seo/" "/seo/") -}}
@@ -367,8 +367,8 @@
           {{ .Params.description | default (cond $isRU "SEO-оптимизация и адаптивное построение ссылок под алгоритмы поисковых систем. Масштабируемые стратегии, инфраструктура продвижения и контроль роста позиций." (cond $isES "Optimización SEO y construcción de enlaces adaptativa alineada con los algoritmos de los motores de búsqueda. Estrategias escalables, infraestructura de crecimiento y control del posicionamiento." "Technical SEO, useful content and measurable improvements built around real search demand.")) }}
         </p>
         <div class="seo-hero-actions">
-          <a class="seo-cta seo-cta--primary" href="{{ $homeHeroBuilderLink.href | safeURL }}"{{ with $homeHeroBuilderLink.cloaked }} data-seo-cloaked-href="{{ . }}"{{ end }}{{ with $homeHeroBuilderLink.rel }} rel="{{ . }}"{{ end }} data-home-link-field="heroBuilderUrl" data-home-link-value="{{ $homeHeroBuilderUrlRaw }}">{{ if $isRU }}SEO-услуги{{ else if $isES }}Constructor de Estrategias SEO{{ else }}Explore SEO Services{{ end }}</a>
-          <a class="seo-cta seo-cta--secondary" href="{{ $homeHeroCasesLink.href | safeURL }}"{{ with $homeHeroCasesLink.cloaked }} data-seo-cloaked-href="{{ . }}"{{ end }}{{ with $homeHeroCasesLink.rel }} rel="{{ . }}"{{ end }} data-home-link-field="heroCasesUrl" data-home-link-value="{{ $homeHeroCasesUrlRaw }}">{{ if $isRU }}О компании{{ else if $isES }}SEO{{ else }}How We Work{{ end }}</a>
+          <a class="seo-cta seo-cta--primary" href="{{ $homeHeroBuilderLink.href | safeURL }}"{{ with $homeHeroBuilderLink.cloaked }} data-seo-cloaked-href="{{ . }}"{{ end }}{{ with $homeHeroBuilderLink.rel }} rel="{{ . }}"{{ end }} data-home-link-field="heroBuilderUrl" data-home-link-value="{{ $homeHeroBuilderUrlRaw }}">{{ if $isRU }}SEO-услуги{{ else if $isES }}Servicios SEO{{ else }}Explore SEO Services{{ end }}</a>
+          <a class="seo-cta seo-cta--secondary" href="{{ $homeHeroCasesLink.href | safeURL }}"{{ with $homeHeroCasesLink.cloaked }} data-seo-cloaked-href="{{ . }}"{{ end }}{{ with $homeHeroCasesLink.rel }} rel="{{ . }}"{{ end }} data-home-link-field="heroCasesUrl" data-home-link-value="{{ $homeHeroCasesUrlRaw }}">{{ if $isRU }}О компании{{ else if $isES }}Sobre nosotros{{ else }}How We Work{{ end }}</a>
         </div>
         {{ partial "seo-builder-blocks.html" . }}
       </div>

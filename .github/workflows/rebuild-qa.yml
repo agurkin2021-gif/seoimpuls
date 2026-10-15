@@ -119,6 +119,42 @@ jobs:
           assert Path('public/ru/about/index.html').is_file(), 'RU About destination missing'
           print('PASS: RU strategy builder withdrawn; hero CTAs use real, correctly labelled destinations.')
           PY
+      - name: Validate ES strategy-builder retirement and homepage CTA destinations
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from html.parser import HTMLParser
+          from pathlib import Path
+          targets = {'heroBuilderUrl': ('/es/seo/', 'Servicios SEO'),
+                     'heroCasesUrl': ('/es/about/', 'Sobre nosotros')}
+          class HeroLinks(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.current = None
+                  self.links = {}
+              def handle_starttag(self, tag, attrs):
+                  if tag != 'a': return
+                  data = dict(attrs)
+                  field = data.get('data-home-link-field')
+                  if field in targets: self.current = (field, data.get('href', ''), [])
+              def handle_data(self, value):
+                  if self.current: self.current[2].append(value)
+              def handle_endtag(self, tag):
+                  if tag == 'a' and self.current:
+                      field, href, words = self.current
+                      self.links[field] = (href, ' '.join(' '.join(words).split()))
+                      self.current = None
+          html = Path('public/es/index.html').read_text(encoding='utf-8')
+          parsed = HeroLinks()
+          parsed.feed(html)
+          for field, expected in targets.items():
+              actual = parsed.links.get(field)
+              assert actual == expected, f'{field}: expected {expected}, got {actual}'
+          assert not Path('public/es/constructor-estrategias-seo/index.html').exists(), 'ES builder is still rendered'
+          assert Path('public/es/seo/index.html').is_file(), 'ES SEO target missing'
+          assert Path('public/es/about/index.html').is_file(), 'ES About target missing'
+          print('PASS: ES builder retired; primary and secondary homepage CTA destinations and labels are correct.')
+          PY
       - name: Inventory rendered affiliate placements (diagnostic, no deployment)
         run: python3 scripts/audit_affiliate_links.py --site public --max-details 150
       - name: Report whole-site white-hat release blockers (diagnostic, never deploy)

@@ -10,3 +10,4 @@
 /soft/
 /ru/soft/
 /ru/konstruktor-seo-strategii/
+/es/constructor-estrategias-seo/
