@@ -1,0 +1,64 @@
+name: Validate SEOImpuls rebuild (no deployment)
+
+on:
+  push:
+    branches: [white-seo-rebuild]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.25.5'
+      - uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: '0.154.5'
+          extended: true
+      - name: Build all languages
+        run: hugo --minify --noBuildLock
+      - name: Verify generated pages and EN homepage white-hat copy
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from html.parser import HTMLParser
+          from pathlib import Path
+          class Page(HTMLParser):
+              def __init__(self):
+                  super().__init__(); self.ignore=0;self.visible=[];self.h1=[];self.onh1=False;self.links=[];self.canonical=[]
+              def handle_starttag(self,tag,attrs):
+                  attrs=dict(attrs)
+                  if tag in ('script','style'):self.ignore+=1
+                  if tag=='h1':self.onh1=True
+                  if tag=='a':self.links.append(attrs.get('href',''))
+                  if tag=='link' and attrs.get('rel')=='canonical':self.canonical.append(attrs.get('href',''))
+              def handle_endtag(self,tag):
+                  if tag in ('script','style'):self.ignore=max(0,self.ignore-1)
+                  if tag=='h1':self.onh1=False
+              def handle_data(self,data):
+                  if not self.ignore:
+                      self.visible.append(data)
+                      if self.onh1:self.h1.append(data)
+          for path in ['public/index.html','public/ru/index.html','public/es/index.html','public/sitemap.xml']:
+              assert Path(path).is_file() and Path(path).stat().st_size>0,path
+          page=Page()
+          html=Path('public/index.html').read_text(encoding='utf-8')
+          page.feed(html)
+          visible=' '.join(' '.join(page.visible).split()).lower()
+          forbidden=['link building services','backlink strategies','domain rating increase','tier 1-2-3',
+                     'xrumer','gsa ser','xevil','vps hosting','controlled authority growth','sample article body for visual testing']
+          legacy=[x for x in forbidden if x in visible]
+          if legacy:raise SystemExit('Legacy grey copy on EN homepage: '+str(legacy))
+          if ''.join(page.h1).strip()!='SEO Services for Sustainable Organic Growth':
+              raise SystemExit('Incorrect EN homepage H1: '+str(page.h1))
+          if '/seo/' not in page.links:raise SystemExit('SEO service CTA missing')
+          if '/go/vdsina/' in page.links:raise SystemExit('Unrelated hosting affiliate remains')
+          if 'id="how-it-works"' not in html:raise SystemExit('SEO process anchor missing')
+          if page.canonical!=['https://seoimpuls.com/']:raise SystemExit('Unexpected canonical: '+str(page.canonical))
+          print('PASS: Hugo outputs EN, RU, ES, sitemap; clean EN homepage H1/links/content/canonical.')
+          PY

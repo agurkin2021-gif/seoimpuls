@@ -27,7 +27,7 @@ defaultContentLanguageInSubdir = false
 
 [params]
   title = "SeoImpuls"
-  description = "SEO promotion, backlink strategy, and technical optimization for scalable search growth."
+  description = "Technical SEO, search intent and content strategy for sustainable organic visibility."
   images = ["/SEOIMPULS_logo.webp"]
 
   [params.author]
@@ -156,13 +156,13 @@ defaultContentLanguageInSubdir = false
       weight = 1
 
     [[languages.en.menu.main]]
-      name = "Link Building Services"
-      url = "/link-building-services/"
+      name = "SEO Services"
+      url = "/seo/"
       weight = 3
 
     [[languages.en.menu.main]]
-      name = "Software"
-      url = "/soft/"
+      name = "How We Work"
+      url = "/#how-it-works"
       weight = 5
 
     [[languages.en.menu.main]]

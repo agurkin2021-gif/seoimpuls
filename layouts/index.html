@@ -364,11 +364,11 @@
       <div class="seo-hero-content__inner">
         <h1 id="seo-hero-title" class="seo-hero-title"{{ if $pageTitleStyle }} style="{{ $pageTitleStyle | safeCSS }}"{{ end }}>{{ .Title }}</h1>
         <p class="seo-hero-text">
-          {{ .Params.description | default (cond $isRU "SEO-оптимизация и адаптивное построение ссылок под алгоритмы поисковых систем. Масштабируемые стратегии, инфраструктура продвижения и контроль роста позиций." (cond $isES "Optimización SEO y construcción de enlaces adaptativa alineada con los algoritmos de los motores de búsqueda. Estrategias escalables, infraestructura de crecimiento y control del posicionamiento." "SEO optimization and adaptive link building aligned with search engine algorithms. Scalable strategies, structured growth infrastructure, and controlled ranking performance.")) }}
+          {{ .Params.description | default (cond $isRU "SEO-оптимизация и адаптивное построение ссылок под алгоритмы поисковых систем. Масштабируемые стратегии, инфраструктура продвижения и контроль роста позиций." (cond $isES "Optimización SEO y construcción de enlaces adaptativa alineada con los algoritmos de los motores de búsqueda. Estrategias escalables, infraestructura de crecimiento y control del posicionamiento." "Technical SEO, useful content and measurable improvements built around real search demand.")) }}
         </p>
         <div class="seo-hero-actions">
-          <a class="seo-cta seo-cta--primary" href="{{ $homeHeroBuilderLink.href | safeURL }}"{{ with $homeHeroBuilderLink.cloaked }} data-seo-cloaked-href="{{ . }}"{{ end }}{{ with $homeHeroBuilderLink.rel }} rel="{{ . }}"{{ end }} data-home-link-field="heroBuilderUrl" data-home-link-value="{{ $homeHeroBuilderUrlRaw }}">{{ if $isRU }}Конструктор SEO стратегии{{ else if $isES }}Constructor de Estrategias SEO{{ else }}SEO Strategy Builder{{ end }}</a>
-          <a class="seo-cta seo-cta--secondary" href="{{ $homeHeroCasesLink.href | safeURL }}"{{ with $homeHeroCasesLink.cloaked }} data-seo-cloaked-href="{{ . }}"{{ end }}{{ with $homeHeroCasesLink.rel }} rel="{{ . }}"{{ end }} data-home-link-field="heroCasesUrl" data-home-link-value="{{ $homeHeroCasesUrlRaw }}">SEO</a>
+          <a class="seo-cta seo-cta--primary" href="{{ $homeHeroBuilderLink.href | safeURL }}"{{ with $homeHeroBuilderLink.cloaked }} data-seo-cloaked-href="{{ . }}"{{ end }}{{ with $homeHeroBuilderLink.rel }} rel="{{ . }}"{{ end }} data-home-link-field="heroBuilderUrl" data-home-link-value="{{ $homeHeroBuilderUrlRaw }}">{{ if $isRU }}Конструктор SEO стратегии{{ else if $isES }}Constructor de Estrategias SEO{{ else }}Explore SEO Services{{ end }}</a>
+          <a class="seo-cta seo-cta--secondary" href="{{ $homeHeroCasesLink.href | safeURL }}"{{ with $homeHeroCasesLink.cloaked }} data-seo-cloaked-href="{{ . }}"{{ end }}{{ with $homeHeroCasesLink.rel }} rel="{{ . }}"{{ end }} data-home-link-field="heroCasesUrl" data-home-link-value="{{ $homeHeroCasesUrlRaw }}">{{ if $isRU }}SEO{{ else if $isES }}SEO{{ else }}How We Work{{ end }}</a>
         </div>
         {{ partial "seo-builder-blocks.html" . }}
       </div>
@@ -376,9 +376,22 @@
   </section>
 
   <section class="seo-services-panel">
-    <section class="seo-news-strip" aria-label="{{ if $isRU }}Последние обновления{{ else if $isES }}Últimas actualizaciones{{ else }}Latest updates{{ end }}">
+    <section class="seo-news-strip" aria-label="{{ if $isRU }}Последние обновления{{ else if $isES }}Últimas actualizaciones{{ else }}SEO delivery process{{ end }}">
       <div class="seo-news-strip__layout">
         <div class="seo-news-strip__single js-news-strip-single">
+          {{ if eq $lang "en" }}
+          <article class="seo-news-article seo-news-article--compact" id="how-it-works">
+            <h2 class="seo-news-article__title">From diagnosis to implementation</h2>
+            <div class="seo-news-article__body">
+              <p>Begin with your actual website, target audience and search data. The work should lead to documented fixes, not vague ranking promises.</p>
+              <ol>
+                <li><strong>Diagnose:</strong> assess Search Console, crawl data, indexation, content and templates.</li>
+                <li><strong>Prioritize:</strong> map search intent, identify missing information and order fixes by impact and effort.</li>
+                <li><strong>Validate:</strong> apply approved changes, test affected URLs and measure outcomes against a baseline.</li>
+              </ol>
+            </div>
+          </article>
+          {{ else }}
           {{ if $hasUpdates }}
             {{ range $postIndex, $post := $updates }}
               {{- $postImage := .Params.image | default "" -}}
@@ -444,13 +457,14 @@
               <p class="seo-news-article__body" data-home-field="newsBody">{{ partial "home-inline.html" $homeNewsBody }}</p>
             </article>
           {{ end }}
+          {{ end }}
         </div>
 
         <aside class="seo-news-strip__side" aria-label="{{ if $isRU }}Рекомендуемые блоки услуг{{ else if $isES }}Bloques de servicio destacados{{ else }}Featured service blocks{{ end }}">
           <a class="seo-card" href="{{ $homeCard1Link.href | safeURL }}"{{ with $homeCard1Link.cloaked }} data-seo-cloaked-href="{{ . }}"{{ end }}{{ with $homeCard1Link.rel }} rel="{{ . }}"{{ end }} data-home-link-field="card1Url" data-home-link-value="{{ $homeCard1UrlRaw }}">
             <div class="seo-card-head">
               <span class="seo-card-icon" aria-hidden="true">
-                <img src="{{ "backlinks-icon-64.webp" | relURL }}" alt="" width="64" height="64" decoding="async" />
+                <img src="{{ if eq $lang "en" }}/uploads/seo-icon-search-optimization.svg{{ else }}{{ "backlinks-icon-64.webp" | relURL }}{{ end }}" alt="" width="64" height="64" decoding="async" />
               </span>
               <h3 class="seo-card-title" data-home-field="card1Title">{{ partial "home-inline.html" $homeCard1Title }}</h3>
             </div>
@@ -463,7 +477,7 @@
           <a class="seo-card" href="{{ $homeCard2Link.href | safeURL }}"{{ with $homeCard2Link.cloaked }} data-seo-cloaked-href="{{ . }}"{{ end }}{{ with $homeCard2Link.rel }} rel="{{ . }}"{{ end }} data-home-link-field="card2Url" data-home-link-value="{{ $homeCard2UrlRaw }}">
             <div class="seo-card-head">
               <span class="seo-card-icon" aria-hidden="true">
-                <img src="{{ "server-icon.svg" | relURL }}" alt="" width="64" height="64" decoding="async" />
+                <img src="{{ if eq $lang "en" }}/uploads/seo-icon-search-marketing.svg{{ else }}{{ "server-icon.svg" | relURL }}{{ end }}" alt="" width="64" height="64" decoding="async" />
               </span>
               <h3 class="seo-card-title" data-home-field="card2Title">{{ partial "home-inline.html" $homeCard2Title }}</h3>
             </div>
@@ -484,7 +498,7 @@
         <li data-home-field="offerItem3">{{ partial "home-inline.html" $homeOfferItem3 }}</li>
         <li data-home-field="offerItem4">{{ partial "home-inline.html" $homeOfferItem4 }}</li>
         <li data-home-field="offerItem5">{{ partial "home-inline.html" $homeOfferItem5 }}</li>
-        <li><span class="seo-inline-server-icon" aria-hidden="true"><img src="{{ "server-icon.svg" | relURL }}" alt="" width="64" height="64" decoding="async"></span><span data-home-field="offerItem6">{{ partial "home-inline.html" $homeOfferItem6 }}</span></li>
+        <li><span class="seo-inline-server-icon" aria-hidden="true"><img src="{{ if eq $lang "en" }}/uploads/seo-icon-google.svg{{ else }}{{ "server-icon.svg" | relURL }}{{ end }}" alt="" width="64" height="64" decoding="async"></span><span data-home-field="offerItem6">{{ partial "home-inline.html" $homeOfferItem6 }}</span></li>
         <li data-home-field="offerItem7">{{ partial "home-inline.html" $homeOfferItem7 }}</li>
         <li data-home-field="offerItem8">{{ partial "home-inline.html" $homeOfferItem8 }}</li>
       </ul>

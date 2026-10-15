@@ -52,6 +52,16 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — EN homepage: commercial-intent and white SEO rebuild
+- Рабочая ветка: white-seo-rebuild. Main остаётся исходным эталоном.
+- Зафиксирован успешный GitHub Actions импорт #38768910498: ZIP SHA проверен, Hugo EN/RU/ES/sitemap PASS, файлы доступны в main, ZIP удалён.
+- Документирован конкурентный ориентир из 10 релевантных англоязычных страниц: docs/research/2026-10-15-en-home-serp-intent.md. Это выборка, не подтверждённый точный Google top-10 одного региона.
+- Файлы: content/_index.md, layouts/index.html, hugo.toml. EN главная переписана под SEO Services; удалена из видимой EN версии ссылка на VPS и продвижение backlinks/DR, вместо фальшивой новости теперь реальный процесс, исправлены EN услуги меню и CTA.
+- Добавлена .github/workflows/rebuild-qa.yml (только проверка, без публикации), проверяющая Hugo, три главные, sitemap и английский H1, canonical, старый контент и CTA.
+- ПРОВЕРКИ: до завершения нового Actions workflow не заявлять, что обновлённая главная прошла build и UX-QA; необходимо проверить в Actions.
+- НЕ ГОТОВО к публикации: /seo/ и другие EN-услуги, RU/ES, footer, устаревшие URL, реальный SERP geo-specific, responsive/visual проверки.
+- Следующий шаг: проверить Actions и HTML EN главной; затем провести аудит и переработку EN /seo/, не трогая продакшн.
+
 ### 2026-10-15 16:26 UTC — Verified source import via GitHub Actions
 - Uploaded ZIP matched the recorded SHA-256; files extracted into main.
 - Hugo --minify build completed with EN/RU/ES homepage and sitemap checks.
@@ -81,7 +91,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Проверить результат GitHub Actions и наличие ветки white-seo-rebuild. Затем провести полный SEO-инвентарь URL и начать работу с EN-главной, фиксируя каждый последующий коммит в данном файле. Продакшен не трогать.
+Проверить GitHub Actions rebuild-qa и, при необходимости, исправить ошибки. Затем провести SERP/интент-аудит EN /seo/ и полноценно переделать страницу как законный SEO service hub; все коммиты обязательно сопровождаются обновлением этого контекста. Продакшн не трогать.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 
