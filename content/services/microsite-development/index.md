@@ -3,7 +3,7 @@ title: "Microsite development"
 description: "Turnkey development of niche microsites, satellite sites, and thematic media projects."
 slug: "microsite-development"
 translationKey: "services-microsite-development"
-draft: false
+draft: true
 showOnHome: false
 image: "/uploads/microsites-1788963920-q54-1788963925284.webp"
 images:

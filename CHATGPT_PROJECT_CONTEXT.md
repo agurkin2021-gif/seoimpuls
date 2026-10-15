@@ -52,6 +52,14 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — EN legacy microsite/satellite advertising page withdrawn
+- Последний коммит Tier 76a82a6f: rebuild/retired route check и context guard завершились PASS в GitHub Actions. Production и main не тронуты.
+- Аудит content/services/microsite-development/index.md: старый URL /link-building-services/microsite-development/ предлагал satellite websites, размещение бренда за ежемесячную оплату, передачу ссылочного авторитета и обещания Google Top. Это не эквивалент реальной заказной веб-разработки, а смешанное предложение, которое нельзя оставлять в white SEO.
+- Страница переведена в draft: true, путь добавлен в docs/retired-routes-en.txt, обоснование в docs/research/2026-10-15-en-microsites-retirement.md. Не утверждаем, что самостоятельные microsites запрещены всегда.
+- 301/410 на живом сервере НЕ сделаны. Реестр миграции содержит REVIEW_BEFORE_410 до получения GSC/live/backlink evidence. Возможную настоящую услугу website development проверять отдельно и под самостоятельный интент.
+- QA этого коммита ещё ожидает GitHub Actions. RU/ES и другие legacy материалы всё ещё публикуются в candidate; strict gate не пройден.
+- Следующее: проверить CI; затем раздельно проверить EN website creation (настоящая услуга или PBN) и old link-building section parents/soft/strategy builder, не менять main/production.
+
 ### 2026-10-15 — EN Tier 1–2–3 link networks withdrawn from Hugo
 - GitHub Actions f2319734: rebuild + retired route check #38777434146 PASS; context guard #38777434159 PASS. Сервер и main неизменны.
 - source content/services/tier-1-2-3/index.md for URL /link-building-services/tier-1-2-3/: changed draft: false → true. Карточки и ссылки, встроенные в эту уже закрытую публикацию, перестают генерироваться обычным Hugo.
@@ -218,7 +226,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Проверить Actions для снятия EN Tier 1–2–3. Затем подробно проанализировать EN /link-building-services/microsite-development/: определить, продаёт ли страница сателлиты ради ссылочного веса или реальную веб-разработку; решение без угадывания и без искусственного 301. Следующая правка — отдельный коммит с контекстом.
+Проверить GitHub Actions после снятия EN /link-building-services/microsite-development/. Затем аудит содержимого EN website creation под текущим legacy URL и решение отдельно о легитимности услуги и новой семантике. Продакшен не менять. Повторять регламент docs/SEO_PAGE_WORKFLOW.md для каждого изменения.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 
