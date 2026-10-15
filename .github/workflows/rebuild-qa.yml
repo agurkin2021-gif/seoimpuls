@@ -30,9 +30,10 @@ jobs:
           from pathlib import Path
           class Page(HTMLParser):
               def __init__(self):
-                  super().__init__(); self.ignore=0;self.visible=[];self.h1=[];self.onh1=False;self.links=[];self.canonical=[]
+                  super().__init__(); self.ignore=0;self.visible=[];self.h1=[];self.onh1=False;self.links=[];self.canonical=[];self.ids=[]
               def handle_starttag(self,tag,attrs):
                   attrs=dict(attrs)
+                  if attrs.get('id'):self.ids.append(attrs['id'])
                   if tag in ('script','style'):self.ignore+=1
                   if tag=='h1':self.onh1=True
                   if tag=='a':self.links.append(attrs.get('href',''))
@@ -58,7 +59,7 @@ jobs:
               raise SystemExit('Incorrect EN homepage H1: '+str(page.h1))
           if '/seo/' not in page.links:raise SystemExit('SEO service CTA missing')
           if '/go/vdsina/' in page.links:raise SystemExit('Unrelated hosting affiliate remains')
-          if 'id="how-it-works"' not in html:raise SystemExit('SEO process anchor missing')
+          if 'how-it-works' not in page.ids:raise SystemExit('SEO process anchor missing: '+str(page.ids[:40]))
           if page.canonical!=['https://seoimpuls.com/']:raise SystemExit('Unexpected canonical: '+str(page.canonical))
           print('PASS: Hugo outputs EN, RU, ES, sitemap; clean EN homepage H1/links/content/canonical.')
           PY
