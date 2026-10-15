@@ -45,6 +45,12 @@ Scope: English homepage / on branch white-seo-rebuild, plus *read-only* verifica
 4. Hreflang reciprocity/equivalence against future rebuilt RU and ES localizations.
 5. Live `seoimpuls.com` production deployment, actual production redirects and index status — untouched.
 
+## Final meta description retest (verified)
+- Follow-up GitHub Actions run https://github.com/agurkin2021-gif/seoimpuls/actions/runs/38823700740 — **PASS**, artifact `seoimpuls-en-home-390-1280` (new artifact ID 12014490122).
+- At **both 390px and 1280px**, case-insensitive meta selector returned the exact approved description:
+  `Technical SEO audits, on-page optimization, keyword research, content strategy and international SEO — with clear priorities and defined deliverables.`
+- The metadata issue was a false positive in the first audit script. The HTML has a populated `<meta name="Description">` tag, correct production canonical, populated OG title/description and valid WebSite/BreadcrumbList JSON-LD. No EN website source edit was necessary.
+
 ## Severity and next action
 - **P0 (blocking visual/technical):** none confirmed at 390 or 1280 in the tested build.
 - **P1:** no confirmed broken HTML/routes/images/JS; SEO release remains gated by missing GSC/SERP and real-user metrics, not by a specific visual crash.

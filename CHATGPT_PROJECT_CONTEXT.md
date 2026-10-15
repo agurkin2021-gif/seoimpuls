@@ -60,6 +60,14 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — EN homepage responsive QA final acceptance record
+- Playwright run #38823700740 PASS, following the earlier #38823101622 PASS. Both 390px and 1280px: HTML 200, 1 H1 correct, production canonical, page-specific meta description populated, OG description, valid JSON-LD WebSite/BreadcrumbList, 0 image failures, 0 broken internal URLs, 0 browser JS errors, no horizontal overflow. Cookie notice dismisses; footer static on mobile and floating/revealing on desktop.
+- Confirmed meta description `Technical SEO audits, on-page optimization, keyword research, content strategy and international SEO — with clear priorities and defined deliverables.` is present under `meta name="Description"`. The initial case-sensitive selector warning was false and corrected.
+- Desktop/mobile screen evidence stored under GitHub Actions artifact `seoimpuls-en-home-390-1280` and durable findings `docs/research/2026-10-15-en-home-technical-visual-audit.md`. Potential P2 mobile consent height (~295/844 px) and unmeasured CTA contrast are review items, not confirmed blockers.
+- Remaining: country-fixed SERP top10, GSC, real-user Core Web Vitals, keyboard/color contrast, reciprocity with future RU/ES changes. No production site or EN content edits in this audit pass.
+- Next: owner decision on P2 visual polish and/or proceed with independent SERP/GSC and CrUX audit.
+
+
 ### 2026-10-15 — Completed reproducible EN home 390/1280 audit and documented evidence
 - Browser audit #38823101622 PASS. Chromium at 390 and 1280 px: HTTP 200, one correct H1, correct production self canonical, no horizontal overflow, 4/4 images loaded, 0/13 broken local links, no JS/page network failures, JSON-LD syntax valid (WebSite, BreadcrumbList), desktop footer floating and mobile footer static, cookie consent dismissible.
 - Screenshots and audit.json saved in GitHub Actions artifact `seoimpuls-en-home-390-1280` (6 PNG files plus JSON, retained 14 days). Full durable report: `docs/research/2026-10-15-en-home-technical-visual-audit.md`.
@@ -707,10 +715,9 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Пользователь ограничил работу английской главной EN `/`, RU/ES не менять, production seoimpuls.com не трогать.
-Контрольная проверка EN главной на 390/1280 завершена: GH Actions #38823101622 PASS. Итоги и ограничения в `docs/research/2026-10-15-en-home-technical-visual-audit.md`; скриншоты в artifact `seoimpuls-en-home-390-1280`.
+EN homepage control QA confirmed (GitHub Actions #38823700740 PASS). Exact results and caveats in `docs/research/2026-10-15-en-home-technical-visual-audit.md`. H1/meta/canonical/valid JSON-LD, images, links, responsive 390/1280 and animated footer all verified in built HTML. No blocking P0 rendering issue detected.
 
-Следующие проверки по приоритету: (1) прочитать новый rerun case-insensitive meta description, (2) по необходимости исправить P2 cookie notice/CTA contrast без потери дизайна и поведенческого футера, (3) реальный гео Google SERP top-10 и GSC, (4) CrUX/Lighthouse и keyboard WCAG до READY_FOR_RELEASE. Никаких P0/P1 визуальных ошибок тест не выявил, но это не SEO-одобрение.
+Priorities: optional P2 consent overlay height and CTA contrast review; then geo-specific Google SERP top10, GSC, real-world Core Web Vitals, WCAG keyboard/contrast. Do not claim fully optimized until these are checked. Edit EN homepage only. RU/ES and production seoimpuls.com remain untouched.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 
