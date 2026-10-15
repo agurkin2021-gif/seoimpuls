@@ -52,6 +52,13 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — EN website creation page temporarily disabled
+- Previous 052a215d: build #38777959133 PASS; context guard #38777959083 PASS.
+- Existing content/services/website-creation/index.md mixes ordinary website development with unrelated legacy services under /link-building-services/website-creation/. Changed only draft:false to true.
+- Registered the candidate-disabled URL in docs/retired-routes-en.txt and documented the rationale in docs/research/2026-10-15-en-website-creation-review.md.
+- Website development itself is not rejected. REVIEW_BUSINESS_OFFER remains; a separate authentic offer and SERP study must precede any new page and redirect. No changes to main or production; CI for new commit pending.
+- Next: verify CI; audit old category, software and strategy-builder pages and internal links.
+
 ### 2026-10-15 — EN legacy microsite/satellite advertising page withdrawn
 - Последний коммит Tier 76a82a6f: rebuild/retired route check и context guard завершились PASS в GitHub Actions. Production и main не тронуты.
 - Аудит content/services/microsite-development/index.md: старый URL /link-building-services/microsite-development/ предлагал satellite websites, размещение бренда за ежемесячную оплату, передачу ссылочного авторитета и обещания Google Top. Это не эквивалент реальной заказной веб-разработки, а смешанное предложение, которое нельзя оставлять в white SEO.
@@ -226,7 +233,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Проверить GitHub Actions после снятия EN /link-building-services/microsite-development/. Затем аудит содержимого EN website creation под текущим legacy URL и решение отдельно о легитимности услуги и новой семантике. Продакшен не менять. Повторять регламент docs/SEO_PAGE_WORKFLOW.md для каждого изменения.
+Проверить Actions после временного отключения legacy EN website creation. Затем разобрать старый EN раздел /link-building-services/, software и strategy-builder; проверить ссылки и метаданные, прежде чем принимать следующие изменения. Server/main без изменений.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 
