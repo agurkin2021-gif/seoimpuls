@@ -52,6 +52,14 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — Удалён обманчивый статический /ru/soft/ redirect из кандидата
+- Автоматический inventory #38783627099 PASS и context guard #38783627134 PASS для коммита 34f576b7. Сборка 58 HTML, 14 партнёрских ссылок на 9 страницах; 13 с JS-перехватом, 14 без disclosure непосредственно в тексте ссылки. Это не доказательство отсутствия disclosure в другом месте.
+- Файл static/ru/soft/index.html являлся meta refresh + JS переходом /ru/soft/ → /go/vdsina/ с подписью Continue. Это нерелевантная подмена, не программный раздел; удалён ТОЛЬКО из белой рабочей ветки.
+- В docs/retired-routes-en.txt добавлен /ru/soft/ (файл исторически назван EN, но CI может проверять любой URL). Добавлено исследование docs/research/2026-10-15-ru-soft-referral-retirement.md. Основной /go/vdsina/ и реферальный код сохранены.
+- Нет изменений main, server, GitHub Pages или фактического production redirect. Новый GitHub Actions тест должен подтвердить отсутствие URL и входящих ссылок в generated site; без его результата не считать законченным.
+- Другие размещения RU/ES страниц старых ссылочных схем и Tier в очереди; разумные VPS-ссылки будут сохранены с disclosure и rel.
+- Следующее: проверить GitHub Actions, затем отдельно исправить раскрытие партнёрства на RU/ES homepage VPS-карточках и VPS-фрагментах; не переписывать остальные страницы без аудита.
+
 ### 2026-10-15 — Per-page affiliate link inventory introduced
 - Previous commit 58fa3d43: Hugo build #38780153578 PASS and context guard #38780153599 PASS. The /go/vdsina/ affiliate endpoint remains as requested; no automatic /soft/ redirect rewrites remain.
 - Discovered VDSina references in RU and ES homepages (card2 VPS and infrastructure text), RU strategy-builder banner, and default VDSina banner in the shared strategy-builder template. These are source-level candidates, NOT automatically approved placements or complete rendered enumeration.
@@ -262,7 +270,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Проверить GitHub Actions нового audit_affiliate_links.py и прочитать список всех партнёрских ссылок по сгенерированным страницам. Сохранить уместные, добавить прозрачную пометку и rel; убрать только несоответствующие интенту CTA и клиентские подмены, не удаляя без нужды /go/vdsina/. Остальные серые EN/RU/ES страницы требуют отдельной SEO-переработки. Сервер/main не менять.
+Проверить Actions сборки после удаления вводившего в заблуждение статического /ru/soft/. Затем отдельно скорректировать RU/ES главные: VPS CTA только на соответствующем по теме блоке, видимая партнёрская пометка, устранение «приватных сетей», необоснованных обещаний про индексацию; rel sponsored/nofollow сохранить. Дальше отдельно отключить серые RU/ES strategy builder, Tier, satellite pages. /go/vdsina/ оставить. main/production не менять.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 

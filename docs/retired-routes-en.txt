@@ -1,4 +1,4 @@
-# URLs removed from the candidate Hugo output; add one only AFTER the source page is retired.
+# URLs removed from candidate Hugo/static output (EN initially; language-specific routes are added after individual review).
 # This is a test manifest, NOT an instruction to implement 410 or 301 on production.
 /link-building-services/backlinks/
 /link-building-services/link-building/
@@ -8,3 +8,4 @@
 /link-building-services/website-creation/
 /seo-strategy-builder/
 /soft/
+/ru/soft/
