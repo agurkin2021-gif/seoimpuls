@@ -52,6 +52,13 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — Attempt automatic GitHub Pages enablement after first preview failure
+- First preview run failed at actions/configure-pages@v5: Get Pages site failed / HTTP 404 Not Found. Hugo build, strict white-hat and retired URL checks had passed; artifact/deploy steps were not reached.
+- Updated .github/workflows/publish-preview.yml to use actions/configure-pages@v5 enablement: true, requesting automatic Pages activation for the now-public repository. A successful deployment is NOT assumed before observing the new run.
+- If automatic enablement is rejected by GitHub permissions, manually use Settings → Pages → Source: GitHub Actions. Do not touch main, production seoimpuls.com, DNS or server.
+- Next: inspect new Publish SEOImpuls working preview run and open the live preview URL only after success.
+
+
 ### 2026-10-15 — Automatic visual preview workflow added
 - New .github/workflows/publish-preview.yml builds the white-seo-rebuild branch as a standalone GitHub Pages preview at https://agurkin2021-gif.github.io/seoimpuls/ after each push.
 - Preview is explicitly noindex and uses a /seoimpuls/ path compatibility rewrite for root-relative HTML/CSS URLs. Source, production domain, main, server and DNS unchanged.
@@ -533,6 +540,8 @@ IMPORT_STATUS: completed
 - Следующий этап: загрузка ZIP и успешный импорт GitHub Actions.
 
 ## 6. Следующее действие
+
+Проверить повторный запуск workflow Publish SEOImpuls working preview после включения enablement: true. При ошибке GitHub Pages включить Source: GitHub Actions в Settings → Pages. Затем фактически открыть preview, проверить меню и изображения, далее аудит services-hub.html с обновлением контекста.
 
 Сначала проверить GitHub Pages preview workflow и открыть фактический визуальный результат. Если GitHub Pages не настроен, включить Source: GitHub Actions в Settings → Pages (при поддержке приватного репозитория планом). Затем выполнить аудит services-hub.html, Hugo/strict QA и обновить контекст в том же коммите.
 
