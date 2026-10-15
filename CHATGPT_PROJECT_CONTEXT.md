@@ -52,6 +52,14 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — ES satellite/microsite sales withdrawn from candidate
+- Previous RU satellite commit 1def6013: Hugo build #38788100026 PASS, context guard #38788099520 PASS, retired routes 14 / 52 HTML PASS, diagnostic 123 findings in 27 HTML files, RELEASE READINESS BLOCKED.
+- content/services/desarrollo-de-micrositio/index.es.md: draft:false → true for /servicios-de-link-building/desarrollo-de-micrositio/. The source bundled microsites/satellites with guaranteed first-page Google positions and authority placements; this is withdrawn without pretending the same intent is served by honest SEO services.
+- Removed exactly two matched ES catalog blocks (image + button) in content/services/_index.es.md and added route to docs/retired-routes-en.txt. Scope/risk documented in docs/research/2026-10-15-es-microsite-retirement.md. No changes to other catalog entries.
+- No live HTTP 301/410, no change to main, GitHub Pages or production. GSC/referring links and live URLs are UNKNOWN; future REVIEW_BEFORE_410 decision remains conditional. Contextual affiliate /go/vdsina/ preserved; gray page affiliate link simply no longer generated.
+- This commit's Actions still pending. The four requested RU/ES Tier and satellite URLs are now draft in work branch; must verify Actions and check remaining risks before claiming complete sitewide white SEO.
+- Next: verify new CI; inspect all remaining legacy RU/ES catalog pages, SEO homepages, sitemap, source and HTML; prioritize disarming both old link-building hubs and sales of backlinks/DR, then verify lawful same-intent service migrations.
+
 ### 2026-10-15 — RU satellite promotional page removed from candidate
 - Previous ES Tier commit 25051e7c: Hugo #38787834456 PASS and context guard #38787834442 PASS. Retired-route check: 13 URLs over 53 HTML, zero stale links; 131 whole-site diagnostic findings in 28 files, release BLOCKED.
 - Source content/services/sozdanie-satellitov/index.ru.md → draft:true for /uslugi-linkbildinga/sozdanie-satellitov/. Current page bundled site creation with satellite ranking schemes, guaranteed Google Top and paid authority placements, hence not a legitimate same-intent white SEO replacement.
@@ -322,7 +330,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Проверить GitHub Actions после отключения RU /uslugi-linkbildinga/sozdanie-satellitov/ и удаления её 2 блоков из RU каталога. При PASS отдельно аналогично обработать ES /servicios-de-link-building/desarrollo-de-micrositio/ (реальная разработка сайтов отдельно от сателлитов), затем провести сводный аудит оставшихся gray pages, внутренних ссылок и фактической миграционной карты. Никаких изменений сервера/main.
+Проверить GitHub Actions после ES microsite/satellite retire. Затем выполнить сводный отчёт по четырём выведенным URL Tier/сателлитов и оставшимся legacy EN/RU/ES commercial URLs. Следующий контролируемый этап: очищение старых RU/ES каталогов линкбилдинга, обратных ссылок и DR; сохранить добросовестные SEO-услуги (семантика, консультация) для будущей правильной миграции, не перенаправлять все старые URL на главную. Main/сервер не трогать.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 

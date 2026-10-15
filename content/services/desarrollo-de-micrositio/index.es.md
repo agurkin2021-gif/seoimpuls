@@ -3,7 +3,7 @@ title: "Desarrollo de micrositio"
 description: "Desarrollo llave en mano de micrositios, sitios satélite y proyectos de medios temáticos."
 slug: "desarrollo-de-micrositio"
 translationKey: "services-microsite-development"
-draft: false
+draft: true
 showOnHome: false
 image: "/uploads/microsites-1788963920-q54-1788963925284.webp"
 images:
