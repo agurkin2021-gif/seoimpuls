@@ -52,6 +52,12 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — Pages environment branch rule corrected; preview redeployment triggered
+- GitHub environment screenshot confirms `github-pages` now permits `white-seo-rebuild` instead of `main`, without required reviewers or wait timer. Previous attempts were blocked by deployment branch restriction.
+- Context-only commit triggers the preview workflow after the permission change. Site content, production, DNS, main untouched. New preview success and actual URL must still be verified.
+- Next: verify Pages workflow completion, HTTP and assets on preview, then proceed with services-hub audit.
+
+
 ### 2026-10-15 — Restore standard Pages deployment after manual activation
 - User screenshot confirms Settings → Pages → Build and deployment Source: GitHub Actions is saved. The public preview still returned GitHub Pages 404, so no working URL may yet be claimed.
 - Removed enablement: true from actions/configure-pages@v5, because Pages has now been initialized manually and the action should use standard site configuration.
