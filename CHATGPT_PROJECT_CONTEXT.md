@@ -60,6 +60,13 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — Browser audit parser fixed for placeholder hash links
+- Chrome audit #38822048771 browser log revealed `HOME_QA_FATAL page.evaluate: SyntaxError ... querySelector '#'`: source page contains a placeholder href="#" intercepted later by page JS. This was a bug in the *audit script*, not proof of a site rendering failure.
+- Updated only `scripts/audit_en_home_browser.cjs` anchor test to record "#" as a placeholder and resolve actual fragments via `getElementById()` instead of calling invalid selector `querySelector("#")`. Preserved existing bounded screenshot phases from commit 616e5bd.
+- No production or EN home content change; RU/ES unchanged. Browser audit retry required before claiming 390/1280 completion.
+- Next: inspect rerun logs and screenshot artifact, document technical and visual findings with severity.
+
+
 ### 2026-10-15 — Harden EN browser audit against screenshot hangs
 - Initial audit Chromium runner successfully installed browser and built Hugo but screenshot/diagnostic step took longer than expected.
 - Added per-stage logs, bounded 12-second screenshot timeouts and screenshot warnings, and blocked unnecessary external Google font loads in the ephemeral test browser. This changes only `scripts/audit_en_home_browser.cjs`, not live site or production.

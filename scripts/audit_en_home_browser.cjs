@@ -36,9 +36,14 @@ fs.mkdirSync(OUT,{recursive:true});
       });
       const banner=document.querySelector(".gdpr-consent-banner");
       const footer=document.querySelector(".custom-footer");
-      const anchors=Array.from(document.querySelectorAll("a[href^='#']")).map(x=>({
-        href:x.getAttribute("href"),targetExists:!!document.querySelector(x.getAttribute("href"))
-      }));
+      const anchors=Array.from(document.querySelectorAll("a[href^='#']")).map(x=>{
+        const href=x.getAttribute("href");
+        if(!href || href==="#")return {href,targetExists:null,placeholder:true};
+        let ok=false;
+        try{ok=!!document.getElementById(decodeURIComponent(href.slice(1)));}
+        catch(e){ok=false;}
+        return {href,targetExists:ok};
+      });
       return {title:document.title,lang:document.documentElement.lang,
         H1:Array.from(document.querySelectorAll("h1")).map(x=>x.innerText.trim()),
         headings:Array.from(document.querySelectorAll("h1,h2,h3")).map(x=>({
