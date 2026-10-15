@@ -1,0 +1,116 @@
+name: Import verified SEOImpuls source (no deployment)
+
+on:
+  push:
+    paths:
+      - "SeoImpuls_GitHub_ready.zip"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: seoimpuls-source-import
+  cancel-in-progress: false
+
+jobs:
+  import:
+    if: github.repository == 'agurkin2021-gif/seoimpuls' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Check exact source archive and unpack safely
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path, PurePosixPath
+          from zipfile import ZipFile
+          from hashlib import sha256
+          import stat
+
+          path = Path('SeoImpuls_GitHub_ready.zip')
+          expected = '764e5fc804588a7877b78143047d0e8fe823d85866b4e14139fd3525c55dc70a'
+          if not path.is_file():
+              raise SystemExit('Missing ZIP in repository root')
+          actual = sha256(path.read_bytes()).hexdigest()
+          if actual != expected:
+              raise SystemExit('Wrong source ZIP SHA-256; refuse to import')
+          protected = {'AGENTS.md', 'README.md', 'CHATGPT_PROJECT_CONTEXT.md',
+                       '.github/workflows/import-source.yml'}
+          with ZipFile(path) as archive:
+              entries = archive.infolist()
+              if len(entries) > 3500 or sum(i.file_size for i in entries) > 100000000:
+                  raise SystemExit('Unexpected ZIP size or file count')
+              seen = set()
+              for info in entries:
+                  if info.is_dir():
+                      continue
+                  name = info.filename
+                  rel = PurePosixPath(name)
+                  if (rel.is_absolute() or '..' in rel.parts or '\\' in name
+                      or ':' in name or name in seen or '.git' in rel.parts
+                      or stat.S_ISLNK(info.external_attr >> 16)):
+                      raise SystemExit('Unsafe archive entry')
+                  seen.add(name)
+                  if name in protected:
+                      continue
+                  out = Path(*rel.parts)
+                  out.parent.mkdir(parents=True, exist_ok=True)
+                  out.write_bytes(archive.read(info))
+          if not Path('hugo.toml').is_file():
+              raise SystemExit('Missing Hugo configuration')
+          print('Verified SHA-256 and extracted', len(seen), 'files')
+          PY
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.25.5'
+      - uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: '0.154.5'
+          extended: true
+      - name: Validate Hugo build
+        shell: bash
+        run: |
+          hugo --minify --noBuildLock
+          test -s public/index.html
+          test -s public/ru/index.html
+          test -s public/es/index.html
+          test -s public/sitemap.xml
+      - name: Update required context and commit import
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          from datetime import datetime, timezone
+          p = Path('CHATGPT_PROJECT_CONTEXT.md')
+          content = p.read_text(encoding='utf-8')
+          if 'IMPORT_STATUS: pending' not in content:
+              raise SystemExit('Unexpected context state')
+          content = content.replace('IMPORT_STATUS: pending', 'IMPORT_STATUS: completed', 1)
+          entry = ('### ' + datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')
+                  + ' — Verified source import via GitHub Actions\n'
+                  + '- Uploaded ZIP matched the recorded SHA-256; files extracted into main.\n'
+                  + '- Hugo --minify build completed with EN/RU/ES homepage and sitemap checks.\n'
+                  + '- Source archive removed from repository in this commit; no GitHub Pages and no production deployment.\n'
+                  + '- Working branch white-seo-rebuild will be created from this imported commit.\n'
+                  + '- Next: check main file tree and working branch; then begin inventory and intent map.\n\n')
+          marker = '## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)\n\n'
+          if marker not in content:
+              raise SystemExit('Could not find context log marker')
+          content = content.replace(marker, marker + entry, 1)
+          start = content.index('## 6. Следующее действие\n')
+          end = content.index('\n## 7.', start)
+          content = (content[:start]
+                     + '## 6. Следующее действие\n\nПроверить результат GitHub Actions и наличие ветки white-seo-rebuild. Затем провести полный SEO-инвентарь URL и начать работу с EN-главной, фиксируя каждый последующий коммит в данном файле. Продакшен не трогать.\n'
+                     + content[end:])
+          p.write_text(content, encoding='utf-8')
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git rm -- SeoImpuls_GitHub_ready.zip
+          git add -A
+          git commit -m 'Import verified source baseline and update project context'
+          git push origin HEAD:main
+          git push origin HEAD:refs/heads/white-seo-rebuild
