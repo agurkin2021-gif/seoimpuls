@@ -52,6 +52,12 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — Shared homepage fallback copy hardened across EN/RU/ES
+- The current head 220e1957 had Hugo build #38802848725 PASS and context guard #38802848651 PASS, including blocking strict white-hat gate and contextual affiliate validation.
+- In layouts/index.html replaced fallback defaults for first services card and homepage process items 1, 4 and 5 for all languages. Fallback no longer offers backlink packages, algorithmic link-weight promises or behavioral-factor ranking manipulation. New copy describes technical audit, search intent, content, canonical/indexation and measured outcomes.
+- No explicit page homeJson values, homepage URLs, partner links, CSS or other templates changed. Actual rendered content can differ because localized homeJson overrides fallbacks. No new business claims.
+- New GitHub Actions required after this commit. Further audit needed for services-hub.html legacy card-ranking heuristics and residual fallback metadata. Full SERP, GSC, visual and live migration QA pending. Server/main/Pages not touched.
+
 ### 2026-10-15 — Strict white-hat content gate promoted to blocking CI
 - Previous affiliate verification commit e3b94255: GitHub Actions #38802644342 PASS, context #38802644970 PASS. Precisely 6 disclosed VPS affiliate links across 4 reviewed RU/ES pages passed contextual destination/rel checks; scan: 30 retired URLs, 44 HTML files, zero general gray-content or legacy-route findings.
 - .github/workflows/rebuild-qa.yml now runs scripts/whitehat_content_gate.py --site public --strict as a BLOCKING step after the contextual affiliate validation and diagnostic scan. The previous commented-out strict command is removed.
@@ -520,7 +526,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Проверить GitHub Actions после включения blocking strict whitehat gate. Затем углублённо проверить default/fallback тексты общего шаблона главной EN/RU/ES и другие скрытые URL/ссылки; исправить реальные дефекты без подмены контента. Далее обязательны SERP top-10 по гео, GSC, визуальный 390/1280 QA и корректная миграция на сервере только с отдельным разрешением владельца. Main/production неизменны.
+Проверить CI после изменений layouts/index.html. Затем отдельно очистить layouts/partials/services-hub.html от устаревшего механизма ранжирования карточек ссылочных услуг, сохранив ссылки и порядок трёх легитимных сервисов EN/RU/ES. Проверить Hugo/strict QA и контекст. Потом SERP/GSC/390px/1280px review до разрешения публикации.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 
