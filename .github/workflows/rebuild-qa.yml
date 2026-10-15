@@ -61,5 +61,19 @@ jobs:
           if '/go/vdsina/' in page.links:raise SystemExit('Unrelated hosting affiliate remains')
           if 'how-it-works' not in page.ids:raise SystemExit('SEO process anchor missing: '+str(page.ids[:40]))
           if page.canonical!=['https://seoimpuls.com/']:raise SystemExit('Unexpected canonical: '+str(page.canonical))
+          service=Page()
+          service_html=Path('public/seo/index.html').read_text(encoding='utf-8')
+          service.feed(service_html)
+          if ''.join(service.h1).strip()!='Technical SEO Services & Audits':
+              raise SystemExit('Incorrect /seo/ H1: '+str(service.h1))
+          service_txt=' '.join(' '.join(service.visible).split()).lower()
+          for fragment in ('llink building services','backlink strategies','domain rating increase','tier 1-2-3','xrumer','xevil'):
+              if fragment in service_txt:raise SystemExit('Legacy term on EN /seo/: '+fragment)
+          if '/link-building-services/' in service.links:
+              raise SystemExit('EN /seo/ still links to legacy backlink service hub')
+          for fragment in ('technical-seo','on-page-seo','content-strategy','international-seo','seo-process','contact-seo'):
+              if fragment not in service.ids:raise SystemExit('Missing /seo/ anchor: '+fragment)
+          print('PASS: EN /seo/ H1, content, anchors, no legacy service link.')
+
           print('PASS: Hugo outputs EN, RU, ES, sitemap; clean EN homepage H1/links/content/canonical.')
           PY
