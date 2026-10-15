@@ -52,6 +52,15 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — EN keyword research genuine SEO service page
+- Ветка white-seo-rebuild. Страницы / и /seo/ ранее успешно прошли GitHub Actions, без деплоя.
+- Переработан content/services/keyword-research/index.md: H1/Title Keyword Research & Search Intent Mapping; новый URL /services/keyword-research/, от старого /link-building-services/keyword-research/ нужен будущий релевантный 301 при отдельном разрешении.
+- Реальные коммерческие интенты: query research, clustering, intent mapping, URL assignments, content gaps, deliverables, FAQ, условия и контакты. Цена $90 сохранена из существующего исходного предложения, без вымышленных сроков и объемов.
+- SERP reference/intent study: docs/research/2026-10-15-en-keyword-research-intent.md, 10 примеров не являются точным Google top-10 по одному региону.
+- Дополнены тесты Hugo и SEO в .github/workflows/rebuild-qa.yml; текущая QA требует проверки Actions. Изменения в main, сервере и GitHub Pages отсутствуют.
+- ВАЖНО: каталог /services/ ещё не создан, старый /link-building-services/ содержит старые ссылки, ES/RU требуют миграции. Рабочая ветка пока не является готовой публикацией.
+- Следующее действие: QA нового URL; создание корректного /services/ каталога и EN SEO консультации, чтобы устранить зависимость от старого линкбилдинг-раздела.
+
 ### 2026-10-15 — Inventory of legacy commercial URLs and provisional migration decisions
 - /seo/ QA #38771057820 PASS; контекст #38771057945 PASS. Сайт на сервере не изменён.
 - Созданы docs/seo-url-migration-register.csv (27 legacy коммерческих URL из Hugo content/services EN/RU/ES) и docs/SEO_URL_MIGRATION_POLICY.md с кандидатами 301, 404/410 или ручной бизнес-проверки.
@@ -114,7 +123,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Начать с EN keyword research /services/keyword-research/: точный SERP/intent, редактура существующего реального предложения без ложных гарантий, сохранить стоимость только если подтверждена. Проверить внутреннюю архитектуру /services/ и /seo/, затем отдельный EN /services/seo-consultation/. Всё в white-seo-rebuild с обязательным контекстом. Новые URL, редиректы и 410 в продакшн НЕ внедрять до GSC и полного QA.
+Проверить GitHub Actions после EN keyword research; затем создать чистый EN /services/ directory и переработать EN SEO consultation на /services/seo-consultation/; проверить UX, старые ссылки и только после полноценной локализации одобрять 301/410 и продакшен. Вся работа только в white-seo-rebuild с записью в контекст в каждом коммите.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 

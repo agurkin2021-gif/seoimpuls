@@ -74,6 +74,20 @@ jobs:
           for fragment in ('technical-seo','on-page-seo','content-strategy','international-seo','seo-process','contact-seo'):
               if fragment not in service.ids:raise SystemExit('Missing /seo/ anchor: '+fragment)
           print('PASS: EN /seo/ H1, content, anchors, no legacy service link.')
+          kw=Page()
+          kw_html=Path('public/services/keyword-research/index.html').read_text(encoding='utf-8')
+          kw.feed(kw_html)
+          if ''.join(kw.h1).strip()!='Keyword Research & Search Intent Mapping':
+              raise SystemExit('Incorrect keyword research H1: '+str(kw.h1))
+          if kw.canonical!=['https://seoimpuls.com/services/keyword-research/']:
+              raise SystemExit('Unexpected keyword research canonical: '+str(kw.canonical))
+          for fragment in ('what-is-included','formats','methodology','deliverables','pricing','faq','contact'):
+              if fragment not in kw.ids:raise SystemExit('Missing keyword research section: '+fragment)
+          kw_txt=' '.join(' '.join(kw.visible).split()).lower()
+          for forbidden in ('tier 1-2-3','link building services','mass backlinks','domain rating increase','xrumer'):
+              if forbidden in kw_txt:raise SystemExit('Legacy keyword research term: '+forbidden)
+          print('PASS: EN keyword research new URL, H1, canonical, sections and clean copy.')
+
 
           print('PASS: Hugo outputs EN, RU, ES, sitemap; clean EN homepage H1/links/content/canonical.')
           PY
