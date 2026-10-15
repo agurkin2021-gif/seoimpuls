@@ -1,0 +1,47 @@
+name: Verify per-commit project context
+
+on:
+  push:
+    branches:
+      - white-seo-rebuild
+
+permissions:
+  contents: read
+
+jobs:
+  context-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Every changed commit must include the project context file
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+          import subprocess
+
+          def git(*args):
+              return subprocess.check_output(['git', *args], text=True).strip()
+
+          event = json.loads(Path(os.environ['GITHUB_EVENT_PATH']).read_text())
+          before = event.get('before', '')
+          after = event.get('after') or git('rev-parse', 'HEAD')
+          if not before or before == '0' * 40:
+              parents = git('rev-list', '--parents', '-n', '1', after).split()
+              before = parents[1] if len(parents) > 1 else ''
+          commits = git('rev-list', '--reverse', before + '..' + after if before else after).splitlines()
+          violations = []
+          for sha in commits:
+              changed = git('diff-tree', '--no-commit-id', '--name-only', '-r', sha).splitlines()
+              if changed and 'CHATGPT_PROJECT_CONTEXT.md' not in changed:
+                  violations.append((sha, changed))
+          if violations:
+              for sha, changed in violations:
+                  print('FAIL:', sha, 'modified files without CHATGPT_PROJECT_CONTEXT.md:', ', '.join(changed[:20]))
+              raise SystemExit('Update the persistent project context in EVERY commit')
+          print('PASS:', len(commits), 'commit(s) include required project context')
+          PY
