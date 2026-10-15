@@ -87,7 +87,7 @@ jobs:
           python3 - <<'PY'
           from html.parser import HTMLParser
           from pathlib import Path
-          targets = {'heroBuilderUrl': ('/ru/seo/', 'SEO-услуги'),
+          targets = {'heroBuilderUrl': ('/ru/uslugi/', 'SEO-услуги'),
                      'heroCasesUrl': ('/ru/about/', 'О компании')}
           class HeroLinks(HTMLParser):
               def __init__(self):
@@ -600,6 +600,36 @@ jobs:
           for legacy in ('link building','backlinks de calidad'):
               assert legacy not in body,legacy
           print('PASS: ES technical SEO H1/canonical/hreflang, intent sections and local service links')
+          PY
+      - name: Verify RU homepage agency intent and clean offer details
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          from html.parser import HTMLParser
+          class P(HTMLParser):
+              def __init__(self):
+                  super().__init__();self.onh=False;self.h=[];self.canon=[];self.hrefs=[];self.text=[]
+              def handle_starttag(self,t,attrs):
+                  a=dict(attrs)
+                  if t=='h1':self.onh=True
+                  if t=='a':self.hrefs.append(a.get('href',''))
+                  if t=='link' and a.get('rel')=='canonical':self.canon.append(a.get('href',''))
+              def handle_endtag(self,t):
+                  if t=='h1':self.onh=False
+              def handle_data(self,s):
+                  self.text.append(s)
+                  if self.onh:self.h.append(s)
+          p=P();p.feed(Path('public/ru/index.html').read_text(encoding='utf-8'))
+          txt=' '.join(' '.join(p.text).split()).casefold()
+          assert ''.join(p.h).strip()=='SEOImpuls — SEO-продвижение и техническое SEO',p.h
+          assert p.canon==['https://seoimpuls.com/ru/'],p.canon
+          for url in ('/ru/uslugi/','/ru/seo/','/ru/uslugi/semanticheskoe-yadro/','/ru/uslugi/razrabotka-saitov/'):
+              assert url in p.hrefs,('Missing RU homepage service',url)
+          for forbidden in ('поведенческие факторы','бэклинки','ссылочный профиль','линкбилдинг'):
+              assert forbidden not in txt,('Legacy homepage copy',forbidden)
+          assert 'партнёрская ссылка' in txt,'Visible hosting disclosure missing'
+          print('PASS: RU home H1/canonical, real service links, SEO process and honest VPS disclosure')
           PY
       - name: Inventory rendered affiliate placements (diagnostic, no deployment)
         run: python3 scripts/audit_affiliate_links.py --site public --max-details 150

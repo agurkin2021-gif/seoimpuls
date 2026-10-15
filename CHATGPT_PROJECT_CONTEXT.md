@@ -52,6 +52,13 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — RU homepage repositioned as genuine SEO agency rather than ranking manipulation
+- Previous ES technical SEO commit c7dc09e1: Hugo #38799702534 PASS and context #38799702511 PASS; H1/canonical/EN+RU hreflang, anchors and local service links checked; 30 retired URLs, 44 HTML, 9 scanner findings in 6 files; release BLOCKED.
+- content/_index.ru.md: retained single homepage architecture and VPS partner card, revised H1/Title/Description «SEOImpuls — SEO-продвижение и техническое SEO», switched primary hero action to /ru/uslugi/ matching «SEO-услуги». Replaced all 7 other old "factors of ranking" blocks with verifiable service process: technical audit, keyword research, clear intent mapping, on-page work, international SEO, implementation and Search Console measurement.
+- Explicitly removed promotional copy on backlinks, behavioral signals, link authority and claims of guaranteed search results. Kept original offerItem6 and card2VPS affiliate URL/disclosure EXACTLY unchanged with transparent sponsored/nofollow link processing.
+- Updated old RU strategy-builder CTA test for correct /ru/uslugi/ destination; new workflow test asserts RU H1, canonical, important internal URLs, no legacy copy and visible hosting disclosure. Documentation docs/research/2026-10-15-ru-home-review.md records intent and limitation SERP_UNVERIFIED, visual/GSC not tested.
+- Current CI PENDING; may reveal template fallback or conflicting copy. Next after PASS: separate ES /es/ homepage process rewrite without disrupting VPS affiliate. Main/production/DNS/Pages unchanged.
+
 ### 2026-10-15 — ES technical SEO page rebuilt under focused audit intent
 - Previous RU SEO commit 52fbfa39: Hugo #38799279460 PASS and context #38799279389 PASS, with H1/canonical/EN+ES hreflang, four technical section anchors, real internal links; scanner 10 issues/7 HTML, 30 retired routes, RELEASE BLOCKED.
 - Replaced content/seo/index.es.md at unchanged /es/seo/ canonical. New Title/H1 «Auditoría SEO técnica y optimización web», 11 useful sections explaining crawling/indexation, redirection, canonical, on-page, content intent, hreflang/international SEO, audit deliverables and limitations. Avoided generic rank/backlink promises and overlap with existing ES keyword research, consultation and catalog.
@@ -485,7 +492,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Проверить CI ES /es/seo/ при сохранении старого URL, технических H1 и EN/RU hreflang. Затем последовательно проверить и очистить полные homeJson/hero-copy RU /ru/ и ES /es/: SERP-intent общего агентства без поведенческих манипуляций и прежних backlink-offers. Партнёрские VPS карточки/CTA оставить с честным disclosure, без обещаний индексации. Далее EN FAQ, точный residual QA, affiliate gate, GSC и visual. Main/сервер не менять.
+Проверить Actions нового RU /ru/ homepage H1/Title/canonical, main hero link /ru/uslugi/, visible genuine offers, no gray behaviors or backlinks claims, VPS affiliate preserved. Далее отдельной правкой аналогично ES /es/ homepage под архитектуру /es/servicios/ с корректной подписью и ссылками; после обеих проверить shared layouts homepage gray fallback text, EN FAQ, context-aware affiliate and strict site gate. GSC, SERP top10, visual QA remain pending. Server/main untouched.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 
