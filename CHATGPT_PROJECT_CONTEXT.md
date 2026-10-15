@@ -60,6 +60,13 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — Context checkpoint aligned with actual EN-home progress
+- Updated section 6 of CHATGPT_PROJECT_CONTEXT.md with current EN-home visual/commercial commits, accurate Preview URL, strict EN-only scope, and exact pending CI/browser/SERP/GSC checks. Removed obsolete Pages setup sequence from next action.
+- Updated AGENTS.md outdated repository privacy and Pages wording: repository is PUBLIC; isolated preview for white-seo-rebuild is permitted; main/production remain out of scope. No visual/site content change in this checkpoint.
+- QA note: source checks confirmed Title/homeJson JSON validity, revised routes and EN-only template guards; **no direct browser or Hugo Actions run evidence** retrieved by this session yet.
+- Next: follow section 6, verify CI + rendered EN at 390/1280px.
+
+
 ### 2026-10-15 — EN homepage commercial intent and routing refinement
 - After EN-only visual commit c8631964, refined ONLY content/_index.md and conditional EN block in layouts/index.html. H1/Title now "SEO Services: Technical Audits, Keywords & Content Strategy"; meta/hero description describes scope and verifiable deliverables.
 - Main hero CTA now /services/, card1 retains /seo/ and card2 routes to /services/keyword-research/ with matching intent. Added brief scope/deliverables explanation and CTA to existing SeoImpuls Telegram plus /services/seo-consultation/. No unverified guarantees/cases/geographic claims.
@@ -605,11 +612,15 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Проверить повторный запуск workflow Publish SEOImpuls working preview после включения enablement: true. При ошибке GitHub Pages включить Source: GitHub Actions в Settings → Pages. Затем фактически открыть preview, проверить меню и изображения, далее аудит services-hub.html с обновлением контекста.
+Текущий этап: английская главная `/`, визуал и первичный коммерческий интент отредактированы на рабочей ветке `white-seo-rebuild` двумя последовательными коммитами: c8631964 (EN первый экран и футер) и f747c9dc (H1/meta, маршруты услуг и CTA). Опубликованный Preview: https://agurkin2021-gif.github.io/seoimpuls/. Это предпросмотр, НЕ production.
 
-Сначала проверить GitHub Pages preview workflow и открыть фактический визуальный результат. Если GitHub Pages не настроен, включить Source: GitHub Actions в Settings → Pages (при поддержке приватного репозитория планом). Затем выполнить аудит services-hub.html, Hugo/strict QA и обновить контекст в том же коммите.
+Далее в точной очередности:
+1. Проверить GitHub Actions для последнего коммита: Hugo build, строгий white-hat gate, context-guard и Pages deployment. При красном статусе исправлять конкретную ошибку; не объявлять сборку успешной на основании одного исходника.
+2. В живом Preview проверить на 390 и 1280 px: H1, картинку/логотип, две SVG-карточки, 3 этапа процесса, нормальный футер (WA/TG/email, без ложной карты и общих социальных ссылок), кнопку /services/, вторую карточку /services/keyword-research/, консультацию и Telegram.
+3. После успешного технического QA выполнить для EN главной фиксированный Google SERP top-10 по выбранной стране и устройству, проверить Google Search Console и реальный спрос. До этого статус SERP_UNVERIFIED/GSC_PENDING, не утверждать итоговую оптимальность Title/H1.
+4. Финальный EN-home check: один H1, self canonical для seoimpuls.com, корректные meta/hreflang/JSON-LD, все ссылки и кнопки, отсутствие нерелевантной партнёрки, UX/доступность/performance. Записать вердикт и остаточные проблемы.
 
-Проверить CI после изменений layouts/index.html. Затем отдельно очистить layouts/partials/services-hub.html от устаревшего механизма ранжирования карточек ссылочных услуг, сохранив ссылки и порядок трёх легитимных сервисов EN/RU/ES. Проверить Hugo/strict QA и контекст. Потом SERP/GSC/390px/1280px review до разрешения публикации.
+**ЖЁСТКОЕ ОГРАНИЧЕНИЕ:** только EN главная, не переделывать остальные EN страницы и не редактировать RU/ES. `main` — исходная версия. GitHub Pages Preview разрешён, публикация на seoimpuls.com не разрешена.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 
