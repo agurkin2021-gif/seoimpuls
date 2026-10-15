@@ -43,7 +43,7 @@ jobs:
           root=Path('public')
           for f in root.rglob('*.html'):
               s=f.read_text(encoding='utf-8')
-              s=re.sub(r'(?i)(\b(?:href|src|action|poster|content)=["\x27])/(?!/|seoimpuls/)',r'\1/seoimpuls/',s)
+              s=re.sub(r'''(?i)(\s(?:href|src|action|poster|content|srcset)\s*=\s*["']?/)(?!/|seoimpuls/)''',r'\1seoimpuls/',s)
               s=re.sub(r'(?i)(<head\b[^>]*>)',r'\1<meta name="robots" content="noindex,nofollow">',s,count=1)
               f.write_text(s,encoding='utf-8')
           for f in root.rglob('*.css'):
@@ -51,6 +51,24 @@ jobs:
               s=re.sub(r'url\((["\x27]?)/(?!/|seoimpuls/)',r'url(\1/seoimpuls/',s)
               f.write_text(s,encoding='utf-8')
           assert (root/'index.html').exists()
+          from html.parser import HTMLParser
+          class AnchorLinks(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.urls=[]
+              def handle_starttag(self,tag,attrs):
+                  if tag=='a':
+                      self.urls.append(dict(attrs).get('href',''))
+          links=AnchorLinks()
+          links.feed((root/'index.html').read_text(encoding='utf-8'))
+          for expected in ('/seoimpuls/services/','/seoimpuls/seo/',
+                           '/seoimpuls/services/keyword-research/','/seoimpuls/#how-it-works'):
+              assert expected in links.urls, 'Missing preview path '+expected
+          invalid=[url for url in links.urls
+                   if url.startswith('/') and not url.startswith('//')
+                   and not url.startswith('/seoimpuls/')]
+          assert not invalid, 'EN home links escaped preview base path: '+str(invalid[:12])
+          print('PASS: EN home internal links resolve under /seoimpuls/')
           PY
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3

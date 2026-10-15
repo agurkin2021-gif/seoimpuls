@@ -60,6 +60,14 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — Fix preview root-relative links after live Opera validation
+- Opera verified commit 2398c4c4: EN homepage H1 "Professional SEO Services" and approved subtitle display; GitHub Pages workflow #12 and rebuild QA #71 both successful.
+- Found a confirmed preview-path defect: unquoted Hugo-minified `href=/services/`, `href=/seo/`, `href=/#how-it-works` were not rewritten by the previous quote-only regular expression and linked to the wrong GitHub Pages root.
+- Fixed ONLY .github/workflows/publish-preview.yml preview publishing transform to handle quoted AND unquoted root-relative href/src/action/poster/content/srcset, preserving already correct /seoimpuls/ paths and protocol-relative URLs. Added blocking post-transform tests for EN homepage internal links and anchors, including no links escaping the Preview subdirectory.
+- Source content, Title/H1, actual production URLs, main and RU/ES text unchanged. This is a preview-hosting infrastructure correction; no deploy to seoimpuls.com.
+- Next: verify build/Pages of THIS commit, reopen published EN homepage using Opera and check exact CTA destinations; do not assert success before new workflow passes.
+
+
 ### 2026-10-15 — EN homepage primary H1 set to Professional SEO Services
 - User confirmed using Google Keyword Planner screenshot: phrase `professional seo services` shows 1k–10k average monthly searches under **All locations / English / Google**; advertising competition LOW (not organic ranking difficulty). Frequency is a broad bucket and target-country organic SERP difficulty remains unverified.
 - Updated ONLY English content/_index.md: H1/Title changed from "SEO Services: Technical Audits, Keywords & Content Strategy" to "Professional SEO Services". Visible subtitle/meta description changed to the owner-approved "Complete SEO solutions from experienced specialists: technical SEO, on-page optimization, keyword research, content strategy and international SEO.".
