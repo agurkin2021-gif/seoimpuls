@@ -247,8 +247,13 @@ defaultContentLanguageInSubdir = false
 
     [[languages.ru.menu.main]]
       name = "SEO-услуги"
-      url = "/seo/"
+      url = "/uslugi/"
       weight = 3
+
+    [[languages.ru.menu.main]]
+      name = "Техническое SEO"
+      url = "/seo/"
+      weight = 5
 
     [[languages.ru.menu.main]]
       name = "\u0427\u0430\u0441\u0442\u044b\u0435 \u0432\u043e\u043f\u0440\u043e\u0441\u044b"

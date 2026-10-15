@@ -215,6 +215,43 @@ jobs:
           assert not Path('public/ru/uslugi-linkbildinga/seo-konsultaciya/index.html').exists()
           print('PASS: RU consultation new canonical, H1, EN hreflang, internal links, old URL gone')
           PY
+      - name: Validate RU white SEO services hub and navigation
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          from html.parser import HTMLParser
+          class Page(HTMLParser):
+              def __init__(self):
+                  super().__init__(); self.h1=[]; self.in_h1=False; self.canon=[]; self.lang={}; self.links=[]; self.cards=[]
+              def handle_starttag(self,tag,attrs):
+                  a=dict(attrs)
+                  if tag=='h1': self.in_h1=True
+                  if tag=='a':
+                      self.links.append(a.get('href',''))
+                      if 'services-hub-card' in a.get('class',''): self.cards.append(a.get('href',''))
+                  if tag=='link' and a.get('rel')=='canonical':self.canon.append(a.get('href',''))
+                  if tag=='link' and a.get('rel')=='alternate':self.lang[a.get('hreflang')]=a.get('href','')
+              def handle_endtag(self,tag):
+                  if tag=='h1':self.in_h1=False
+              def handle_data(self,val):
+                  if self.in_h1:self.h1.append(val)
+          hub=Path('public/ru/uslugi/index.html')
+          assert hub.is_file(), 'RU services catalog missing'
+          h=Page();h.feed(hub.read_text(encoding='utf-8'))
+          assert ''.join(h.h1).strip()=='SEO-услуги для сайта',h.h1
+          assert h.canon==['https://seoimpuls.com/ru/uslugi/'],h.canon
+          assert h.lang.get('en-us')=='https://seoimpuls.com/services/',h.lang
+          valid={'/ru/seo/','/ru/uslugi/semanticheskoe-yadro/','/ru/uslugi/seo-konsultaciya/'}
+          assert len(h.cards)==3 and set(h.cards)==valid,h.cards
+          for path in valid:
+              assert Path('public/'+path.lstrip('/')+'index.html').is_file(),path
+          home=Page();home.feed(Path('public/ru/index.html').read_text(encoding='utf-8'))
+          assert '/ru/uslugi/' in home.links,'RU homepage missing catalog link'
+          assert '/ru/seo/' in home.links,'RU homepage missing technical SEO link'
+          assert not Path('public/uslugi-linkbildinga/index.html').exists(),'Old gray hub generated'
+          print('PASS: RU catalog canonical, EN hreflang, 3 live cards, homepage/menu targets')
+          PY
       - name: Inventory rendered affiliate placements (diagnostic, no deployment)
         run: python3 scripts/audit_affiliate_links.py --site public --max-details 150
       - name: Report whole-site white-hat release blockers (diagnostic, never deploy)

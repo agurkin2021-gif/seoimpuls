@@ -52,6 +52,14 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — RU clean SEO catalog and primary navigation rebuilt
+- Previous RU consultation commit f956fcbc passed Hugo #38792517329 and context guard #38792517336. True RU keyword and consultation pages now exist independently of the old link-building namespace.
+- content/services/_index.ru.md: new canonical /ru/uslugi/, H1 «SEO-услуги для сайта», only 3 truthful cards for /ru/seo/, /ru/uslugi/semanticheskoe-yadro/ and /ru/uslugi/seo-konsultaciya/; translationKey services retained for EN/RU/ES alternates. No old link-selling/satellite offer in this new catalog.
+- Updated RU main in content/_index.ru.md, CTA inside content/seo/index.ru.md, RU navigation in hugo.toml (catalog plus separate technical SEO), RU homepage template fallback/card copy and icon in layouts/index.html. Old /uslugi-linkbildinga/ added to docs/retired-routes-en.txt for build and link checking.
+- Report docs/research/2026-10-15-ru-services-architecture.md records intent ownership, sample evidence and SERP_UNVERIFIED; no unverified rank proof claimed. The other languages and shared EN services source unchanged.
+- CI of this commit pending: generated RU catalog with exactly 3 correct card hrefs, self canonical, EN hreflang, RU homepage link, menu and old retired route absence must pass. Main, server, DNS, Pages untouched. No final 301/410 decisions; full release still BLOCKED (other RU and ES legacy pages, GSC, visual QA).
+- Next after CI: ES keyword /es/servicios/investigacion-palabras-clave/ and consultation /es/servicios/consultoria-seo/, then /es/servicios/ catalog with homepage, menu and hreflang. Maintain per-commit context.
+
 ### 2026-10-15 — RU SEO consultation migrated to independent white SEO URL
 - Previous RU keyword commit 516da541 CI #38792210897 PASS, context guard #38792210910 PASS: /ru/uslugi/semanticheskoe-yadro/ H1/canonical/en-us alternate, old URL retired and no stale links, 68 diagnostic findings in 20 HTML. Release BLOCKED.
 - Replaced content/services/seo-consultation/index.ru.md with substantive white SEO advisory content at /ru/uslugi/seo-konsultaciya/; retained translationKey for EN/ES matching, clear advisory vs technical-audit vs semantic clustering intent. Removed corrupt source meta and claims of perpetual support, mass link-selling topics, ranking guarantees. Prior $350/three hours explicitly marked historical pending confirmation.
@@ -388,7 +396,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Проверить Actions после RU консультации. Если H1/canonical/hreflang/retired-URL PASS, перестроить RU parent services /ru/uslugi/ с тремя легитимными карточками и целевым меню, исправить RU homepage и прочие старые ссылки. Только после QA RU → ES keyword и consult. Live 301/410, main, production без изменений.
+Проверить GitHub Actions RU /ru/uslugi/: three cards, H1, canonical, en-us hreflang, /ru/uslugi/ in homepage/menu and /uslugi-linkbildinga/ entirely absent. Then rebuild ES keyword /es/servicios/investigacion-palabras-clave/ with old-page link corrections, ES consultation, ES /es/servicios/ catalog. No live deployment, redirects or changes to main.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 

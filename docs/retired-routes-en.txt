@@ -23,3 +23,4 @@
 /servicios-de-link-building/domain-rating/
 /uslugi-linkbildinga/sbor-semanticheskogo-yadra/
 /uslugi-linkbildinga/seo-konsultaciya/
+/uslugi-linkbildinga/
