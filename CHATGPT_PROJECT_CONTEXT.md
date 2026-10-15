@@ -52,6 +52,13 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — Restore standard Pages deployment after manual activation
+- User screenshot confirms Settings → Pages → Build and deployment Source: GitHub Actions is saved. The public preview still returned GitHub Pages 404, so no working URL may yet be claimed.
+- Removed enablement: true from actions/configure-pages@v5, because Pages has now been initialized manually and the action should use standard site configuration.
+- This commit triggers Publish SEOImpuls working preview again. No site content, DNS, live host or main branch changes. Actual deployment must be verified in Actions, and URL must return site rather than 404 before claiming success.
+- Next: inspect new preview workflow. If failure persists, capture failing job error to identify repository Pages deployment restrictions.
+
+
 ### 2026-10-15 — Retrigger preview after GitHub Pages configuration
 - User confirmed Settings → Pages → Build and deployment → Source: GitHub Actions enabled. Previous preview runs failed before deployment while Pages was not initialized.
 - Context-only commit to white-seo-rebuild intentionally triggers the existing push-based Publish SEOImpuls working preview workflow again. No site content, production server, DNS, main, or hosting changes.
