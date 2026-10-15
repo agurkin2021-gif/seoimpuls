@@ -2,6 +2,14 @@
 
 КРИТИЧЕСКОЕ ПРАВИЛО ПОЛЬЗОВАТЕЛЯ: ПОСЛЕ КАЖДОГО ИЗМЕНЕНИЯ ПРОЕКТА обновлять ЭТОТ ФАЙЛ в том же Git-коммите, что и изменение. Никаких коммитов с правкой сайта без обновления контекста. Если изменения внесены через несколько технических коммитов, каждый такой коммит обязан содержать актуализацию этого файла. Журнал должен позволять начать работу в другом чате без восстановления истории переписки.
 
+## ТЕКУЩИЙ ПРИОРИТЕТ — решение владельца 2026-10-15
+
+- Работать **только над английской главной страницей `/`** до отдельного указания владельца. EN supporting pages — только после отдельного разрешения или завершения главной и явного следующего задания.
+- **Никаких изменений контента, переводов или SEO-структуры RU `/ru/` и ES `/es/`**. К ним вернуться позднее, переводить с утверждённой EN версии с учётом локального интента.
+- Не продолжать отложенный аудит `services-hub.html` или sitewide правки, если они не являются необходимой точечной зависимостью английской главной; не изменять другие языковые выходы намеренно.
+- Для каждой EN-home правки: основной запрос и интент, подтверждённые SERP-данные или SERP_UNVERIFIED, отсутствие каннибализации, контроль HTML/H1/meta/CTA/images, Hugo QA, preview, обновление контекста в том же коммите.
+- `main` не менять; работа только в `white-seo-rebuild`, предпросмотр GitHub Pages допустим; production `seoimpuls.com` не изменять без отдельного разрешения.
+
 ## 1. Проект, доступ и границы
 
 - Название: SEOImpuls.
@@ -51,6 +59,12 @@ IMPORT_STATUS: completed
 7. Перед новым чатом прочитать AGENTS.md и этот файл прямо из репозитория, проверить фактическое состояние GitHub/Actions и продолжить с секции 6 «Следующее действие».
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
+
+### 2026-10-15 — Owner scope narrowed to EN homepage only
+- New explicit instruction: work exclusively on English homepage `/` now. Other English pages later, Russian and Spanish only after the English version is finished and approved.
+- This commit changes only AGENTS.md and CHATGPT_PROJECT_CONTEXT.md. No website content, images, scripts, templates, URLs, production, or DNS altered.
+- Prior next-step `services-hub.html` audit is deferred unless an EN homepage-specific dependency is demonstrated. Next: inspect current EN homepage and audit its actual visual/SEO defects individually, then propose/implement scoped corrections.
+
 
 ### 2026-10-15 — Restore WhatsApp and Telegram icons in published preview
 - User screenshot: footer WhatsApp and Telegram shortcuts were blank squares on GitHub Pages preview; source footer relied on Font Awesome `fab` glyphs, whose icon font is not reliably available in this preview.
