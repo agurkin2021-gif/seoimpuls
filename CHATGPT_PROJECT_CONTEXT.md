@@ -60,6 +60,14 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — EN homepage commercial intent and routing refinement
+- After EN-only visual commit c8631964, refined ONLY content/_index.md and conditional EN block in layouts/index.html. H1/Title now "SEO Services: Technical Audits, Keywords & Content Strategy"; meta/hero description describes scope and verifiable deliverables.
+- Main hero CTA now /services/, card1 retains /seo/ and card2 routes to /services/keyword-research/ with matching intent. Added brief scope/deliverables explanation and CTA to existing SeoImpuls Telegram plus /services/seo-consultation/. No unverified guarantees/cases/geographic claims.
+- Updated .github/workflows/rebuild-qa.yml EN homepage assertion, and added docs/research/2026-10-15-en-home-commercial-refinement.md with public competitor reference and SERP_UNVERIFIED/GSC_PENDING caveats.
+- RU/ES content and output branches intentionally unchanged by logic; only EN content added in shared template. CI and browser verification on THIS commit are pending. Production/DNS/main untouched.
+- Next: inspect Hugo/strict/Preview workflow, check rendered EN page at 390/1280px and images/links; then QA commercial content and document remaining GSC/SERP blockers.
+
+
 ### 2026-10-15 — EN homepage visual hierarchy and footer repaired
 - EN-only visual update: new scoped layout styling in layouts/index.html; removes non-wrapping oversized H1 and forced 440px height from the English process card; presents three process stages as compact numbered items; balances two service cards beside them. Mobile rules for <=1020/767/620px.
 - EN homepage footer only: compact, normal-flow contacts with WhatsApp, Telegram and email. Hidden from this page (not deleted from data) nine social links whose destinations are generic platform homepages and the unverified Austin map fallback. Remaining RU/ES site output remains on existing shared design.
