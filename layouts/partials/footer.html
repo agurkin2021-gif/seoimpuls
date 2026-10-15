@@ -1,4 +1,5 @@
-﻿{{ $contactsLabel := "Contacts" }}
+﻿{{- $isEnHome := and (eq .Site.Language.Lang "en") .IsHome -}}
+{{ $contactsLabel := "Contacts" }}
 {{ $whatsappLabel := "WhatsApp" }}
 {{ $telegramLabel := "Telegram" }}
 {{ $mapLabel := "Map" }}
@@ -43,8 +44,8 @@
 {{ $footerMapSrc := $footerMap.src | default "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d414.4771639656894!2d-97.75218586482195!3d30.265749849403853!2m3!1f0!2f0!3f0!2m3!1i1024!2i768!4f13.1!3m3!1m2!1s0x8644b50fd9700665%3A0x366d94ebf7cd5f8!2zMTAxIDEvMiBXZXN0IEF2ZSwgQXVzdGluLCBUWCA3ODcwMSwg0KHQqNCQ!5e0!3m2!1sru!2sar!4v1770854408167!5m2!1sru!2sar" }}
 
 <div class="footer-anchor js-footer-anchor" aria-hidden="true"></div>
-<footer class="custom-footer">
-  <div class="footer-wrap">
+<footer class="custom-footer{{ if $isEnHome }} custom-footer--en-home{{ end }}">
+  <div class="footer-wrap{{ if $isEnHome }} footer-wrap--en-home{{ end }}">
     <div class="footer-contacts" aria-label="{{ $contactsLabel }}">
       <span class="footer-title">{{ $contactsLabel }}</span>
       <a class="footer-shortcut footer-shortcut--whatsapp" href="{{ $footerWhatsapp }}" target="_blank" rel="noopener" title="{{ $whatsappLabel }}" aria-label="{{ $whatsappLabel }}">
@@ -84,6 +85,7 @@
       {{ end }}
     </div>
 
+    {{ if not $isEnHome }}
     <div class="footer-right">
       <div class="footer-social-icons" aria-label="{{ $socialLabel }}">
         {{ range $footerSocialLinks }}
@@ -111,6 +113,7 @@
         </button>
       </div>
     </div>
+    {{ end }}
 
   </div>
 </footer>

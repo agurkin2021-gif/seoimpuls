@@ -358,7 +358,61 @@
 {{- if $pageTitlePixelWidth -}}{{- $pageTitleStyle = printf "%s width: %vpx; max-width: 100%%;" $pageTitleStyle $pageTitlePixelWidth -}}{{- end -}}
 {{- if or $pageTitleOffsetX $pageTitleOffsetY -}}{{- $pageTitleStyle = printf "%s transform: translate(%vpx, %vpx); transform-origin: left top;" $pageTitleStyle $pageTitleOffsetX $pageTitleOffsetY -}}{{- end -}}
 
-<section class="seo-central" aria-label="{{ if $isRU }}Основной SEO контент{{ else if $isES }}Contenido principal SEO{{ else }}SEO consulting main content{{ end }}">
+{{ if eq $lang "en" }}
+<style id="seo-en-home-visual">
+/* EN homepage only. Other locales retain existing design. */
+.seo-central--en .seo-hero-content {padding:28px 32px 24px;}
+.seo-central--en .seo-hero-title {max-width:1070px;white-space:normal!important;text-wrap:balance;font-size:clamp(36px,3.8vw,54px)!important;line-height:1.12;letter-spacing:-.025em;margin-bottom:14px;}
+.seo-central--en .seo-hero-text {max-width:920px;font-size:clamp(17px,1.5vw,21px);line-height:1.52;margin-bottom:20px;}
+.seo-central--en .seo-hero-actions {margin-bottom:0;}
+.seo-central--en .seo-news-strip {margin:0 auto;padding:0 32px;}
+.seo-central--en .seo-news-strip__layout {grid-template-columns:minmax(0,1.55fr) minmax(290px,0.85fr);gap:18px;align-items:stretch;}
+.seo-central--en .seo-news-strip__single {height:auto;min-height:0;overflow:visible;}
+.seo-central--en .seo-news-strip__side {height:auto;gap:16px;grid-template-rows:repeat(2,minmax(0,1fr));}
+.seo-central--en .seo-news-article--compact {padding:23px 24px;}
+.seo-central--en .seo-news-article__title {font-size:22px;}
+.seo-central--en .seo-news-article__body {margin-top:10px;font-size:15px;line-height:1.58;}
+.seo-central--en .seo-news-article__body ol {counter-reset:seo-step;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;list-style:none;padding:0;margin:18px 0 0;}
+.seo-central--en .seo-news-article__body ol li {counter-increment:seo-step;position:relative;margin:0;padding:42px 12px 14px;border-radius:8px;border:1px solid rgba(146,174,206,.22);background:rgba(25,45,66,.38);font-size:14px;line-height:1.5;}
+.seo-central--en .seo-news-article__body ol li::before {content:"0" counter(seo-step);position:absolute;top:10px;left:12px;color:#8dd3ff;font-size:17px;font-weight:750;}
+.seo-central--en .seo-card {min-height:0;padding:18px 19px;}
+.seo-central--en .seo-card-head {align-items:center;margin-bottom:8px;}
+.seo-central--en .seo-card-title {font-size:17px;line-height:1.3;}
+.seo-central--en .seo-card-list li {font-size:14px;line-height:1.46;margin-bottom:7px;}
+.seo-central--en .seo-static-offer {padding:23px 32px 16px;}
+.custom-footer--en-home {position:static!important;left:auto!important;right:auto!important;bottom:auto!important;transition:none!important;will-change:auto!important;}
+.custom-footer--en-home .footer-wrap {grid-template-columns:1fr;gap:0;padding:10px 32px;}
+.custom-footer--en-home .footer-contacts {transform:none;margin:0;justify-content:flex-start;}
+@media (min-width:768px) {
+  .home,.page.home {padding-bottom:0!important;}
+  .seo-central--en {padding-bottom:20px!important;}
+  .footer-reserve {height:0!important;}
+  body.footer-floating .gdpr-consent-banner {bottom:16px;}
+}
+@media (max-width:1020px) {
+  .seo-central--en .seo-news-strip__layout {grid-template-columns:1fr;}
+  .seo-central--en .seo-news-strip__side {grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:none;}
+}
+@media (max-width:767px) {
+  .seo-central--en .seo-hero-content {padding:28px 18px 26px;}
+  .seo-central--en .seo-hero-title {font-size:clamp(32px,8vw,44px)!important;}
+  .seo-central--en .seo-hero-text {font-size:17px;}
+  .seo-central--en .seo-news-strip {padding:0 18px 12px;}
+  .seo-central--en .seo-news-strip__single,.seo-central--en .seo-news-strip__side {margin:0;width:100%;}
+  .seo-central--en .seo-news-article__body ol {grid-template-columns:1fr;}
+  .seo-central--en .seo-news-article__body ol li {padding:13px 13px 13px 47px;}
+  .seo-central--en .seo-news-article__body ol li::before {top:12px;}
+  .seo-central--en .seo-static-offer {padding:18px;}
+  .custom-footer--en-home .footer-wrap {padding:12px 18px;}
+}
+@media (max-width:620px) {
+  .seo-central--en .seo-news-strip__side {grid-template-columns:1fr;}
+  .seo-central--en .seo-news-article--compact {padding:19px 17px;}
+}
+</style>
+{{ end }}
+
+<section class="seo-central{{ if eq $lang "en" }} seo-central--en{{ end }}" aria-label="{{ if $isRU }}Основной SEO контент{{ else if $isES }}Contenido principal SEO{{ else }}SEO consulting main content{{ end }}">
   <section class="seo-hero-panel" aria-labelledby="seo-hero-title">
     <div class="seo-hero-content">
       <div class="seo-hero-content__inner">

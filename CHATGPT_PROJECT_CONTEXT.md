@@ -60,6 +60,13 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — EN homepage visual hierarchy and footer repaired
+- EN-only visual update: new scoped layout styling in layouts/index.html; removes non-wrapping oversized H1 and forced 440px height from the English process card; presents three process stages as compact numbered items; balances two service cards beside them. Mobile rules for <=1020/767/620px.
+- EN homepage footer only: compact, normal-flow contacts with WhatsApp, Telegram and email. Hidden from this page (not deleted from data) nine social links whose destinations are generic platform homepages and the unverified Austin map fallback. Remaining RU/ES site output remains on existing shared design.
+- This is the first visual iteration, not an approved final design. No Title/meta/H1 text changes, no cross-page content changes, no production or DNS changes. CI and visual browser checks after this commit are pending.
+- Next: inspect new Preview at 390/1280px; then tighten English homepage commercial intent/CTA routing and test generated EN HTML without changing RU/ES.
+
+
 ### 2026-10-15 — EN homepage preview visual asset repair
 - Existing files confirmed in repository: static/SEOIMPULS_logo_tight.webp and static/uploads/seo-icon-search-optimization.svg, seo-icon-search-marketing.svg, seo-icon-google.svg. User screenshot showed broken logo and cards on GitHub Pages under /seoimpuls/.
 - Changed EN-only template URL handling to Hugo relURL for header logo and all three homepage SVG icons, honoring preview baseURL. RU/ES asset markup kept as before.
