@@ -52,6 +52,12 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — EN Domain Rating page set to draft
+- После проверки commit b0ca69fb: Hugo/retired URL QA #38777051315 PASS; context guard #38777051329 PASS.
+- content/services/domain-rating/index.md: draft=false → true для /link-building-services/domain-rating/. Новое предложение услуг намеренно не включает повышение сторонних SEO-метрик.
+- docs/retired-routes-en.txt дополнен старым URL, чтобы тестировать отсутствие HTML, sitemap и внутренних ссылок. Исходный main и действующий сайт не менялись; будущий HTTP 410 лишь предварительное решение, без GSC/live-аудита.
+- Проверка этого изменения в Actions ещё не подтверждена; следующий шаг — подтвердить CI, затем по одной разобрать EN Tier 1-2-3 и связанные ссылки.
+
 ### 2026-10-15 — EN tiered link-building offer withdrawn from candidate
 - Предыдущий коммит c5445d93: GitHub Actions rebuild #38776716307 PASS, context #38776715896 PASS. Автоматические подстановки серых карточек в общем services-hub исправлены, регрессионный retired-route тест подтверждён в CI.
 - Обновлён content/services/link-building/index.md для старого URL /link-building-services/link-building/: draft:false → true и showOnHome:true → false. Страница продаёт tiered ссылочное продвижение, а не отдельную легитимную SEO-услугу; корректного same-intent преемника нет.
@@ -205,7 +211,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Проверить GitHub Actions для отключения EN /link-building-services/link-building/. Затем отдельно отключить EN искусственный рост DR /link-building-services/domain-rating/ с добавлением маршрута в docs/retired-routes-en.txt и обязательным обновлением журнала. Сайт в production, main и GitHub Pages не менять.
+Проверить GitHub Actions для отключения EN /link-building-services/domain-rating/. Затем по отдельной итерации вывести из рабочей сборки EN /link-building-services/tier-1-2-3/, дополнить retired-route список и журнал. Публикация на сервер запрещена до отдельного разрешения.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 
