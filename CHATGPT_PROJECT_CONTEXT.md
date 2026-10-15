@@ -52,6 +52,13 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — ES technical SEO page rebuilt under focused audit intent
+- Previous RU SEO commit 52fbfa39: Hugo #38799279460 PASS and context #38799279389 PASS, with H1/canonical/EN+ES hreflang, four technical section anchors, real internal links; scanner 10 issues/7 HTML, 30 retired routes, RELEASE BLOCKED.
+- Replaced content/seo/index.es.md at unchanged /es/seo/ canonical. New Title/H1 «Auditoría SEO técnica y optimización web», 11 useful sections explaining crawling/indexation, redirection, canonical, on-page, content intent, hreflang/international SEO, audit deliverables and limitations. Avoided generic rank/backlink promises and overlap with existing ES keyword research, consultation and catalog.
+- Reused existing images/icons and Hugo design; retained translationKey=seo-overview for EN/RU alternates. Public competitor comparison and SERP_UNVERIFIED status documented in docs/research/2026-10-15-es-technical-seo-review.md (NOT exact geo-fixed Google top10).
+- Updated GitHub rebuild QA with checks for ES H1/self canonical/EN+RU alternate, four anchors and real service links, no old link-selling visible copy. This commit's CI result PENDING.
+- No live traffic/GSC/visual approval, no server/main/Pages changes, strict release still BLOCKED. Next after CI: assess full RU and ES homepages for remaining gray or behavioral-promotion copy and clean them one by one, respecting affiliate card disclosure.
+
 ### 2026-10-15 — RU technical SEO page rebuilt for diagnostic intent
 - Previous ES About commit cfb14ac5: Hugo QA #38798766459 PASS, context #38798766384 PASS. RU/ES About now brand/navigational, with no unverified old statistics or link-selling claims; retired URLs 30, 44 HTML, diagnostic 11 findings/8 files, RELEASE BLOCKED.
 - Rewrote content/seo/index.ru.md in place at /ru/seo/ (URL unchanged, preserving existing link signals). Title/H1 «Технический SEO-аудит и оптимизация сайта». Converted generic/unsupported marketing copy into 11 blocks covering crawl/indexability, HTTP redirects, canonical/robots/sitemap, on-page structure, content intent separation, international SEO and practical issue priority.
@@ -478,7 +485,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Проверить Actions RU /ru/seo/: H1/canonical, EN/ES hreflang, технические anchors, genuine service links and no gray copy. Затем ES /es/seo/ (отдельно) с локализованным техническим SEO-интентом. После этих правок RU/ES главные, EN FAQ и context-aware affiliate audit. Strict release, GSC, verified SERP top10 and browser visual QA remain blocked. Server/main unchanged.
+Проверить CI ES /es/seo/ при сохранении старого URL, технических H1 и EN/RU hreflang. Затем последовательно проверить и очистить полные homeJson/hero-copy RU /ru/ и ES /es/: SERP-intent общего агентства без поведенческих манипуляций и прежних backlink-offers. Партнёрские VPS карточки/CTA оставить с честным disclosure, без обещаний индексации. Далее EN FAQ, точный residual QA, affiliate gate, GSC и visual. Main/сервер не менять.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 
