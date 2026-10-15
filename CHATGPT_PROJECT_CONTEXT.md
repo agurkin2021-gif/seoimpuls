@@ -52,6 +52,13 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — ES homepage: честная маркировка VPS-партнёрки
+- Предыдущий RU homepage commit e8a32067: GitHub Actions Hugo build, RU generated copy guard и context guard PASS.
+- В content/_index.es.md (homeJson) старый текст Hosting de red privada заменён на размещение сайтов/приложений, к VPS-карточке добавлено «enlace de afiliado». offerItem6 получил одну тематическую партнёрскую CTA и уточнение, что VPS не гарантирует индексацию/позиции Google.
+- URL партнёра и код остались ровно прежними. Добавлен docs/research/2026-10-15-es-home-affiliate-audit.md; в .github/workflows/rebuild-qa.yml проверяется сгенерированный ES HTML.
+- Это точечная корректировка старой ES главной, а НЕ полная локализация, не SERP top-10 и не visual QA; релизный gate всё ещё BLOCKED. Новые Actions требуют подтверждения, main/production/Pages не тронуты.
+- Следующее: проверить CI и новый affiliate inventory, затем работать с RU/ES strategy-builder (старые серые рекомендации) и Tier/satellite страницами по одной, до постраничного SERP-аудита коммерческих страниц.
+
 ### 2026-10-15 — RU homepage: тематическая и прозрачная VPS-партнёрка
 - Предыдущий commit cb1e4882: удалён static/ru/soft/index.html с ложным переходом на партнёрский VPS, original /go/vdsina/ сохранён. GitHub Actions build + retired URLs и context guard PASS.
 - Правка ТОЛЬКО content/_index.ru.md (homeJson): изменены VPS-карточка и offerItem6. «Хостинг приватных сетей» заменён на обычное размещение сайтов, явно подписано «партнёрская ссылка», без утверждения, что VPS обязательно улучшает индексацию. Точное значение партнёрского URL и код оставлены прежними.
@@ -277,7 +284,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Проверить GitHub Actions после RU-home VPS affiliate disclosure; затем отдельной страницей привести ES-home VPS блок к честным партнёрским формулировкам, сохранив целевой referral URL. Далее убрать устаревшие RU/ES SEO strategy, Tier/satellite блоки. Full SERP/technical/mobile QA локалей остаётся отдельным этапом. Main/production без изменений.
+Проверить CI и партнёрский инвентарь после ES homepage. Затем постранично выводить из кандидатной сборки устаревшие RU/ES стратегии со ссылочным спамом, Tier и сети сателлитов, сохраняя истинно тематические партнёрские ссылки только на релевантных публичных страницах. Main/production без изменений. Релиз пока BLOCKED.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 

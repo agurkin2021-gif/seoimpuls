@@ -62,6 +62,25 @@ jobs:
           assert 'vps не гарантирует улучшения индексации' in text, 'Required VPS limitation missing'
           print('PASS: RU homepage VPS CTA is contextual, disclosed and avoids ranking promises.')
           PY
+      - name: Verify ES homepage affiliate disclosure and hosting claims
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from html.parser import HTMLParser
+          from pathlib import Path
+          class TextCollector(HTMLParser):
+              def __init__(self):
+                  super().__init__(); self.out=[]
+              def handle_data(self, data): self.out.append(data)
+          html = Path('public/es/index.html').read_text(encoding='utf-8')
+          collector = TextCollector(); collector.feed(html)
+          text = ' '.join(' '.join(collector.out).split()).casefold()
+          assert 'vps para alojar tu sitio' in text, 'ES VPS card missing'
+          assert text.count('enlace de afiliado') >= 2, 'ES card or offer disclosure missing'
+          assert 'hosting de red privada' not in text, 'Misleading private network hosting still shown'
+          assert 'no garantiza una mejor indexación' in text, 'VPS ranking limitation missing'
+          print('PASS: ES homepage VPS CTA is contextual, disclosed and makes no ranking guarantees.')
+          PY
       - name: Inventory rendered affiliate placements (diagnostic, no deployment)
         run: python3 scripts/audit_affiliate_links.py --site public --max-details 150
       - name: Report whole-site white-hat release blockers (diagnostic, never deploy)
