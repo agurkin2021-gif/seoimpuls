@@ -101,6 +101,22 @@ jobs:
           if 'link building services' in kw_txt:
               raise SystemExit('Outdated breadcrumb remains on keyword research page')
           print('PASS: /services/ catalog, canonical, H1, valid service links, keyword breadcrumb.')
+          consult=Page()
+          consult.feed(Path('public/services/seo-consultation/index.html').read_text(encoding='utf-8'))
+          if ''.join(consult.h1).strip()!='SEO Consultation & Strategy Review':
+              raise SystemExit('Unexpected consultation H1: '+str(consult.h1))
+          if consult.canonical!=['https://seoimpuls.com/services/seo-consultation/']:
+              raise SystemExit('Incorrect consultation canonical: '+str(consult.canonical))
+          for section in ('who-it-is-for','topics','prepare','format','results','faq','contact'):
+              if section not in consult.ids:raise SystemExit('Missing consultation anchor: '+section)
+          consult_text=' '.join(' '.join(consult.visible).split()).lower()
+          for forbidden in ('link building services','indefinite ongoing support','unlimited long-term support',
+                            'guaranteed google rankings','xrumer','tier 1-2-3','domain rating increase'):
+              if forbidden in consult_text:raise SystemExit('Old consultation term: '+forbidden)
+          if '/services/seo-consultation/' not in hub.links:
+              raise SystemExit('SEO consultation is missing from clean services catalog')
+          print('PASS: /services/seo-consultation/ H1/canonical, content, anchors and catalog link.')
+
 
 
 

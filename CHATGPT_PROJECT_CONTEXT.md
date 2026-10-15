@@ -52,6 +52,15 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — EN SEO consultation rebuilt and added to services catalog
+- Working branch white-seo-rebuild; /services/ QA #38772264988 PASS, context guard #38772264795 PASS. Production unchanged.
+- Rewritten content/services/seo-consultation/index.md: title/H1 «SEO Consultation & Strategy Review»; unique URL /services/seo-consultation/; prep, diagnostics topics, session boundaries, deliverables/outcomes, FAQ, contacts. Retained legacy published $350 and around three hours as reference terms to confirm; removed unverified lifetime support/case claims and link-building topics.
+- Updated content/services/_index.md: third clean commercial card for consultation, new summary and corrected meta description.
+- Updated docs/research/2026-10-15-en-services-catalog-intent.md and new docs/research/2026-10-15-en-seo-consultation-intent.md with intent ownership, ten comparison examples (not verified exact Google first-10), migration notes.
+- Expanded .github/workflows/rebuild-qa.yml to verify consultation H1/canonical/anchors, no prohibited claims, /services/ directory link. New QA run pending.
+- MAIN and production untouched; legacy consultation URL redirect not implemented, old gray pages still exist. Do not publish before full migration and multi-language audit.
+- Next: check QA and context Actions; then audit/decommission legacy gray EN pages and all internal links without accidentally redirecting unrelated content.
+
 ### 2026-10-15 — Clean EN /services/ catalog and resolve keyword breadcrumb
 - Предыдущий QA #38771883235: Hugo build PASS, SEO проверка keyword research FAIL из-за видимой надписи «Link Building Services». Причина: breadcrumb наследовал старый Title раздела services. Контекст guard #38771883177 PASS.
 - Переделан content/services/_index.md: URL /services/, Title/H1 «SEO Services & Practical Deliverables», две реально легитимные услуги (technical SEO и keyword research), без backlink/DR/tier/satellites и негативных старых карточек.
@@ -132,7 +141,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Проверить новый rebuild-qa с правильным EN /services/ и Keyword Research breadcrumb. После PASS перейти к SEO Consultation EN /services/seo-consultation/ на основе проверенных реальных условий, обновить каталог; затем другие законные страницы. Не включать Pages и не трогать сервер. Каждый коммит включает этот контекст.
+Проверить Hugo rebuild-qa и контекст после EN SEO Consultation. Затем провести полную инвентаризацию всех серых EN страниц/внутренних ссылок/навигации и подготовить безопасные корректировки в white-seo-rebuild. RU и ES пока legacy. Для 301/410/развёртывания обязательно согласовать отдельный production релиз после GSC и полного QA.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 
