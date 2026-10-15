@@ -52,6 +52,13 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — ES Tier 1–2–3 withheld and removed from ES catalog
+- RU Tier commit 603d15b9: Hugo #38787608283 PASS and context guard #38787608200 PASS; retired check 12 URLs/54 HTML, whole-site diagnostic 140 findings/29 affected files, RELEASE READINESS BLOCKED.
+- content/services/tier-1-2-3/index.es.md: draft false → true for /servicios-de-link-building/tier-1-2-3/. Removed precisely two blocks referencing this URL (ES catalog image and corresponding button) from content/services/_index.es.md. Other catalog products left for separate passes.
+- Registered /servicios-de-link-building/tier-1-2-3/ in docs/retired-routes-en.txt; generated pages, internal links and sitemap are validated by scripts/verify_retired_routes.py in GitHub Actions. Context/evidence: docs/research/2026-10-15-es-tier-retirement.md.
+- The old Tier transaction is not equivalent to a legitimate technical SEO service, so no artificial 301 to generic SEO. Future 410 merely proposed pending live/GSC/referring-link audit; production, main and Pages unchanged. The affiliate redirect /go/vdsina/ was not removed.
+- New CI pending, then RU satellite /uslugi-linkbildinga/sozdanie-satellitov/ page and exactly matched catalog card, followed by ES microsite/satellite. Strict release gate still BLOCKED.
+
 ### 2026-10-15 — RU Tier 1–2–3 removed from Hugo candidate and service cards
 - Previous commit f8c1985c: Hugo rebuild + RU/ES CTA and retired URLs #38787065170 PASS; context guard #38787065220 PASS. Baseline diagnostic had 151 issues across 30/55 HTML files, RELEASE READINESS BLOCKED.
 - Source content/services/tier-1-2-3/index.ru.md: draft:false → true for /uslugi-linkbildinga/tier-1-2-3/. Removed exactly two referring builder blocks (image + button) from content/services/_index.ru.md, without editing the remaining catalog cards.
@@ -308,7 +315,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Проверить Actions для отключённого RU Tier 1–2–3 URL и удалённой карточки из каталога. При PASS — отдельным коммитом убрать ES /servicios-de-link-building/tier-1-2-3/ и его два блока-карточки в ES каталоге, вместе с retired manifest, исследованием и журналом. Потом RU/ES satellites отдельно. Main/production не менять.
+Проверить GitHub Actions после ES Tier 1–2–3 отключения. При PASS — отдельно разобрать и вывести из генерации RU /uslugi-linkbildinga/sozdanie-satellitov/ вместе с соответствующей карточкой, записью retired manifest, исследованием и контекстом. Потом отдельно ES /servicios-de-link-building/desarrollo-de-micrositio/. Сервер/main не менять.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 

@@ -12,3 +12,4 @@
 /ru/konstruktor-seo-strategii/
 /es/constructor-estrategias-seo/
 /uslugi-linkbildinga/tier-1-2-3/
+/servicios-de-link-building/tier-1-2-3/
