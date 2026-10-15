@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - "SeoImpuls_GitHub_ready.zip"
+      - ".github/workflows/import-source.yml"
   workflow_dispatch:
 
 permissions:
@@ -56,7 +57,12 @@ jobs:
                   seen.add(name)
                   if name in protected:
                       continue
-                  out = Path(*rel.parts)
+                  # Preserve legacy workflow source as inert documentation.
+                  # GITHUB_TOKEN cannot create .github/workflows files during import.
+                  if name.startswith('.github/workflows/'):
+                      out = Path('docs/legacy-workflows', *rel.parts[2:])
+                  else:
+                      out = Path(*rel.parts)
                   out.parent.mkdir(parents=True, exist_ok=True)
                   out.write_bytes(archive.read(info))
           if not Path('hugo.toml').is_file():
