@@ -16,3 +16,4 @@
 /uslugi-linkbildinga/sozdanie-satellitov/
 /servicios-de-link-building/desarrollo-de-micrositio/
 /uslugi-linkbildinga/linkbilding/
+/uslugi-linkbildinga/obratnye-ssylki/

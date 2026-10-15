@@ -52,6 +52,13 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — RU paid backlink package unpublished and catalog links removed
+- Previous commit 60c2937b: Hugo build and retired-route check #38789334524 PASS; context guard #38789334373 PASS. Scanner 108 findings / 25 affected files across 50 HTML; 16 retired routes all absent; release still BLOCKED.
+- Old route /uslugi-linkbildinga/obratnye-ssylki/ removed from candidate public output. Instead of leaving the large commercial copy in the working branch, content/services/obratnye-ssylki/index.ru.md replaced with a minimal draft-only archival stub; full original remains untouched in main.
+- Exactly two catalog entries (button and image) removed from content/services/_index.ru.md, without changing legitimate keyword research, consultation and website creation entries. Added the old URL to docs/retired-routes-en.txt. Assessment: docs/research/2026-10-15-ru-backlinks-retirement.md.
+- The draft and generated URL/link checks must pass GitHub Actions for this commit before next page. No actual server 410/301, GSC not exported, canonical/referring links unverified, no action on production or affiliate endpoints.
+- Next: after CI PASS, audit/retire RU artificial Domain Rating page, then ES link strategy, backlinks and DR, each separately and with persistent context.
+
 ### 2026-10-15 — RU link-building sales page retired
 - Previous white-seo-rebuild commit 5fb8666e: GitHub Actions 38788366497 (Hugo and retired route validation) PASS and 38788366136 (context guard) PASS. 15 retired URLs, 51 HTML pages, 117 informational scan findings in 26 files; release blocked.
 - content/services/linkbilding/index.ru.md: draft:false → true; old URL /uslugi-linkbildinga/linkbilding/ no longer appropriate (paid tiered links via forums/blogs).
@@ -337,7 +344,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Сначала проверить GitHub Actions после RU /uslugi-linkbildinga/linkbilding/ retire, включая newsUrl → /ru/news/. Затем отдельно RU Backlinks и RU DR. В ES — отдельные проходы Estrategia, Backlinks и Domain Rating. Будущие 301/410 требуют GSC и проверки живых URL. Main/production не менять.
+Проверить GitHub Actions RU Backlinks retire и отсутствие /uslugi-linkbildinga/obratnye-ssylki/ в HTML, sitemap и ссылках. Потом отдельно RU искусственный Domain Rating, затем ES link strategy, Backlinks, DR. Старые каталоги RU/ES после удаления услуг потребуется заменить на новые легитимные /ru/uslugi/ и /es/servicios/, миграцию 301/410 проводить только по GSC/live данным. Main/production без изменений.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 
