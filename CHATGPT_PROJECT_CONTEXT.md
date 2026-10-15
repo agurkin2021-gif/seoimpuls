@@ -52,6 +52,13 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — ES paid tier link strategy retired and homepage link corrected
+- Previous RU DR commit d26527d7: Hugo and retired URL CI #38790050825 PASS; context guard #38790050904 PASS. Retired URL count 18 over 48 HTML; diagnostic findings 93 in 23 files; RELEASE READINESS BLOCKED.
+- /servicios-de-link-building/estrategia-de-link-building/: old multi-level link sales removed from the white-seo-rebuild candidate by replacing content/services/estrategia-de-link-building/index.es.md with an unpublished draft stub; full original remains in main.
+- Two matching blocks (catalog image and button) removed in content/services/_index.es.md. content/_index.es.md newsUrl changed from retired page to /es/news/. In docs/retired-routes-en.txt added old URL; docs/research/2026-10-15-es-linkstrategy-retirement.md records scope/URL migration.
+- CI for this commit is still pending; check generated HTML and sitemap, incoming links and missing target /es/news/. No live 301/410, GSC, browser or PageSpeed verification done. Other genuine services and VDSina affiliate endpoint untouched. Source main and production not modified.
+- Next after CI: retire ES Backlinks and artificial DR cards; then replace old catalog hubs with new legitimate taxonomy and migrate keyword research/consultation after SERP/GSC.
+
 ### 2026-10-15 — RU artificial DR service withdrawn from candidate
 - RU Backlinks commit 0aca4373: Hugo / retired-route check #38789774355 PASS; context guard #38789774377 PASS. Candidate: 49 HTML, 17 retired URLs, 101 scan findings in 24 files; release BLOCKED.
 - /uslugi-linkbildinga/uvelechenie-domen-reytinga/ has been replaced in the working branch by a minimal draft stub; full original remains in main. The previous offering sold artificial growth of Ahrefs Domain Rating rather than a legitimate Google SEO deliverable.
@@ -351,7 +358,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Проверить GitHub Actions после RU artificial Domain Rating retire. Далее ES /servicios-de-link-building/estrategia-de-link-building/, /servicios-de-link-building/backlinks/ и /servicios-de-link-building/domain-rating/ — по одной странице, с исправлением каталогов и ES newsUrl. Затем создавать новые легитимные RU/ES каталоги и мигрировать их семантику/консультации без каннибализации. Продакшен не трогать.
+Проверить Actions после ES link strategy retire, включая ES homepage /es/news/. Затем ES Backlinks и Domain Rating по одной странице с карточками, контекстом и аудитом. После чистки прямых серых услуг — новые /ru/uslugi/ и /es/servicios/ и миграция легитимных семантики/консультаций без авто-301 старых link-building каталогов. Без публикации на сервер.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 
