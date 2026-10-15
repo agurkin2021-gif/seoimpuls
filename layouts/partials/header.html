@@ -25,7 +25,7 @@
 
   <div class="custom-header__inner">
     <a class="custom-header__brand" href="{{ .Site.Home.RelPermalink }}" aria-label="{{ $homeLabel }}">
-      <img class="custom-header__brand-logo" src="/SEOIMPULS_logo_tight.webp" width="400" height="132" alt="SeoImpuls" decoding="async" />
+      <img class="custom-header__brand-logo" src="{{ if eq .Site.Language.Lang "en" }}{{ "SEOIMPULS_logo_tight.webp" | relURL }}{{ else }}/SEOIMPULS_logo_tight.webp{{ end }}" width="400" height="132" alt="SeoImpuls" decoding="async" />
     </a>
 
     <button class="custom-header__menu-toggle js-header-menu-toggle"

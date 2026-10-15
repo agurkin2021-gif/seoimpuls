@@ -89,7 +89,7 @@
         {{ range $footerSocialLinks }}
           {{- if (.enabled | default true) -}}
             <a class="footer-social-link" href="{{ .url }}" target="_blank" rel="noopener" title="{{ .label }}" aria-label="{{ .label }}">
-              <i class="{{ .iconClass }}" aria-hidden="true"></i>
+              {{ if eq $.Site.Language.Lang "en" }}<span aria-hidden="true" style="font-size:10px;font-weight:800;letter-spacing:-.02em;line-height:1;text-transform:uppercase">{{ slicestr .label 0 2 }}</span>{{ else }}<i class="{{ .iconClass }}" aria-hidden="true"></i>{{ end }}
             </a>
           {{- end -}}
         {{ end }}

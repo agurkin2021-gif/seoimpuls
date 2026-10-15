@@ -464,7 +464,7 @@
           <a class="seo-card" href="{{ $homeCard1Link.href | safeURL }}"{{ with $homeCard1Link.cloaked }} data-seo-cloaked-href="{{ . }}"{{ end }}{{ with $homeCard1Link.rel }} rel="{{ . }}"{{ end }} data-home-link-field="card1Url" data-home-link-value="{{ $homeCard1UrlRaw }}">
             <div class="seo-card-head">
               <span class="seo-card-icon" aria-hidden="true">
-                <img src="/uploads/seo-icon-search-optimization.svg" alt="" width="64" height="64" decoding="async" />
+                <img src="{{ if eq $lang "en" }}{{ "uploads/seo-icon-search-optimization.svg" | relURL }}{{ else }}/uploads/seo-icon-search-optimization.svg{{ end }}" alt="" width="64" height="64" decoding="async" />
               </span>
               <h3 class="seo-card-title" data-home-field="card1Title">{{ partial "home-inline.html" $homeCard1Title }}</h3>
             </div>
@@ -478,7 +478,7 @@
           <a class="seo-card" href="{{ $homeCard2Link.href | safeURL }}"{{ with $homeCard2Link.cloaked }} data-seo-cloaked-href="{{ . }}"{{ end }}{{ with $homeCard2Link.rel }} rel="{{ . }}"{{ end }} data-home-link-field="card2Url" data-home-link-value="{{ $homeCard2UrlRaw }}">
             <div class="seo-card-head">
               <span class="seo-card-icon" aria-hidden="true">
-                <img src="{{ if eq $lang "en" }}/uploads/seo-icon-search-marketing.svg{{ else }}{{ "server-icon.svg" | relURL }}{{ end }}" alt="" width="64" height="64" decoding="async" />
+                <img src="{{ if eq $lang "en" }}{{ "uploads/seo-icon-search-marketing.svg" | relURL }}{{ else }}{{ "server-icon.svg" | relURL }}{{ end }}" alt="" width="64" height="64" decoding="async" />
               </span>
               <h3 class="seo-card-title" data-home-field="card2Title">{{ partial "home-inline.html" $homeCard2Title }}</h3>
             </div>
@@ -500,7 +500,7 @@
         <li data-home-field="offerItem3">{{ partial "home-inline.html" $homeOfferItem3 }}</li>
         <li data-home-field="offerItem4">{{ partial "home-inline.html" $homeOfferItem4 }}</li>
         <li data-home-field="offerItem5">{{ partial "home-inline.html" $homeOfferItem5 }}</li>
-        <li><span class="seo-inline-server-icon" aria-hidden="true"><img src="{{ if eq $lang "en" }}/uploads/seo-icon-google.svg{{ else }}{{ "server-icon.svg" | relURL }}{{ end }}" alt="" width="64" height="64" decoding="async"></span><span data-home-field="offerItem6">{{ partial "home-inline.html" $homeOfferItem6 }}</span></li>
+        <li><span class="seo-inline-server-icon" aria-hidden="true"><img src="{{ if eq $lang "en" }}{{ "uploads/seo-icon-google.svg" | relURL }}{{ else }}{{ "server-icon.svg" | relURL }}{{ end }}" alt="" width="64" height="64" decoding="async"></span><span data-home-field="offerItem6">{{ partial "home-inline.html" $homeOfferItem6 }}</span></li>
         <li data-home-field="offerItem7">{{ partial "home-inline.html" $homeOfferItem7 }}</li>
         <li data-home-field="offerItem8">{{ partial "home-inline.html" $homeOfferItem8 }}</li>
       </ul>

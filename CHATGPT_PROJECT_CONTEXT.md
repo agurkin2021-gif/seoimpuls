@@ -60,6 +60,14 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — EN homepage preview visual asset repair
+- Existing files confirmed in repository: static/SEOIMPULS_logo_tight.webp and static/uploads/seo-icon-search-optimization.svg, seo-icon-search-marketing.svg, seo-icon-google.svg. User screenshot showed broken logo and cards on GitHub Pages under /seoimpuls/.
+- Changed EN-only template URL handling to Hugo relURL for header logo and all three homepage SVG icons, honoring preview baseURL. RU/ES asset markup kept as before.
+- English footer social links had blank font icons in the preview. Retained each link and aria-label but replaced EN-only font glyph with visible two-character label as dependency-free fallback. RU/ES untouched.
+- QA limitations: live browser visual check not performed; CI/Pages automatically triggered by this commit. Follow-up: check preview logo, cards and footer and responsive layout. Do not claim full SEO/UX QA.
+- No production, DNS, main or non-EN content changes.
+
+
 ### 2026-10-15 — Owner scope narrowed to EN homepage only
 - New explicit instruction: work exclusively on English homepage `/` now. Other English pages later, Russian and Spanish only after the English version is finished and approved.
 - This commit changes only AGENTS.md and CHATGPT_PROJECT_CONTEXT.md. No website content, images, scripts, templates, URLs, production, or DNS altered.
