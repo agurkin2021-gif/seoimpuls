@@ -17,3 +17,4 @@
 /servicios-de-link-building/desarrollo-de-micrositio/
 /uslugi-linkbildinga/linkbilding/
 /uslugi-linkbildinga/obratnye-ssylki/
+/uslugi-linkbildinga/uvelechenie-domen-reytinga/

@@ -52,6 +52,13 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — RU artificial DR service withdrawn from candidate
+- RU Backlinks commit 0aca4373: Hugo / retired-route check #38789774355 PASS; context guard #38789774377 PASS. Candidate: 49 HTML, 17 retired URLs, 101 scan findings in 24 files; release BLOCKED.
+- /uslugi-linkbildinga/uvelechenie-domen-reytinga/ has been replaced in the working branch by a minimal draft stub; full original remains in main. The previous offering sold artificial growth of Ahrefs Domain Rating rather than a legitimate Google SEO deliverable.
+- content/services/_index.ru.md: removed exactly two matching image/button blocks, preserving the genuine keyword research, consultation and website creation cards. Added route to docs/retired-routes-en.txt. See docs/research/2026-10-15-ru-domain-rating-retirement.md.
+- Upcoming CI must verify Hugo build, absence of retired URL and incoming links, and updated context. No server 301/410, GSC/referring links not reviewed, original main and /go/vdsina/ unchanged.
+- RU direct gray-service page pass is complete, but RU legacy hub, homepage and legal service pages still require substantial SEO/URL work. Next: ES estrategia, backlinks and DR in independent commits, then migrate legitimate services and hub.
+
 ### 2026-10-15 — RU paid backlink package unpublished and catalog links removed
 - Previous commit 60c2937b: Hugo build and retired-route check #38789334524 PASS; context guard #38789334373 PASS. Scanner 108 findings / 25 affected files across 50 HTML; 16 retired routes all absent; release still BLOCKED.
 - Old route /uslugi-linkbildinga/obratnye-ssylki/ removed from candidate public output. Instead of leaving the large commercial copy in the working branch, content/services/obratnye-ssylki/index.ru.md replaced with a minimal draft-only archival stub; full original remains untouched in main.
@@ -344,7 +351,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Проверить GitHub Actions RU Backlinks retire и отсутствие /uslugi-linkbildinga/obratnye-ssylki/ в HTML, sitemap и ссылках. Потом отдельно RU искусственный Domain Rating, затем ES link strategy, Backlinks, DR. Старые каталоги RU/ES после удаления услуг потребуется заменить на новые легитимные /ru/uslugi/ и /es/servicios/, миграцию 301/410 проводить только по GSC/live данным. Main/production без изменений.
+Проверить GitHub Actions после RU artificial Domain Rating retire. Далее ES /servicios-de-link-building/estrategia-de-link-building/, /servicios-de-link-building/backlinks/ и /servicios-de-link-building/domain-rating/ — по одной странице, с исправлением каталогов и ES newsUrl. Затем создавать новые легитимные RU/ES каталоги и мигрировать их семантику/консультации без каннибализации. Продакшен не трогать.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 
