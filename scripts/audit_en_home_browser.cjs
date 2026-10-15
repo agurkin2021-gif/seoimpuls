@@ -48,7 +48,7 @@ fs.mkdirSync(OUT,{recursive:true});
         H1:Array.from(document.querySelectorAll("h1")).map(x=>x.innerText.trim()),
         headings:Array.from(document.querySelectorAll("h1,h2,h3")).map(x=>({
           tag:x.tagName,text:x.innerText.trim().slice(0,95)})),
-        metaDescription:readMeta('meta[name="description"]'),
+        metaDescription:readMeta('meta[name="description" i]'),
         canonical:document.querySelector('link[rel="canonical"]')?.href||"",
         robots:readMeta('meta[name="robots"]'),
         hreflang:Array.from(document.querySelectorAll('link[rel="alternate"][hreflang]')).map(x=>({

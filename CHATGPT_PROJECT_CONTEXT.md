@@ -60,6 +60,15 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — Completed reproducible EN home 390/1280 audit and documented evidence
+- Browser audit #38823101622 PASS. Chromium at 390 and 1280 px: HTTP 200, one correct H1, correct production self canonical, no horizontal overflow, 4/4 images loaded, 0/13 broken local links, no JS/page network failures, JSON-LD syntax valid (WebSite, BreadcrumbList), desktop footer floating and mobile footer static, cookie consent dismissible.
+- Screenshots and audit.json saved in GitHub Actions artifact `seoimpuls-en-home-390-1280` (6 PNG files plus JSON, retained 14 days). Full durable report: `docs/research/2026-10-15-en-home-technical-visual-audit.md`.
+- Confirmed mobile cookie notice initially covers ~295/844px viewport height, dismiss button works (P2 UX). Other P2 possible final CTA contrast and lower whitespace require objective checks.
+- The initial empty meta-description field in audit.json came from a case-sensitive test selector; actual Hugo template generates `<meta name="Description" content=...>`. Corrected Playwright selector to case-insensitive in this commit. No claim of missing meta description; verify new rerun content.
+- SERP/GSC, CrUX Core Web Vitals, keyboard/contrast, reciprocal multilingual hreflang and production remain not fully audited. No HTML/site-content edits.
+- Next: inspect rerun meta description and retain scoped EN homepage state; propose separate P2 improvements only after user review.
+
+
 ### 2026-10-15 — Browser audit parser fixed for placeholder hash links
 - Chrome audit #38822048771 browser log revealed `HOME_QA_FATAL page.evaluate: SyntaxError ... querySelector '#'`: source page contains a placeholder href="#" intercepted later by page JS. This was a bug in the *audit script*, not proof of a site rendering failure.
 - Updated only `scripts/audit_en_home_browser.cjs` anchor test to record "#" as a placeholder and resolve actual fragments via `getElementById()` instead of calling invalid selector `querySelector("#")`. Preserved existing bounded screenshot phases from commit 616e5bd.
@@ -698,16 +707,10 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Приоритет владельца: работать только с английской главной /. RU/ES и прочие EN страницы пока не редактировать. main — исходник; production https://seoimpuls.com/ не изменять.
+Пользователь ограничил работу английской главной EN `/`, RU/ES не менять, production seoimpuls.com не трогать.
+Контрольная проверка EN главной на 390/1280 завершена: GH Actions #38823101622 PASS. Итоги и ограничения в `docs/research/2026-10-15-en-home-technical-visual-audit.md`; скриншоты в artifact `seoimpuls-en-home-390-1280`.
 
-Завершено и опубликовано в GitHub Pages Preview https://agurkin2021-gif.github.io/seoimpuls/:
-- H1 Professional SEO Services; проверенный по содержимому подзаголовок без необоснованных обещаний.
-- 8 направлений SEO в EN-only карточках с зависимостью состава работ от согласованного объёма.
-- 3 потенциальных результата SEO-работ в EN-only блоке What You Receive.
-- Финальный CTA с Telegram и страницей консультации.
-- Последний контентный коммит ed27a5a8: GitHub Pages #17 PASS, Hugo QA #76 PASS; Opera подтвердил блоки и 4 целевых EN URL.
-
-Следующий этап: ПЕРВЫМ проверить восстановленное всплытие футера EN на живом Preview при прокрутке и паузе (desktop), отдельное отображение на мобильных устройствах и позицию cookie-banner. Затем EN-home technical/visual QA на 390/1280px, проверка изображений, Core Web Vitals, accessibility, cookie banner, canonical/hreflang, JSON-LD, внутренние ссылки. Затем гео-фильтрованный Google top-10 и данные GSC. До этого SERP_UNVERIFIED, GSC_PENDING, VISUAL_QA_PARTIAL; нет утверждения READY_FOR_RELEASE.
+Следующие проверки по приоритету: (1) прочитать новый rerun case-insensitive meta description, (2) по необходимости исправить P2 cookie notice/CTA contrast без потери дизайна и поведенческого футера, (3) реальный гео Google SERP top-10 и GSC, (4) CrUX/Lighthouse и keyboard WCAG до READY_FOR_RELEASE. Никаких P0/P1 визуальных ошибок тест не выявил, но это не SEO-одобрение.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 
