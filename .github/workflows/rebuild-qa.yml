@@ -125,7 +125,7 @@ jobs:
           python3 - <<'PY'
           from html.parser import HTMLParser
           from pathlib import Path
-          targets = {'heroBuilderUrl': ('/es/seo/', 'Servicios SEO'),
+          targets = {'heroBuilderUrl': ('/es/servicios/', 'Servicios SEO'),
                      'heroCasesUrl': ('/es/about/', 'Sobre nosotros')}
           class HeroLinks(HTMLParser):
               def __init__(self):
@@ -630,6 +630,36 @@ jobs:
               assert forbidden not in txt,('Legacy homepage copy',forbidden)
           assert 'партнёрская ссылка' in txt,'Visible hosting disclosure missing'
           print('PASS: RU home H1/canonical, real service links, SEO process and honest VPS disclosure')
+          PY
+      - name: Verify ES homepage helpful SEO process and agency intent
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          from html.parser import HTMLParser
+          class P(HTMLParser):
+              def __init__(self):
+                  super().__init__();self.inh=False;self.h=[];self.canon=[];self.links=[];self.text=[]
+              def handle_starttag(self,t,attrs):
+                  a=dict(attrs)
+                  if t=='h1':self.inh=True
+                  if t=='a':self.links.append(a.get('href',''))
+                  if t=='link' and a.get('rel')=='canonical':self.canon.append(a.get('href',''))
+              def handle_endtag(self,t):
+                  if t=='h1':self.inh=False
+              def handle_data(self,s):
+                  self.text.append(s)
+                  if self.inh:self.h.append(s)
+          p=P();p.feed(Path('public/es/index.html').read_text(encoding='utf-8'))
+          txt=' '.join(' '.join(p.text).split()).casefold()
+          assert ''.join(p.h).strip()=='SEOImpuls — servicios SEO y posicionamiento orgánico',p.h
+          assert p.canon==['https://seoimpuls.com/es/'],p.canon
+          for url in ('/es/servicios/','/es/seo/','/es/servicios/investigacion-palabras-clave/','/es/servicios/desarrollo-web/'):
+              assert url in p.links,('Missing ES homepage service',url)
+          for legacy in ('backlinks','factores de comportamiento','perfil de enlaces','link building'):
+              assert legacy not in txt,('Old ranking-promotion copy',legacy)
+          assert 'enlace de afiliado' in txt,'ES hosting partner disclosure missing'
+          print('PASS: ES home H1/canonical, real service links, helpful SEO process and disclosed VPS')
           PY
       - name: Inventory rendered affiliate placements (diagnostic, no deployment)
         run: python3 scripts/audit_affiliate_links.py --site public --max-details 150

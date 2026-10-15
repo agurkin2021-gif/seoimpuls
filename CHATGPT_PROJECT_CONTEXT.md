@@ -52,6 +52,14 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — ES homepage converted from ranking-factor claims to helpful SEO workflow
+- Previous RU homepage commit abbe7833: Hugo Actions #38800292702 PASS, context #38800292764 PASS. RU home H1/self canonical, genuine SEO links and visible VPS partner disclosure checked, scanner 8 findings/6 HTML, 30 retired routes, RELEASE BLOCKED.
+- Rewritten content/_index.es.md homeJson all general "ranking factors" except previously corrected and disclosed VPS hosting item6. New H1/Title «SEOImpuls — servicios SEO y posicionamiento orgánico». First hero CTA now /es/servicios/ matching «Servicios SEO»; secondary remains /es/about/.
+- New process blocks: technical audit, keywords and intent, unique architecture, useful on-page copy, multilingual canonical/hreflang, optional hosting, implementation and Search Console measurement. Deprecated backlink/behavioral signal claims removed. Kept original VDSina partner URL, card2 details, visible "enlace de afiliado" text and no guaranteed indexing message.
+- .github/workflows/rebuild-qa.yml updated ES old builder CTA destination test and added ES full homepage test: H1/canonical, relevant internal links, no link/behavior rank manipulation. docs/research/2026-10-15-es-home-review.md explains intent ownership and SERP_UNVERIFIED status.
+- CI for this commit pending; shared homepage fallbacks may still contain gray wording even when explicit homeJson overrides it. Plan a separate hardening audit of the template before release. Main/live server unchanged; full GSC/SERP/visual QA pending.
+- Next after Actions: inspect English FAQ scanner flag and shared homepage fallback, then contextual affiliate endpoint checker. Strict release still BLOCKED.
+
 ### 2026-10-15 — RU homepage repositioned as genuine SEO agency rather than ranking manipulation
 - Previous ES technical SEO commit c7dc09e1: Hugo #38799702534 PASS and context #38799702511 PASS; H1/canonical/EN+RU hreflang, anchors and local service links checked; 30 retired URLs, 44 HTML, 9 scanner findings in 6 files; release BLOCKED.
 - content/_index.ru.md: retained single homepage architecture and VPS partner card, revised H1/Title/Description «SEOImpuls — SEO-продвижение и техническое SEO», switched primary hero action to /ru/uslugi/ matching «SEO-услуги». Replaced all 7 other old "factors of ranking" blocks with verifiable service process: technical audit, keyword research, clear intent mapping, on-page work, international SEO, implementation and Search Console measurement.
@@ -492,7 +500,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Проверить Actions нового RU /ru/ homepage H1/Title/canonical, main hero link /ru/uslugi/, visible genuine offers, no gray behaviors or backlinks claims, VPS affiliate preserved. Далее отдельной правкой аналогично ES /es/ homepage под архитектуру /es/servicios/ с корректной подписью и ссылками; после обеих проверить shared layouts homepage gray fallback text, EN FAQ, context-aware affiliate and strict site gate. GSC, SERP top10, visual QA remain pending. Server/main untouched.
+Проверить CI ES homepage /es/ после смены hero /es/servicios/, H1 и удаления manipulative copy без изменения прозрачной VPS партнёрки. Затем заняться английской FAQ старой формулировкой, исправить shared homepage defaults чтобы исключить регрессию, проверить весь static build и affiliate context по allowed links, а не blanket ban /go/vdsina/. Потом строгий site gate, GSC, реальный SERP и 390/1280 visual QA. Main/server untouched.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 
