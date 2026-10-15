@@ -11,3 +11,4 @@
 /ru/soft/
 /ru/konstruktor-seo-strategii/
 /es/constructor-estrategias-seo/
+/uslugi-linkbildinga/tier-1-2-3/

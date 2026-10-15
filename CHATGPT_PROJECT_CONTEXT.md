@@ -52,6 +52,13 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — RU Tier 1–2–3 removed from Hugo candidate and service cards
+- Previous commit f8c1985c: Hugo rebuild + RU/ES CTA and retired URLs #38787065170 PASS; context guard #38787065220 PASS. Baseline diagnostic had 151 issues across 30/55 HTML files, RELEASE READINESS BLOCKED.
+- Source content/services/tier-1-2-3/index.ru.md: draft:false → true for /uslugi-linkbildinga/tier-1-2-3/. Removed exactly two referring builder blocks (image + button) from content/services/_index.ru.md, without editing the remaining catalog cards.
+- Added /uslugi-linkbildinga/tier-1-2-3/ to docs/retired-routes-en.txt. The blocking verify_retired_routes.py tests generated HTML pages, links and sitemap. Research and migration rationale in docs/research/2026-10-15-ru-tier-retirement.md. Existing pricing or Tier-network SEO copy is not repurposed.
+- No new white SEO service pretended to fulfil the old tier package. Future 410 candidate remains only a migration plan pending GSC/live/backlink audit. /go/vdsina/ partner redirect and other related, genuinely contextual placements kept; links inside retired gray page vanish as that page is unpublished.
+- This commit's CI is pending; next is confirm both checks and fix any remaining references before proceeding to ES Tier. Main/server/Pages unchanged; strict sitewide gate remains BLOCKED.
+
 ### 2026-10-15 — ES legacy SEO Strategy Builder retired; homepage entry points corrected
 - Предыдущий RU step commit 0426a46e: GitHub Actions Hugo+retired-route+RU hero validation #38786675935 PASS, project context #38786676085 PASS. Было 152 находки в 31 из 56 HTML; strict release gate BLOCKED.
 - content/strategy-builder/index.es.md: draft:true; /es/constructor-estrategias-seo/ перестаёт генерироваться обычным Hugo. Старый контент сочетал link-building tactics и контролируемый рост позиций, поэтому не подходит для новой белой SEO-компании.
@@ -301,7 +308,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Проверить GitHub Actions после отключения /es/constructor-estrategias-seo/; при PASS переходить к отдельной оценке RU /uslugi-linkbildinga/tier-1-2-3/ и ES /servicios-de-link-building/tier-1-2-3/ без подмены коммерческого интента. При снятии каждой страницы: draft + retired route + фиксация входящих ссылок, QA и запись в этот файл. Сохранить реальную партнёрку /go/vdsina/ только в уместном контексте. Main/production не трогать.
+Проверить Actions для отключённого RU Tier 1–2–3 URL и удалённой карточки из каталога. При PASS — отдельным коммитом убрать ES /servicios-de-link-building/tier-1-2-3/ и его два блока-карточки в ES каталоге, вместе с retired manifest, исследованием и журналом. Потом RU/ES satellites отдельно. Main/production не менять.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 
