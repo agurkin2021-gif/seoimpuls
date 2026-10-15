@@ -52,6 +52,15 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — Clean EN /services/ catalog and resolve keyword breadcrumb
+- Предыдущий QA #38771883235: Hugo build PASS, SEO проверка keyword research FAIL из-за видимой надписи «Link Building Services». Причина: breadcrumb наследовал старый Title раздела services. Контекст guard #38771883177 PASS.
+- Переделан content/services/_index.md: URL /services/, Title/H1 «SEO Services & Practical Deliverables», две реально легитимные услуги (technical SEO и keyword research), без backlink/DR/tier/satellites и негативных старых карточек.
+- Изменено меню EN в hugo.toml: Services → /services/, Technical SEO → /seo/. Другие языки ещё в оригинальном состоянии.
+- Добавлено исследование разделения запросов и архитектуры docs/research/2026-10-15-en-services-catalog-intent.md. Новый каталог намеренно навигационный, не дублирует подробную /seo/.
+- QA workflow расширен на /services/ H1/canonical и проверку чистого breadcrumb у keyword research; новый запуск требуется подтвердить.
+- Старый /link-building-services/ не перенаправляли: 301 в данном случае может быть нерелевантен, решение после GSC. Production не изменён.
+- Следующее: проверить CI, далее SEO Consultation EN /services/seo-consultation/ и после этого добавить её в каталог с контекстом.
+
 ### 2026-10-15 — EN keyword research genuine SEO service page
 - Ветка white-seo-rebuild. Страницы / и /seo/ ранее успешно прошли GitHub Actions, без деплоя.
 - Переработан content/services/keyword-research/index.md: H1/Title Keyword Research & Search Intent Mapping; новый URL /services/keyword-research/, от старого /link-building-services/keyword-research/ нужен будущий релевантный 301 при отдельном разрешении.
@@ -123,7 +132,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Проверить GitHub Actions после EN keyword research; затем создать чистый EN /services/ directory и переработать EN SEO consultation на /services/seo-consultation/; проверить UX, старые ссылки и только после полноценной локализации одобрять 301/410 и продакшен. Вся работа только в white-seo-rebuild с записью в контекст в каждом коммите.
+Проверить новый rebuild-qa с правильным EN /services/ и Keyword Research breadcrumb. После PASS перейти к SEO Consultation EN /services/seo-consultation/ на основе проверенных реальных условий, обновить каталог; затем другие законные страницы. Не включать Pages и не трогать сервер. Каждый коммит включает этот контекст.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 

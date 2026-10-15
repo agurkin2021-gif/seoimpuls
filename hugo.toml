@@ -156,13 +156,13 @@ defaultContentLanguageInSubdir = false
       weight = 1
 
     [[languages.en.menu.main]]
-      name = "SEO Services"
-      url = "/seo/"
+      name = "Services"
+      url = "/services/"
       weight = 3
 
     [[languages.en.menu.main]]
-      name = "How We Work"
-      url = "/#how-it-works"
+      name = "Technical SEO"
+      url = "/seo/"
       weight = 5
 
     [[languages.en.menu.main]]

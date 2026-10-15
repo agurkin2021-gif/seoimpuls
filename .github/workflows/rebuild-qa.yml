@@ -87,6 +87,21 @@ jobs:
           for forbidden in ('tier 1-2-3','link building services','mass backlinks','domain rating increase','xrumer'):
               if forbidden in kw_txt:raise SystemExit('Legacy keyword research term: '+forbidden)
           print('PASS: EN keyword research new URL, H1, canonical, sections and clean copy.')
+          hub=Page()
+          hub.feed(Path('public/services/index.html').read_text(encoding='utf-8'))
+          if ''.join(hub.h1).strip()!='SEO Services & Practical Deliverables':
+              raise SystemExit('Unexpected /services/ H1: '+str(hub.h1))
+          if hub.canonical!=['https://seoimpuls.com/services/']:
+              raise SystemExit('Unexpected /services/ canonical: '+str(hub.canonical))
+          hub_text=' '.join(' '.join(hub.visible).split()).lower()
+          for old in ('link building services','domain rating','mass backlinks','tier 1-2-3','microsite development'):
+              if old in hub_text:raise SystemExit('Old service catalog term visible: '+old)
+          if '/seo/' not in hub.links or '/services/keyword-research/' not in hub.links:
+              raise SystemExit('Missing current SEO services in catalog')
+          if 'link building services' in kw_txt:
+              raise SystemExit('Outdated breadcrumb remains on keyword research page')
+          print('PASS: /services/ catalog, canonical, H1, valid service links, keyword breadcrumb.')
+
 
 
           print('PASS: Hugo outputs EN, RU, ES, sitemap; clean EN homepage H1/links/content/canonical.')
