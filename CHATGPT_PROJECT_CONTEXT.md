@@ -52,6 +52,15 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — EN FAQ rewritten for buyer questions, trust and accuracy
+- Previous About QA #38773315827 PASS, context guard #38773315866 PASS. Server untouched.
+- Rewritten content/faq/index.md: preserved /faq/, unique Title/H1 «SEO Services FAQ» and meta; 13 real service questions including audit vs keyword research, GSC, migration, measured outcomes, timelines, scope and languages.
+- Removed unsupported expectations for quick rankings; added direct internal links to legitimate white SEO pages and contacts.
+- Added docs/research/2026-10-15-en-faq-intent.md: FAQ is a brand/support page, does not cannibalize specific commercial SEO pages, no fake SERP rank claim.
+- Extended .github/workflows/rebuild-qa.yml with FAQ content/links/canonical/H1 checks; need confirm new Actions result.
+- EN source areas still contain gray legacy pages and strategy builder; RU/ES not rebuilt; working branch not ready to publish.
+- Next: sitewide risk inventory of legacy EN/RU/ES URLs, templates and visible navigation; resolve gray service pages as retired or draft in working branch after recording candidate mapping.
+
 ### 2026-10-15 — EN About SEOImpuls authenticity and trust rewrite
 - Working branch white-seo-rebuild; consultation QA #38772846555 PASS, context guard #38772846622 PASS.
 - Reworked content/about/index.md: About SEOImpuls H1, factual methods, boundaries, technical SEO, keyword research, content, consultation, evidence standards and contact.
@@ -150,7 +159,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Проверить rebuild-qa для EN About; затем переписать EN FAQ (реальные вопросы, подтверждённые условия, без гарантированных позиций). После этого аудит страниц старых услуг, редактора SEO Strategy Builder и ссылок во всех языках. Действующий сервер не трогать. Каждый коммит включает обновление CHATGPT_PROJECT_CONTEXT.md.
+Проверить QA FAQ. Затем подготовить подробный audit leftover gray service URLs, link building and strategy-builder/soft pages across EN/RU/ES; stage removal only on white-seo-rebuild and no production deployment. Maintain GSC/redirect caveats and each-commit context rule.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 

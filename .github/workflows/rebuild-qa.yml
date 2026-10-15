@@ -131,6 +131,21 @@ jobs:
           for anchor in ('approach','services','accountability','trust','contact'):
               if anchor not in about.ids:raise SystemExit('Missing About section: '+anchor)
           print('PASS: About SEOImpuls contains transparent approach, service links, no legacy statistics.')
+          faq=Page()
+          faq.feed(Path('public/faq/index.html').read_text(encoding='utf-8'))
+          if ''.join(faq.h1).strip()!='SEO Services FAQ':
+              raise SystemExit('Unexpected FAQ H1: '+str(faq.h1))
+          if faq.canonical!=['https://seoimpuls.com/faq/']:
+              raise SystemExit('Unexpected FAQ canonical: '+str(faq.canonical))
+          faq_txt=' '.join(' '.join(faq.visible).split()).lower()
+          for essential in ('keyword research differ','how quickly','multilingual websites','google search console','how is progress measured'):
+              if essential not in faq_txt:raise SystemExit('Missing FAQ coverage: '+essential)
+          for forbidden in ('link building services','domain rating increase','xrumer','gsa ser','rankings in a guaranteed timeframe'):
+              if forbidden in faq_txt:raise SystemExit('Legacy or unsupported FAQ claim: '+forbidden)
+          for service_url in ('/seo/','/services/','/services/keyword-research/','/services/seo-consultation/'):
+              if service_url not in faq.links:raise SystemExit('Missing FAQ service link: '+service_url)
+          print('PASS: EN FAQ H1, canonical, helpful answers and internal service links.')
+
 
 
 
