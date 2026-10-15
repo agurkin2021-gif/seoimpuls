@@ -9,3 +9,4 @@
 /seo-strategy-builder/
 /soft/
 /ru/soft/
+/ru/konstruktor-seo-strategii/

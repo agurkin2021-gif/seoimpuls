@@ -52,6 +52,15 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — RU legacy SEO Strategy Builder retired; homepage entry points corrected
+- Предыдущий коммит e493ca97: GitHub Actions Hugo #38784891265 PASS, project context #38784891338 PASS. ES VPS CTA с корректным affiliate disclosure сохранена. Для всей сборки ранее 154 замечания; strict release gate не пройден.
+- content/strategy-builder/index.ru.md для /ru/konstruktor-seo-strategii/: draft=false → true. Устаревший конструктор продвигал линкбилдинг/схемы; не подменяем его новой услугой с тем же URL.
+- content/_index.ru.md: heroBuilderUrl → /ru/seo/, heroCasesUrl → /ru/about/, offerItem8 больше не направляет на старый инструмент. Это корректировка навигации, не полный SERP/контент-аудит RU главной; остальные старые коммерческие фрагменты пока остаются.
+- layouts/index.html: тексты RU CTA согласованы с целями («SEO-услуги» и «О компании»); fallback для RU и EN уже снятых конструкторов не создаёт ссылки на /ru/konstruktor-seo-strategii/ и /seo-strategy-builder/. ES CTA/fallback на существующий ES конструктор пока не изменён, он следующий по очереди.
+- docs/retired-routes-en.txt: добавлен /ru/konstruktor-seo-strategii/. .github/workflows/rebuild-qa.yml проверяет отсутствие HTML и ссылки, наличие целевых RU SEO/About страниц и правильную подпись CTA. docs/research/2026-10-15-ru-builder-retirement.md — миграционная оценка.
+- GitHub Actions нового коммита необходимо подтвердить: при остаточной ссылке из шаблона/контента блокирующая проверка должна упасть. Никаких 301/410 на сервере; исходный main сохранён. Strict whitehat gate всё ещё BLOCKED. SERP_VERIFIED/visual QA для RU не проводились.
+- Следующее действие: проверить CI и при необходимости устранить конкретные старые ссылки; затем отдельным коммитом отключить ES SEO Strategy Builder и исправить ES главную. После этого пройти RU/ES Tier и сателлиты постранично.
+
 ### 2026-10-15 — ES homepage: честная маркировка VPS-партнёрки
 - Предыдущий RU homepage commit e8a32067: GitHub Actions Hugo build, RU generated copy guard и context guard PASS.
 - В content/_index.es.md (homeJson) старый текст Hosting de red privada заменён на размещение сайтов/приложений, к VPS-карточке добавлено «enlace de afiliado». offerItem6 получил одну тематическую партнёрскую CTA и уточнение, что VPS не гарантирует индексацию/позиции Google.
@@ -284,7 +293,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Проверить CI и партнёрский инвентарь после ES homepage. Затем постранично выводить из кандидатной сборки устаревшие RU/ES стратегии со ссылочным спамом, Tier и сети сателлитов, сохраняя истинно тематические партнёрские ссылки только на релевантных публичных страницах. Main/production без изменений. Релиз пока BLOCKED.
+Проверить GitHub Actions после отключения /ru/konstruktor-seo-strategii/, исправления RU hero CTA и EN/RU fallback. Если успешны — следующим ограниченным коммитом отключить ES /es/constructor-estrategias-seo/, заменить CTA испанской главной на существующие честно подписанные ES SEO/About страницы, записать URL в retired manifest. Затем Tier и сателлиты по одному. Main/сервер/Pages не трогать; релизный gate BLOCKED.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 
