@@ -379,6 +379,10 @@
 .seo-central--en .seo-card-head {align-items:center;margin-bottom:8px;}
 .seo-central--en .seo-card-title {font-size:17px;line-height:1.3;}
 .seo-central--en .seo-card-list li {font-size:14px;line-height:1.46;margin-bottom:7px;}
+/* First-hand commercial answer: one EN-only paragraph, not an agency claim. */
+.seo-central--en .seo-en-home-definition {max-width:1280px;margin:22px auto 0;padding:17px 32px 8px;}
+.seo-central--en .seo-en-home-definition h2 {margin:0 0 10px;color:#dfe6f6;font-size:22px;line-height:1.32;}
+.seo-central--en .seo-en-home-definition p {max-width:1000px;margin:0;color:rgba(214,224,240,.9);font-size:15px;line-height:1.65;}
 .seo-central--en .seo-static-offer {padding:23px 32px 16px;}
 .seo-central--en .seo-static-offer__intro {max-width:930px;margin:0 0 18px;color:rgba(214,224,240,.86);font-size:15px;line-height:1.62;}
 .seo-central--en .seo-static-offer__list {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:stretch;}
@@ -417,6 +421,7 @@
   .seo-central--en .seo-news-article__body ol {grid-template-columns:1fr;}
   .seo-central--en .seo-news-article__body ol li {padding:13px 13px 13px 47px;}
   .seo-central--en .seo-news-article__body ol li::before {top:12px;}
+  .seo-central--en .seo-en-home-definition {padding:17px 18px 5px;margin-top:2px;}
   .seo-central--en .seo-static-offer {padding:18px;}
   .seo-central--en .seo-static-offer__list {grid-template-columns:1fr;}
   .seo-central--en .seo-static-offer__list li {padding:15px 16px;}
@@ -566,6 +571,12 @@
         </aside>
       </div>
     </section>
+    {{ if eq $lang "en" }}
+    <section class="seo-en-home-definition" aria-labelledby="seo-en-professional-definition">
+      <h2 id="seo-en-professional-definition">What Are Professional SEO Services?</h2>
+      <p>Professional SEO services help businesses make important pages easier to crawl, understand and match with relevant searches. SEOImpuls provides specialist SEO work, not a general marketing agency package. Depending on the website, this can involve technical audits, on-page recommendations, keyword and search-intent mapping, content planning and validation. Specific tasks and implementation responsibilities are agreed before work begins; rankings are not guaranteed.</p>
+    </section>
+    {{ end }}
     <section class="seo-static-offer" aria-label="{{ if $isRU }}Статическое предложение{{ else if $isES }}Oferta estática{{ else }}Static offer{{ end }}">
       <h2 class="seo-static-offer__title" data-home-field="offerTitle">{{ partial "home-inline.html" $homeOfferTitle }}</h2>
       {{ if eq $lang "en" }}<p class="seo-static-offer__intro">We select the work that fits your website and goals. The agreed scope determines which services and deliverables are included.</p>{{ end }}

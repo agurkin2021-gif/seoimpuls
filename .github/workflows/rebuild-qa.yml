@@ -721,6 +721,11 @@ jobs:
                            'share your website, target market',
                            'agree the scope and deliverables before starting'):
               if fragment not in visible:raise SystemExit('EN contact CTA copy missing '+fragment)
+          for fragment in ('what are professional seo services?',
+                           'seoimpuls provides specialist seo work',
+                           'not a general marketing agency package',
+                           'implementation responsibilities are agreed'):
+              if fragment not in visible:raise SystemExit('EN buyer-intent definition missing '+fragment)
           if '/go/vdsina/' in page.links:raise SystemExit('Unrelated hosting affiliate remains')
           if 'how-it-works' not in page.ids:raise SystemExit('SEO process anchor missing: '+str(page.ids[:40]))
           if page.canonical!=['https://seoimpuls.com/']:raise SystemExit('Unexpected canonical: '+str(page.canonical))

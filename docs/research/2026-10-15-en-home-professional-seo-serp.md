@@ -59,3 +59,6 @@
 - Source: direct Google Web view through connected Opera on 2026-10-15; ten destination pages opened and headings inspected; official guidance https://developers.google.com/search/docs/fundamentals/seo-starter-guide and https://developers.google.com/search/docs/fundamentals/creating-helpful-content.
 - **SERP_SNAPSHOT_VERIFIED, GEO_PHYSICAL_UNVERIFIED, GSC_PENDING, ORGANIC_KD_UNVERIFIED.** No assertion that this is exact US resident Google ranking or globally stable top10.
 - Next: implement EN-only factual gaps with per-commit QA, published Preview review. No production deploy and no other locale changes.
+
+## Implementation log: gap 1 — definition (2026-10-15)
+- English homepage received EN-only H2 "What Are Professional SEO Services?" with a concise direct answer, specialist not agency stance and explicit scope/implementation limitations. No made-up staff/cases or rankings. Source: layouts/index.html. CI and rendered Preview pending.

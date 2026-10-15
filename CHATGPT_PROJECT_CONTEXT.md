@@ -60,6 +60,13 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — EN homepage SERP gap 1: clear professional SEO service definition
+- SERP evidence documented in `docs/research/2026-10-15-en-home-professional-seo-serp.md` (direct Google Web top10 with gl=us; physical geolocation unverified): buyer intent requires a clear direct explanation of what professional SEO services mean, distinct from the agency promises in many results.
+- Added EN-only H2 "What Are Professional SEO Services?" and ~75-word people-first response before detailed EN service areas in `layouts/index.html`. Accurate provider stance: SEO specialists, not a general agency; technical/on-page/keyword/content possibilities depend on the site; scope and implementation responsibility are agreed, rankings not guaranteed.
+- EN-only scoped CSS for desktop/mobile. No H1, title, URL, footer, other EN supporting page, RU/ES or production changes.
+- Added blocking generated-HTML QA for answer/agency distinction, updated research. CI/Preview for this commit pending; next step verify then address buyer service-choice gap separately.
+
+
 ### 2026-10-15 — Parameterized Google top-10 and EN-home intent gap map recorded
 - Direct Opera Google Web SERP on 2026-10-15 for `professional seo services`, `hl=en&gl=us&pws=0&udm=14&num=10`: 10 organic results resolved to final URLs, no sponsored entries included. Google browser could not determine physical location — US IP/location NOT VERIFIED. First 10: Coalition SEO, Clutch, Netlynx, Semrush directory, Coalition homepage, Blue Media, Thrive, RevenueBase, Bark, Americaneagle. Two Coalition URLs, three directories, one local marketplace; buyer-selection/commercial intent.
 - Analyzed page headings plus adjacent `seo services`, `technical seo services` and `keyword research services` SERPs; home owns provider-selection, supporting URLs own specialist detail. Content gaps: direct explanation, service-choice pathways, price/timing expectations, verification/accountability. Proof, price tables, testimonials and credentials need owner-supplied evidence — do not invent. No automated SEO KD/US-only demand inferred from Ads competition.
