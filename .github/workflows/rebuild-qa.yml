@@ -715,6 +715,10 @@ jobs:
           for fragment in ('what you receive','prioritized seo findings','keyword-to-page map',
                            'verification plan','depending on the agreed work'):
               if fragment not in visible:raise SystemExit('EN deliverables block missing '+fragment)
+          for fragment in ('discuss your website’s seo priorities',
+                           'share your website, target market',
+                           'agree the scope and deliverables before starting'):
+              if fragment not in visible:raise SystemExit('EN contact CTA copy missing '+fragment)
           if '/go/vdsina/' in page.links:raise SystemExit('Unrelated hosting affiliate remains')
           if 'how-it-works' not in page.ids:raise SystemExit('SEO process anchor missing: '+str(page.ids[:40]))
           if page.canonical!=['https://seoimpuls.com/']:raise SystemExit('Unexpected canonical: '+str(page.canonical))

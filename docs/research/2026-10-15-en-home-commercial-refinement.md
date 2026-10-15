@@ -39,3 +39,7 @@ CI-generated HTML: one H1, correct canonical, all four paths, no broken anchor a
 - Added EN-only `What You Receive` with three typical scoped outputs: prioritized SEO findings, keyword-to-page mapping and verification plan. These are examples contingent on what the client commissions, not fixed universal package promises.
 - Scoped responsive layout and EN-only QA assertions; no changes to supporting pages or RU/ES.
 - Previous service cards verified on published Preview (Pages #15 and rebuild #74 PASS). New deliverables deployment and mobile screenshot check pending.
+
+## EN final contact CTA — 2026-10-15
+- Renamed bottom CTA heading to `Discuss Your Website’s SEO Priorities` and added buyer instructions to share site, market and SEO problems. This explains the engagement boundary before any work without guarantees.
+- Telegram and SEO consultation URLs unchanged; visual and Pages QA for this last CTA edit pending.

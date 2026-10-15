@@ -60,6 +60,13 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — EN homepage buyer CTA clarified and commercial blocks completed
+- Previous deliverables commit e6623ae1: Pages workflow #16 and Hugo rebuild QA #75 both PASS; Opera confirmed "What You Receive" and all three scoped outcomes on live Preview.
+- Edited ONLY EN conditional CTA section in layouts/index.html. H2 now "Discuss Your Website’s SEO Priorities"; new paragraph explains what information the visitor should share (website, target market, current SEO problem) and the next step (discuss scope and deliverables) without promising positions. Retained Telegram and SEO consultation links.
+- Updated blocking EN QA assertion; no edits to H1, meta, other EN pages, RU/ES, main or production.
+- Next after this commit: verify Pages/Hugo and live English CTA/links in Opera. Then review EN-home overall layout at 390px/1280px, structured data, image assets, accessibility and SERP/GSC, which remain unverified until tested.
+
+
 ### 2026-10-15 — EN homepage outcomes distinguished from service areas
 - Previous service areas commit 6dca9e29 verified in GitHub: Pages workflow #15 PASS, rebuild QA #74 PASS. Opera confirmed EN services heading, coverage text and visible scope qualification in live Preview.
 - Added an English-only responsive "What You Receive" section in layouts/index.html after service coverage. Three *conditional* examples: Prioritized SEO Findings, Keyword-to-Page Map, Verification Plan. They describe outputs supported by existing English SEO/keyword/consultation pages, not guaranteed universal package contents.
@@ -651,15 +658,22 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Текущий этап: английская главная `/`, визуал и первичный коммерческий интент отредактированы на рабочей ветке `white-seo-rebuild` двумя последовательными коммитами: c8631964 (EN первый экран и футер) и f747c9dc (H1/meta, маршруты услуг и CTA). Опубликованный Preview: https://agurkin2021-gif.github.io/seoimpuls/. Это предпросмотр, НЕ production.
+Приоритет владельца: **только английская главная `/`**. Действующая ветка `white-seo-rebuild`, Preview: https://agurkin2021-gif.github.io/seoimpuls/. `main` не менять, `seoimpuls.com` production не публиковать, RU/ES и другие EN страницы не редактировать.
 
-Далее в точной очередности:
-1. Проверить GitHub Actions для последнего коммита: Hugo build, строгий white-hat gate, context-guard и Pages deployment. При красном статусе исправлять конкретную ошибку; не объявлять сборку успешной на основании одного исходника.
-2. В живом Preview проверить на 390 и 1280 px: H1, картинку/логотип, две SVG-карточки, 3 этапа процесса, нормальный футер (WA/TG/email, без ложной карты и общих социальных ссылок), кнопку /services/, вторую карточку /services/keyword-research/, консультацию и Telegram.
-3. После успешного технического QA выполнить для EN главной фиксированный Google SERP top-10 по выбранной стране и устройству, проверить Google Search Console и реальный спрос. До этого статус SERP_UNVERIFIED/GSC_PENDING, не утверждать итоговую оптимальность Title/H1.
-4. Финальный EN-home check: один H1, self canonical для seoimpuls.com, корректные meta/hreflang/JSON-LD, все ссылки и кнопки, отсутствие нерелевантной партнёрки, UX/доступность/performance. Записать вердикт и остаточные проблемы.
+Серия EN главной на 2026-10-15:
+1. H1 `Professional SEO Services` принят владельцем, опубликован и проверен в Opera (commit 2398c4c4).
+2. Ошибочные пути ссылок Preview устранены (637d914c), Hugo и Pages PASS.
+3. Подзаголовок очищен от неподтверждённых claims (439eae23); Opera/Hugo/Pages PASS.
+4. Восемь услуг оформлены как EN-only responsive scope cards (6dca9e29); Opera/Hugo/Pages PASS.
+5. EN-only "What You Receive" с условными outputs: SEO findings, keyword-to-page map, verification plan (e6623ae1); Opera/Hugo/Pages PASS.
+6. Последний CTA уточнён — требуется проверить результат нового коммита.
 
-**ЖЁСТКОЕ ОГРАНИЧЕНИЕ:** только EN главная, не переделывать остальные EN страницы и не редактировать RU/ES. `main` — исходная версия. GitHub Pages Preview разрешён, публикация на seoimpuls.com не разрешена.
+**Следующее действие строго по порядку:**
+- Проверить последний GitHub Actions rebuild/Pages и открыть свежий Preview в Opera; проверить заголовок CTA, подзаголовок, обе кнопки и ссылки.
+- Визуальный QA на ширинах 390 и 1280 px; проверить отсутствие горизонтального overflow, корректность SVG/logo, cookie notice, контраст, мобильное меню, доступность фокуса.
+- Проверить generated EN HTML: один H1, Title/meta, self canonical для production URL, hreflang reciprocity, JSON-LD, все EN ссылки, скорость, noindex только у Preview.
+- Точный целевой рынок и geo/device Google SERP top-10 + GSC пока отсутствуют: `SERP_UNVERIFIED`, `GSC_PENDING`. Не заявлять окончательный SEO-оптимум до проверки.
+- Перед каждой новой правкой и в том же коммите актуализировать контекст, не редактировать другие локали.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 
