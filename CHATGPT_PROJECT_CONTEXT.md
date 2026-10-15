@@ -52,6 +52,13 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — RU About revised to verifiable white-hat agency scope
+- Previous ES soft commit ce3b3b1a: Hugo #38797895399 PASS and context #38797895380 PASS. /es/soft/ draft, fallback card2 no longer uses /es/soft/; 30 retired URLs / 44 HTML, 13 diagnostic findings in 10 files, RELEASE BLOCKED.
+- Replaced content/about/index.ru.md with new H1 «О SEOImpuls», clear description and six structured blocks: practical approach, real service scope, transparent deliverables, historical Kwork evidence caveat, localized service CTAs and contact. Old link-selling pitch and unverified 2900+/1690+/5.0/69% aggregates removed from the new page. Associated historical Kwork URL retained as reference, NOT proof of white SEO service results.
+- No fabricated business milestones, employees or guaranteed rankings. docs/research/2026-10-15-ru-about-review.md explains what was removed and evidence limitations. .github/workflows/rebuild-qa.yml tests RU About canonical/H1, EN/ES alternate, real service links and no legacy statistics.
+- CI for this commit PENDING; full RU/ES localization, visual QA, GSC and live redirect work still incomplete. Main, production, Pages and partner route unchanged.
+- Next: after CI, separately rewrite ES /es/about/ to the same honest scope, preserving ES natural phrasing. Then RU/ES technical SEO and homepages one at a time; EN FAQ after.
+
 ### 2026-10-15 — Empty ES /soft/ disabled and homepage fallbacks hardened
 - Previous RU/ES catalog commit 6423127c: Hugo build #38797215145 PASS, context #38797215007 PASS. RU & ES each have 4 service cards including legitimate independently scoped website development, 29 retired URLs across 45 HTML, 15 audit findings/11 affected pages, RELEASE BLOCKED. EN remains 3 cards.
 - content/soft/index.es.md: draft:true; /es/soft/ content had only an empty builder block and no useful SEO software; old URL added to docs/retired-routes-en.txt. Original remains in main, no server 410/redirect to affiliate.
@@ -456,7 +463,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Проверить GitHub Actions после ES /es/soft/ draft и удаления скрытого software fallback в homepage template. Убедиться, что EN/RU/ES card2 с существующим URL остаются рабочими, а старые URL не в sitemap/HTML. Следующий пошаговый этап — RU About, ES About, RU/ES SEO и главные по одной странице. Затем EN FAQ и контекстный affiliate gate без blanket removal /go/vdsina/. Release и GSC/visual QA всё ещё BLOCKED. Main/сервер не трогать.
+Проверить GitHub Actions RU About /ru/about/ после удаления старых неподтверждённых чисел; проверить canonical, RU↔EN↔ES hreflang и пути /ru/uslugi/, /ru/seo/. Если PASS — переписать ES /es/about/ без выдуманных кейсов и старой линк-продажи, отдельным коммитом с контекстом. Далее SEO RU/ES и homepage RU/ES, FAQ EN, contextual affiliate gate, GSC/visual QA. Server/main неизменны.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 
