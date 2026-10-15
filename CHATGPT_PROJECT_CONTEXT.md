@@ -52,6 +52,13 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — RU/ES catalogs include independent website development service
+- Previous ES dev commit 4cbbe2d1: Hugo #38796764348 PASS, context #38796764349 PASS, 29 retired routes, 45 generated HTML, 15 diagnostics/11 files; RU/ES H1, canonical, mutual hreflang, relevant links and sponsored affiliate labels passed. No live deploy; new site-dev offer needs current business/pricing confirmation before production.
+- Added a fourth honest card to content/services/_index.ru.md at /ru/uslugi/razrabotka-saitov/ and content/services/_index.es.md at /es/servicios/desarrollo-web/. Source images reused; old 3 SEO service cards not moved. Added content explanation distinguishing site development from audits, keyword research and consultation. EN catalog remains 3 while EN web dev translation is draft.
+- Updated .github/workflows/rebuild-qa.yml strict RU and ES service-catalog checks to 4 exact expected cards and continued reciprocal EN/RU/ES hreflang for existing translated SEO services. Rationale docs/research/2026-10-15-ru-es-catalog-website-development.md.
+- CI for current commit PENDING; correct any card pairing or link issues before moving on. Old web-development pages remain retired only in rebuilt Hugo, not live; all 301/410 decisions pending GSC. Full release remains BLOCKED.
+- Next: remove /es/soft/ empty service from candidate and check no incoming links; then clean RU/ES About and SEO overview/Home and FAQ. Preserve explicit /go/vdsina/ affiliate redirect without misleading automatic /soft/ rewrites.
+
 ### 2026-10-15 — ES website development migrated from satellite mixed offer
 - Previous RU website-development commit e82b4843: Hugo build #38796288559 PASS and context guard #38796289464 PASS. Retired routes 28, 45 generated HTML, 17 diagnostic findings in 11 pages, RELEASE BLOCKED. New RU /ru/uslugi/razrabotka-saitov/ canonical, related SEO links and properly disclosed optional VPS affiliate checked.
 - Replaced content/services/website-creation/index.es.md with legitimate scoped web-development page at /es/servicios/desarrollo-web/ (H1 «Desarrollo web a medida para empresas»). Removed satellite/ranking claims and made pricing of US$75/$16 historical and subject to confirmation. Existing translationKey services-website-creation retained, with ES and RU as available variants; EN version remains draft.
@@ -441,7 +448,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Проверить Actions по ES /es/servicios/desarrollo-web/: H1/canonical, ES↔RU hreflang, отсутствие старого /servicios-de-link-building/creacion-de-sitios-web/, тематическая партнёрская VPS-ссылка. После PASS проверить текущую достоверность предложения и при необходимости добавить легитимную веб-разработку четвёртой карточкой в RU/ES SEO catalogs, обновив все QA. Затем /es/soft/ и остальные RU/ES тексты; без изменений main/server.
+Проверить GitHub Actions для четвёртой карточки RU/ES веб-разработки: оба каталога ровно 4 карточки с проверенными URL, valid H1/canonical, без серых терминов. Затем отдельно /es/soft/ — пустая страница/legacy anchor. Потом последовательно About RU/ES, SEO RU/ES, homepage RU/ES, EN FAQ. Никогда не удалять /go/vdsina/ автоматически; ссылки должны быть тематическими, обозначенными как sponsored. Main/live server/DNS/Pages без изменений.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 

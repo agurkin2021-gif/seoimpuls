@@ -242,15 +242,15 @@ jobs:
           assert ''.join(h.h1).strip()=='SEO-услуги для сайта',h.h1
           assert h.canon==['https://seoimpuls.com/ru/uslugi/'],h.canon
           assert h.lang.get('en-us')=='https://seoimpuls.com/services/',h.lang
-          valid={'/ru/seo/','/ru/uslugi/semanticheskoe-yadro/','/ru/uslugi/seo-konsultaciya/'}
-          assert len(h.cards)==3 and set(h.cards)==valid,h.cards
+          valid={'/ru/seo/','/ru/uslugi/semanticheskoe-yadro/','/ru/uslugi/seo-konsultaciya/','/ru/uslugi/razrabotka-saitov/'}
+          assert len(h.cards)==4 and set(h.cards)==valid,h.cards
           for path in valid:
               assert Path('public/'+path.lstrip('/')+'index.html').is_file(),path
           home=Page();home.feed(Path('public/ru/index.html').read_text(encoding='utf-8'))
           assert '/ru/uslugi/' in home.links,'RU homepage missing catalog link'
           assert '/ru/seo/' in home.links,'RU homepage missing technical SEO link'
           assert not Path('public/uslugi-linkbildinga/index.html').exists(),'Old gray hub generated'
-          print('PASS: RU catalog canonical, EN hreflang, 3 live cards, homepage/menu targets')
+          print('PASS: RU catalog canonical, EN hreflang, 4 live cards, homepage/menu targets')
           PY
       - name: Verify localized ES keyword research migration
         shell: bash
@@ -353,15 +353,15 @@ jobs:
                   assert p.alts.get('x-default')==expect['en-us'],(path,p.alts)
           hub=P();hub.feed(Path('public/es/servicios/index.html').read_text(encoding='utf-8'))
           assert ''.join(hub.h).strip()=='Servicios SEO para sitios web',hub.h
-          expected={'/es/seo/','/es/servicios/investigacion-palabras-clave/','/es/servicios/consultoria-seo/'}
-          assert len(hub.cards)==3 and set(hub.cards)==expected,hub.cards
+          expected={'/es/seo/','/es/servicios/investigacion-palabras-clave/','/es/servicios/consultoria-seo/','/es/servicios/desarrollo-web/'}
+          assert len(hub.cards)==4 and set(hub.cards)==expected,hub.cards
           for x in expected:
               assert Path('public/'+x.lstrip('/')+'index.html').is_file(),x
           home=P();home.feed(Path('public/es/index.html').read_text(encoding='utf-8'))
           assert '/es/servicios/' in home.links,'ES homepage service link missing'
           assert '/es/seo/' in home.links,'ES technical SEO link missing'
           assert not Path('public/servicios-de-link-building/index.html').exists(),'Old ES link-selling hub generated'
-          print('PASS: ES catalog, 3 cards, homepage/menu, three-way reciprocal hreflang')
+          print('PASS: ES catalog, 4 cards, homepage/menu, three-way reciprocal hreflang')
           PY
       - name: Verify RU website-development migration and transparency
         shell: bash
