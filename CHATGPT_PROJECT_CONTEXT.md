@@ -60,6 +60,13 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — Harden EN browser audit against screenshot hangs
+- Initial audit Chromium runner successfully installed browser and built Hugo but screenshot/diagnostic step took longer than expected.
+- Added per-stage logs, bounded 12-second screenshot timeouts and screenshot warnings, and blocked unnecessary external Google font loads in the ephemeral test browser. This changes only `scripts/audit_en_home_browser.cjs`, not live site or production.
+- New audit workflow auto-runs for this commit. Earlier run #38822048771 may overlap. Compare both if available; do not claim any 390/1280 result until summaries/screenshots are retrieved.
+- RU/ES, main and production untouched. Next: read new browser audit logs and artifacts.
+
+
 ### 2026-10-15 — Reproducible EN-home responsive browser audit added
 - User authorized detailed technical/visual audit of English homepage only; no RU/ES or other EN page modification.
 - Opera live Preview screenshot and accessibility tree verified visible H1, logo, SVG service images, 8 service areas, 3 deliverables, contacts, and internal paths. Desktop cookie consent banner covers part of the service cards before dismissal; expected overlay vs blocking UX needs viewport tests.

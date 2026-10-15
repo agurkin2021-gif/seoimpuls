@@ -15,7 +15,11 @@ fs.mkdirSync(OUT,{recursive:true});
     const page=await ctx.newPage(),jsErrors=[],networkFailures=[];
     page.on("pageerror",e=>jsErrors.push(String(e.message).slice(0,180)));
     page.on("requestfailed",r=>networkFailures.push({url:r.url(),failure:r.failure()?.errorText}));
-    const response=await page.goto(BASE,{waitUntil:"domcontentloaded",timeout:45000});
+    console.log("AUDIT_STAGE "+v+" browser opened");
+    await page.route("https://fonts.googleapis.com/**",route=>route.abort());
+    await page.route("https://fonts.gstatic.com/**",route=>route.abort());
+    const response=await page.goto(BASE,{waitUntil:"domcontentloaded",timeout:20000});
+    console.log("AUDIT_STAGE "+v+" DOM loaded");
     await page.waitForTimeout(1100);
     const dom=await page.evaluate(()=>{
       const readMeta=q=>document.querySelector(q)?.getAttribute("content")||"";
@@ -57,13 +61,17 @@ fs.mkdirSync(OUT,{recursive:true});
         images:imgs,links,anchors
       };
     });
-    await page.screenshot({path:path.join(OUT,v+"-initial.png"),fullPage:false});
+    console.log("AUDIT_STAGE "+v+" DOM metrics collected");
+    try{await page.screenshot({path:path.join(OUT,v+"-initial.png"),fullPage:false,timeout:12000,animations:"disabled"});}
+    catch(e){console.log("AUDIT_SCREENSHOT_WARN "+v+" initial "+e.message.slice(0,130));}
     let cookieDismissed=false;
     try{const reject=page.getByRole("button",{name:/Reject Non-Essential/i});
       if(await reject.count()){await reject.first().click({timeout:4000});cookieDismissed=true;}}
     catch(e){jsErrors.push("Cookie dismissal: "+e.message.slice(0,120));}
     await page.waitForTimeout(400);
-    await page.screenshot({path:path.join(OUT,v+"-full.png"),fullPage:true});
+    console.log("AUDIT_STAGE "+v+" cookie evaluated "+cookieDismissed);
+    try{await page.screenshot({path:path.join(OUT,v+"-full.png"),fullPage:true,timeout:12000,animations:"disabled"});}
+    catch(e){console.log("AUDIT_SCREENSHOT_WARN "+v+" full "+e.message.slice(0,130));}
     await page.evaluate(()=>window.scrollTo(0,Math.max(0,document.documentElement.scrollHeight/2)));
     await page.waitForTimeout(450);
     const scroll=await page.evaluate(()=>({
@@ -77,8 +85,11 @@ fs.mkdirSync(OUT,{recursive:true});
       footerPosition:getComputedStyle(document.querySelector(".custom-footer")).position,
       footerRect:Math.round(document.querySelector(".custom-footer").getBoundingClientRect().top)
     }));
-    await page.screenshot({path:path.join(OUT,v+"-scrolled.png"),fullPage:false});
+    console.log("AUDIT_STAGE "+v+" scroll and idle tested");
+    try{await page.screenshot({path:path.join(OUT,v+"-scrolled.png"),fullPage:false,timeout:12000,animations:"disabled"});}
+    catch(e){console.log("AUDIT_SCREENSHOT_WARN "+v+" scroll "+e.message.slice(0,130));}
     const internal=[...new Set(dom.links.map(x=>x.href.split("#")[0]).filter(x=>x.startsWith(BASE)))];
+    console.log("AUDIT_STAGE "+v+" checking "+internal.length+" internal paths");
     const brokenLinks=[];
     for(const href of internal){
       try{const r=await page.request.get(href,{timeout:12000});
@@ -88,6 +99,7 @@ fs.mkdirSync(OUT,{recursive:true});
     const metrics={width:v,httpStatus:response.status(),...dom,cookieDismissed,
       scroll,afterIdle:idle,jsErrors,networkFailures,brokenLinks};
     report.viewports.push(metrics);
+    console.log("AUDIT_STAGE "+v+" complete");
     console.log("HOME_QA_SUMMARY "+JSON.stringify({
       width:v,http:metrics.httpStatus,h1:dom.H1,canon:dom.canonical,title:dom.title,
       headings:dom.headings,overflow:dom.horizontalOverflow,scrollWidth:dom.scrollWidth,
