@@ -62,3 +62,7 @@
 
 ## Implementation log: gap 1 — definition (2026-10-15)
 - English homepage received EN-only H2 "What Are Professional SEO Services?" with a concise direct answer, specialist not agency stance and explicit scope/implementation limitations. No made-up staff/cases or rankings. Source: layouts/index.html. CI and rendered Preview pending.
+
+## Implementation log: gap 2 — service choice (2026-10-15)
+- Added EN-only `Which SEO Service Fits Your Website?` selector after deliverables, with 3 links: /seo/ (technical), /services/keyword-research/ (intent map), /services/seo-consultation/ (focused advice). Nothing new promised beyond existing English offerings.
+- Scoped grid at 3 columns / 1 mobile, descriptive link text and :focus-visible. CI/Preview pending for this commit.

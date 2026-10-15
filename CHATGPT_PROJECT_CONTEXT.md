@@ -60,6 +60,13 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — EN homepage SERP gap 2: route buyers to correct SEO work
+- Prior gap #1 commit c21cc128 (definition of professional SEO services) passed Hugo QA #85 and Pages #26; Opera confirmed specialist-not-agency wording.
+- Added EN-only `Which SEO Service Fits Your Website?` block with three truthful service entry points and links: technical SEO assessment (/seo/), keyword/intent mapping (/services/keyword-research/), and focused SEO consultation (/services/seo-consultation/). No retainer, industry specialization, performance guarantee or invented offer created.
+- Responsive three-column desktop and one-column mobile presentation, with direct descriptive anchor text and keyboard focus style. RU/ES and supporting EN pages left intact. No H1/meta/canonical changes.
+- Updated blocking EN HTML QA and gap audit. Current build/Preview needs verification; next step buyer price/timing expectations on EN homepage if these pass.
+
+
 ### 2026-10-15 — EN homepage SERP gap 1: clear professional SEO service definition
 - SERP evidence documented in `docs/research/2026-10-15-en-home-professional-seo-serp.md` (direct Google Web top10 with gl=us; physical geolocation unverified): buyer intent requires a clear direct explanation of what professional SEO services mean, distinct from the agency promises in many results.
 - Added EN-only H2 "What Are Professional SEO Services?" and ~75-word people-first response before detailed EN service areas in `layouts/index.html`. Accurate provider stance: SEO specialists, not a general agency; technical/on-page/keyword/content possibilities depend on the site; scope and implementation responsibility are agreed, rankings not guaranteed.

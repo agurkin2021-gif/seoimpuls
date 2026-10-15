@@ -726,6 +726,16 @@ jobs:
                            'not a general marketing agency package',
                            'implementation responsibilities are agreed'):
               if fragment not in visible:raise SystemExit('EN buyer-intent definition missing '+fragment)
+          for fragment in ('which seo service fits your website?',
+                           'start with the issue you need',
+                           'technical seo assessment',
+                           'keyword & intent mapping',
+                           'view seo consultation'):
+              if fragment not in visible:raise SystemExit('EN service choice missing '+fragment)
+          if 'seo-en-choose-title' not in page.ids:
+              raise SystemExit('EN service choice anchor missing')
+          if '/services/seo-consultation/' not in page.links:
+              raise SystemExit('EN consultation route missing')
           if '/go/vdsina/' in page.links:raise SystemExit('Unrelated hosting affiliate remains')
           if 'how-it-works' not in page.ids:raise SystemExit('SEO process anchor missing: '+str(page.ids[:40]))
           if page.canonical!=['https://seoimpuls.com/']:raise SystemExit('Unexpected canonical: '+str(page.canonical))
