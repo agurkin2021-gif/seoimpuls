@@ -667,8 +667,8 @@ jobs:
         run: python3 scripts/verify_contextual_affiliates.py
       - name: Report whole-site white-hat release blockers (diagnostic, never deploy)
         run: python3 scripts/whitehat_content_gate.py --site public --max-details 40
-      # The gate becomes strict during final release qualification:
-      # python3 scripts/whitehat_content_gate.py --site public --strict
+      - name: Enforce strict white-hat content and route gate
+        run: python3 scripts/whitehat_content_gate.py --site public --strict
       - name: Verify generated pages and EN homepage white-hat copy
         shell: bash
         run: |

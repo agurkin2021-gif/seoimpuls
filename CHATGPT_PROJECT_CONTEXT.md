@@ -52,6 +52,12 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — Strict white-hat content gate promoted to blocking CI
+- Previous affiliate verification commit e3b94255: GitHub Actions #38802644342 PASS, context #38802644970 PASS. Precisely 6 disclosed VPS affiliate links across 4 reviewed RU/ES pages passed contextual destination/rel checks; scan: 30 retired URLs, 44 HTML files, zero general gray-content or legacy-route findings.
+- .github/workflows/rebuild-qa.yml now runs scripts/whitehat_content_gate.py --site public --strict as a BLOCKING step after the contextual affiliate validation and diagnostic scan. The previous commented-out strict command is removed.
+- Sitewide machine QA is NOT proof of complete SERP, live redirects, rendering/accessibility or indexing. Real Google SERP country/device/date and Search Console, 390px/1280px browser screenshots, Core Web Vitals and live migration are still explicitly pending.
+- No live server, main, DNS or GitHub Pages changes. CI for THIS commit needs confirmation; then perform remaining template-fallback audit and external/browser/GSC review before release approval.
+
 ### 2026-10-15 — Context-aware affiliate checks replace blanket endpoint ban
 - EN FAQ wording update fa4c1eaa: pending/verified in Actions separately; source adjustment kept its migration guidance.
 - Confirmed actual previous rendered affiliate inventory: exactly 6 links across RU/ES homepages (2 each) and RU/ES clean web-development pages (1 each). All are explicitly labeled partner/affiliate and rel sponsored nofollow, but use /go/vdsina/ with data-seo-cloaked-href client interception. Original referral destination and noindex endpoint remain unchanged.
@@ -514,7 +520,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Проверить GitHub Actions после scripts/verify_contextual_affiliates.py и удаления blanket affiliate-ban из sitewide сканера. В случае PASS внимательно изучить оставшиеся gray findings, затем включить строгий gate и проверить default шаблона главной на устаревшие fallback слова. GSC, geo SERP top-10, 390/1280 visual QA и live migration останутся release blockers. Main/production без изменений.
+Проверить GitHub Actions после включения blocking strict whitehat gate. Затем углублённо проверить default/fallback тексты общего шаблона главной EN/RU/ES и другие скрытые URL/ссылки; исправить реальные дефекты без подмены контента. Далее обязательны SERP top-10 по гео, GSC, визуальный 390/1280 QA и корректная миграция на сервере только с отдельным разрешением владельца. Main/production неизменны.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 
