@@ -90,16 +90,14 @@
   {{- end -}}
   {{- end -}}
   {{- $buttonRankGroup := div (int $button.rank) 100 -}}
-  {{- $fallbackUrl := "" -}}
-  {{- if eq $buttonRankGroup 10 -}}{{- $fallbackUrl = cond (eq $lang "ru") "linkbilding/" (cond (eq $lang "es") "estrategia-de-link-building/" "link-building/") -}}{{- end -}}
-  {{- if eq $buttonRankGroup 20 -}}{{- $fallbackUrl = cond (eq $lang "ru") "obratnye-ssylki/" "backlinks/" -}}{{- end -}}
-  {{- if eq $buttonRankGroup 30 -}}{{- $fallbackUrl = cond (eq $lang "ru") "uvelechenie-domen-reytinga/" "domain-rating/" -}}{{- end -}}
-  {{- if eq $buttonRankGroup 60 -}}{{- $fallbackUrl = cond (eq $lang "ru") "sozdanie-satellitov/" (cond (eq $lang "es") "desarrollo-de-micrositio/" "microsite-development/") -}}{{- end -}}
-  {{- if eq $buttonRankGroup 70 -}}{{- $fallbackUrl = "tier-1-2-3/" -}}{{- end -}}
-  {{- if eq $buttonRankGroup 80 -}}{{- $fallbackUrl = cond (eq $lang "ru") "seo-konsultaciya/" (cond (eq $lang "es") "consultoria-seo/" "seo-consultation/") -}}{{- end -}}
+  {{/* Explicit, non-placeholder links only. The old guessing logic could recreate retired grey-service URLs. */}}
   {{- $url := trim ($button.url | default "") " \n\r\t" -}}
-  {{- if $matchedImageLink -}}{{- $url = $matchedImageLink -}}{{- end -}}
-  {{- if or (eq $url "") (eq $url "#") (eq $url "/") -}}{{- $url = printf "%s%s" $rootPath $fallbackUrl -}}{{- end -}}
+  {{- if or (eq $url "") (eq $url "#") (eq $url "/") -}}
+    {{- $url = trim $matchedImageLink " \n\r\t" -}}
+  {{- end -}}
+  {{- if or (eq $url "") (eq $url "#") (eq $url "/") -}}
+    {{- $url = "" -}}
+  {{- end -}}
   {{- $cardImage := $matchedImage -}}
   {{- if not $cardImage -}}
     {{- if or (eq $buttonRankGroup 10) (eq $buttonRankGroup 60) -}}
@@ -114,34 +112,19 @@
     {{- if eq $buttonRankGroup 70 -}}{{- $cardImage = "/uploads/service-card-tier-1-2-3-20260816.webp" -}}{{- end -}}
     {{- if eq $buttonRankGroup 80 -}}{{- $cardImage = "/uploads/seo-consultation-konsult-20260831-q16-1788218714346.webp" -}}{{- end -}}
   {{- end -}}
-  {{- $cards = $cards | append (dict "label" $button.label "url" $url "image" $cardImage "alt" $matchedAlt "rank" $button.rank) -}}
+  {{- if $url -}}
+    {{- $cards = $cards | append (dict "label" $button.label "url" $url "image" $cardImage "alt" $matchedAlt "rank" $button.rank) -}}
+  {{- end -}}
 {{- end -}}
 
 {{- if eq (len $cards) 0 -}}
   {{- range $image := sort $images "rank" -}}
     {{- $label := $image.alt | default $page.Title -}}
-    {{- $cards = $cards | append (dict "label" $label "url" $image.imageLink "image" $image.image "alt" $image.alt "rank" $image.rank) -}}
+    {{- $imageURL := trim ($image.imageLink | default "") " \n\r\t" -}}
+    {{- if and $imageURL (ne $imageURL "#") (ne $imageURL "/") -}}
+      {{- $cards = $cards | append (dict "label" $label "url" $imageURL "image" $image.image "alt" $image.alt "rank" $image.rank) -}}
+    {{- end -}}
   {{- end -}}
-{{- end -}}
-
-{{- $hasTierCard := false -}}
-{{- $hasConsultationCard := false -}}
-{{- range $card := $cards -}}
-  {{- $rankGroup := div (int $card.rank) 100 -}}
-  {{- if eq $rankGroup 70 -}}{{- $hasTierCard = true -}}{{- end -}}
-  {{- if eq $rankGroup 80 -}}{{- $hasConsultationCard = true -}}{{- end -}}
-{{- end -}}
-{{- if and (not $hasTierCard) (eq (len $builderBlocks) 0) -}}
-  {{- $tierUrl := printf "%stier-1-2-3/" $rootPath -}}
-  {{- $tierLabel := "Tier 1-2-3" -}}
-  {{- $tierAlt := "Tier 1-2-3 link building" -}}
-  {{- $cards = $cards | append (dict "label" $tierLabel "url" $tierUrl "image" "/uploads/service-card-tier-1-2-3-20260816.webp" "alt" $tierAlt "rank" 7000) -}}
-{{- end -}}
-{{- if and (not $hasConsultationCard) (eq (len $builderBlocks) 0) -}}
-  {{- $consultationPath := cond (eq $lang "ru") "seo-konsultaciya/" (cond (eq $lang "es") "consultoria-seo/" "seo-consultation/") -}}
-  {{- $consultationLabel := cond (eq $lang "ru") "SEO консультация" (cond (eq $lang "es") "Consultoría SEO" "SEO Consultation") -}}
-  {{- $consultationAlt := cond (eq $lang "ru") "SEO консультация" (cond (eq $lang "es") "Consultoría SEO" "SEO consultation") -}}
-  {{- $cards = $cards | append (dict "label" $consultationLabel "url" (printf "%s%s" $rootPath $consultationPath) "image" "/uploads/seo-consultation-konsult-20260831-q16-1788218714346.webp" "alt" $consultationAlt "rank" 8000) -}}
 {{- end -}}
 
 <style>
