@@ -52,6 +52,13 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — EN Tier 1–2–3 link networks withdrawn from Hugo
+- GitHub Actions f2319734: rebuild + retired route check #38777434146 PASS; context guard #38777434159 PASS. Сервер и main неизменны.
+- source content/services/tier-1-2-3/index.md for URL /link-building-services/tier-1-2-3/: changed draft: false → true. Карточки и ссылки, встроенные в эту уже закрытую публикацию, перестают генерироваться обычным Hugo.
+- Добавлен URL в docs/retired-routes-en.txt для обязательной проверки неприсутствия в sitemap, HTML и внутренних ссылках. В миграционном реестре отмечен RETIRE_410 (только план для релиза, не live response).
+- Данный коммит требует собственного Hugo QA + context guard; пока не заявлять полную очистку сайта, ES/RU и другие EN направления всё ещё legacy.
+- Дальше: подтвердить Actions; исследовать EN /link-building-services/microsite-development/ на предмет реальной самостоятельной ценности (не автоматически считать все microsites неэтичными), затем принять KEEP/REWRITE/RETIRE с фиксацией.
+
 ### 2026-10-15 — EN Domain Rating page set to draft
 - После проверки commit b0ca69fb: Hugo/retired URL QA #38777051315 PASS; context guard #38777051329 PASS.
 - content/services/domain-rating/index.md: draft=false → true для /link-building-services/domain-rating/. Новое предложение услуг намеренно не включает повышение сторонних SEO-метрик.
@@ -211,7 +218,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Проверить GitHub Actions для отключения EN /link-building-services/domain-rating/. Затем по отдельной итерации вывести из рабочей сборки EN /link-building-services/tier-1-2-3/, дополнить retired-route список и журнал. Публикация на сервер запрещена до отдельного разрешения.
+Проверить Actions для снятия EN Tier 1–2–3. Затем подробно проанализировать EN /link-building-services/microsite-development/: определить, продаёт ли страница сателлиты ради ссылочного веса или реальную веб-разработку; решение без угадывания и без искусственного 301. Следующая правка — отдельный коммит с контекстом.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 
