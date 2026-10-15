@@ -52,6 +52,13 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — EN массовое размещение backlinks исключено из Hugo (первая legacy-страница)
+- Предшествующие GitHub Actions: rebuild #38774047519 PASS, context guard #38774047402 PASS. Эти PASS не означают готовности к релизу.
+- Файл content/services/backlinks/index.md: исключительно `draft: false` заменено на `draft: true`. Страница /link-building-services/backlinks/ должна перестать генерироваться Hugo и попадать в sitemap; источник остаётся для учёта миграции, main не изменён.
+- Причина: продажа массовых ссылок для ранжирования. В реестре миграции кандидат RETIRE_410, НЕ реальная 410 на сервере. Никакого нерелевантного редиректа на /services/ или главную.
+- Риски: старые внутренние ссылки на URL могут оставаться; полный strict gate всё ещё заблокирован. Проверки нового коммита Hugo/Actions ещё не подтверждены.
+- Следующее: проверить CI, отключать прочие EN серые услуги отдельно с проверкой ссылок; RU/ES потом.
+
 ### 2026-10-15 — Global RU/ES menus and language-switcher cleanup
 - Whole-site audit GitHub Actions #38774047519: Hugo and individual EN page QA PASS; informational scanner found 300 issues across 55 of 66 HTML (195 legacy nav, 29 old public routes, 75 visible-text flags, 1 affiliate endpoint). RELEASE READINESS BLOCKED; this is baseline, not ranking penalty evidence.
 - Edited hugo.toml: removed ES/RU menu items naming link building and empty software, introduced clean localized SEO links /es/seo/, /ru/seo/.
@@ -175,7 +182,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Проверить меню RU/ES через Hugo CI. Затем приступить к RU/ES страницам /seo/ и главной (важный высокий приоритет), а старые gray страницы и builder исключить из будущей генерации постранично; составить URL/301/410 с GSC и live crawl перед production релизом. Удерживать full-site strict white-hat gate до 0 блокеров.
+Проверить результаты нового Hugo/Actions после выключения EN /link-building-services/backlinks/. Затем инвентаризировать входящие внутренние ссылки и провести по одной другие EN legacy услуги. Не публиковать и не изменять сервер.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 

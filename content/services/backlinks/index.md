@@ -4,7 +4,7 @@ description: "Backlink placement service for Google rankings, indexing signals, 
 slug: "backlinks"
 translationKey: "services-backlinks"
 date: "2026-08-31"
-draft: false
+draft: true
 showOnHome: false
 image: "/uploads/backlinks_20kb-1784670714.jpg"
 url: "/link-building-services/backlinks/"
