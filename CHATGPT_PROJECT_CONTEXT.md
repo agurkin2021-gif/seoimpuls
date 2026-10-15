@@ -52,6 +52,13 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — RU/ES architecture quality gate confirmed; remaining issues inventoried
+- Previous ES catalog commit 91a86bf5: GitHub Actions #38794561199 PASS (Hugo, 27 retired routes over 45 HTML, 3-page RU/ES/EN catalog + keyword + consultation reciprocal hreflang, canonical and cards), context #38794561487 PASS. Whole-site diagnostic 21 findings in 12 HTML; site release BLOCKED.
+- Fixed content/services/_index.ru.md: removed the leftover negative advertising reference to artificial Domain Rating and link networks; instead clarified verification criteria. This is only a local copy correction; 3 RU cards and all paths unchanged.
+- Added docs/research/2026-10-15-remaining-sitewide-issues.md with exact affected page groups, planned remediation order and clear separation between gray offers and permitted explicitly labelled /go/vdsina/ affiliate.
+- Complete RU/ES canonical and translation architecture is verified in static CI; not a claim that all RU/ES copy, SERP or visual QA is finished. No server, DNS, GitHub Pages, production redirects or main changes.
+- New context-only/copy commit needs its own CI confirmation; target is <=20 remaining scanner findings (no broad unjustified suppression). Next step: audit/rebuild RU/ES website-creation old pages under independent genuine intent or retire them safely, preserving historical signals after GSC.
+
 ### 2026-10-15 — ES clean SEO catalog replaces link-selling hub
 - Previous ES consultation commit fc75fac8: Hugo #38794106882 PASS, context #38794106978 PASS, ES consultation new H1/canonical/EN-RU alternates and old URL retirement; 26 retired routes, 38 diagnostics in 16 HTML, RELEASE BLOCKED.
 - content/services/_index.es.md rebuilt as /es/servicios/ with H1/Title «Servicios SEO para sitios web», 3 honest cards linking /es/seo/, /es/servicios/investigacion-palabras-clave/, /es/servicios/consultoria-seo/; translationKey services retained.
@@ -418,7 +425,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Проверить GitHub Actions /es/servicios/ и полный EN/RU/ES reciprocal hreflang для каталога, семантики и консультаций; отладить до PASS. Далее проанализировать оставшиеся gray legacy pages в RU/ES (особенно website-creation и soft), устранить плохие ссылки и каннибализацию, выполнить точный SERP top-10 и mobile/desktop QA. Main/production/Pages не менять.
+Проверить Actions после удаления лишней серой терминологии из RU каталога. Далее по одной странице проверить RU /uslugi-linkbildinga/sozdanie-saitov/ и ES /servicios-de-link-building/creacion-de-sitios-web/: реальное предложение разработки сайтов или сателлиты, SERP-интент, переход в правильный URL/черновик без фальшивого 301. Затем ES /soft/, RU/ES SEO/About/home и полные SEO/visual/GSC проверки. См. docs/research/2026-10-15-remaining-sitewide-issues.md. Main/production неизменны.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 
