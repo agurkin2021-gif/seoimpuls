@@ -663,6 +663,8 @@ jobs:
           PY
       - name: Inventory rendered affiliate placements (diagnostic, no deployment)
         run: python3 scripts/audit_affiliate_links.py --site public --max-details 150
+      - name: Enforce contextual affiliate placements and disclosures
+        run: python3 scripts/verify_contextual_affiliates.py
       - name: Report whole-site white-hat release blockers (diagnostic, never deploy)
         run: python3 scripts/whitehat_content_gate.py --site public --max-details 40
       # The gate becomes strict during final release qualification:

@@ -2,7 +2,7 @@
 """SEOImpuls white-hat release gate.
 
 By default this is an informational audit of generated Hugo HTML. --strict
-fails when any legacy promotional text/path or affiliate referral survives.
+fails when legacy promotional content/paths survive. Affiliate referrals are separately verified by a context-aware, blocking check.
 This is an intentionally broad gate for a white-hat agency rebuild; individual
 findings require manual interpretation rather than automatic deletion.
 """
@@ -21,7 +21,6 @@ LEGACY_ROUTES = (
     "/servicios-de-link-building/",
     "/seo-strategy-builder/",
     "/soft/",
-    "/go/vdsina/",
 )
 
 # Terms that promote legacy offerings, not generic best-practice advice.
@@ -92,8 +91,6 @@ def audit(site: Path):
         for route in LEGACY_ROUTES:
             if route in content.lower():
                 records.append({"page": "/sitemap.xml", "kind": "sitemap_legacy_route", "match": route})
-    if (site / "go" / "vdsina" / "index.html").exists():
-        records.append({"page": "/go/vdsina/index.html", "kind": "unrelated_affiliate_endpoint", "match": "/go/vdsina/"})
     return files, records
 
 def main() -> int:

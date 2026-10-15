@@ -52,6 +52,14 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — Context-aware affiliate checks replace blanket endpoint ban
+- EN FAQ wording update fa4c1eaa: pending/verified in Actions separately; source adjustment kept its migration guidance.
+- Confirmed actual previous rendered affiliate inventory: exactly 6 links across RU/ES homepages (2 each) and RU/ES clean web-development pages (1 each). All are explicitly labeled partner/affiliate and rel sponsored nofollow, but use /go/vdsina/ with data-seo-cloaked-href client interception. Original referral destination and noindex endpoint remain unchanged.
+- Added scripts/verify_contextual_affiliates.py: BLOCKING CI for exactly these four topical pages, 2+2+1+1 links, destination URL, noindex on redirect page, correct href, JS target, visible disclosures and rel attributes. Additional links/pages or mismatched targets fail.
+- Updated scripts/whitehat_content_gate.py: removed blanket /go/vdsina/ LEGACY_ROUTES prohibition and unrelated_affiliate_endpoint flag ONLY BECAUSE separate strict contextual validator is executed in .github/workflows/rebuild-qa.yml. General gray content/path rules unchanged. This is not broad affiliate whitelisting or permission for arbitrary placements.
+- CI of THIS commit must be confirmed, including any new red flags. Main, live server, DNS, Pages untouched. Strict release readiness still contingent on fully blocking other conditions, SERP, GSC, visual QA, live migrations.
+- Next: review CI, run strict sitewide content gate as additional blocking build step once no remaining gray findings; harden template gray fallback copy; then catalog release dependencies, GSC and real browser visual QA.
+
 ### 2026-10-15 — EN FAQ migration guidance clarified without gray-service terminology
 - Previous ES homepage commit 25fedcd4: Hugo QA and context guard PASS; diagnostic found 7 issues in 6 HTML. One /faq/ flag came from neutral use of the word backlinks in a URL migration answer.
 - content/faq/index.md: replaced that single word with the more precise reader-facing «incoming external links»; kept the warning to assess visibility, link history and equivalent destination before URL changes. No deletion of valid SEO explanations; Title, H1, canonical, scope and other FAQ content unchanged.
@@ -506,7 +514,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Проверить CI после точечной правки английской FAQ, затем отдельно проверить разрешённые партнёрские ссылки по реальным HTML страницам и строгим правилам rel/disclosure/context. Не удалять /go/vdsina/ автоматически. Следом скорректировать слишком широкие old gray fallback тексты и запускать strict gate, затем GSC, точный SERP и визуальный QA. Main/сервер без изменений.
+Проверить GitHub Actions после scripts/verify_contextual_affiliates.py и удаления blanket affiliate-ban из sitewide сканера. В случае PASS внимательно изучить оставшиеся gray findings, затем включить строгий gate и проверить default шаблона главной на устаревшие fallback слова. GSC, geo SERP top-10, 390/1280 visual QA и live migration останутся release blockers. Main/production без изменений.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 
