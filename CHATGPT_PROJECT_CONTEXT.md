@@ -52,6 +52,13 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — ES SEO consultation migrated to clean service URL
+- Previous ES keyword migration commit 47926dc5: Hugo CI #38793772992 PASS and context guard #38793772952 PASS. New /es/servicios/investigacion-palabras-clave/ H1/canonical/EN-RU alternates passed; 25 retired URLs, site scanner 44 findings/18 affected pages. RELEASE BLOCKED.
+- Rebuilt content/services/seo-consultation/index.es.md at /es/servicios/consultoria-seo/ with H1 «Consultoría SEO para sitios web», advisory search intent and distinct content from ES keyword/technical pages. Replaced corrupt legacy description, unlimited lifetime support and link-selling offers; old US$350/three hours explicitly historical pending confirmation.
+- Updated two old-link references in ES catalog from /servicios-de-link-building/consultoria-seo/ to new /es/servicios/consultoria-seo/. Retired former URL in docs/retired-routes-en.txt. Same-intent 301 only PROPOSED at future production migration; main and live site unchanged.
+- docs/research/2026-10-15-es-consultation-migration.md documents competitor comparisons (SERP_UNVERIFIED, no exact geo-fixed top-10) and intent/limitations. New QA checks built ES canonical/H1 and EN-RU hreflang, new keyword link and absence of old URL; CI pending.
+- Next: after PASS build ES /es/servicios/ clean catalog, update ES menu/home/SEO CTA, verify old hub absence, reciprocal hreflang and all three service destinations. Then cross-locale SEO QA, remaining legacy pages still BLOCKED.
+
 ### 2026-10-15 — ES keyword research migrated to clean commercial URL
 - Previous RU services hub commit 5a9543f8: Hugo #38793415941 PASS, context #38793416117 PASS; /ru/uslugi/ self canonical, EN hreflang, three live SEO service cards, new menu/home link, 24 retired URLs and 50 whole-site diagnostic findings; RELEASE BLOCKED.
 - Rebuilt content/services/keyword-research/index.es.md under /es/servicios/investigacion-palabras-clave/ with Title/H1 «Investigación de palabras clave para SEO»; own commercial intent, eight detailed content sections, historical US$90 conditional on scope and no ranking guarantees. translationKey remains services-keyword-research, enabling EN and RU hreflang.
@@ -403,7 +410,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Проверить CI ES keyword research /es/servicios/investigacion-palabras-clave/: H1/canonical/RU-EN hreflang, старый /servicios-de-link-building/palabras-clave/ отсутствует, все ссылки обновлены. При PASS перенести ES consultation /es/servicios/consultoria-seo/, потом новый /es/servicios/ hub/menu/home и удалить старую категорию, QA по всем языкам. Main/production untouched.
+Проверить CI ES consultation /es/servicios/consultoria-seo/: H1, self-canonical, hreflang EN/RU, keyword link, old URL removed. При PASS перейти к ES /es/servicios/ hub с меню, главной, ES SEO CTA, old /servicios-de-link-building/ route retirement and SEO QA. Main/production untouched.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 

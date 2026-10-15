@@ -1,42 +1,11 @@
 ---
-title: "Consultoría SEO"
-description: |-
-  Consulta SEO principal
-  
-  Precio de la consulta: 350 US$
-  
-  La consulta dura aproximadamente 3 horas, sin un límite estricto de tiempo e incluye soporte permanente a largo plazo.
-  
-  Temas de la consulta:
-  
-  Optimización del sitio:
-  
-  Enlazado interno:
-  
-  Link building y su papel en el SEO:
-  
-  Semántica y distribución de consultas por páginas:
-  
-  Trabajo con contenido: palabras clave, imágenes y textos:
-  
-  Una amplia cantidad de información presentada de forma clara y ordenada, desde los conceptos más sencillos hasta los más complejos.
-  
-  En general, muchas cosas pueden parecer evidentes a primera vista, pero hay varios aspectos importantes que merecen especial atención: la originalidad del contenido, la transparencia del producto o servicio ofrecido, las garantías para el cliente final y la orientación al cliente.
-  
-  Hablamos de un posicionamiento SEO ético, limpio y honesto. Explicamos su gran potencial sin esquemas de spam, manipulaciones ni métodos dudosos. Solo métodos de trabajo transparentes y comprensibles, orientados a resultados a largo plazo. Contamos con ejemplos reales de trabajos realizados y casos prácticos que permiten ver la eficacia de este enfoque.
-  
-  La comunicación es en formato libre: preguntas y respuestas. La consulta se realiza en formato de audio; contáctenos por Telegram o WhatsApp.
-slug: "seo-consultation"
+title: "Consultoría SEO para sitios web"
+description: "Consultoría SEO para revisar indexación, contenido, arquitectura y prioridades. Cómo preparar la sesión, alcance y límites del asesoramiento."
+slug: "consultoria-seo"
 translationKey: "services-seo-consultation"
-date: "2026-08-31"
 draft: false
-showOnHome: true
+showOnHome: false
+url: "/es/servicios/consultoria-seo/"
 image: "/uploads/seo-consultation-konsult-20260831.webp"
-images:
-  - "/uploads/seo-consultation-konsult-20260831.webp"
-url: "/servicios-de-link-building/consultoria-seo/"
-builderJson: "[{\"type\":\"text\",\"title\":\"Consulta SEO principal\",\"text\":\"<span style=\\\"font-size: 22px !important; font-family: 'Times New Roman', Times, serif !important;\\\">Precio de la consulta: </span><span style=\\\"font-size: 22px !important; font-family: 'Times New Roman', Times, serif !important; color: #1ecc4a;\\\">**350 US$**</span>\\n\\n<span style=\\\"font-size: 22px !important; font-family: 'Times New Roman', Times, serif !important;\\\">La consulta dura aproximadamente 3 horas, sin un límite estricto de tiempo e incluye soporte permanente a largo plazo.</span>\\n\\n<span style=\\\"font-size: 22px !important; font-family: 'Times New Roman', Times, serif !important;\\\">Temas de la consulta:</span>\\n\\n<span style=\\\"font-size: 22px !important; font-family: 'Times New Roman', Times, serif !important;\\\">Optimización del sitio:</span>\\n\\n<span style=\\\"font-size: 22px !important; font-family: 'Times New Roman', Times, serif !important;\\\">Enlazado interno:</span>\\n\\n<span style=\\\"font-size: 22px !important; font-family: 'Times New Roman', Times, serif !important;\\\">Link building y su papel en el SEO:</span>\\n\\n<span style=\\\"font-size: 22px !important; font-family: 'Times New Roman', Times, serif !important;\\\">Semántica y distribución de consultas por páginas:</span>\\n\\n<span style=\\\"font-size: 22px !important; font-family: 'Times New Roman', Times, serif !important;\\\">Trabajo con contenido: palabras clave, imágenes y textos:</span>\",\"fontFamily\":\"server\",\"blockBorderColor\":\"none\",\"blockBgColor\":\"none\",\"offsetX\":696,\"offsetY\":-3,\"pixelWidth\":557},{\"type\":\"image\",\"offsetY\":-835,\"pixelWidth\":520,\"image\":\"/uploads/seo-consultation-konsult-20260831-q36-1788220785117.webp\",\"alt\":\"Consultoria SEO\",\"imageOffsetY\":373,\"imagePixelWidth\":678,\"imagePixelHeight\":382},{\"type\":\"text\",\"text\":\"<span style=\\\"font-size: 22px !important; font-family: 'Times New Roman', Times, serif !important;\\\">Una amplia cantidad de información presentada de forma clara y ordenada, desde los conceptos más sencillos hasta los más complejos.</span>\\n\\n<span style=\\\"font-size: 22px !important; font-family: 'Times New Roman', Times, serif !important;\\\">En general, muchas cosas pueden parecer evidentes a primera vista, pero hay varios aspectos importantes que merecen especial atención: la originalidad del contenido, la transparencia del producto o servicio ofrecido, las garantías para el cliente final y la orientación al cliente.</span>\\n\\n<span style=\\\"font-size: 22px !important; font-family: 'Times New Roman', Times, serif !important;\\\">Hablamos de un posicionamiento SEO ético, limpio y honesto. Explicamos su gran potencial sin esquemas de spam, manipulaciones ni métodos dudosos. Solo métodos de trabajo transparentes y comprensibles, orientados a resultados a largo plazo. Contamos con ejemplos reales de trabajos realizados y casos prácticos que permiten ver la eficacia de este enfoque.</span>\\n\\n<span style=\\\"font-size: 22px !important; font-family: 'Times New Roman', Times, serif !important;\\\">La comunicación es en formato libre: preguntas y respuestas. La consulta se realiza en formato de audio; contáctenos por [Telegram](https://t.me/Seoimpuls) o </span><span style=\\\"font-size: 22px !important; font-family: 'Times New Roman', Times, serif !important; color: #31bd1f;\\\">[WhatsApp](https://wa.me/5491132804658)</span><span style=\\\"font-size: 22px !important; font-family: 'Times New Roman', Times, serif !important;\\\">.</span>\",\"fontFamily\":\"server\",\"blockBorderColor\":\"none\",\"blockBgColor\":\"none\",\"offsetY\":-389,\"pixelWidth\":1244,\"pixelHeight\":317}]"
-imageWidth: 900
-imageHeight: 507
-pageTitleFontFamily: "server"
+builderJson: "[{\"type\":\"banner\",\"title\":\"Una revisión enfocada en el SEO de tu sitio\",\"text\":\"La consultoría SEO sirve para analizar preguntas concretas sobre visibilidad orgánica, priorizar problemas de indexación o estructura y definir un plan de trabajo. Las recomendaciones se basan en tu sitio, el mercado objetivo y los datos disponibles, sin promesas de posiciones ni resultados inmediatos.\",\"image\":\"/uploads/seo-consultation-konsult-20260831.webp\",\"alt\":\"Consultoría SEO y análisis de un sitio web\",\"buttons\":[{\"label\":\"Solicitar información de consultoría\",\"url\":\"https://t.me/Seoimpuls\"}]},{\"type\":\"text\",\"anchorId\":\"para-quien\",\"title\":\"Cuándo conviene una consultoría\",\"text\":\"Cuando Google no indexa páginas importantes, un cambio de dominio provoca dudas, varias URLs compiten por la misma consulta o necesitás evaluar un plan SEO existente. También es útil si el equipo debe decidir qué optimizar primero.\\n\\nNo es lo mismo que una auditoría completa o un contrato de implementación.\"},{\"type\":\"text\",\"anchorId\":\"temas\",\"title\":\"Qué podemos revisar\",\"text\":\"- **SEO técnico:** rastreo, indexación, sitemap, robots, canonical, redirects y estado HTTP.\\n- **SEO on-page:** títulos, encabezados, estructura de contenido, enlaces internos e intención de búsqueda.\\n- **Arquitectura:** canibalización, contenidos repetidos y jerarquía de páginas.\\n- **SEO internacional:** traducciones, rutas por idioma, etiquetas hreflang y variantes regionales.\\n- **Medición:** datos de Search Console y criterios para validar correcciones.\\n\\nSi necesitás una investigación extensa de consultas, se trata como un servicio independiente de [palabras clave](/es/servicios/investigacion-palabras-clave/).\"},{\"type\":\"text\",\"anchorId\":\"preparacion\",\"title\":\"Qué preparar antes de la sesión\",\"text\":\"Compartí la URL, el país y el idioma objetivo, el problema principal y ejemplos de páginas afectadas. Si están disponibles, sirven los informes de Search Console y los cambios recientes del sitio. No es necesario compartir contraseñas en un chat.\"},{\"type\":\"text\",\"anchorId\":\"formato\",\"title\":\"Formato, precio y límites\",\"text\":\"En la antigua oferta de SEOImpuls se mencionaba una consulta de **US$350** y unas **tres horas** de duración. Son términos históricos que deben confirmarse antes de contratar, junto con el alcance, la disponibilidad y el formato.\\n\\nLa implementación de código, un informe integral o el soporte permanente requieren un acuerdo separado; no se presuponen incluidos.\"},{\"type\":\"text\",\"anchorId\":\"resultado\",\"title\":\"Qué resultado esperar\",\"text\":\"El objetivo es terminar con prioridades y próximos pasos: qué comprobar, qué páginas revisar, qué arreglos parecen justificados y cómo verificar los resultados. Si hacen falta datos adicionales, se indicará esa limitación de forma explícita.\"},{\"type\":\"text\",\"anchorId\":\"preguntas\",\"title\":\"Preguntas frecuentes\",\"text\":\"**¿La consultoría garantiza salir primero en Google?** No. El posicionamiento depende de muchos factores y de la ejecución de las mejoras.\\n\\n**¿Podés revisar un sitio multilingüe?** Sí, delimitando primero los idiomas y las URLs afectadas.\\n\\n**¿Incluye una auditoría técnica completa?** No automáticamente. Una consulta es un trabajo de diagnóstico y asesoramiento sobre las preguntas acordadas.\"},{\"type\":\"text\",\"anchorId\":\"contacto\",\"title\":\"Cómo consultar disponibilidad\",\"text\":\"Enviá el sitio, los mercados objetivo y los principales problemas por [Telegram](https://t.me/Seoimpuls), [WhatsApp](https://wa.me/5491132804658) o [email](mailto:support@seoimpuls.com). El alcance y las condiciones deben confirmarse antes de empezar.\"}]"
 ---
