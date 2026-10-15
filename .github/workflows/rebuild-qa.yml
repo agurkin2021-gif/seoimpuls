@@ -43,6 +43,25 @@ jobs:
           PY
       - name: Enforce no published links or output for retired URLs
         run: python3 scripts/verify_retired_routes.py --site public --routes docs/retired-routes-en.txt
+      - name: Verify RU homepage affiliate labels and grounded hosting copy
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from html.parser import HTMLParser
+          from pathlib import Path
+          class TextCollector(HTMLParser):
+              def __init__(self):
+                  super().__init__(); self.out=[]
+              def handle_data(self, data): self.out.append(data)
+          html = Path('public/ru/index.html').read_text(encoding='utf-8')
+          collector = TextCollector(); collector.feed(html)
+          text = ' '.join(' '.join(collector.out).split()).casefold()
+          assert 'vps для размещения сайта' in text, 'RU VPS card missing'
+          assert text.count('партнёрская ссылка') >= 2, 'RU VPS card or offer disclosure missing'
+          assert 'хостинг приватных сетей' not in text, 'Gray private-network promise remains'
+          assert 'vps не гарантирует улучшения индексации' in text, 'Required VPS limitation missing'
+          print('PASS: RU homepage VPS CTA is contextual, disclosed and avoids ranking promises.')
+          PY
       - name: Inventory rendered affiliate placements (diagnostic, no deployment)
         run: python3 scripts/audit_affiliate_links.py --site public --max-details 150
       - name: Report whole-site white-hat release blockers (diagnostic, never deploy)

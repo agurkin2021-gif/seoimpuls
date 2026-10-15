@@ -52,6 +52,13 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — RU homepage: тематическая и прозрачная VPS-партнёрка
+- Предыдущий commit cb1e4882: удалён static/ru/soft/index.html с ложным переходом на партнёрский VPS, original /go/vdsina/ сохранён. GitHub Actions build + retired URLs и context guard PASS.
+- Правка ТОЛЬКО content/_index.ru.md (homeJson): изменены VPS-карточка и offerItem6. «Хостинг приватных сетей» заменён на обычное размещение сайтов, явно подписано «партнёрская ссылка», без утверждения, что VPS обязательно улучшает индексацию. Точное значение партнёрского URL и код оставлены прежними.
+- В docs/research/2026-10-15-ru-home-affiliate-audit.md сохранён scope/evidence. В .github/workflows/rebuild-qa.yml добавлены проверки реально сгенерированной RU главной (текст, маркировка, отсутствие сетей и необоснованного SEO-обещания).
+- Текущий коммит требует GitHub Actions проверки; visual QA и SERP RU НЕ проводились, RU homepage ещё содержит другие legacy тексты и не готова к релизу. ES homepage будет отдельным проходом, не подменять перевод автоматикой. Main и продакшен не менялись.
+- Следующее: проверить Actions; затем аналогичная локальная правка ES homepage с disclosure и без gray/private-network and ranking claims. После этого разбирать gray strategy pages.
+
 ### 2026-10-15 — Удалён обманчивый статический /ru/soft/ redirect из кандидата
 - Автоматический inventory #38783627099 PASS и context guard #38783627134 PASS для коммита 34f576b7. Сборка 58 HTML, 14 партнёрских ссылок на 9 страницах; 13 с JS-перехватом, 14 без disclosure непосредственно в тексте ссылки. Это не доказательство отсутствия disclosure в другом месте.
 - Файл static/ru/soft/index.html являлся meta refresh + JS переходом /ru/soft/ → /go/vdsina/ с подписью Continue. Это нерелевантная подмена, не программный раздел; удалён ТОЛЬКО из белой рабочей ветки.
@@ -270,7 +277,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Проверить Actions сборки после удаления вводившего в заблуждение статического /ru/soft/. Затем отдельно скорректировать RU/ES главные: VPS CTA только на соответствующем по теме блоке, видимая партнёрская пометка, устранение «приватных сетей», необоснованных обещаний про индексацию; rel sponsored/nofollow сохранить. Дальше отдельно отключить серые RU/ES strategy builder, Tier, satellite pages. /go/vdsina/ оставить. main/production не менять.
+Проверить GitHub Actions после RU-home VPS affiliate disclosure; затем отдельной страницей привести ES-home VPS блок к честным партнёрским формулировкам, сохранив целевой referral URL. Далее убрать устаревшие RU/ES SEO strategy, Tier/satellite блоки. Full SERP/technical/mobile QA локалей остаётся отдельным этапом. Main/production без изменений.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 
