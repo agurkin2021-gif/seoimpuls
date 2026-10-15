@@ -5,7 +5,4 @@
 {{- $html = replaceRE `<a href="https://vdsina\.com/\?partner=([A-Za-z0-9_-]+)"([^>]*)>` `<a href="/go/vdsina/" data-seo-cloaked-href="https://www.vdsina.com/?partner=${1}" rel="nofollow sponsored noopener"${2}>` $html -}}
 {{- $html = replace $html `<a href="/go/vdsina/" rel="">` `<a href="/go/vdsina/" data-seo-cloaked-href="https://www.vdsina.com/?partner=45s5fn4exi" rel="nofollow sponsored noopener">` -}}
 {{- $html = replace $html `<a href="/go/vdsina/">` `<a href="/go/vdsina/" data-seo-cloaked-href="https://www.vdsina.com/?partner=45s5fn4exi" rel="nofollow sponsored noopener">` -}}
-{{- $html = replace $html `<a href="/soft/">` `<a href="/go/vdsina/" data-seo-cloaked-href="https://www.vdsina.com/?partner=45s5fn4exi" rel="nofollow sponsored noopener">` -}}
-{{- $html = replace $html `<a href="/ru/soft/">` `<a href="/go/vdsina/" data-seo-cloaked-href="https://www.vdsina.com/?partner=45s5fn4exi" rel="nofollow sponsored noopener">` -}}
-{{- $html = replace $html `<a href="/es/soft/">` `<a href="/go/vdsina/" data-seo-cloaked-href="https://www.vdsina.com/?partner=45s5fn4exi" rel="nofollow sponsored noopener">` -}}
 {{- $html | safeHTML -}}

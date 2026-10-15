@@ -52,6 +52,14 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — Уточнение политики партнёрских переходов: оставлять уместные
+- Владелец прямо разрешил сохранять реферальные переходы, если они действительно относятся к содержанию страницы. Это исправляет прежнее чрезмерное правило безусловно удалять /go/vdsina/.
+- Подтверждено в источниках: layouts/partials/affiliate-link-cloak.html заменял ссылки /soft/, /ru/soft/, /es/soft/ на партнёрский VPS; layouts/partials/affiliate-link-attrs.html делал те же URL alias к /go/vdsina/. Такие подмены вводят посетителя в заблуждение.
+- Убраны только три подмены Soft в affiliate-link-cloak.html и их alias из affiliate-link-attrs.html. **Явный URL /go/vdsina/ и его статический redirect сохранены**, существующие явные партнёрские ссылки не удалялись и исходный партнёрский код не менялся.
+- Обновлены docs/SEO_PAGE_WORKFLOW.md, docs/WHITE_HAT_RELEASE_READINESS.md и AGENTS.md: уместность, видимая пометка партнёрства, rel sponsored/nofollow, запрет скрытого hijack навигации. Добавлен проверочный шаг в .github/workflows/rebuild-qa.yml.
+- Последний до правки коммит 969f7502: GitHub Actions Hugo/retired-route PASS и context guard PASS. CI текущего коммита предстоит подтвердить. Старый whitehat scanner пока блокирует /go/vdsina/ без контекстной проверки; не ослаблять его до отдельной allowlist/ссылочного аудита. Релиз BLOCKED, RU/ES остаются неочищенными. Main, сервер и Pages не затронуты.
+- Следующее действие: проверить CI; затем инвентаризировать размещения /go/vdsina/ в видимых страницах, удалить нерелевантные CTA, подготовить строгую проверку тематических affiliate placements, оставляя сам endpoint.
+
 ### 2026-10-15 — Blank EN Software page excluded from Hugo
 - Previous strategy builder change 113bf180: Hugo/retired routes QA and context guard PASS.
 - Source content/soft/index.md: empty content section (one blank builder block, no real utility), draft:false -> true. Existing /soft/ added to docs/retired-routes-en.txt so CI checks it is not published or linked.
@@ -247,7 +255,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Проверить CI после исключения EN /soft/. Затем отдельно убрать партнёрские подмены ссылок /soft/ и /go/vdsina/ из Hugo-шаблонов и статического endpoint. Проверить полную карту входящих ссылок, не трогать main/production.
+Проверить GitHub Actions после удаления подмен /soft/→VDSina. Затем искать реальные партнёрские ссылки/источники, различать уместные и нерелевантные, добавить явные disclosure и rel sponsored/nofollow и адаптировать scanner под точную проверку (не blanket ban /go/vdsina/). До релиза все серые страницы RU/ES отдельно очистить. Сервер/main не менять.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 

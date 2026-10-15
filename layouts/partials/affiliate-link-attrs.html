@@ -1,6 +1,6 @@
 {{- $url := trim (.url | default "") " " -}}
 {{- $defaultVdsinaPartner := "https://www.vdsina.com/?partner=45s5fn4exi" -}}
-{{- $isVdsinaAlias := or (eq $url "/go/vdsina/") (eq $url "/go/vdsina") (eq $url "/soft/") (eq $url "/soft") (eq $url "/ru/soft/") (eq $url "/ru/soft") (eq $url "/es/soft/") (eq $url "/es/soft") -}}
+{{- $isVdsinaAlias := or (eq $url "/go/vdsina/") (eq $url "/go/vdsina") -}}
 {{- $isExternal := or (hasPrefix $url "http://") (hasPrefix $url "https://") -}}
 {{- $isRootRelative := and (hasPrefix $url "/") (not (hasPrefix $url "//")) -}}
 {{- $isFixedRootPath := or (hasPrefix $url "/go/") (hasPrefix $url "/ru/") (hasPrefix $url "/es/") (hasPrefix $url "/link-building-services/") (hasPrefix $url "/uslugi-linkbildinga/") (hasPrefix $url "/servicios-de-link-building/") (hasPrefix $url "/soft/") -}}

@@ -12,7 +12,7 @@ Commands after Hugo builds to `public/`:
 The informational step runs in the rebuild GitHub Actions workflow. It prints summary findings and up to 40 examples, but deliberately exits successfully while the rebuild is incomplete. A successful CI workflow **does not mean release-readiness** while blockers remain.
 
 The strict command fails for any remaining:
-- Old link-building product URL namespaces EN/RU/ES, strategy-builder/soft, unrelated /go/vdsina/ endpoint.
+- Old link-building product URL namespaces EN/RU/ES, strategy-builder/soft; affiliate `/go/vdsina/` placements are prohibited unless context, on-page disclosure, and rel attributes have been checked. The current scanner conservatively blocks the route until this conditional review is implemented.
 - Visible legacy promotion terms (EN/RU/ES), including backlinks, mass links, tiers, automated posting tools, artificial Domain Rating and satellite networks.
 - Broken navigation pointing to old product namespaces.
 - Legacy URLs still included in Hugo sitemap.
@@ -30,7 +30,7 @@ Those require independent checks. A passing strict gate is necessary but **not s
 - `content/strategy-builder` renders an algorithmic strategy builder backed by `layouts/strategy-builder/single.html`, a template with many legacy link/tier references.
 - `content/soft` contains near-empty software section(s).
 - `layouts/partials/services-hub.html`, global navigation in `hugo.toml` and language homepages may re-introduce old material.
-- Static affiliate endpoint `static/go/vdsina/index.html` must be removed from the candidate release if unrelated to legitimate agency services.
+- Static affiliate endpoint `static/go/vdsina/index.html` is conditionally permitted **only** for clearly relevant, disclosed affiliate placements (for example legitimate hosting setup content), never hidden under `/soft/` or other unrelated CTAs. The endpoint itself must remain `noindex`; individual referring pages/links require a verified context and `rel="sponsored nofollow"`. No site-wide endorsement of the route.
 
 ## Migration process
 1. Keep the unmodified legacy source only in main, never deploy it via GitHub Pages.
