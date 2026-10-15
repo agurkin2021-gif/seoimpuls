@@ -60,6 +60,13 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — Parameterized Google top-10 and EN-home intent gap map recorded
+- Direct Opera Google Web SERP on 2026-10-15 for `professional seo services`, `hl=en&gl=us&pws=0&udm=14&num=10`: 10 organic results resolved to final URLs, no sponsored entries included. Google browser could not determine physical location — US IP/location NOT VERIFIED. First 10: Coalition SEO, Clutch, Netlynx, Semrush directory, Coalition homepage, Blue Media, Thrive, RevenueBase, Bark, Americaneagle. Two Coalition URLs, three directories, one local marketplace; buyer-selection/commercial intent.
+- Analyzed page headings plus adjacent `seo services`, `technical seo services` and `keyword research services` SERPs; home owns provider-selection, supporting URLs own specialist detail. Content gaps: direct explanation, service-choice pathways, price/timing expectations, verification/accountability. Proof, price tables, testimonials and credentials need owner-supplied evidence — do not invent. No automated SEO KD/US-only demand inferred from Ads competition.
+- Detailed competitor snapshot, links, caveats, gap/intent map and implementation spec saved `docs/research/2026-10-15-en-home-professional-seo-serp.md`. This research-only commit does not modify live site source. RU/ES/main/production untouched.
+- Next: implement one EN-home semantic block at a time, test Hugo strict gate, Preview and source context; target SERP_SNAPSHOT_VERIFIED (parameters), GEO_PHYSICAL_UNVERIFIED, GSC_PENDING.
+
+
 ### 2026-10-15 — EN homepage responsive QA final acceptance record
 - Playwright run #38823700740 PASS, following the earlier #38823101622 PASS. Both 390px and 1280px: HTML 200, 1 H1 correct, production canonical, page-specific meta description populated, OG description, valid JSON-LD WebSite/BreadcrumbList, 0 image failures, 0 broken internal URLs, 0 browser JS errors, no horizontal overflow. Cookie notice dismisses; footer static on mobile and floating/revealing on desktop.
 - Confirmed meta description `Technical SEO audits, on-page optimization, keyword research, content strategy and international SEO — with clear priorities and defined deliverables.` is present under `meta name="Description"`. The initial case-sensitive selector warning was false and corrected.
