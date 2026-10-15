@@ -1,0 +1,55 @@
+{{- $cdn := .Scratch.Get "cdn" | default dict -}}
+{{- $fingerprint := .Scratch.Get "fingerprint" -}}
+
+{{- if not .Site.Params.app.noFavicon -}}
+    {{- with .Site.Params.app.svgFavicon -}}
+        <link rel="icon" href="{{ . }}">
+    {{- else -}}
+        <link rel="icon" type="image/png" href="/favicon-blink-dark.png">
+    {{- end -}}
+{{- end -}}
+
+<link rel="canonical" href="{{ .Permalink }}" />
+{{- $translations := .AllTranslations -}}
+{{- if gt (len $translations) 0 -}}
+    {{- $xDefault := .Permalink -}}
+    {{- range $translations -}}
+        {{- if eq .Lang "en" -}}
+            {{- $xDefault = .Permalink -}}
+        {{- end -}}
+    {{- end -}}
+    {{- range $translations -}}
+        {{- $langCode := .Language.LanguageCode | default .Lang -}}
+        {{- $hreflang := replace $langCode "_" "-" | lower -}}
+        <link rel="alternate" hreflang="{{ $hreflang }}" href="{{ .Permalink }}" />
+    {{- end -}}
+    <link rel="alternate" hreflang="x-default" href="{{ $xDefault }}" />
+{{- end -}}
+{{- if .PrevInSection -}}
+    <link rel="prev" href="{{ .PrevInSection.Permalink }}" />
+{{- end -}}
+{{- if .NextInSection -}}
+    <link rel="next" href="{{ .NextInSection.Permalink }}" />
+{{- end -}}
+
+{{- /* style.min.css */ -}}
+{{- $hasBuilderJson := ne (default "" .Params.builderJson) "" -}}
+{{- $isBuilder := or (eq .TranslationKey "strategy-builder") $hasBuilderJson -}}
+{{- $styleSource := cond .IsHome "css/home.scss" (cond $isBuilder "css/builder.scss" "css/style.scss") -}}
+{{- $styleName := cond .IsHome "home" (cond $isBuilder "builder" "style") -}}
+{{- $options := dict "Source" $styleSource "Fingerprint" $fingerprint -}}
+{{- $toCSS := dict "targetPath" (printf "css/%s.min.css" $styleName) "enableSourceMap" false -}}
+{{- if $isBuilder -}}
+    {{- with resources.Get $styleSource -}}
+        {{- $compiledStyle := . | toCSS (dict "targetPath" (printf "css/%s.inline.min.css" $styleName) "enableSourceMap" false "outputStyle" "compressed") -}}
+        <style data-seoimpuls-inline-css="{{ $styleName }}">{{ $compiledStyle.Content | safeCSS }}</style>
+    {{- end -}}
+{{- else -}}
+    {{- /* Critical page CSS must block first paint to prevent unstyled content flashes. */ -}}
+    {{- $options = dict "Context" . "ToCSS" $toCSS "Preload" false | merge $options -}}
+    {{- partial "plugin/style.html" $options -}}
+{{- end -}}
+
+{{- /* Font Awesome subset (self-hosted for stable footer icon rendering) */ -}}
+{{- $faSubsetCss := readFile "static/lib/fontawesome-free/seoimpuls-subset.css" | replaceRE `\.\./webfonts/` `/lib/webfonts/` -}}
+<style data-seoimpuls-inline-css="fontawesome-subset">{{ $faSubsetCss | safeCSS }}</style>

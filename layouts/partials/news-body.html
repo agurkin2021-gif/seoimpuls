@@ -1,0 +1,6 @@
+{{- $raw := printf "%s" (. | default "") -}}
+{{- $html := partial "seo-builder-text.html" $raw -}}
+{{- $html = replaceRE `(?i)\s*font-size\s*:\s*[^;"]+;?` "" $html -}}
+{{- $html = replaceRE `(?i)\s*font-family\s*:\s*[^;"]+;?` "" $html -}}
+{{- $html = replaceRE `\sstyle="\s*"` "" $html -}}
+{{- $html | safeHTML -}}

@@ -1,0 +1,9 @@
+{{- $isLocalBuild := or hugo.IsServer (in .Site.BaseURL "localhost") (eq (getenv "HUGO_ENV") "development") (eq (getenv "HUGO_ENVIRONMENT") "development") -}}
+{{- $forceNoIndex := .Site.Params.seo.noindex | default false -}}
+User-agent: *
+{{- if or $isLocalBuild $forceNoIndex }}
+Disallow: /
+{{- else }}
+Allow: /
+Sitemap: {{ "sitemap.xml" | absURL }}
+{{- end }}

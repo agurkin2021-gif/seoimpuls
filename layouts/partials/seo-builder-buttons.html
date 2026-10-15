@@ -1,0 +1,12 @@
+{{- $buttons := .buttons | default (slice) -}}
+{{- if gt (len $buttons) 0 -}}
+  <div class="seo-builder-buttons" style="{{ .buttonContainerStyle | safeCSS }}">
+    {{- range $buttons -}}
+      {{- if and (.label) (.url) -}}
+        {{- $buttonUrl := trim .url " " -}}
+        {{- $buttonLink := partial "affiliate-link-attrs.html" (dict "url" $buttonUrl) -}}
+        <a class="seo-cta seo-cta--primary" href="{{ $buttonLink.href | safeURL }}"{{ with $buttonLink.cloaked }} data-seo-cloaked-href="{{ . }}"{{ end }}{{ with $buttonLink.rel }} rel="{{ . }}"{{ end }}{{ with $.buttonStyle }} style="{{ . | safeCSS }}"{{ end }}>{{ .label }}</a>
+      {{- end -}}
+    {{- end -}}
+  </div>
+{{- end -}}

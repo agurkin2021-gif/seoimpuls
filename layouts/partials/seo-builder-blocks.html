@@ -1,0 +1,192 @@
+{{- $builderBlocks := slice -}}
+{{- with .Params.builderJson -}}
+  {{- $builderBlocks = transform.Unmarshal (dict "format" "json") . -}}
+{{- end -}}
+{{- if gt (len $builderBlocks) 0 -}}
+  <div class="seo-builder" data-admin-page-path="{{ with .File }}content/{{ .Path }}{{ end }}">
+    {{- $firstImageBlockIndex := -1 -}}
+    {{- range $candidateIndex, $candidate := $builderBlocks -}}
+      {{- if and (lt $firstImageBlockIndex 0) (not (eq $candidate.enabled false)) ($candidate.image) -}}
+        {{- $firstImageBlockIndex = $candidateIndex -}}
+      {{- end -}}
+    {{- end -}}
+    {{- range $blockIndex, $block := $builderBlocks -}}
+      {{- if not (eq $block.enabled false) -}}
+        {{- $width := $block.width | default "full" -}}
+        {{- $type := $block.type | default "text" -}}
+        {{- $compactButtons := and (eq $type "buttons") (ne ($block.buttonWidthMode | default "auto") "full") (not ($block.title | default "")) (not ($block.text | default "")) -}}
+        {{- $imageFrameStyle := printf "transform: translate(%vpx, %vpx);" ($block.imageOffsetX | default 0) ($block.imageOffsetY | default 0) -}}
+        {{- if $block.imagePixelWidth -}}
+          {{- $imageFrameStyle = printf "%s width: %vpx; max-width: none;" $imageFrameStyle $block.imagePixelWidth -}}
+        {{- else -}}
+          {{- $imageFrameStyle = printf "%s width: 100%%; max-width: 100%%;" $imageFrameStyle -}}
+        {{- end -}}
+        {{- with $block.imagePixelHeight -}}{{- $imageFrameStyle = printf "%s height: %vpx; max-height: none;" $imageFrameStyle . -}}{{- end -}}
+        {{- $imageStyle := "" -}}
+        {{- $imageLink := trim ($block.imageLink | default "") " " -}}
+        {{- $imageHref := $imageLink -}}
+        {{- $imageLinkData := dict "href" "" "cloaked" "" "rel" "" -}}
+        {{- if $imageHref -}}{{- $imageLinkData = partial "affiliate-link-attrs.html" (dict "url" $imageHref) -}}{{- end -}}
+        {{- $imageAlt := trim (printf "%v" ($block.alt | default "" | plainify)) " \n\r\t" -}}
+        {{- if not $imageAlt -}}{{- $imageAlt = trim (printf "%v" ($block.caption | default "" | plainify)) " \n\r\t" -}}{{- end -}}
+        {{- if not $imageAlt -}}{{- $imageAlt = trim (printf "%v" ($block.title | default "" | plainify)) " \n\r\t" -}}{{- end -}}
+        {{- if and (not $imageAlt) $imageLink -}}
+          {{- $imageLinkKey := trim $imageLink "/" -}}
+          {{- range $candidate := $builderBlocks -}}
+            {{- if and (not $imageAlt) (eq ($candidate.type | default "") "buttons") -}}
+              {{- range ($candidate.buttons | default slice) -}}
+                {{- $buttonUrl := trim (.url | default "") " " -}}
+                {{- if and (not $imageAlt) (eq (trim $buttonUrl "/") $imageLinkKey) -}}
+                  {{- $imageAlt = trim (.label | default "" | plainify) " \n\r\t" -}}
+                {{- end -}}
+              {{- end -}}
+            {{- end -}}
+          {{- end -}}
+        {{- end -}}
+        {{- if not $imageAlt -}}{{- $imageAlt = .Title -}}{{- end -}}
+        {{- $imageConfig := "" -}}
+        {{- with $block.image -}}
+          {{- $imageFsPath := path.Join "static" (trim . "/") -}}
+          {{- if and (fileExists $imageFsPath) (not (hasSuffix (lower .) ".svg")) -}}{{- $imageConfig = imageConfig $imageFsPath -}}{{- end -}}
+        {{- end -}}
+        {{- $fontFamilyStyle := "" -}}
+        {{- $fontFamilyClass := "" -}}
+        {{- with $block.fontFamily -}}
+          {{- if eq . "local" -}}{{- $fontFamilyStyle = "font-family: 'Segoe UI', 'Helvetica Neue', 'Noto Sans', Arial, sans-serif !important;" -}}{{- $fontFamilyClass = "seo-builder-font--local" -}}{{- end -}}
+          {{- if eq . "server" -}}{{- $fontFamilyStyle = "font-family: 'Times New Roman', Times, serif !important;" -}}{{- $fontFamilyClass = "seo-builder-font--server" -}}{{- end -}}
+        {{- end -}}
+        {{- $textStyle := "" -}}
+        {{- if $fontFamilyStyle -}}{{- $textStyle = $fontFamilyStyle -}}{{- end -}}
+        {{- with $block.fontSize -}}{{- $textStyle = printf "%s font-size: %vpx !important;" $textStyle . -}}{{- end -}}
+        {{- with $block.textAlign -}}{{- if ne . "left" -}}{{- $textStyle = printf "%s text-align: %s;" $textStyle . -}}{{- end -}}{{- end -}}
+        {{- $titleStyle := "" -}}
+        {{- if $fontFamilyStyle -}}{{- $titleStyle = $fontFamilyStyle -}}{{- end -}}
+        {{- with $block.titleAlign -}}{{- if ne . "left" -}}{{- $titleStyle = printf "%s text-align: %s;" $titleStyle . -}}{{- end -}}{{- end -}}
+        {{- $buttonStyle := "" -}}
+        {{- with $block.buttonFontSize -}}{{- $buttonStyle = printf "%s font-size: %vpx;" $buttonStyle . -}}{{- end -}}
+        {{- if eq ($block.buttonWidthMode | default "auto") "full" -}}
+          {{- $buttonStyle = printf "%s width: 100%%; flex: 1 1 100%%;" $buttonStyle -}}
+        {{- else if and (eq ($block.buttonWidthMode | default "auto") "custom") ($block.buttonPixelWidth) -}}
+          {{- $buttonStyle = printf "%s width: %vpx;" $buttonStyle $block.buttonPixelWidth -}}
+        {{- end -}}
+        {{- with $block.buttonPixelHeight -}}{{- $buttonStyle = printf "%s height: %vpx; min-height: %vpx;" $buttonStyle . . -}}{{- end -}}
+        {{- $buttonRadius := "" -}}
+        {{- if isset $block "buttonRadius" -}}{{- $buttonRadius = printf "%v" $block.buttonRadius -}}{{- end -}}
+        {{- if ne $buttonRadius "" -}}{{- $buttonStyle = printf "%s border-radius: %spx;" $buttonStyle $buttonRadius -}}{{- end -}}
+        {{- with $block.buttonBgColor -}}{{- $buttonStyle = printf "%s background: %s; border-color: %s;" $buttonStyle . . -}}{{- end -}}
+        {{- with $block.buttonTextColor -}}{{- $buttonStyle = printf "%s color: %s;" $buttonStyle . -}}{{- end -}}
+        {{- $buttonJustify := "flex-start" -}}
+        {{- if eq ($block.buttonAlign | default "left") "center" -}}{{- $buttonJustify = "center" -}}{{- end -}}
+        {{- if eq ($block.buttonAlign | default "left") "right" -}}{{- $buttonJustify = "flex-end" -}}{{- end -}}
+        {{- $buttonContainerStyle := printf "justify-content: %s;" $buttonJustify -}}
+        {{- $blockAlignStyle := "" -}}
+        {{- if $compactButtons -}}
+          {{- if eq ($block.buttonAlign | default "left") "center" -}}{{- $blockAlignStyle = "justify-self: center;" -}}{{- end -}}
+          {{- if eq ($block.buttonAlign | default "left") "right" -}}{{- $blockAlignStyle = "justify-self: end;" -}}{{- end -}}
+          {{- if eq ($block.buttonAlign | default "left") "left" -}}{{- $blockAlignStyle = "justify-self: start;" -}}{{- end -}}
+        {{- end -}}
+        {{- $blockBorderStyle := "" -}}
+        {{- with $block.blockBorderColor -}}
+          {{- if eq . "none" -}}
+            {{- $blockBorderStyle = " border-color: transparent;" -}}
+          {{- else -}}
+            {{- $blockBorderStyle = printf " border-color: %s;" . -}}
+          {{- end -}}
+        {{- end -}}
+        {{- $blockBgStyle := "" -}}
+        {{- with $block.blockBgColor -}}
+          {{- if eq . "none" -}}
+            {{- $blockBgStyle = " background: transparent;" -}}
+          {{- else -}}
+            {{- $blockBgStyle = printf " background: %s;" . -}}
+          {{- end -}}
+        {{- end -}}
+        {{- if $block.imagePixelWidth -}}{{- $imageStyle = "width: 100%; max-width: none; height: auto; max-height: none;" -}}{{- end -}}
+        {{- with $block.imagePixelHeight -}}{{- $imageStyle = "width: 100%; max-width: none; height: 100%; max-height: none; object-fit: fill;" -}}{{- end -}}
+        {{- $imageAttrs := "" -}}
+        {{- $imageAttrWidth := $block.imagePixelWidth | default 0 -}}
+        {{- $imageAttrHeight := $block.imagePixelHeight | default 0 -}}
+        {{- if and (not $imageAttrWidth) $imageConfig -}}{{- $imageAttrWidth = $imageConfig.Width -}}{{- end -}}
+        {{- if and (not $imageAttrHeight) $imageConfig -}}
+          {{- if and $imageAttrWidth $imageConfig.Width $imageConfig.Height -}}
+            {{- $imageAttrHeight = div (mul (int $imageAttrWidth) (int $imageConfig.Height)) (int $imageConfig.Width) -}}
+          {{- else -}}
+            {{- $imageAttrHeight = $imageConfig.Height -}}
+          {{- end -}}
+        {{- end -}}
+        {{- with $imageAttrWidth -}}{{- $imageAttrs = printf "%s width=\"%v\"" $imageAttrs . -}}{{- end -}}
+        {{- with $imageAttrHeight -}}{{- $imageAttrs = printf "%s height=\"%v\"" $imageAttrs . -}}{{- end -}}
+        {{- $imageLoadAttrs := ` decoding="async"` -}}
+        {{- if eq $blockIndex $firstImageBlockIndex -}}
+          {{- $imageLoadAttrs = printf `%s fetchpriority="high"` $imageLoadAttrs -}}
+        {{- else -}}
+          {{- $imageLoadAttrs = printf `%s loading="lazy" fetchpriority="low"` $imageLoadAttrs -}}
+        {{- end -}}
+        <section class="seo-builder-block seo-builder-block--{{ $width }} seo-builder-block--{{ $type }}{{ if $compactButtons }} seo-builder-block--compact{{ end }}{{ with $fontFamilyClass }} {{ . }}{{ end }}{{ if eq $type "wrap" }} seo-builder-wrap--{{ $block.imageSide | default "left" }}{{ end }}" data-admin-block-index="{{ $blockIndex }}" draggable="false" style="transform: translate({{ $block.offsetX | default 0 }}px, {{ $block.offsetY | default 0 }}px);{{ with $block.pixelWidth }} width: {{ . }}px; max-width: 100%;{{ end }}{{ with $block.pixelHeight }} min-height: {{ . }}px;{{ end }}{{ if eq $type "spacer" }} min-height: {{ $block.spacerHeight | default 56 }}px; height: {{ $block.spacerHeight | default 56 }}px;{{ end }}{{ $blockAlignStyle | safeCSS }}{{ $blockBorderStyle | safeCSS }}{{ $blockBgStyle | safeCSS }}">
+          {{- if eq $type "spacer" -}}
+          {{- else if eq $type "banner" -}}
+            <div class="seo-builder-banner">
+              <div class="seo-builder-banner__body">
+                {{- with $block.title }}<h2{{ if $titleStyle }} style="{{ $titleStyle | safeCSS }}"{{ end }}>{{ . }}</h2>{{- end -}}
+                {{- with $block.text }}<div class="seo-builder-text"{{ if $textStyle }} style="{{ $textStyle | safeCSS }}"{{ end }}>{{ partial "seo-builder-text.html" . }}</div>{{- end -}}
+                {{- partial "seo-builder-buttons.html" (dict "buttons" $block.buttons "buttonStyle" $buttonStyle "buttonContainerStyle" $buttonContainerStyle) -}}
+              </div>
+              {{- with $block.image -}}<div class="seo-builder-banner__media"><span class="seo-builder-image-frame{{ if $block.imagePixelHeight }} has-image-height{{ end }}" style="{{ $imageFrameStyle | safeCSS }}">{{- if $imageHref }}<a class="seo-builder-image-link" href="{{ $imageLinkData.href | safeURL }}"{{ with $imageLinkData.cloaked }} data-seo-cloaked-href="{{ . }}"{{ end }}{{ with $imageLinkData.rel }} rel="{{ . }}"{{ end }} aria-label="{{ $imageAlt }}">{{ end -}}<img src="{{ . | safeURL }}" alt="{{ $imageAlt }}"{{ $imageAttrs | safeHTMLAttr }}{{ $imageLoadAttrs | safeHTMLAttr }} style="{{ $imageStyle | safeCSS }}">{{- if $imageHref }}</a>{{ end -}}</span></div>{{- end -}}
+            </div>
+          {{- else if eq $type "image" -}}
+            <div class="seo-builder-media">
+              {{- with $block.image -}}<span class="seo-builder-image-frame{{ if $block.imagePixelHeight }} has-image-height{{ end }}" style="{{ $imageFrameStyle | safeCSS }}">{{- if $imageHref }}<a class="seo-builder-image-link" href="{{ $imageLinkData.href | safeURL }}"{{ with $imageLinkData.cloaked }} data-seo-cloaked-href="{{ . }}"{{ end }}{{ with $imageLinkData.rel }} rel="{{ . }}"{{ end }} aria-label="{{ $imageAlt }}">{{ end -}}<img src="{{ . | safeURL }}" alt="{{ $imageAlt }}"{{ $imageAttrs | safeHTMLAttr }}{{ $imageLoadAttrs | safeHTMLAttr }} style="{{ $imageStyle | safeCSS }}">{{- if $imageHref }}</a>{{ end -}}</span>{{- end -}}
+              {{- with $block.caption }}<p class="seo-builder-caption">{{ . }}</p>{{- end -}}
+            </div>
+          {{- else if eq $type "split" -}}
+            <div class="seo-builder-split{{ if eq ($block.imageSide | default "right") "left" }} seo-builder-split--image-left{{ end }}">
+              <div>{{- with $block.title }}<h2{{ if $titleStyle }} style="{{ $titleStyle | safeCSS }}"{{ end }}>{{ . }}</h2>{{- end -}}{{- with $block.text }}<div class="seo-builder-text"{{ if $textStyle }} style="{{ $textStyle | safeCSS }}"{{ end }}>{{ partial "seo-builder-text.html" . }}</div>{{- end -}}{{- partial "seo-builder-buttons.html" (dict "buttons" $block.buttons "buttonStyle" $buttonStyle "buttonContainerStyle" $buttonContainerStyle) -}}</div>
+              <div class="seo-builder-media">{{- with $block.image -}}<span class="seo-builder-image-frame{{ if $block.imagePixelHeight }} has-image-height{{ end }}" style="{{ $imageFrameStyle | safeCSS }}">{{- if $imageHref }}<a class="seo-builder-image-link" href="{{ $imageLinkData.href | safeURL }}"{{ with $imageLinkData.cloaked }} data-seo-cloaked-href="{{ . }}"{{ end }}{{ with $imageLinkData.rel }} rel="{{ . }}"{{ end }} aria-label="{{ $imageAlt }}">{{ end -}}<img src="{{ . | safeURL }}" alt="{{ $imageAlt }}"{{ $imageAttrs | safeHTMLAttr }}{{ $imageLoadAttrs | safeHTMLAttr }} style="{{ $imageStyle | safeCSS }}">{{- if $imageHref }}</a>{{ end -}}</span>{{- end -}}{{- with $block.caption }}<p class="seo-builder-caption">{{ . }}</p>{{- end -}}</div>
+            </div>
+          {{- else if eq $type "wrap" -}}
+            {{- with $block.title }}<h2{{ if $titleStyle }} style="{{ $titleStyle | safeCSS }}"{{ end }}>{{ . }}</h2>{{- end -}}
+            <div class="seo-builder-wrap-content"><div class="seo-builder-wrap-media">{{- with $block.image -}}<span class="seo-builder-image-frame{{ if $block.imagePixelHeight }} has-image-height{{ end }}" style="{{ $imageFrameStyle | safeCSS }}">{{- if $imageHref }}<a class="seo-builder-image-link" href="{{ $imageLinkData.href | safeURL }}"{{ with $imageLinkData.cloaked }} data-seo-cloaked-href="{{ . }}"{{ end }}{{ with $imageLinkData.rel }} rel="{{ . }}"{{ end }} aria-label="{{ $imageAlt }}">{{ end -}}<img src="{{ . | safeURL }}" alt="{{ $imageAlt }}"{{ $imageAttrs | safeHTMLAttr }}{{ $imageLoadAttrs | safeHTMLAttr }} style="{{ $imageStyle | safeCSS }}">{{- if $imageHref }}</a>{{ end -}}</span>{{- end -}}{{- with $block.caption }}<p class="seo-builder-caption">{{ . }}</p>{{- end -}}</div>{{- with $block.text }}<div class="seo-builder-text"{{ if $textStyle }} style="{{ $textStyle | safeCSS }}"{{ end }}>{{ partial "seo-builder-text.html" . }}</div>{{- end -}}</div>
+          {{- else if eq $type "buttons" -}}
+            {{- with $block.title }}<h2{{ if $titleStyle }} style="{{ $titleStyle | safeCSS }}"{{ end }}>{{ . }}</h2>{{- end -}}
+            {{- with $block.text }}<div class="seo-builder-text"{{ if $textStyle }} style="{{ $textStyle | safeCSS }}"{{ end }}>{{ partial "seo-builder-text.html" . }}</div>{{- end -}}
+            {{- partial "seo-builder-buttons.html" (dict "buttons" $block.buttons "buttonStyle" $buttonStyle "buttonContainerStyle" $buttonContainerStyle) -}}
+          {{- else if eq $type "file" -}}
+            {{- $fileUrl := trim ($block.fileUrl | default "") " " -}}
+            {{- $fileName := trim ($block.fileName | default "") " " -}}
+            {{- if and (not $fileName) $fileUrl -}}{{- $fileName = path.Base $fileUrl -}}{{- end -}}
+            {{- if not $fileName -}}{{- $fileName = cond (eq $.Site.Language.Lang "ru") "Файл для скачивания" (cond (eq $.Site.Language.Lang "es") "Archivo para descargar" "Download file") -}}{{- end -}}
+            {{- with $block.title }}<h2{{ if $titleStyle }} style="{{ $titleStyle | safeCSS }}"{{ end }}>{{ . }}</h2>{{- end -}}
+            {{- with $block.text }}<div class="seo-builder-text"{{ if $textStyle }} style="{{ $textStyle | safeCSS }}"{{ end }}>{{ partial "seo-builder-text.html" . }}</div>{{- end -}}
+            <a class="seo-builder-file" href="{{ ($fileUrl | default "#") | safeURL }}" download>
+              <span class="seo-builder-file__icon" aria-hidden="true">↓</span>
+              <span class="seo-builder-file__body">
+                <strong>{{ $fileName }}</strong>
+                {{- if or $block.fileUpdatedAt $block.fileSize -}}
+                  <small>{{ if $block.fileUpdatedAt }}{{ if eq $.Site.Language.Lang "ru" }}Обновлено{{ else if eq $.Site.Language.Lang "es" }}Actualizado{{ else }}Updated{{ end }}: {{ $block.fileUpdatedAt }}{{ end }}{{ if and $block.fileUpdatedAt $block.fileSize }} · {{ end }}{{ with $block.fileSize }}{{ div . 1024 }} KB{{ end }}</small>
+                {{- end -}}
+              </span>
+            </a>
+          {{- else if eq $type "grid" -}}
+            {{- with $block.title }}<h2{{ if $titleStyle }} style="{{ $titleStyle | safeCSS }}"{{ end }}>{{ . }}</h2>{{- end -}}
+            {{- with $block.text }}<div class="seo-builder-text"{{ if $textStyle }} style="{{ $textStyle | safeCSS }}"{{ end }}>{{ partial "seo-builder-text.html" . }}</div>{{- end -}}
+            <div class="seo-builder-card-grid">
+              {{- range $block.items -}}
+                {{- if or .title .text .image -}}
+                  <article class="seo-builder-card">
+                    {{- with .image }}<img src="{{ . | safeURL }}" alt="{{ $.Title }}" loading="lazy" decoding="async" fetchpriority="low">{{- end -}}
+                    {{- with .title }}<h3>{{ . }}</h3>{{- end -}}
+                    {{- with .text }}<div class="seo-builder-text"{{ if $textStyle }} style="{{ $textStyle | safeCSS }}"{{ end }}>{{ partial "seo-builder-text.html" . }}</div>{{- end -}}
+                  </article>
+                {{- end -}}
+              {{- end -}}
+            </div>
+          {{- else -}}
+            {{- with $block.title }}<h2{{ if $titleStyle }} style="{{ $titleStyle | safeCSS }}"{{ end }}>{{ . }}</h2>{{- end -}}
+            {{- with $block.text }}<div class="seo-builder-text"{{ if $textStyle }} style="{{ $textStyle | safeCSS }}"{{ end }}>{{ partial "seo-builder-text.html" . }}</div>{{- end -}}
+          {{- end -}}
+        </section>
+      {{- end -}}
+    {{- end -}}
+  </div>
+  {{ partial "affiliate-link-script.html" . }}
+{{- end -}}

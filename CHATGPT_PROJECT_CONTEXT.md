@@ -38,7 +38,7 @@
 - Подготовленный ZIP находится в беседе ChatGPT и требуется для первичной загрузки. После успешного импорта оставлять ZIP в репозитории не нужно.
 - В среде ChatGPT исходники не удалось отправить прямым git push (сетевая среда не разрешает доступ к github.com). Через подключённый GitHub доступно редактирование текстовых файлов, но не прямая загрузка ZIP как двоичного Git-объекта.
 
-IMPORT_STATUS: pending
+IMPORT_STATUS: completed
 
 ## 4. Порядок ввода репозитория
 
@@ -51,6 +51,13 @@ IMPORT_STATUS: pending
 7. Перед новым чатом прочитать AGENTS.md и этот файл прямо из репозитория, проверить фактическое состояние GitHub/Actions и продолжить с секции 6 «Следующее действие».
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
+
+### 2026-10-15 16:26 UTC — Verified source import via GitHub Actions
+- Uploaded ZIP matched the recorded SHA-256; files extracted into main.
+- Hugo --minify build completed with EN/RU/ES homepage and sitemap checks.
+- Source archive removed from repository in this commit; no GitHub Pages and no production deployment.
+- Working branch white-seo-rebuild will be created from this imported commit.
+- Next: check main file tree and working branch; then begin inventory and intent map.
 
 ### 2026-10-15 — Исправление импорта после первого запуска Actions
 - Первый запуск Actions #38768517453: SHA ZIP OK, распаковка OK, Hugo build (EN/RU/ES/sitemap) OK, Git push FAILED.
@@ -74,7 +81,7 @@ IMPORT_STATUS: pending
 
 ## 6. Следующее действие
 
-Ожидается импорт исходников через workflow. После завершения проверить его статус, сравнить исходную структуру, убедиться в существовании ветки white-seo-rebuild и приступить к полной инвентаризации главных EN/RU/ES и новой архитектуре white-hat SEO. Никаких правок в продакшене.
+Проверить результат GitHub Actions и наличие ветки white-seo-rebuild. Затем провести полный SEO-инвентарь URL и начать работу с EN-главной, фиксируя каждый последующий коммит в данном файле. Продакшен не трогать.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 

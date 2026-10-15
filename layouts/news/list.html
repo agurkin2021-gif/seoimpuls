@@ -1,0 +1,151 @@
+{{ define "content" }}
+{{- $isRU := eq .Site.Language.Lang "ru" -}}
+{{- $isES := eq .Site.Language.Lang "es" -}}
+<style>
+  .news-page {
+    font-family: "Segoe UI", "Helvetica Neue", "Noto Sans", Arial, sans-serif;
+    width: calc(100% + 2rem);
+    margin: 0 -1rem;
+    min-height: 70vh;
+    color: #e7edf8;
+    background: #070b14;
+    border-top: 1px solid rgba(132, 161, 196, 0.24);
+  }
+
+  .news-page__inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 28px 84px 56px;
+  }
+
+  .news-page h1 {
+    margin: 0 0 10px;
+    color: #d9e0ee;
+    font-size: clamp(34px, 4vw, 58px);
+    line-height: 1.1;
+  }
+
+  .news-page__lead {
+    max-width: 860px;
+    margin: 0 0 28px;
+    color: rgba(218, 228, 244, .88);
+    font-size: 18px;
+    line-height: 1.55;
+  }
+
+  .news-list {
+    display: grid;
+    gap: 18px;
+  }
+
+  .news-card {
+    display: grid;
+    grid-template-columns: minmax(160px, 240px) minmax(0, 1fr);
+    gap: 18px;
+    padding: 14px;
+    border: 1px solid rgba(95, 178, 226, .34);
+    border-radius: 8px;
+    background: rgba(10, 18, 32, .78);
+    box-shadow: 0 0 18px rgba(75, 169, 226, .14);
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .news-card:hover,
+  .news-card:focus-visible {
+    border-color: rgba(127, 213, 255, .72);
+    box-shadow: 0 0 26px rgba(75, 169, 226, .26);
+  }
+
+  .news-card img {
+    width: 100%;
+    height: auto;
+    align-self: start;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 7px;
+    border: 1px solid rgba(146, 174, 206, .22);
+  }
+
+  .news-card__meta {
+    display: block;
+    margin-bottom: 8px;
+    color: #9eb4d1;
+    font-size: 14px;
+  }
+
+  .news-card h2 {
+    margin: 0 0 10px;
+    color: #dfe6f6;
+    font-size: clamp(20px, 2vw, 26px);
+    line-height: 1.18;
+  }
+
+  .news-card p {
+    margin: 0;
+    color: rgba(218, 228, 244, .86);
+    font-size: 16px;
+    line-height: 1.55;
+  }
+
+  .news-empty {
+    padding: 22px;
+    border: 1px dashed rgba(127, 213, 255, .38);
+    border-radius: 8px;
+    color: rgba(218, 228, 244, .82);
+  }
+
+  @media (max-width: 760px) {
+    .news-page__inner {
+      padding: 24px 18px 44px;
+    }
+
+    .news-card {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<section class="news-page">
+  <div class="news-page__inner">
+    <h1>{{ .Title }}</h1>
+    {{ with .Description }}<p class="news-page__lead">{{ . }}</p>{{ end }}
+
+    {{- $items := sort .RegularPages "Date" "desc" -}}
+    {{- if gt (len $items) 0 -}}
+      <div class="news-list">
+        {{- range $items -}}
+          {{- $image := .Params.image | default "" -}}
+          {{- with .Params.images -}}
+            {{- if and (not $image) (gt (len .) 0) -}}{{- $image = index . 0 -}}{{- end -}}
+          {{- end -}}
+          {{- $imageConfig := "" -}}
+          {{- if $image -}}
+            {{- $imageFsPath := path.Join "static" (trim $image "/") -}}
+            {{- if fileExists $imageFsPath -}}{{- $imageConfig = imageConfig $imageFsPath -}}{{- end -}}
+          {{- end -}}
+          {{- $imageWidth := .Params.imageWidth | default 0 -}}
+          {{- $imageHeight := .Params.imageHeight | default 0 -}}
+          {{- if and (not $imageWidth) $imageConfig -}}{{- $imageWidth = $imageConfig.Width -}}{{- end -}}
+          {{- if and (not $imageHeight) $imageConfig -}}{{- $imageHeight = $imageConfig.Height -}}{{- end -}}
+          {{- $summary := .Description | default (.Summary | plainify) -}}
+          <a class="news-card" href="{{ .RelPermalink }}">
+            {{- if $image -}}
+              <img src="{{ $image | safeURL }}" alt="{{ .Title }}" loading="lazy" decoding="async"{{ with $imageWidth }} width="{{ . }}"{{ end }}{{ with $imageHeight }} height="{{ . }}"{{ end }}>
+            {{- end -}}
+            <span>
+              <time class="news-card__meta" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date | time.Format ":date_medium" }}</time>
+              <h2>{{ .Title }}</h2>
+              {{- with $summary -}}<p>{{ . | truncate 220 }}</p>{{- end -}}
+            </span>
+          </a>
+        {{- end -}}
+      </div>
+    {{- else -}}
+      <div class="news-empty">
+        {{- if $isRU -}}Пока нет опубликованных новостей.{{- else if $isES -}}Todavia no hay noticias publicadas.{{- else -}}No published news yet.{{- end -}}
+      </div>
+    {{- end -}}
+  </div>
+</section>
+{{ end }}

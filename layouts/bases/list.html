@@ -1,0 +1,186 @@
+{{ define "content" }}
+{{- $isRU := eq .Site.Language.Lang "ru" -}}
+{{- $isES := eq .Site.Language.Lang "es" -}}
+<style>
+  .bases-page {
+    width: calc(100% + 2rem);
+    margin: 0 -1rem;
+    min-height: 70vh;
+    color: #e7edf8;
+    background: #070b14;
+    border-top: 1px solid rgba(132, 161, 196, 0.24);
+  }
+
+  .bases-page__inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 28px 84px 64px;
+  }
+
+  .bases-page h1 {
+    margin: 0 0 10px;
+    color: #d9e0ee;
+    font-size: clamp(34px, 4vw, 58px);
+    line-height: 1.1;
+  }
+
+  .bases-page__lead {
+    max-width: 900px;
+    margin: 0 0 28px;
+    color: rgba(218, 228, 244, 0.88);
+    font-size: 18px;
+    line-height: 1.55;
+  }
+
+  .bases-list {
+    display: grid;
+    gap: 18px;
+  }
+
+  .bases-card {
+    display: grid;
+    grid-template-columns: minmax(240px, 430px) minmax(0, 1fr);
+    gap: 24px;
+    padding: 18px;
+    border: 1px solid rgba(95, 178, 226, 0.34);
+    border-radius: 8px;
+    background: rgba(10, 18, 32, 0.78);
+    box-shadow: 0 0 18px rgba(75, 169, 226, 0.14);
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .bases-card:hover,
+  .bases-card:focus-visible {
+    border-color: rgba(127, 213, 255, 0.72);
+    box-shadow: 0 0 26px rgba(75, 169, 226, 0.26);
+    outline: none;
+  }
+
+  .bases-card img {
+    display: block;
+    align-self: start;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 7px;
+    border: 1px solid rgba(146, 174, 206, 0.22);
+  }
+
+  .bases-card__body {
+    display: grid;
+    align-content: center;
+    gap: 10px;
+    min-width: 0;
+  }
+
+  .bases-card h2 {
+    margin: 0;
+    color: #dfe6f6;
+    font-size: clamp(22px, 2vw, 30px);
+    line-height: 1.18;
+  }
+
+  .bases-card__text {
+    color: rgba(218, 228, 244, 0.86);
+    font-size: 16px;
+    line-height: 1.55;
+  }
+
+  .bases-card__text p {
+    margin: 0 0 8px;
+  }
+
+  .bases-card__text p:last-child {
+    margin-bottom: 0;
+  }
+
+  .bases-card__updated {
+    color: #9eb4d1;
+    font-size: 14px;
+  }
+
+  .bases-page__overview {
+    margin-top: 34px;
+    padding-top: 28px;
+    border-top: 1px solid rgba(132, 161, 196, 0.24);
+    color: rgba(218, 228, 244, 0.9);
+    font-size: 19px;
+    line-height: 1.7;
+  }
+
+  .bases-page__overview p {
+    margin: 0 0 18px;
+  }
+
+  .bases-empty {
+    padding: 22px;
+    border: 1px dashed rgba(127, 213, 255, 0.38);
+    border-radius: 8px;
+    color: rgba(218, 228, 244, 0.82);
+  }
+
+  @media (max-width: 760px) {
+    .bases-page__inner {
+      padding: 24px 18px 44px;
+    }
+
+    .bases-card {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<section class="bases-page">
+  <div class="bases-page__inner">
+    <h1>{{ .Title }}</h1>
+    {{ with .Description }}<p class="bases-page__lead">{{ . }}</p>{{ end }}
+
+    {{- $items := sort .RegularPages "Weight" "asc" -}}
+    {{- if gt (len $items) 0 -}}
+      <div class="bases-list">
+        {{- range $items -}}
+          {{- $image := .Params.image | default "" -}}
+          {{- with .Params.images -}}
+            {{- if and (not $image) (gt (len .) 0) -}}{{- $image = index . 0 -}}{{- end -}}
+          {{- end -}}
+          {{- $imageConfig := "" -}}
+          {{- if $image -}}
+            {{- $imageFsPath := path.Join "static" (trim $image "/") -}}
+            {{- if fileExists $imageFsPath -}}{{- $imageConfig = imageConfig $imageFsPath -}}{{- end -}}
+          {{- end -}}
+          {{- $imageWidth := .Params.imageWidth | default 0 -}}
+          {{- $imageHeight := .Params.imageHeight | default 0 -}}
+          {{- if and (not $imageWidth) $imageConfig -}}{{- $imageWidth = $imageConfig.Width -}}{{- end -}}
+          {{- if and (not $imageHeight) $imageConfig -}}{{- $imageHeight = $imageConfig.Height -}}{{- end -}}
+          {{- $cardText := .Params.cardText | default .Description -}}
+          {{- $updated := .Params.fileUpdatedAt | default "" -}}
+          <a class="bases-card" href="{{ .RelPermalink }}" data-bases-card-page="{{ with .File }}content/{{ .Path }}{{ end }}" data-bases-card-image="{{ $image }}">
+            {{- if $image -}}
+              <img src="{{ $image | safeURL }}" alt="{{ .Title }}" data-bases-card-image-target="1"{{ with $imageWidth }} width="{{ . }}"{{ end }}{{ with $imageHeight }} height="{{ . }}"{{ end }}>
+            {{- end -}}
+            <span class="bases-card__body">
+              <h2>{{ .Title }}</h2>
+              {{- with $cardText -}}<span class="bases-card__text">{{ . | markdownify }}</span>{{- end -}}
+              {{- with $updated -}}
+                <span class="bases-card__updated">{{ if $isRU }}Обновлено{{ else if $isES }}Actualizado{{ else }}Updated{{ end }}: {{ . }}</span>
+              {{- end -}}
+            </span>
+          </a>
+        {{- end -}}
+      </div>
+    {{- else -}}
+      <div class="bases-empty">
+        {{- if $isRU -}}Пока нет опубликованных баз.{{- else if $isES -}}Todavia no hay bases publicadas.{{- else -}}No published bases yet.{{- end -}}
+      </div>
+    {{- end -}}
+
+    {{- with .Content -}}
+      <div class="bases-page__overview">
+        {{ . }}
+      </div>
+    {{- end -}}
+  </div>
+</section>
+{{ end }}

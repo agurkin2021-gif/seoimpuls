@@ -1,0 +1,114 @@
+.sb-btn,
+.sb-apply {
+  max-width: 100%;
+}
+
+:where(
+  .sb-card,
+  .sb-indicator,
+  .sb-left-note,
+  .sb-dropzone,
+  .sb-qty-pop,
+  .sb-response,
+  .sb-btn,
+  .sb-parent-btn,
+  .sb-apply
+) {
+  position: relative;
+  isolation: isolate;
+}
+
+:where(
+  .sb-card,
+  .sb-indicator,
+  .sb-left-note,
+  .sb-dropzone,
+  .sb-qty-pop,
+  .sb-response,
+  .sb-btn:not(.sb-parent),
+  .sb-parent-btn,
+  .sb-apply
+)::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0.78;
+  box-shadow:
+    0 0 0 1px rgba(var(--lum-glow-rgb), 0.13),
+    0 0 8px rgba(var(--lum-glow-rgb), 0.17),
+    0 0 14px rgba(var(--lum-glow-rgb), 0.11),
+    0 0 24px rgba(var(--lum-glow-rgb), 0.07);
+}
+
+.sb-parent::before {
+  content: none !important;
+  box-shadow: none !important;
+}
+
+.sb-parent {
+  box-shadow:
+    0 0 0 1px rgba(var(--lum-glow-rgb), 0.13),
+    0 0 8px rgba(var(--lum-glow-rgb), 0.17),
+    0 0 14px rgba(var(--lum-glow-rgb), 0.11),
+    0 0 24px rgba(var(--lum-glow-rgb), 0.07);
+}
+
+.sb-base-rows .sb-btn {
+  border-color: rgba(123, 151, 188, 0.34) !important;
+}
+
+.sb-base-rows .sb-btn:hover {
+  border-color: rgba(163, 190, 226, 0.52) !important;
+}
+
+.sb-base-rows .sb-btn.is-active {
+  border-color: rgb(91, 177, 224) !important;
+}
+
+.sb-submenu::before,
+.sb-submenu::after {
+  content: none !important;
+  box-shadow: none !important;
+}
+
+.sb-btn[data-type="sub"]::after,
+.sb-submenu .sb-btn::after {
+  content: none !important;
+  box-shadow: none !important;
+}
+
+@media (max-width: 767px) {
+  :where(
+    .sb-card,
+    .sb-indicator,
+    .sb-left-note,
+    .sb-dropzone,
+    .sb-qty-pop,
+    .sb-response,
+    .sb-btn:not(.sb-parent),
+    .sb-parent-btn,
+    .sb-apply
+  )::after {
+    opacity: 0.62;
+    box-shadow:
+      0 0 0 1px rgba(var(--lum-glow-rgb), 0.10),
+      0 0 5px rgba(var(--lum-glow-rgb), 0.09),
+      0 0 10px rgba(var(--lum-glow-rgb), 0.07),
+      0 0 14px rgba(var(--lum-glow-rgb), 0.04);
+  }
+
+  .sb-parent::before {
+    content: none !important;
+    box-shadow: none !important;
+  }
+
+  .sb-parent {
+    box-shadow:
+      0 0 0 1px rgba(var(--lum-glow-rgb), 0.10),
+      0 0 5px rgba(var(--lum-glow-rgb), 0.09),
+      0 0 10px rgba(var(--lum-glow-rgb), 0.07),
+      0 0 14px rgba(var(--lum-glow-rgb), 0.04);
+  }
+}

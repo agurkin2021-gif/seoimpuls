@@ -1,0 +1,505 @@
+{{- define "content" -}}
+{{- $lang := .Site.Language.Lang -}}
+{{- $isRU := eq $lang "ru" -}}
+{{- $isES := eq $lang "es" -}}
+{{- $builderURL := cond $isRU "/ru/konstruktor-seo-strategii/" (cond $isES "/es/constructor-estrategias-seo/" "/seo-strategy-builder/") -}}
+{{- $newsListURL := cond $isRU "/ru/news/" (cond $isES "/es/news/" "/news/") -}}
+{{- $servicesURL := cond $isRU "/uslugi-linkbildinga/" (cond $isES "/servicios-de-link-building/" "/link-building-services/") -}}
+{{- $seoURL := cond $isRU "/ru/seo/" (cond $isES "/es/seo/" "/seo/") -}}
+{{- $casesURL := $seoURL -}}
+{{- $softURL := cond $isES "/es/soft/" "/soft/" -}}
+{{- $builderBlocks := slice -}}
+{{- with .Params.builderJson -}}
+  {{- $builderBlocks = transform.Unmarshal (dict "format" "json") . -}}
+{{- end -}}
+{{- $hasBuilderBlocks := gt (len $builderBlocks) 0 -}}
+{{- if $hasBuilderBlocks }}
+<style>
+  .seo-builder {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 18px;
+    margin-top: 18px;
+    overflow-x: clip;
+    overflow-y: visible;
+  }
+
+  .seo-builder-block {
+    grid-column: span 12;
+    min-width: 0;
+    border: 1px solid rgba(128, 166, 209, 0.24);
+    border-radius: 8px;
+    background: rgba(7, 15, 31, 0.62);
+    padding: 18px;
+    overflow: visible;
+  }
+
+  .seo-builder-block--half {
+    grid-column: span 6;
+  }
+
+  .seo-builder-block--third {
+    grid-column: span 4;
+  }
+
+  .seo-builder-block--image,
+  .seo-builder-block--buttons.seo-builder-block--compact {
+    border: 0;
+    background: transparent;
+    padding: 0;
+    overflow: visible;
+  }
+
+  .seo-builder-block--buttons.seo-builder-block--compact {
+    width: fit-content;
+    max-width: 100%;
+    box-shadow: none;
+  }
+
+  .seo-builder-block--spacer {
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
+    pointer-events: none;
+  }
+
+  .seo-builder-block h2,
+  .seo-builder-block h3 {
+    margin: 0 0 10px;
+    color: #e5eefc;
+    line-height: 1.25;
+  }
+
+  .seo-builder-block h2 {
+    font-size: clamp(22px, 1.6vw, 28px);
+  }
+
+  .seo-builder-text {
+    color: rgba(218, 228, 244, 0.91);
+    font-size: 16px;
+    line-height: 1.58;
+    overflow-wrap: anywhere;
+  }
+
+  .seo-builder-text p {
+    margin: 0 0 13px;
+  }
+
+  .seo-builder-text p:last-child {
+    margin-bottom: 0;
+  }
+
+  .seo-builder-text a {
+    color: #7dd3fc;
+    font-weight: 650;
+    text-decoration: underline;
+    text-decoration-thickness: 0.08em;
+    text-underline-offset: 0.16em;
+    transition: color 0.14s ease, text-decoration-color 0.14s ease, filter 0.14s ease;
+  }
+
+  .seo-builder-text a:hover,
+  .seo-builder-text a:focus-visible {
+    color: #b8ecff;
+    text-decoration-color: #b8ecff;
+    filter: drop-shadow(0 0 8px rgba(125, 211, 252, 0.24));
+    outline: none;
+  }
+
+  .seo-builder-media,
+  .seo-builder-banner__media {
+    display: grid;
+    gap: 8px;
+    overflow: visible;
+  }
+
+  .seo-builder-media img,
+  .seo-builder-banner__media img,
+  .seo-builder-card img {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    height: auto;
+    max-height: none;
+    object-fit: contain;
+    border-radius: 8px;
+    border: 1px solid rgba(128, 166, 209, 0.22);
+  }
+
+  .seo-builder-caption {
+    margin: 0;
+    color: rgba(190, 208, 232, 0.82);
+    font-size: 13px;
+    line-height: 1.4;
+  }
+
+  .seo-builder-split,
+  .seo-builder-banner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(260px, 0.95fr);
+    gap: 18px;
+    align-items: center;
+  }
+
+  .seo-builder-split {
+    align-items: start;
+  }
+
+  .seo-builder-split > * {
+    align-self: start;
+  }
+
+  .seo-builder-split--image-left .seo-builder-media {
+    order: -1;
+  }
+
+  .seo-builder-block--wrap::after,
+  .seo-builder-wrap-content::after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+
+  .seo-builder-wrap-media {
+    width: min(42%, 420px);
+    max-width: 100%;
+    margin: 0 22px 14px 0;
+    float: left;
+  }
+
+  .seo-builder-wrap--right .seo-builder-wrap-media {
+    float: right;
+    margin: 0 0 14px 22px;
+  }
+
+  .seo-builder-image-link {
+    display: inline-block;
+    box-sizing: border-box;
+    max-width: 100%;
+    line-height: 0;
+    vertical-align: top;
+    border-radius: 8px;
+    color: inherit;
+    cursor: pointer;
+    text-decoration: none;
+    transform-origin: center;
+    transition: transform 0.13s ease, filter 0.13s ease, box-shadow 0.13s ease;
+    will-change: transform;
+  }
+
+  .seo-builder-image-link:hover,
+  .seo-builder-image-link:focus-visible {
+    transform: translateY(-3px) scale(1.012);
+    filter: brightness(1.07) saturate(1.04);
+    box-shadow: none;
+    outline: none;
+  }
+
+  .seo-builder-image-link img {
+    display: block;
+  }
+
+  .seo-builder-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .seo-builder-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 12px;
+  }
+
+  .seo-builder-card {
+    padding: 14px;
+    border-radius: 8px;
+    border: 1px solid rgba(128, 166, 209, 0.22);
+    background: rgba(10, 20, 38, 0.72);
+  }
+
+  @media (max-width: 767px) {
+    .seo-builder {
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    .seo-builder-block,
+    .seo-builder-block--half,
+    .seo-builder-block--third {
+      grid-column: 1 / -1;
+    }
+
+    .seo-builder-split,
+    .seo-builder-banner {
+      grid-template-columns: 1fr;
+    }
+
+    .seo-builder-wrap-media,
+    .seo-builder-wrap--right .seo-builder-wrap-media {
+      float: none;
+      width: 100%;
+      margin: 0 0 14px;
+    }
+  }
+</style>
+{{- end }}
+
+{{ $updatesLimit := 6 }}
+{{/* Homepage feed is controlled by showOnHome: true in page front matter. */}}
+{{ $updatesSource := slice }}
+{{ range .Site.RegularPages }}
+  {{ $showOnHome := eq .Params.showOnHome true }}
+  {{ $hasRealDate := ge (.Date.Format "2006") "2000" }}
+  {{ if and $showOnHome $hasRealDate (not .Draft) }}
+    {{ $updatesSource = $updatesSource | append . }}
+  {{ end }}
+{{ end }}
+{{ $updates := first $updatesLimit (sort $updatesSource "Date" "desc") }}
+{{ $newsTitle := cond $isRU "Технический SEO: проверка краулингового бюджета" (cond $isES "SEO técnico: revisión del presupuesto de rastreo" "Technical SEO: Crawl Budget Check") }}
+{{ $newsDateText := cond $isRU "13 февраля 2026" (cond $isES "13 de febrero de 2026" "February 13, 2026") }}
+{{ $newsDateISO := "2026-02-13" }}
+{{ $newsImage := "/news/eeat_optimized_20kb.webp" }}
+{{ $newsImageSrcSet := "" }}
+{{ $newsImageSizes := "" }}
+{{ $newsURL := "#" }}
+{{ $newsBody := cond $isRU "Тестовый фрагмент статьи для визуальной проверки.\n\nЗдесь размещен длинный превью-блок, чтобы зона новости имела заметную вертикальную прокрутку.\n\nРаздел 1: диагностика индексации, глубина сканирования и дубли.\n\nРаздел 2: микс анкоров, токсичные домены и базовая структура ссылочного профиля.\n\nРаздел 3: сегментация интента, контентные кластеры и план внедрения.\n\nРаздел 4: проверка хостинга, рендеринга и план следующей итерации." (cond $isES "Fragmento de artículo de prueba para validación visual.\n\nAquí se muestra una vista previa larga para que el bloque tenga desplazamiento vertical claro.\n\nSección 1: diagnóstico de indexación, profundidad de rastreo y duplicados.\n\nSección 2: mezcla de anchors, dominios tóxicos y distribución base de autoridad.\n\nSección 3: segmentación de intención, mapeo de contenido e implementación.\n\nSección 4: revisión de hosting, rendimiento de renderizado y siguiente iteración." "Sample article body for visual testing.\n\nTelegram-like long post preview: this area intentionally contains extended text so this block has clear vertical scrolling.\n\nSection one: diagnostics for indexation, crawl depth, and duplicate clusters.\n\nSection two: anchor mix, toxic domains, and authority distribution baseline.\n\nSection three: intent segmentation, content mapping, and implementation details.\n\nSection four: hosting checks, rendering performance, and next iteration plan.") }}
+{{ if gt (len $updates) 0 }}
+  {{ $latest := index $updates 0 }}
+  {{ $newsTitle = $latest.LinkTitle }}
+  {{ $newsDateText = ($latest.Date | time.Format ":date_medium") }}
+  {{ $newsDateISO = ($latest.Date.Format "2006-01-02") }}
+  {{ $newsURL = $latest.RelPermalink }}
+  {{ with $latest.Params.image }}
+    {{ $newsImage = . }}
+    {{ $newsImageSrcSet = "" }}
+    {{ $newsImageSizes = "" }}
+  {{ end }}
+  {{ with $latest.Plain }}
+    {{ $newsBody = . | plainify }}
+  {{ else }}
+    {{ with $latest.Summary }}
+      {{ $newsBody = . | plainify }}
+    {{ end }}
+  {{ end }}
+  {{ if lt (len $newsBody) 420 }}
+    {{ if $isRU }}
+      {{ $newsBody = printf "%s\n\n%s\n\n%s" $newsBody "Дополнительный блок превью: диагностика краулинга, логи и внутренняя перелинковка." "Дополнительный блок превью: матрица интентов, кластеризация и технический бэклог релиза." }}
+    {{ else if $isES }}
+      {{ $newsBody = printf "%s\n\n%s\n\n%s" $newsBody "Bloque adicional de vista previa: diagnóstico de rastreo, logs y enlazado interno." "Bloque adicional de vista previa: matriz de intención, clustering y backlog técnico para release." }}
+    {{ else }}
+      {{ $newsBody = printf "%s\n\n%s\n\n%s" $newsBody "Additional preview section: crawl diagnostics, logs, and internal link structure." "Additional preview section: ranking intent matrix, clustering, and technical backlog for release." }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+{{- $home := dict -}}
+{{- with .Params.homeJson -}}
+  {{- $home = transform.Unmarshal . -}}
+{{- end -}}
+{{- $homeHeroBuilderUrlRaw := index $home "heroBuilderUrl" | default $builderURL -}}
+{{- $homeHeroBuilderUrl := $homeHeroBuilderUrlRaw -}}
+{{- if and (not (hasPrefix $homeHeroBuilderUrl "http://")) (not (hasPrefix $homeHeroBuilderUrl "https://")) (not (hasPrefix $homeHeroBuilderUrl "/")) -}}{{- $homeHeroBuilderUrl = $homeHeroBuilderUrl | relLangURL -}}{{- end -}}
+{{- $homeHeroBuilderLink := partial "affiliate-link-attrs.html" (dict "url" $homeHeroBuilderUrl) -}}
+{{- $homeHeroCasesUrlRaw := index $home "heroCasesUrl" | default $casesURL -}}
+{{- $homeHeroCasesUrl := $homeHeroCasesUrlRaw -}}
+{{- if and (not (hasPrefix $homeHeroCasesUrl "http://")) (not (hasPrefix $homeHeroCasesUrl "https://")) (not (hasPrefix $homeHeroCasesUrl "/")) -}}{{- $homeHeroCasesUrl = $homeHeroCasesUrl | relLangURL -}}{{- end -}}
+{{- $homeHeroCasesLink := partial "affiliate-link-attrs.html" (dict "url" $homeHeroCasesUrl) -}}
+{{- $homeNewsUrlRaw := index $home "newsUrl" | default "" -}}
+{{- $hasUpdates := gt (len $updates) 0 -}}
+{{- $homeNewsTitle := $newsTitle -}}
+{{- $homeNewsDateText := $newsDateText -}}
+{{- $homeNewsBody := $newsBody -}}
+{{- $homeNewsImage := $newsImage -}}
+{{- if eq $homeNewsImage "/news/eeat_optimized_20kb.webp" -}}
+  {{- $homeNewsImage = "/news/eeat_home_420x260.webp" -}}
+{{- end -}}
+{{- if not $hasUpdates -}}
+  {{- $homeNewsTitle = index $home "newsTitle" | default $newsTitle -}}
+  {{- $homeNewsDateText = index $home "newsDateText" | default $newsDateText -}}
+  {{- $homeNewsBody = index $home "newsBody" | default $newsBody -}}
+  {{- $homeNewsImage = index $home "newsImage" | default $newsImage -}}
+  {{- if eq $homeNewsImage "/news/eeat_optimized_20kb.webp" -}}
+    {{- $homeNewsImage = "/news/eeat_home_420x260.webp" -}}
+  {{- end -}}
+{{- end -}}
+{{- $homeCard1Title := index $home "card1Title" | default (cond $isRU "Стратегии обратных ссылок" (cond $isES "Estrategias de backlinks" "Backlink Strategies")) -}}
+{{- $homeCard1Item1 := index $home "card1Item1" | default (cond $isRU "Анализ распределения анкоров" (cond $isES "Análisis de distribución de anchors" "Anchor distribution analysis")) -}}
+{{- $homeCard1Item3 := index $home "card1Item3" | default (cond $isRU "Контролируемый рост авторитета" (cond $isES "Crecimiento de autoridad controlado" "Controlled authority growth")) -}}
+{{- $homeCard1UrlRaw := index $home "card1Url" | default $servicesURL -}}
+{{- $homeCard1Url := $homeCard1UrlRaw -}}
+{{- if and (not (hasPrefix $homeCard1Url "http://")) (not (hasPrefix $homeCard1Url "https://")) (not (hasPrefix $homeCard1Url "/")) -}}{{- $homeCard1Url = $homeCard1Url | relLangURL -}}{{- end -}}
+{{- $homeCard1Link := partial "affiliate-link-attrs.html" (dict "url" $homeCard1Url) -}}
+{{- $homeCard2Title := index $home "card2Title" | default (cond $isRU "Хостинг и VPS для SEO-проектов" (cond $isES "Hosting y VPS para proyectos SEO" "Hosting & VPS for SEO Projects")) -}}
+{{- $homeCard2Item1 := index $home "card2Item1" | default (cond $isRU "Настройка инфраструктуры" (cond $isES "Configuración de infraestructura" "Infrastructure setup")) -}}
+{{- $homeCard2Item2 := index $home "card2Item2" | default (cond $isRU "Хостинг приватных сетей" (cond $isES "Hosting de red privada" "Private network hosting")) -}}
+{{- $homeCard2Item3 := index $home "card2Item3" | default (cond $isRU "Тонкая настройка производительности" (cond $isES "Ajuste de rendimiento" "Performance tuning")) -}}
+{{- $homeCard2UrlRaw := index $home "card2Url" | default $softURL -}}
+{{- $homeCard2Url := $homeCard2UrlRaw -}}
+{{- if and (not (hasPrefix $homeCard2Url "http://")) (not (hasPrefix $homeCard2Url "https://")) (not (hasPrefix $homeCard2Url "/")) -}}{{- $homeCard2Url = $homeCard2Url | relLangURL -}}{{- end -}}
+{{- $homeCard2Link := partial "affiliate-link-attrs.html" (dict "url" $homeCard2Url) -}}
+{{- $homeOfferTitle := index $home "offerTitle" | default (cond $isRU "Обзор факторов ранжирования" (cond $isES "Resumen de factores de ranking" "Ranking Factors Overview")) -}}
+{{- $homeOfferItem1 := index $home "offerItem1" | default (cond $isRU "🔎 Анализ ниши и конкуренции: любой проект начинается с оценки структуры спроса, частотности запросов, интентов и ссылочных профилей лидеров. Семантика и бэклинки проверяются через Ahrefs и Semrush, чтобы заранее понять уровень конкуренции и нужный объём ресурсов." (cond $isES "🔎 Análisis de nicho y competencia: cualquier proyecto empieza con la evaluación de la estructura de la demanda, la frecuencia de búsqueda, la intención de búsqueda y los perfiles de enlaces de los líderes. La semántica y los backlinks se verifican con Ahrefs y Semrush para entender de antemano el nivel de competencia y el volumen de recursos necesario." "🔎 Niche and competition analysis: every project starts with evaluating demand structure, query frequency, intents, and backlink profiles of leading competitors. Semantics and backlinks are checked with Ahrefs and Semrush to understand competition level and required resources in advance.")) -}}
+{{- $homeOfferItem2 := index $home "offerItem2" | default (cond $isRU "📝 Контентная база SEO: Контент должен полностью закрывать поисковый интент и соответствовать алгоритмам ранжирования. Каждая страница работает под конкретную группу запросов без пересечений и внутренней каннибализации." (cond $isES "📝 Base de contenido SEO: el contenido debe cubrir por completo la intención de búsqueda y ajustarse a los algoritmos de ranking. Cada página trabaja para un grupo concreto de consultas, sin solapamientos ni canibalización interna." "📝 SEO content foundation: content must fully satisfy search intent and align with ranking algorithms. Each page should work for a specific query group without overlap and internal cannibalization.")) -}}
+{{- $homeOfferItem3 := index $home "offerItem3" | default (cond $isRU "📈 Динамика и E-E-A-T: Динамичный сайт имеет более выгодную перспективу если этот сайт является основным. Как и сайт на котором есть E.E.A.T — это когда Google и пользователь чётко видят, кто стоит за контентом, какой у него опыт и почему ему можно доверять." (cond $isES "📈 Dinámica y E-E-A-T: un sitio dinámico tiene una perspectiva más favorable si ese sitio es el principal. Igual que un sitio donde existe E.E.A.T: cuando Google y el usuario ven claramente quién está detrás del contenido, qué experiencia tiene y por qué se puede confiar en él." "📈 Dynamics and E-E-A-T: a dynamic site has stronger potential if that site is the main one. The same applies to a site with E.E.A.T: when Google and users clearly see who is behind the content, what experience they have, and why they can be trusted.")) -}}
+{{- $homeOfferItem4 := index $home "offerItem4" | default (cond $isRU "🔗 Ссылочный профиль: Одним из важных факторов продвижения является ссылочный профиль сайта, ссылки добавляют вес сайту и так же дают устойчивую индексацию." (cond $isES "🔗 Perfil de enlaces: uno de los factores importantes del posicionamiento es el perfil de enlaces del sitio; los enlaces añaden peso al sitio y también dan una indexación estable." "🔗 Backlink profile: one of the important ranking factors is the site's backlink profile; links add weight to the site and also provide stable indexing.")) -}}
+{{- $homeOfferItem5 := index $home "offerItem5" | default (cond $isRU "📊 Поведенческие факторы: CTR в поисковой выдаче, время на странице, глубина просмотра, показатель отказов, повторные визиты и прямые заходы. Сильные поведенческие сигналы подтверждают релевантность страницы и усиливают её позиции в конкурентной выдаче." (cond $isES "📊 Factores de comportamiento: CTR en los resultados de búsqueda, tiempo en la página, profundidad de navegación, tasa de rebote, visitas repetidas y tráfico directo. Las señales de comportamiento fuertes confirman la relevancia de la página y refuerzan sus posiciones en resultados competitivos." "📊 Behavioral factors: CTR in search results, time on page, scroll depth, bounce rate, repeat visits, and direct traffic. Strong behavioral signals confirm page relevance and strengthen its positions in competitive SERPs.")) -}}
+{{- $homeOfferItem6 := index $home "offerItem6" | default (cond $isRU "VPS hosting: Для стабильной работы нужно использовать VPS сервер, он быстрее обычного хостинга, удобнее для контроля нагрузки и скорости ответа, снижает технические риски и улучшает индексацию." (cond $isES "VPS hosting: para un funcionamiento estable, hay que usar un servidor VPS; es más rápido que un hosting común, más cómodo para controlar la carga y el tiempo de respuesta, reduce riesgos técnicos y mejora la indexación." "VPS hosting: for stable operation, you should use a VPS server; it is faster than regular hosting, more convenient for load and response-time control, reduces technical risks, and improves indexing.")) -}}
+{{- $homeOfferItem7 := index $home "offerItem7" | default (cond $isRU "⚙️ Универсальная механика: Базовая логика продвижения сайтов у всех одинаковая: семантика, структура, контент, ссылки и техническая база. Различия появляются в глубине проработки и инструментарии под задачи и конкурентность ниши." (cond $isES "⚙️ Mecánica universal: la lógica base del SEO es la misma para todos: semántica, estructura, contenido, enlaces y base técnica. Las diferencias aparecen en la profundidad de trabajo y en el conjunto de herramientas según las tareas y la competencia del nicho." "⚙️ Universal mechanics: the core SEO logic is the same for everyone: semantics, structure, content, links, and technical base. Differences appear in depth of execution and toolset depending on goals and niche competition.")) -}}
+{{- $homeOfferItem8 := index $home "offerItem8" | default (cond $isRU "🧭 Практическое применение: инструменты и рабочие сценарии подробно разобраны в разделе «Конструктор SEO-стратегии»." (cond $isES "🧭 Aplicación práctica: las herramientas y los escenarios de trabajo se explican en detalle en la sección «Constructor de estrategias SEO»." "🧭 Practical application: tools and working scenarios are explained in detail in the «SEO Strategy Builder» section.")) -}}
+{{- $pageTitleAlign := .Params.pageTitleAlign | default "left" -}}
+{{- if not (in (slice "left" "center" "right") $pageTitleAlign) -}}{{- $pageTitleAlign = "left" -}}{{- end -}}
+{{- $pageTitleOffsetX := .Params.pageTitleOffsetX | default 0 -}}
+{{- $pageTitleOffsetY := .Params.pageTitleOffsetY | default 0 -}}
+{{- $pageTitlePixelWidth := .Params.pageTitlePixelWidth | default 0 -}}
+{{- $pageTitleStyle := "" -}}
+{{- if ne $pageTitleAlign "left" -}}{{- $pageTitleStyle = printf "%s text-align: %s;" $pageTitleStyle $pageTitleAlign -}}{{- end -}}
+{{- if $pageTitlePixelWidth -}}{{- $pageTitleStyle = printf "%s width: %vpx; max-width: 100%%;" $pageTitleStyle $pageTitlePixelWidth -}}{{- end -}}
+{{- if or $pageTitleOffsetX $pageTitleOffsetY -}}{{- $pageTitleStyle = printf "%s transform: translate(%vpx, %vpx); transform-origin: left top;" $pageTitleStyle $pageTitleOffsetX $pageTitleOffsetY -}}{{- end -}}
+
+<section class="seo-central" aria-label="{{ if $isRU }}Основной SEO контент{{ else if $isES }}Contenido principal SEO{{ else }}SEO consulting main content{{ end }}">
+  <section class="seo-hero-panel" aria-labelledby="seo-hero-title">
+    <div class="seo-hero-content">
+      <div class="seo-hero-content__inner">
+        <h1 id="seo-hero-title" class="seo-hero-title"{{ if $pageTitleStyle }} style="{{ $pageTitleStyle | safeCSS }}"{{ end }}>{{ .Title }}</h1>
+        <p class="seo-hero-text">
+          {{ .Params.description | default (cond $isRU "SEO-оптимизация и адаптивное построение ссылок под алгоритмы поисковых систем. Масштабируемые стратегии, инфраструктура продвижения и контроль роста позиций." (cond $isES "Optimización SEO y construcción de enlaces adaptativa alineada con los algoritmos de los motores de búsqueda. Estrategias escalables, infraestructura de crecimiento y control del posicionamiento." "SEO optimization and adaptive link building aligned with search engine algorithms. Scalable strategies, structured growth infrastructure, and controlled ranking performance.")) }}
+        </p>
+        <div class="seo-hero-actions">
+          <a class="seo-cta seo-cta--primary" href="{{ $homeHeroBuilderLink.href | safeURL }}"{{ with $homeHeroBuilderLink.cloaked }} data-seo-cloaked-href="{{ . }}"{{ end }}{{ with $homeHeroBuilderLink.rel }} rel="{{ . }}"{{ end }} data-home-link-field="heroBuilderUrl" data-home-link-value="{{ $homeHeroBuilderUrlRaw }}">{{ if $isRU }}Конструктор SEO стратегии{{ else if $isES }}Constructor de Estrategias SEO{{ else }}SEO Strategy Builder{{ end }}</a>
+          <a class="seo-cta seo-cta--secondary" href="{{ $homeHeroCasesLink.href | safeURL }}"{{ with $homeHeroCasesLink.cloaked }} data-seo-cloaked-href="{{ . }}"{{ end }}{{ with $homeHeroCasesLink.rel }} rel="{{ . }}"{{ end }} data-home-link-field="heroCasesUrl" data-home-link-value="{{ $homeHeroCasesUrlRaw }}">SEO</a>
+        </div>
+        {{ partial "seo-builder-blocks.html" . }}
+      </div>
+    </div>
+  </section>
+
+  <section class="seo-services-panel">
+    <section class="seo-news-strip" aria-label="{{ if $isRU }}Последние обновления{{ else if $isES }}Últimas actualizaciones{{ else }}Latest updates{{ end }}">
+      <div class="seo-news-strip__layout">
+        <div class="seo-news-strip__single js-news-strip-single">
+          {{ if $hasUpdates }}
+            {{ range $postIndex, $post := $updates }}
+              {{- $postImage := .Params.image | default "" -}}
+              {{- $postTitle := .Title -}}
+              {{- $postBuilderBlocks := slice -}}
+              {{- with .Params.builderJson -}}
+                {{- $postBuilderBlocks = transform.Unmarshal (dict "format" "json") . -}}
+              {{- end -}}
+              {{- with .Params.images -}}
+                {{- if and (not $postImage) (gt (len .) 0) -}}{{- $postImage = index . 0 -}}{{- end -}}
+              {{- end -}}
+              {{- if not $postImage -}}
+                {{- range $postBuilderBlocks -}}
+                  {{- if and (not $postImage) (isset . "image") -}}{{- $postImage = .image -}}{{- end -}}
+                {{- end -}}
+              {{- end -}}
+              {{- $postBody := partial "news-body-source.html" . -}}
+              {{- $postBodyHtml := partial "news-body.html" $postBody -}}
+              {{- $postButtonLabel := .Params.buttonLabel | default "" -}}
+              {{- $postButtonUrl := .Params.buttonUrl | default "" -}}
+              {{- $postTargetUrlRaw := .Params.targetUrl | default (.Params.homeUrl | default (.Params.clusterUrl | default .RelPermalink)) -}}
+              {{- $postTargetUrl := $postTargetUrlRaw -}}
+              {{- if and (not (hasPrefix $postTargetUrl "http://")) (not (hasPrefix $postTargetUrl "https://")) (not (hasPrefix $postTargetUrl "/")) -}}{{- $postTargetUrl = $postTargetUrl | relLangURL -}}{{- end -}}
+              {{- $postTargetLink := partial "affiliate-link-attrs.html" (dict "url" $postTargetUrl) -}}
+              {{- if eq $postTargetUrl .RelPermalink -}}{{- $postTargetLink = dict "href" .RelPermalink -}}{{- end -}}
+              {{- $postButtonStyle := "" -}}
+              {{- with $postBuilderBlocks -}}
+                {{- range . -}}
+                  {{- if and (eq (.type | default "") "buttons") (not $postButtonStyle) -}}
+                    {{- if eq (.buttonWidthMode | default "auto") "custom" -}}{{- with .buttonPixelWidth -}}{{- $postButtonStyle = printf "%s width: %vpx;" $postButtonStyle . -}}{{- end -}}{{- end -}}
+                    {{- with .buttonPixelHeight -}}{{- $postButtonStyle = printf "%s height: %vpx; min-height: %vpx;" $postButtonStyle . . -}}{{- end -}}
+                    {{- with .buttonBgColor -}}{{- $postButtonStyle = printf "%s background: %s; border-color: %s;" $postButtonStyle . . -}}{{- end -}}
+                    {{- with .buttonTextColor -}}{{- $postButtonStyle = printf "%s color: %s;" $postButtonStyle . -}}{{- end -}}
+                    {{- if or .offsetX .offsetY -}}{{- $postButtonStyle = printf "%s transform: translate(%vpx, %vpx);" $postButtonStyle (.offsetX | default 0) (.offsetY | default 0) -}}{{- end -}}
+                  {{- end -}}
+                {{- end -}}
+              {{- end -}}
+              {{- if and (not (hasPrefix $postButtonUrl "http://")) (not (hasPrefix $postButtonUrl "https://")) (not (hasPrefix $postButtonUrl "/")) (ne $postButtonUrl "") -}}{{- $postButtonUrl = $postButtonUrl | relLangURL -}}{{- end -}}
+              {{- $postButtonLink := partial "affiliate-link-attrs.html" (dict "url" $postButtonUrl) -}}
+              <article class="seo-news-article{{ if eq .Section "news" }} seo-news-article--compact{{ end }}" data-news-url="{{ .RelPermalink | safeURL }}" data-news-source-url="{{ .RelPermalink | safeURL }}"{{ with .File }} data-news-path="content/{{ .Path }}"{{ end }} data-news-target-url="{{ $postTargetUrl | safeURL }}" data-news-cluster="{{ .Params.cluster }}">
+                
+                  <h2 class="seo-news-article__title" data-news-field="title">{{ .LinkTitle }}</h2>
+                
+                <time class="seo-news-article__date" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date | time.Format ":date_medium" }}</time>
+                {{- if eq $postImage "/news/eeat_optimized_20kb.webp" -}}
+                  {{- $postImage = "/news/eeat_home_420x260.webp" -}}
+                {{- end -}}
+                {{ with $postImage }}<a class="seo-news-article__image-link" href="{{ $postTargetLink.href | safeURL }}"{{ with $postTargetLink.cloaked }} data-seo-cloaked-href="{{ . }}"{{ end }}{{ with $postTargetLink.rel }} rel="{{ . }}"{{ end }} data-home-link-field="newsUrl" data-home-link-value="{{ $postTargetUrlRaw }}" aria-label="{{ $postTitle }}"><img class="seo-news-article__image" src="{{ . | safeURL }}" alt="{{ $postTitle }}" data-news-image{{ if eq $postIndex 0 }} loading="eager" fetchpriority="high"{{ else }} loading="lazy"{{ end }} decoding="async"{{ with imageConfig (path.Join "static" (trim . "/")) }} width="{{ .Width }}" height="{{ .Height }}"{{ end }} /></a>{{ end }}
+                <div class="seo-news-article__body" data-news-field="description">{{ $postBodyHtml | replaceRE `<a\b[^>]*>(.*?)</a>` `${1}` | safeHTML }}</div>
+              </article>
+            {{ end }}
+          {{ else }}
+            {{- $fallbackNewsUrlRaw := $homeNewsUrlRaw | default $newsURL -}}
+            {{- $fallbackNewsUrl := $fallbackNewsUrlRaw -}}
+            {{- if and (not (hasPrefix $fallbackNewsUrl "http://")) (not (hasPrefix $fallbackNewsUrl "https://")) (not (hasPrefix $fallbackNewsUrl "/")) (ne $fallbackNewsUrl "") -}}{{- $fallbackNewsUrl = $fallbackNewsUrl | relLangURL -}}{{- end -}}
+            {{- $fallbackNewsLink := partial "affiliate-link-attrs.html" (dict "url" $fallbackNewsUrl) -}}
+            <article class="seo-news-article seo-news-article--fallback">
+              
+                <h2 class="seo-news-article__title" data-home-field="newsTitle">{{ partial "home-inline.html" $homeNewsTitle }}</h2>
+              
+              <time class="seo-news-article__date" datetime="{{ $newsDateISO }}" data-home-field="newsDateText">{{ partial "home-inline.html" $homeNewsDateText }}</time>
+              <a class="seo-news-article__image-link" href="{{ $fallbackNewsLink.href | safeURL }}"{{ with $fallbackNewsLink.cloaked }} data-seo-cloaked-href="{{ . }}"{{ end }}{{ with $fallbackNewsLink.rel }} rel="{{ . }}"{{ end }} data-home-link-field="newsUrl" data-home-link-value="{{ $fallbackNewsUrlRaw }}"><img class="seo-news-article__image" src="{{ $homeNewsImage }}" data-home-image-field="newsImage"{{ with $newsImageSrcSet }} srcset="{{ . }}" sizes="{{ $newsImageSizes }}"{{ end }} alt="{{ $homeNewsTitle }}" loading="lazy" width="420" height="260" /></a>
+              <p class="seo-news-article__body" data-home-field="newsBody">{{ partial "home-inline.html" $homeNewsBody }}</p>
+            </article>
+          {{ end }}
+        </div>
+
+        <aside class="seo-news-strip__side" aria-label="{{ if $isRU }}Рекомендуемые блоки услуг{{ else if $isES }}Bloques de servicio destacados{{ else }}Featured service blocks{{ end }}">
+          <a class="seo-card" href="{{ $homeCard1Link.href | safeURL }}"{{ with $homeCard1Link.cloaked }} data-seo-cloaked-href="{{ . }}"{{ end }}{{ with $homeCard1Link.rel }} rel="{{ . }}"{{ end }} data-home-link-field="card1Url" data-home-link-value="{{ $homeCard1UrlRaw }}">
+            <div class="seo-card-head">
+              <span class="seo-card-icon" aria-hidden="true">
+                <img src="{{ "backlinks-icon-64.webp" | relURL }}" alt="" width="64" height="64" decoding="async" />
+              </span>
+              <h3 class="seo-card-title" data-home-field="card1Title">{{ partial "home-inline.html" $homeCard1Title }}</h3>
+            </div>
+            <ul class="seo-card-list">
+              <li data-home-field="card1Item1">{{ partial "home-inline.html" $homeCard1Item1 }}</li>
+              <li data-home-field="card1Item3">{{ partial "home-inline.html" $homeCard1Item3 }}</li>
+            </ul>
+          </a>
+
+          <a class="seo-card" href="{{ $homeCard2Link.href | safeURL }}"{{ with $homeCard2Link.cloaked }} data-seo-cloaked-href="{{ . }}"{{ end }}{{ with $homeCard2Link.rel }} rel="{{ . }}"{{ end }} data-home-link-field="card2Url" data-home-link-value="{{ $homeCard2UrlRaw }}">
+            <div class="seo-card-head">
+              <span class="seo-card-icon" aria-hidden="true">
+                <img src="{{ "server-icon.svg" | relURL }}" alt="" width="64" height="64" decoding="async" />
+              </span>
+              <h3 class="seo-card-title" data-home-field="card2Title">{{ partial "home-inline.html" $homeCard2Title }}</h3>
+            </div>
+            <ul class="seo-card-list">
+              <li data-home-field="card2Item1">{{ partial "home-inline.html" $homeCard2Item1 }}</li>
+              <li data-home-field="card2Item2">{{ partial "home-inline.html" $homeCard2Item2 }}</li>
+              <li data-home-field="card2Item3">{{ partial "home-inline.html" $homeCard2Item3 }}</li>
+            </ul>
+          </a>
+        </aside>
+      </div>
+    </section>
+    <section class="seo-static-offer" aria-label="{{ if $isRU }}Статическое предложение{{ else if $isES }}Oferta estática{{ else }}Static offer{{ end }}">
+      <h2 class="seo-static-offer__title" data-home-field="offerTitle">{{ partial "home-inline.html" $homeOfferTitle }}</h2>
+      <ul class="seo-static-offer__list">
+        <li data-home-field="offerItem1">{{ partial "home-inline.html" $homeOfferItem1 }}</li>
+        <li data-home-field="offerItem2">{{ partial "home-inline.html" $homeOfferItem2 }}</li>
+        <li data-home-field="offerItem3">{{ partial "home-inline.html" $homeOfferItem3 }}</li>
+        <li data-home-field="offerItem4">{{ partial "home-inline.html" $homeOfferItem4 }}</li>
+        <li data-home-field="offerItem5">{{ partial "home-inline.html" $homeOfferItem5 }}</li>
+        <li><span class="seo-inline-server-icon" aria-hidden="true"><img src="{{ "server-icon.svg" | relURL }}" alt="" width="64" height="64" decoding="async"></span><span data-home-field="offerItem6">{{ partial "home-inline.html" $homeOfferItem6 }}</span></li>
+        <li data-home-field="offerItem7">{{ partial "home-inline.html" $homeOfferItem7 }}</li>
+        <li data-home-field="offerItem8">{{ partial "home-inline.html" $homeOfferItem8 }}</li>
+      </ul>
+    </section>
+  </section>
+</section>
+{{ partial "affiliate-link-script.html" . }}
+{{- end -}}
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,232 @@
+﻿<header class="custom-header">
+  {{ $themeLabel := "Light/Dark Theme" }}
+  {{ $homeLabel := "SeoImpuls home" }}
+  {{ $navLabel := "Main navigation" }}
+  {{ $menuToggleLabel := "Toggle navigation menu" }}
+  {{ $langSwitcherLabel := "Language switcher" }}
+  {{ if eq .Site.Language.Lang "es" }}
+    {{ $themeLabel = "Tema claro/oscuro" }}
+    {{ $homeLabel = "Inicio de SeoImpuls" }}
+    {{ $navLabel = "Navegacion principal" }}
+    {{ $menuToggleLabel = "Alternar menu de navegacion" }}
+    {{ $langSwitcherLabel = "Selector de idioma" }}
+  {{ else if eq .Site.Language.Lang "ru" }}
+    {{ $themeLabel = "\u0421\u0432\u0435\u0442\u043b\u0430\u044f/\u0442\u0451\u043c\u043d\u0430\u044f \u0442\u0435\u043c\u0430" }}
+    {{ $homeLabel = "\u0413\u043b\u0430\u0432\u043d\u0430\u044f SeoImpuls" }}
+    {{ $navLabel = "\u0413\u043b\u0430\u0432\u043d\u0430\u044f \u043d\u0430\u0432\u0438\u0433\u0430\u0446\u0438\u044f" }}
+    {{ $menuToggleLabel = "\u041f\u0435\u0440\u0435\u043a\u043b\u044e\u0447\u0438\u0442\u044c \u043c\u0435\u043d\u044e \u043d\u0430\u0432\u0438\u0433\u0430\u0446\u0438\u0438" }}
+    {{ $langSwitcherLabel = "\u041f\u0435\u0440\u0435\u043a\u043b\u044e\u0447\u0435\u043d\u0438\u0435 \u044f\u0437\u044b\u043a\u0430" }}
+  {{ end }}
+
+  {{- $chrome := .Site.Data.chrome | default dict -}}
+  {{- $headerData := $chrome.header | default dict -}}
+  {{- $headerExtraByLang := $headerData.extraLinks | default dict -}}
+  {{- $headerExtraLinks := index $headerExtraByLang .Site.Language.Lang | default (slice) -}}
+
+  <div class="custom-header__inner">
+    <a class="custom-header__brand" href="{{ .Site.Home.RelPermalink }}" aria-label="{{ $homeLabel }}">
+      <img class="custom-header__brand-logo" src="/SEOIMPULS_logo_tight.webp" width="400" height="132" alt="SeoImpuls" decoding="async" />
+    </a>
+
+    <button class="custom-header__menu-toggle js-header-menu-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="site-main-nav"
+            aria-label="{{ $menuToggleLabel }}"
+            title="{{ $menuToggleLabel }}">
+      <span class="custom-header__menu-toggle-line"></span>
+      <span class="custom-header__menu-toggle-line"></span>
+      <span class="custom-header__menu-toggle-line"></span>
+    </button>
+
+    <nav id="site-main-nav" class="custom-header__nav" aria-label="{{ $navLabel }}">
+      {{ with .Site.Menus.main }}
+        {{ range . }}
+          {{- $menuURL := .URL | relLangURL -}}
+          {{- if and (eq $.Site.Language.Lang "ru") (eq .URL "/uslugi-linkbildinga/") -}}
+            {{- $menuURL = .URL -}}
+          {{- end -}}
+          {{- if and (eq $.Site.Language.Lang "ru") (eq .URL "/soft/") -}}
+            {{- $menuURL = .URL -}}
+          {{- end -}}
+          {{- if and (eq $.Site.Language.Lang "es") (eq .URL "/servicios-de-link-building/") -}}
+            {{- $menuURL = .URL -}}
+          {{- end -}}
+          <a class="custom-header__link" href="{{ $menuURL }}">{{ .Name }}</a>
+        {{ end }}
+      {{ end }}
+      {{ range $headerExtraLinks }}
+        {{- if (.enabled | default true) -}}
+          {{- $rawURL := .url | default "#" -}}
+          {{- $isExternal := or (hasPrefix $rawURL "http://") (hasPrefix $rawURL "https://") -}}
+          {{- $href := cond $isExternal $rawURL ($rawURL | relLangURL) -}}
+          <a class="custom-header__link custom-header__link--extra" href="{{ $href }}"{{ if $isExternal }} target="_blank" rel="noopener"{{ end }} title="{{ .label }}">{{ .label }}</a>
+        {{- end -}}
+      {{ end }}
+    </nav>
+
+    <div class="custom-header__langs" aria-label="{{ $langSwitcherLabel }}">
+      {{ if gt (len .Site.Languages) 1 }}
+        {{ range .Site.Languages }}
+          {{ $lang := .Lang }}
+          {{ $isActive := eq .Lang $.Site.Language.Lang }}
+          {{ $currentURL := $.RelPermalink }}
+          {{ with $.Page.Params.url }}
+            {{ $currentURL = . }}
+          {{ end }}
+          {{ $basePath := $currentURL | replaceRE `^/(en|es|ru)(/|$)` "/" }}
+          {{ $fallback := cond (eq $lang "en") "/" (printf "/%s/" $lang) }}
+          {{ if or (hasPrefix $basePath "/link-building-services/") (hasPrefix $basePath "/uslugi-linkbildinga/") (hasPrefix $basePath "/servicios-de-link-building/") }}
+            {{ if eq $lang "ru" }}
+              {{ $fallback = "/uslugi-linkbildinga/" }}
+            {{ else if eq $lang "es" }}
+              {{ $fallback = "/servicios-de-link-building/" }}
+            {{ else }}
+              {{ $fallback = "/link-building-services/" }}
+            {{ end }}
+          {{ end }}
+          {{ $target := $fallback }}
+          {{ if $.Page }}
+            {{ if and (ne $lang $.Site.Language.Lang) $.Page.IsTranslated }}
+              {{ range $.Page.AllTranslations }}
+                {{ if eq .Lang $lang }}
+                  {{ $target = .Params.url | default .RelPermalink }}
+                {{ end }}
+              {{ end }}
+            {{ end }}
+            {{ if eq $lang $.Site.Language.Lang }}
+              {{ $target = $currentURL }}
+            {{ end }}
+          {{ end }}
+          <a class="lang-dot lang-dot--{{ .Lang }} {{ if $isActive }}is-active{{ end }}"
+             href="{{ $target }}"
+             aria-label="{{ .LanguageName }}"
+             title="{{ .LanguageName }}"
+             hreflang="{{ .LanguageCode }}"
+             {{ if $isActive }}aria-current="page"{{ end }}>
+            <span class="lang-dot__code">{{ upper .Lang }}</span>
+          </a>
+        {{ end }}
+      {{ end }}
+
+      <button class="theme-dot js-theme-toggle" type="button" aria-label="{{ $themeLabel }}" title="{{ $themeLabel }}"></button>
+    </div>
+  </div>
+</header>
+
+<script>
+  (function () {
+    function getSavedTheme() {
+      try {
+        if (!window.localStorage) return "";
+        var saved = localStorage.getItem("theme");
+        if (saved === "dark" || saved === "light") return saved;
+      } catch (e) {}
+      return "";
+    }
+
+    function getCurrentTheme() {
+      var theme = document.body.getAttribute("theme");
+      if (theme === "dark" || theme === "light") return theme;
+      return "dark";
+    }
+
+    function setTheme(theme) {
+      document.body.setAttribute("theme", theme);
+      try {
+        if (window.localStorage) localStorage.setItem("theme", theme);
+      } catch (e) {}
+    }
+
+    function initHeaderMenu() {
+      var header = document.querySelector(".custom-header");
+      var toggle = document.querySelector(".js-header-menu-toggle");
+      if (!header || !toggle) return;
+
+      var navId = toggle.getAttribute("aria-controls");
+      var nav = navId ? document.getElementById(navId) : null;
+      if (!nav) return;
+
+      var mobileQuery = window.matchMedia("(max-width: 767px)");
+
+      function setOpen(isOpen) {
+        header.classList.toggle("menu-open", isOpen);
+        toggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      }
+
+      function syncMode() {
+        if (mobileQuery.matches) {
+          header.classList.add("is-collapsible");
+        } else {
+          header.classList.remove("is-collapsible");
+        }
+        setOpen(false);
+      }
+
+      toggle.addEventListener("click", function () {
+        if (!header.classList.contains("is-collapsible")) return;
+        setOpen(!header.classList.contains("menu-open"));
+      });
+
+      nav.addEventListener("click", function (event) {
+        if (!header.classList.contains("is-collapsible")) return;
+        var target = event.target;
+        if (target && target.closest("a")) {
+          setOpen(false);
+        }
+      });
+
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") setOpen(false);
+      });
+
+      if (typeof mobileQuery.addEventListener === "function") {
+        mobileQuery.addEventListener("change", syncMode);
+      } else if (typeof mobileQuery.addListener === "function") {
+        mobileQuery.addListener(syncMode);
+      }
+
+      syncMode();
+    }
+
+    function initThemeToggle() {
+      var savedTheme = getSavedTheme();
+      if (savedTheme) {
+        document.body.setAttribute("theme", savedTheme);
+      } else if (!document.body.getAttribute("theme")) {
+        document.body.setAttribute("theme", "dark");
+      }
+      var buttons = document.querySelectorAll(".js-theme-toggle");
+      for (var i = 0; i < buttons.length; i++) {
+        buttons[i].addEventListener("click", function (event) {
+          event.preventDefault();
+          setTheme(getCurrentTheme() === "dark" ? "light" : "dark");
+        });
+      }
+
+      var brands = document.querySelectorAll(".custom-header__brand");
+      for (var j = 0; j < brands.length; j++) {
+        (function (brand) {
+          function setOn() { brand.classList.add("is-hovered"); }
+          function setOff() { brand.classList.remove("is-hovered"); }
+          brand.addEventListener("mouseenter", setOn);
+          brand.addEventListener("mouseleave", setOff);
+          brand.addEventListener("focus", setOn);
+          brand.addEventListener("blur", setOff);
+          brand.addEventListener("touchstart", setOn, { passive: true });
+          brand.addEventListener("touchend", setOff, { passive: true });
+          brand.addEventListener("touchcancel", setOff, { passive: true });
+        })(brands[j]);
+      }
+
+      initHeaderMenu();
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initThemeToggle);
+    } else {
+      initThemeToggle();
+    }
+  })();
+</script>
+

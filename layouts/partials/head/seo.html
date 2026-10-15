@@ -1,0 +1,178 @@
+{{- $params := .Scratch.Get "params" -}}
+
+{{- with .Site.Params.verification.google -}}
+<meta name="google-site-verification" content="{{ . }}" />
+{{- end -}}
+{{- with .Site.Params.verification.bing -}}
+<meta name="msvalidate.01" content="{{ . }}" />
+{{- end -}}
+{{- with .Site.Params.verification.yandex -}}
+<meta name="yandex-verification" content="{{ . }}" />
+{{- end -}}
+{{- with .Site.Params.verification.pinterest -}}
+<meta name="p:domain_verify" content="{{ . }}" />
+{{- end -}}
+{{- with .Site.Params.verification.baidu -}}
+<meta name="baidu-site-verification" content="{{ . }}" />
+{{- end -}}
+
+{{- /* Home page schema */ -}}
+{{- if .IsHome -}}
+  {{- $homeSchema := dict
+      "@context" "https://schema.org"
+      "@type" "WebSite"
+      "url" .Permalink
+      "inLanguage" .Site.LanguageCode
+      "name" .Site.Title
+    -}}
+  {{- with .Site.Params.Author.name -}}
+    {{- $homeSchema = merge $homeSchema (dict "author" (dict "@type" "Person" "name" .)) -}}
+  {{- end -}}
+  {{- with .Site.Params.description -}}
+    {{- $homeSchema = merge $homeSchema (dict "description" .) -}}
+  {{- end -}}
+  {{- with .Site.Params.seo.image -}}
+    {{- $homeSchema = merge $homeSchema (dict "image" (. | absURL)) -}}
+  {{- end -}}
+<script type="application/ld+json">{{ $homeSchema | jsonify | safeJS }}</script>
+{{- else if .IsPage -}}
+  {{- /* Generic page schema */ -}}
+  {{- $description := .Description | default $params.description | default .Site.Params.description -}}
+  {{- $authorName := .Params.author | default .Site.Params.Author.name | default "SeoImpuls" -}}
+  {{- $publisherName := .Site.Params.page.seo.publisher.name | default .Site.Title -}}
+  {{- $publisher := dict "@type" "Organization" "name" $publisherName -}}
+  {{- with .Site.Params.page.seo.publisher.logoUrl -}}
+    {{- $publisher = merge $publisher (dict "logo" (. | absURL)) -}}
+  {{- end -}}
+
+  {{- $pageSchema := dict
+      "@context" "https://schema.org"
+      "@type" "BlogPosting"
+      "headline" .Title
+      "inLanguage" .Site.LanguageCode
+      "mainEntityOfPage" (dict "@type" "WebPage" "@id" .Permalink)
+      "url" .Permalink
+      "wordCount" .WordCount
+      "publisher" $publisher
+      "author" (dict "@type" "Person" "name" $authorName)
+      "description" $description
+    -}}
+
+  {{- with .PublishDate -}}
+    {{- if not .IsZero -}}
+      {{- $pageSchema = merge $pageSchema (dict "datePublished" (.Format "2006-01-02T15:04:05-07:00")) -}}
+    {{- end -}}
+  {{- else -}}
+    {{- with .Date -}}
+      {{- if not .IsZero -}}
+        {{- $pageSchema = merge $pageSchema (dict "datePublished" (.Format "2006-01-02T15:04:05-07:00")) -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+  {{- with .Lastmod -}}
+    {{- if not .IsZero -}}
+      {{- $pageSchema = merge $pageSchema (dict "dateModified" (.Format "2006-01-02T15:04:05-07:00")) -}}
+    {{- end -}}
+  {{- end -}}
+
+  {{- $pageImage := .Site.Params.seo.image | default "" -}}
+  {{- with .Params.image -}}
+    {{- $pageImage = . -}}
+  {{- end -}}
+  {{- with .Params.images -}}
+    {{- if gt (len .) 0 -}}
+      {{- $pageImage = index . 0 -}}
+    {{- end -}}
+  {{- end -}}
+  {{- with $pageImage -}}
+    {{- $pageSchema = merge $pageSchema (dict "image" (. | absURL)) -}}
+  {{- end -}}
+<script type="application/ld+json">{{ $pageSchema | jsonify | safeJS }}</script>
+{{- end -}}
+
+{{- /* BreadcrumbList schema */ -}}
+{{- if ne .Kind "404" -}}
+  {{- $isRU := eq .Site.Language.Lang "ru" -}}
+  {{- $isES := eq .Site.Language.Lang "es" -}}
+  {{- $homeLabel := cond $isRU "Главная" (cond $isES "Inicio" "Home") -}}
+  {{- $crumbs := slice -}}
+  {{- if .IsHome -}}
+    {{- $crumbs = $crumbs | append (dict "name" $homeLabel "url" .Permalink) -}}
+  {{- else -}}
+    {{- $crumbs = $crumbs | append (dict "name" $homeLabel "url" ("/" | absLangURL)) -}}
+    {{- range .Ancestors.Reverse -}}
+      {{- if not .IsHome -}}
+        {{- $crumbs = $crumbs | append (dict "name" (.LinkTitle | default .Title) "url" .Permalink) -}}
+      {{- end -}}
+    {{- end -}}
+    {{- $crumbs = $crumbs | append (dict "name" (.LinkTitle | default .Title) "url" .Permalink) -}}
+  {{- end -}}
+
+  {{- $breadcrumbElements := slice -}}
+  {{- range $index, $crumb := $crumbs -}}
+    {{- $breadcrumbElements = $breadcrumbElements | append (dict
+      "@type" "ListItem"
+      "position" (add $index 1)
+      "name" $crumb.name
+      "item" $crumb.url
+    ) -}}
+  {{- end -}}
+  {{- if gt (len $breadcrumbElements) 0 -}}
+    {{- $breadcrumbSchema := dict
+      "@context" "https://schema.org"
+      "@type" "BreadcrumbList"
+      "itemListElement" $breadcrumbElements
+    -}}
+<script type="application/ld+json">{{ $breadcrumbSchema | jsonify | safeJS }}</script>
+  {{- end -}}
+{{- end -}}
+
+{{- /* FAQPage schema for /faq/ pages */ -}}
+{{- if and .IsPage (in .RelPermalink "/faq/") -}}
+  {{- $faqScratch := newScratch -}}
+  {{- $faqScratch.Set "question" "" -}}
+  {{- $faqScratch.Set "answer" (slice) -}}
+  {{- $faqScratch.Set "items" (slice) -}}
+  {{- range (split .RawContent "\n") -}}
+    {{- $line := trim . " \t\r" -}}
+    {{- if hasPrefix $line "### " -}}
+      {{- $prevQuestion := $faqScratch.Get "question" -}}
+      {{- $prevAnswer := $faqScratch.Get "answer" -}}
+      {{- if and (ne $prevQuestion "") (gt (len $prevAnswer) 0) -}}
+        {{- $items := $faqScratch.Get "items" -}}
+        {{- $items = $items | append (dict "q" $prevQuestion "a" (delimit $prevAnswer " ")) -}}
+        {{- $faqScratch.Set "items" $items -}}
+      {{- end -}}
+      {{- $faqScratch.Set "question" (trim (replace $line "### " "") " ") -}}
+      {{- $faqScratch.Set "answer" (slice) -}}
+    {{- else if and (ne ($faqScratch.Get "question") "") (ne $line "") (not (hasPrefix $line "## ")) -}}
+      {{- $answer := $faqScratch.Get "answer" -}}
+      {{- $answer = $answer | append (replaceRE "\\s+" " " $line) -}}
+      {{- $faqScratch.Set "answer" $answer -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $lastQuestion := $faqScratch.Get "question" -}}
+  {{- $lastAnswer := $faqScratch.Get "answer" -}}
+  {{- if and (ne $lastQuestion "") (gt (len $lastAnswer) 0) -}}
+    {{- $items := $faqScratch.Get "items" -}}
+    {{- $items = $items | append (dict "q" $lastQuestion "a" (delimit $lastAnswer " ")) -}}
+    {{- $faqScratch.Set "items" $items -}}
+  {{- end -}}
+
+  {{- $faqEntities := slice -}}
+  {{- range ($faqScratch.Get "items") -}}
+    {{- $faqEntities = $faqEntities | append (dict
+      "@type" "Question"
+      "name" .q
+      "acceptedAnswer" (dict "@type" "Answer" "text" .a)
+    ) -}}
+  {{- end -}}
+  {{- if gt (len $faqEntities) 0 -}}
+    {{- $faqSchema := dict
+      "@context" "https://schema.org"
+      "@type" "FAQPage"
+      "mainEntity" $faqEntities
+    -}}
+<script type="application/ld+json">{{ $faqSchema | jsonify | safeJS }}</script>
+  {{- end -}}
+{{- end -}}

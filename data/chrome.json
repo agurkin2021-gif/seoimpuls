@@ -1,0 +1,172 @@
+{
+  "header": {
+    "extraLinks": {
+      "en": [],
+      "ru": [],
+      "es": []
+    }
+  },
+  "footer": {
+    "contacts": {
+      "email": "support@seoimpuls.com",
+      "whatsapp": "https://wa.me/5491132804658",
+      "telegram": "https://t.me/Seoimpuls"
+    },
+    "textLinks": {
+      "en": [],
+      "ru": [],
+      "es": []
+    },
+    "legalLinks": {
+      "en": [
+        {
+          "key": "privacy",
+          "label": "Privacy Policy",
+          "url": "/privacy-policy/",
+          "enabled": true
+        },
+        {
+          "key": "cookies",
+          "label": "Cookie Policy",
+          "url": "/cookie-policy/",
+          "enabled": true
+        },
+        {
+          "key": "terms",
+          "label": "Terms of Service",
+          "url": "/terms-of-service/",
+          "enabled": true
+        },
+        {
+          "key": "cookie-settings",
+          "label": "Cookie Settings",
+          "url": "#cookie-settings",
+          "enabled": true,
+          "cookieSettings": true
+        }
+      ],
+      "ru": [
+        {
+          "key": "privacy",
+          "label": "Политика конфиденциальности",
+          "url": "/ru/privacy-policy/",
+          "enabled": true
+        },
+        {
+          "key": "cookies",
+          "label": "Политика cookie",
+          "url": "/ru/cookie-policy/",
+          "enabled": true
+        },
+        {
+          "key": "terms",
+          "label": "Условия сервиса",
+          "url": "/ru/terms-of-service/",
+          "enabled": true
+        },
+        {
+          "key": "cookie-settings",
+          "label": "Настройки cookie",
+          "url": "#cookie-settings",
+          "enabled": true,
+          "cookieSettings": true
+        }
+      ],
+      "es": [
+        {
+          "key": "privacy",
+          "label": "Política de Privacidad",
+          "url": "/es/privacy-policy/",
+          "enabled": true
+        },
+        {
+          "key": "cookies",
+          "label": "Política de Cookies",
+          "url": "/es/cookie-policy/",
+          "enabled": true
+        },
+        {
+          "key": "terms",
+          "label": "Términos del Servicio",
+          "url": "/es/terms-of-service/",
+          "enabled": true
+        },
+        {
+          "key": "cookie-settings",
+          "label": "Configuración de Cookies",
+          "url": "#cookie-settings",
+          "enabled": true,
+          "cookieSettings": true
+        }
+      ]
+    },
+    "socialLinks": [
+      {
+        "key": "facebook",
+        "label": "Facebook",
+        "url": "https://www.facebook.com/",
+        "iconClass": "fab fa-facebook-f",
+        "enabled": true
+      },
+      {
+        "key": "instagram",
+        "label": "Instagram",
+        "url": "https://www.instagram.com/",
+        "iconClass": "fab fa-instagram",
+        "enabled": true
+      },
+      {
+        "key": "pinterest",
+        "label": "Pinterest",
+        "url": "https://www.pinterest.com/",
+        "iconClass": "fab fa-pinterest-p",
+        "enabled": true
+      },
+      {
+        "key": "twitter",
+        "label": "Twitter",
+        "url": "https://twitter.com/",
+        "iconClass": "fab fa-x-twitter fa-twitter",
+        "enabled": true
+      },
+      {
+        "key": "medium",
+        "label": "Medium",
+        "url": "https://medium.com/@suportrent24",
+        "iconClass": "fab fa-medium-m",
+        "enabled": true
+      },
+      {
+        "key": "quora",
+        "label": "Quora",
+        "url": "https://www.quora.com/",
+        "iconClass": "fab fa-quora",
+        "enabled": true
+      },
+      {
+        "key": "tumblr",
+        "label": "Tumblr",
+        "url": "https://www.tumblr.com/",
+        "iconClass": "fab fa-tumblr",
+        "enabled": true
+      },
+      {
+        "key": "reddit",
+        "label": "Reddit",
+        "url": "https://www.reddit.com/",
+        "iconClass": "fab fa-reddit-alien",
+        "enabled": true
+      },
+      {
+        "key": "linkedin",
+        "label": "LinkedIn",
+        "url": "https://www.linkedin.com/",
+        "iconClass": "fab fa-linkedin-in",
+        "enabled": true
+      }
+    ],
+    "map": {
+      "src": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d414.4771639656894!2d-97.75218586482195!3d30.265749849403853!2m3!1f0!2f0!3f0!2m3!1i1024!2i768!4f13.1!3m3!1m2!1s0x8644b50fd9700665%3A0x366d94ebf7cd5f8!2zMTAxIDEvMiBXZXN0IEF2ZSwgQXVzdGluLCBUWCA3ODcwMSwg0KHQqNCQ!5e0!3m2!1sru!2sar!4v1770854408167!5m2!1sru!2sar"
+    }
+  }
+}

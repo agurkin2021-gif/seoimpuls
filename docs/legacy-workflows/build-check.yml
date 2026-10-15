@@ -1,0 +1,30 @@
+name: Validate Hugo build (no deployment)
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.25.5'
+      - uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: '0.154.5'
+          extended: true
+      - name: Build static output
+        run: hugo --minify --noBuildLock
+      - name: Verify language homepages
+        shell: bash
+        run: |
+          test -s public/index.html
+          test -s public/ru/index.html
+          test -s public/es/index.html
+          test -s public/sitemap.xml

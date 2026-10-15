@@ -1,0 +1,52 @@
+{{ $privacyPolicyLabel := "Privacy Policy" }}
+{{ $cookiePolicyLabel := "Cookie Policy" }}
+{{ $cookieSettingsLabel := "Cookie Settings" }}
+{{ $termsLabel := "Terms of Service" }}
+{{ $legalOwnerLabel := "© %d SeoImpuls Digital Marketing. All rights reserved." }}
+{{ if eq .Site.Language.Lang "es" }}
+  {{ $privacyPolicyLabel = "Política de Privacidad" }}
+  {{ $cookiePolicyLabel = "Política de Cookies" }}
+  {{ $cookieSettingsLabel = "Configuración de Cookies" }}
+  {{ $termsLabel = "Términos del Servicio" }}
+  {{ $legalOwnerLabel = "© %d SeoImpuls Digital Marketing. Todos los derechos reservados." }}
+{{ else if eq .Site.Language.Lang "ru" }}
+  {{ $privacyPolicyLabel = "\u041f\u043e\u043b\u0438\u0442\u0438\u043a\u0430 \u043a\u043e\u043d\u0444\u0438\u0434\u0435\u043d\u0446\u0438\u0430\u043b\u044c\u043d\u043e\u0441\u0442\u0438" }}
+  {{ $cookiePolicyLabel = "\u041f\u043e\u043b\u0438\u0442\u0438\u043a\u0430 cookie" }}
+  {{ $cookieSettingsLabel = "\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438 cookie" }}
+  {{ $termsLabel = "\u0423\u0441\u043b\u043e\u0432\u0438\u044f \u0441\u0435\u0440\u0432\u0438\u0441\u0430" }}
+  {{ $legalOwnerLabel = "\u00a9 %d SeoImpuls Digital Marketing. \u0412\u0441\u0435 \u043f\u0440\u0430\u0432\u0430 \u0437\u0430\u0449\u0438\u0449\u0435\u043d\u044b." }}
+{{ end }}
+{{ $privacyURL := "privacy-policy/" | relLangURL }}
+{{ $cookieURL := "cookie-policy/" | relLangURL }}
+{{ $termsURL := "terms-of-service/" | relLangURL }}
+{{ $legalOwnerText := printf $legalOwnerLabel now.Year }}
+{{ $translationKey := .Params.translationKey | default "" }}
+{{ $isLegalPage := or (eq $translationKey "privacy-policy") (eq $translationKey "cookie-policy") (eq $translationKey "terms-of-service") }}
+{{ $defaultLegalLinks := slice
+  (dict "label" $privacyPolicyLabel "url" "privacy-policy/" "enabled" true)
+  (dict "label" $cookiePolicyLabel "url" "cookie-policy/" "enabled" true)
+  (dict "label" $termsLabel "url" "terms-of-service/" "enabled" true)
+  (dict "label" $cookieSettingsLabel "url" "cookie-policy/" "enabled" true "cookieSettings" true)
+}}
+{{ $chrome := .Site.Data.chrome | default dict }}
+{{ $footerData := $chrome.footer | default dict }}
+{{ $legalLinksByLang := $footerData.legalLinks | default dict }}
+{{ $legalLinks := index $legalLinksByLang .Site.Language.Lang | default $defaultLegalLinks }}
+
+<section class="site-legal-strip{{ if $isLegalPage }} site-legal-strip--legal-page{{ end }}" aria-label="Legal links">
+  <div class="site-legal-strip__inner">
+    <div class="footer-legal">
+      <div class="footer-legal__links">
+        {{ range $legalLinks }}
+          {{- if (.enabled | default true) -}}
+            {{- $rawURL := .url | default "#" -}}
+            {{- $isExternal := or (hasPrefix $rawURL "http://") (hasPrefix $rawURL "https://") -}}
+            {{- $href := cond $isExternal $rawURL ($rawURL | relLangURL) -}}
+            <a href="{{ $href }}"{{ if $isExternal }} target="_blank" rel="noopener"{{ end }}{{ if .cookieSettings }} data-cookie-settings="true"{{ end }}>{{ .label }}</a>
+          {{- end -}}
+        {{ end }}
+      </div>
+      <p class="footer-legal__owner">{{ $legalOwnerText }}</p>
+    </div>
+  </div>
+</section>

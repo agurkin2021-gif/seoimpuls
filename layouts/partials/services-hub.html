@@ -1,0 +1,369 @@
+﻿{{- $page := .Page -}}
+{{- $builderBlocks := .blocks | default (slice) -}}
+{{- $buttons := slice -}}
+{{- $images := slice -}}
+{{- $textBlocks := slice -}}
+{{- $lang := $page.Language.Lang | default "en" -}}
+{{- $rootPath := $page.RelPermalink | default "/" -}}
+{{- range $blockIndex, $block := $builderBlocks -}}
+  {{- if not (eq $block.enabled false) -}}
+    {{- $type := $block.type | default "text" -}}
+    {{- if eq $type "buttons" -}}
+      {{- range $buttonIndex, $button := ($block.buttons | default slice) -}}
+        {{- $label := trim (printf "%v" ($button.label | default "")) " \n\r\t" -}}
+        {{- $url := trim (printf "%v" ($button.url | default "")) " \n\r\t" -}}
+        {{- if $label -}}
+          {{- $key := lower (printf "%s %s" $label $url) -}}
+          {{- $rank := 900 -}}
+          {{- if or (in $key "pyramid") (in $key "piram") (in $key "pir") (in $key "seo-piramida") (in $key "seo-backlink-pyramid") (in $key "линкбилдинг") (in $key "/uslugi-linkbildinga/linkbilding/") (in $key "link building") (in $key "/link-building-services/link-building/") (in $key "/servicios-de-link-building/estrategia-de-link-building/") -}}{{- $rank = 10 -}}{{- end -}}
+          {{- if and (eq $rank 900) (or (in $key "backlink") (in $key "obratnye")) -}}{{- $rank = 20 -}}{{- end -}}
+          {{- if and (eq $rank 900) (or (in $key "domain") (in $key "rating") (in $key "uvelechenie") (in $key "reyting")) -}}{{- $rank = 30 -}}{{- end -}}
+          {{- if and (eq $rank 900) (or (in $key "satellit") (in $key "satellite") (in $key "microsite") (in $key "micrositio") (in $key "sozdanie-satellitov") (in $key "desarrollo-de-micrositio")) -}}{{- $rank = 60 -}}{{- end -}}
+          {{- if and (eq $rank 900) (or (in $key "tier") (in $key "1-2-3")) -}}{{- $rank = 70 -}}{{- end -}}
+          {{- if and (eq $rank 900) (or (in $key "consult") (in $key "konsult") (in $key "consultoria")) -}}{{- $rank = 80 -}}{{- end -}}
+          {{- $rank = add (mul $rank 100) $buttonIndex -}}
+          {{- with $block.serviceCardOrder -}}{{- $rank = mul (int .) 100 -}}{{- end -}}
+          {{- $buttons = $buttons | append (dict "label" $label "url" $url "rank" $rank "key" $key "id" ($block.serviceCardId | default "")) -}}
+        {{- end -}}
+      {{- end -}}
+    {{- else if and (eq $type "image") ($block.image) -}}
+      {{- $image := trim (printf "%v" $block.image) " \n\r\t" -}}
+      {{- $imageLink := trim (printf "%v" ($block.imageLink | default "")) " \n\r\t" -}}
+      {{- $alt := trim (printf "%v" ($block.alt | default "")) " \n\r\t" -}}
+      {{- $key := lower (printf "%s %s %s" $alt $imageLink $image) -}}
+      {{- $rank := 900 -}}
+      {{- if or (in $key "pyramid") (in $key "piram") (in $key "pir") (in $key "seo-piramida") (in $key "seo-backlink-pyramid") (in $key "линкбилдинг") (in $key "/uslugi-linkbildinga/linkbilding/") (in $key "link building") (in $key "/link-building-services/link-building/") (in $key "/servicios-de-link-building/estrategia-de-link-building/") -}}{{- $rank = 10 -}}{{- end -}}
+      {{- if and (eq $rank 900) (or (in $key "backlink") (in $key "obratnye")) -}}{{- $rank = 20 -}}{{- end -}}
+      {{- if and (eq $rank 900) (or (in $key "domain") (in $key "rating") (in $key "uvelechenie") (in $key "reyting")) -}}{{- $rank = 30 -}}{{- end -}}
+      {{- if and (eq $rank 900) (or (in $key "satellit") (in $key "satellite") (in $key "microsite") (in $key "micrositio") (in $key "sozdanie-satellitov") (in $key "desarrollo-de-micrositio")) -}}{{- $rank = 60 -}}{{- end -}}
+      {{- if and (eq $rank 900) (or (in $key "tier") (in $key "1-2-3")) -}}{{- $rank = 70 -}}{{- end -}}
+      {{- if and (eq $rank 900) (or (in $key "consult") (in $key "konsult") (in $key "consultoria")) -}}{{- $rank = 80 -}}{{- end -}}
+      {{- $rank = add (mul $rank 100) $blockIndex -}}
+      {{- $images = $images | append (dict "image" $image "imageLink" $imageLink "alt" $alt "rank" $rank "key" $key "id" ($block.serviceCardId | default "")) -}}
+    {{- else if eq $type "text" -}}
+      {{- $blockTitleText := trim (printf "%v" ($block.title | default "")) " \n\r\t" -}}
+      {{- $blockTextValue := trim (printf "%v" ($block.text | default "")) " \n\r\t" -}}
+      {{- if or $blockTitleText $blockTextValue -}}
+        {{- $textBlocks = $textBlocks | append (dict "block" $block "index" $blockIndex) -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $cards := slice -}}
+{{- range $button := sort $buttons "rank" -}}
+  {{- $buttonKey := $button.key -}}
+  {{- $buttonUrlKey := trim ($button.url | default "") "/" -}}
+  {{- $buttonRankGroup := div (int $button.rank) 100 -}}
+  {{- $matchedImage := "" -}}
+  {{- $matchedAlt := "" -}}
+  {{- $matchedImageLink := "" -}}
+  {{/* Stable identity and exact URLs take priority over legacy keyword guesses. */}}
+  {{- range $image := $images -}}
+    {{- $sameId := and $button.id (eq $button.id $image.id) -}}
+    {{- $sameUrl := and (not $button.id) $buttonUrlKey (eq $buttonUrlKey (trim ($image.imageLink | default "") "/")) -}}
+    {{- if and (not $matchedImage) (or $sameId $sameUrl) -}}
+      {{- $matchedImage = $image.image -}}
+      {{- $matchedAlt = $image.alt -}}
+      {{- $matchedImageLink = $image.imageLink -}}
+    {{- end -}}
+  {{- end -}}
+  {{- if not $button.id -}}
+  {{- range $image := sort $images "rank" -}}
+    {{- $imageLinkKey := trim ($image.imageLink | default "") "/" -}}
+    {{- $imageRankGroup := div (int $image.rank) 100 -}}
+    {{- if and (not $matchedImage) $buttonUrlKey $imageLinkKey (eq $buttonUrlKey $imageLinkKey) -}}
+      {{- $matchedImage = $image.image -}}
+      {{- $matchedAlt = $image.alt -}}
+      {{- $matchedImageLink = $image.imageLink -}}
+    {{- end -}}
+    {{- if and (not $matchedImage) (ne $buttonRankGroup 900) (eq $buttonRankGroup $imageRankGroup) -}}
+      {{- $matchedImage = $image.image -}}
+      {{- $matchedAlt = $image.alt -}}
+      {{- $matchedImageLink = $image.imageLink -}}
+    {{- end -}}
+    {{- if and (not $matchedImage) (or (in $image.key $buttonKey) (in $buttonKey $image.key)) -}}
+      {{- $matchedImage = $image.image -}}
+      {{- $matchedAlt = $image.alt -}}
+      {{- $matchedImageLink = $image.imageLink -}}
+    {{- end -}}
+  {{- end -}}
+  {{- end -}}
+  {{- $buttonRankGroup := div (int $button.rank) 100 -}}
+  {{- $fallbackUrl := "" -}}
+  {{- if eq $buttonRankGroup 10 -}}{{- $fallbackUrl = cond (eq $lang "ru") "linkbilding/" (cond (eq $lang "es") "estrategia-de-link-building/" "link-building/") -}}{{- end -}}
+  {{- if eq $buttonRankGroup 20 -}}{{- $fallbackUrl = cond (eq $lang "ru") "obratnye-ssylki/" "backlinks/" -}}{{- end -}}
+  {{- if eq $buttonRankGroup 30 -}}{{- $fallbackUrl = cond (eq $lang "ru") "uvelechenie-domen-reytinga/" "domain-rating/" -}}{{- end -}}
+  {{- if eq $buttonRankGroup 60 -}}{{- $fallbackUrl = cond (eq $lang "ru") "sozdanie-satellitov/" (cond (eq $lang "es") "desarrollo-de-micrositio/" "microsite-development/") -}}{{- end -}}
+  {{- if eq $buttonRankGroup 70 -}}{{- $fallbackUrl = "tier-1-2-3/" -}}{{- end -}}
+  {{- if eq $buttonRankGroup 80 -}}{{- $fallbackUrl = cond (eq $lang "ru") "seo-konsultaciya/" (cond (eq $lang "es") "consultoria-seo/" "seo-consultation/") -}}{{- end -}}
+  {{- $url := trim ($button.url | default "") " \n\r\t" -}}
+  {{- if $matchedImageLink -}}{{- $url = $matchedImageLink -}}{{- end -}}
+  {{- if or (eq $url "") (eq $url "#") (eq $url "/") -}}{{- $url = printf "%s%s" $rootPath $fallbackUrl -}}{{- end -}}
+  {{- $cardImage := $matchedImage -}}
+  {{- if not $cardImage -}}
+    {{- if or (eq $buttonRankGroup 10) (eq $buttonRankGroup 60) -}}
+      {{- range $target := $page.Site.RegularPages -}}
+        {{- if eq (trim $target.RelPermalink "/") (trim $url "/") -}}
+          {{- $cardImage = $target.Params.image | default "" -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+    {{- if eq $buttonRankGroup 20 -}}{{- $cardImage = "/uploads/service-card-backlinks-20260816.webp" -}}{{- end -}}
+    {{- if eq $buttonRankGroup 30 -}}{{- $cardImage = "/uploads/service-card-domain-rating-20260816.webp" -}}{{- end -}}
+    {{- if eq $buttonRankGroup 70 -}}{{- $cardImage = "/uploads/service-card-tier-1-2-3-20260816.webp" -}}{{- end -}}
+    {{- if eq $buttonRankGroup 80 -}}{{- $cardImage = "/uploads/seo-consultation-konsult-20260831-q16-1788218714346.webp" -}}{{- end -}}
+  {{- end -}}
+  {{- $cards = $cards | append (dict "label" $button.label "url" $url "image" $cardImage "alt" $matchedAlt "rank" $button.rank) -}}
+{{- end -}}
+
+{{- if eq (len $cards) 0 -}}
+  {{- range $image := sort $images "rank" -}}
+    {{- $label := $image.alt | default $page.Title -}}
+    {{- $cards = $cards | append (dict "label" $label "url" $image.imageLink "image" $image.image "alt" $image.alt "rank" $image.rank) -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $hasTierCard := false -}}
+{{- $hasConsultationCard := false -}}
+{{- range $card := $cards -}}
+  {{- $rankGroup := div (int $card.rank) 100 -}}
+  {{- if eq $rankGroup 70 -}}{{- $hasTierCard = true -}}{{- end -}}
+  {{- if eq $rankGroup 80 -}}{{- $hasConsultationCard = true -}}{{- end -}}
+{{- end -}}
+{{- if and (not $hasTierCard) (eq (len $builderBlocks) 0) -}}
+  {{- $tierUrl := printf "%stier-1-2-3/" $rootPath -}}
+  {{- $tierLabel := "Tier 1-2-3" -}}
+  {{- $tierAlt := "Tier 1-2-3 link building" -}}
+  {{- $cards = $cards | append (dict "label" $tierLabel "url" $tierUrl "image" "/uploads/service-card-tier-1-2-3-20260816.webp" "alt" $tierAlt "rank" 7000) -}}
+{{- end -}}
+{{- if and (not $hasConsultationCard) (eq (len $builderBlocks) 0) -}}
+  {{- $consultationPath := cond (eq $lang "ru") "seo-konsultaciya/" (cond (eq $lang "es") "consultoria-seo/" "seo-consultation/") -}}
+  {{- $consultationLabel := cond (eq $lang "ru") "SEO консультация" (cond (eq $lang "es") "Consultoría SEO" "SEO Consultation") -}}
+  {{- $consultationAlt := cond (eq $lang "ru") "SEO консультация" (cond (eq $lang "es") "Consultoría SEO" "SEO consultation") -}}
+  {{- $cards = $cards | append (dict "label" $consultationLabel "url" (printf "%s%s" $rootPath $consultationPath) "image" "/uploads/seo-consultation-konsult-20260831-q16-1788218714346.webp" "alt" $consultationAlt "rank" 8000) -}}
+{{- end -}}
+
+<style>
+  .seo-central--services .seo-hero-panel {
+    min-height: 0;
+  }
+
+  .seo-central--services .seo-hero-content {
+    max-width: 1280px;
+    padding: 28px 84px 54px;
+  }
+
+  .seo-central--services .seo-hero-title {
+    margin: 0 0 24px;
+    text-align: center;
+    font-family: "Times New Roman", Times, serif !important;
+    font-size: clamp(34px, 2.35vw, 46px);
+    line-height: 1.08;
+    font-weight: 700;
+    letter-spacing: 0;
+    color: #f0f6ff;
+  }
+
+  .services-hub {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    align-items: stretch;
+  }
+
+  .services-hub-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    overflow: hidden;
+    border: 1px solid rgba(95, 173, 216, 0.34);
+    border-radius: 8px;
+    background: rgba(5, 14, 28, 0.96);
+    color: #eef6ff;
+    text-decoration: none;
+    box-shadow: 0 12px 26px rgba(0, 0, 0, 0.24), 0 0 18px rgba(31, 134, 184, 0.08);
+    isolation: isolate;
+    transform: translateY(0);
+    transition: transform 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease, filter 0.16s ease;
+  }
+
+  .services-hub-card:hover,
+  .services-hub-card:focus-visible {
+    transform: translateY(-2px);
+    border-color: rgba(125, 211, 252, 0.66);
+    box-shadow: 0 17px 34px rgba(0, 0, 0, 0.32), 0 0 0 1px rgba(125, 211, 252, 0.18), 0 0 26px rgba(31, 134, 184, 0.18);
+    filter: brightness(1.04);
+    outline: none;
+  }
+
+  .services-hub-card__media {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 16 / 8.8;
+    min-height: 0;
+    padding: 0;
+    background: #071426;
+  }
+
+  .services-hub-card__media img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    border: 0;
+    border-radius: 0;
+    opacity: 1;
+    transform: none;
+  }
+
+  .services-hub-card::before {
+    content: none;
+  }
+
+  .services-hub-card::after {
+    content: "";
+    position: absolute;
+    right: 14px;
+    bottom: 20px;
+    width: 9px;
+    height: 9px;
+    border-top: 2px solid rgba(220, 244, 255, 0.88);
+    border-right: 2px solid rgba(220, 244, 255, 0.88);
+    transform: rotate(45deg);
+    pointer-events: none;
+  }
+
+  .services-hub-card__body {
+    display: flex;
+    flex: 1 0 auto;
+    align-items: center;
+    min-height: 54px;
+    padding: 10px 34px 11px 14px;
+    border-top: 1px solid rgba(95, 173, 216, 0.22);
+    background: linear-gradient(180deg, rgba(7, 19, 36, 0.94), rgba(4, 12, 25, 0.98));
+  }
+
+  .services-hub-card__label {
+    max-width: 96%;
+    margin: 0;
+    padding: 0;
+    font-size: clamp(15px, 1.04vw, 19px);
+    line-height: 1.16;
+    font-weight: 760;
+    color: #ffffff;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.58);
+  }
+
+  .services-hub-card__meta {
+    display: none;
+  }
+
+  .seo-builder--services-text {
+    display: block;
+    width: 100%;
+    max-width: none;
+    margin: 36px 0 0;
+  }
+
+  .services-hub-text {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    color: rgba(218, 228, 244, 0.90);
+    font-size: 17px;
+    line-height: 1.62;
+  }
+
+  .services-hub-text .seo-builder-text {
+    color: inherit;
+    font-size: inherit;
+    line-height: inherit;
+  }
+
+  @media (max-width: 1020px) {
+    .seo-central--services .seo-hero-content {
+      padding: 28px 24px 44px;
+    }
+
+    .services-hub {
+      max-width: 720px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 640px) {
+    .seo-central--services .seo-hero-content {
+      padding: 24px 16px 36px;
+    }
+
+    .seo-central--services .seo-hero-title {
+      text-align: left;
+      font-size: clamp(30px, 9vw, 40px);
+    }
+
+    .services-hub {
+      max-width: 440px;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    .services-hub-card {
+      min-height: 0;
+    }
+  }
+</style>
+
+  <div class="services-hub" data-services-hub="1">
+    {{- range $cardIndex, $card := sort $cards "rank" -}}
+      {{- $href := trim ($card.url | default "") " \n\r\t" -}}
+      {{- $link := dict "href" $href "cloaked" "" "rel" "" -}}
+      {{- if $href -}}{{- $link = partial "affiliate-link-attrs.html" (dict "url" $href) -}}{{- end -}}
+      {{- $rankGroup := div (int $card.rank) 100 -}}
+      <a class="services-hub-card" href="{{ $link.href | default "#" | safeURL }}" data-services-card-rank="{{ $rankGroup }}" data-services-card-image="{{ $card.image | safeURL }}" data-services-card-label="{{ $card.label | plainify }}" data-services-card-url="{{ $href | safeURL }}"{{ with $link.cloaked }} data-seo-cloaked-href="{{ . }}"{{ end }}{{ with $link.rel }} rel="{{ . }}"{{ end }}>
+        <span class="services-hub-card__media">
+          {{- with $card.image -}}
+            <img src="{{ . | safeURL }}" alt="{{ $card.alt | default $card.label }}" width="420" height="237"{{ if eq $cardIndex 0 }} fetchpriority="high"{{ else }} loading="lazy" fetchpriority="low"{{ end }} decoding="async">
+          {{- end -}}
+        </span>
+        <span class="services-hub-card__body">
+          <h2 class="services-hub-card__label">{{ $card.label }}</h2>
+          <span class="services-hub-card__meta">{{ i18n "readMore" | default "Open" }}</span>
+        </span>
+      </a>
+    {{- end -}}
+  </div>
+
+{{- if gt (len $textBlocks) 0 -}}
+  <div class="seo-builder seo-builder--services-text" data-services-hub-text-builder="1" data-admin-page-path="{{ with $page.File }}content/{{ .Path }}{{ end }}">
+    {{- range $textItem := $textBlocks -}}
+      {{- $block := $textItem.block -}}
+      {{- $blockIndex := $textItem.index -}}
+      {{- $fontFamilyStyle := "" -}}
+      {{- $fontFamilyClass := "" -}}
+      {{- with $block.fontFamily -}}
+        {{- if eq . "local" -}}{{- $fontFamilyStyle = "font-family: 'Segoe UI', 'Helvetica Neue', 'Noto Sans', Arial, sans-serif !important;" -}}{{- $fontFamilyClass = "seo-builder-font--local" -}}{{- end -}}
+        {{- if eq . "server" -}}{{- $fontFamilyStyle = "font-family: 'Times New Roman', Times, serif !important;" -}}{{- $fontFamilyClass = "seo-builder-font--server" -}}{{- end -}}
+      {{- end -}}
+      {{- $textStyle := $fontFamilyStyle -}}
+      {{- with $block.fontSize -}}{{- $textStyle = printf "%s font-size: %vpx !important;" $textStyle . -}}{{- end -}}
+      {{- $titleStyle := $fontFamilyStyle -}}
+      {{- with $block.titleSize -}}{{- $titleStyle = printf "%s font-size: %vpx !important;" $titleStyle . -}}{{- end -}}
+      {{- $blockStyle := "width: 100%; max-width: none; min-height: 0;" -}}
+      {{- if or $block.offsetX $block.offsetY -}}{{- $blockStyle = printf "%s transform: translate(%vpx, %vpx); transform-origin: left top;" $blockStyle ($block.offsetX | default 0) ($block.offsetY | default 0) -}}{{- end -}}
+      {{- with $block.pixelWidth -}}{{- $blockStyle = printf "%s width: %vpx; max-width: 100%%;" $blockStyle . -}}{{- end -}}
+      {{- with $block.pixelHeight -}}{{- $blockStyle = printf "%s min-height: %vpx;" $blockStyle . -}}{{- end -}}
+      {{- with $block.blockBorderColor -}}{{- if and (ne . "none") (ne . "") -}}{{- $blockStyle = printf "%s border: 1px solid %s;" $blockStyle . -}}{{- end -}}{{- end -}}
+      {{- with $block.blockBgColor -}}{{- if and (ne . "none") (ne . "") -}}{{- $blockStyle = printf "%s background: %s; padding: 18px 20px;" $blockStyle . -}}{{- end -}}{{- end -}}
+      <section class="services-hub-text seo-builder-block seo-builder-block--text seo-builder-block--frameless{{ with $fontFamilyClass }} {{ . }}{{ end }}" data-admin-block-index="{{ $blockIndex }}" draggable="false" style="{{ $blockStyle | safeCSS }}">
+        {{- with $block.title }}<h2{{ if $titleStyle }} style="{{ $titleStyle | safeCSS }}"{{ end }}>{{ partial "seo-builder-inline.html" . }}</h2>{{- end -}}
+        {{- with $block.text }}<div class="seo-builder-text"{{ if $textStyle }} style="{{ $textStyle | safeCSS }}"{{ end }}>{{ partial "seo-builder-text.html" . }}</div>{{- end -}}
+      </section>
+    {{- end -}}
+  </div>
+{{- end -}}

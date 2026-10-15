@@ -1,0 +1,22 @@
+{{- $page := . -}}
+{{- $builderBlocks := slice -}}
+{{- with $page.Params.builderJson -}}
+  {{- $builderBlocks = transform.Unmarshal (dict "format" "json") . -}}
+{{- end -}}
+{{- $parts := slice -}}
+{{- range $builderBlocks -}}
+  {{- if not (eq .enabled false) -}}
+    {{- $type := .type | default "text" -}}
+    {{- if ne $type "spacer" -}}
+      {{- $title := trim (printf "%v" (.title | default "" | plainify)) " \n\r\t" -}}
+      {{- $text := trim (printf "%v" (.text | default "")) " \n\r\t" -}}
+      {{- if $title -}}{{- $parts = $parts | append (printf "**%s**" $title) -}}{{- end -}}
+      {{- if $text -}}{{- $parts = $parts | append $text -}}{{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- if gt (len $parts) 0 -}}
+  {{- delimit $parts "\n\n" | safeHTML -}}
+{{- else -}}
+  {{- $page.Description | default ($page.Plain | plainify) -}}
+{{- end -}}

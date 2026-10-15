@@ -1,0 +1,35 @@
+// Local lightweight override: no rendered code blocks are used on the site now.
+// Keep inline <code> readable, but do not bundle Chroma/Gist highlight styles.
+code {
+  display: inline-block;
+  max-width: 100%;
+  padding: 0 .4rem;
+  @include overflow-wrap(break-word);
+  @include line-break(anywhere);
+  font-size: var(--code-font-size);
+  font-family: var(--code-font-family);
+  color: $code-color;
+  background: $code-background-color !important;
+
+  [theme=dark] & {
+    color: $code-color-dark;
+    background: $code-background-color-dark !important;
+  }
+}
+
+pre {
+  margin: 0;
+  padding: .25rem 0 .25rem .5rem;
+  overflow-x: auto;
+  @include tab-size(4);
+  background: $code-background-color !important;
+
+  [theme=dark] & {
+    background: $code-background-color-dark !important;
+  }
+
+  code {
+    padding: 0;
+    background: transparent !important;
+  }
+}

@@ -1,0 +1,110 @@
+<script>
+  (function () {
+    var BOTTOM_SLACK_EM = 0.5;
+
+    function isVisibleBox(el) {
+      if (!el) return false;
+      var style = window.getComputedStyle(el);
+      if (style.display === "none" || style.visibility === "hidden") return false;
+      var rect = el.getBoundingClientRect();
+      return rect.width > 0 && rect.height > 0;
+    }
+
+    function blockHasContent(block) {
+      if (!block || block.classList.contains("seo-builder-block--spacer")) return false;
+      if (block.querySelector("img, .admin-real-image-wrap, .seo-builder-image-frame, .seo-cta, .seo-builder-card, .seo-builder-file, .seo-builder-media, .seo-builder-banner__media")) return true;
+      return (block.textContent || "").trim().length > 0;
+    }
+
+    function contentBottom(block) {
+      var blockRect = block.getBoundingClientRect();
+      var selectors = [
+        ".admin-real-image-wrap",
+        ".seo-builder-image-frame",
+        ".seo-builder-media",
+        ".seo-builder-banner__media",
+        "img",
+        ".seo-cta",
+        ".seo-builder-card",
+        ".seo-builder-file",
+        ".seo-builder-text",
+        ".seo-builder-caption",
+        "h2",
+        "h3"
+      ];
+      var bottom = null;
+      selectors.forEach(function (selector) {
+        block.querySelectorAll(selector).forEach(function (item) {
+          if (!isVisibleBox(item)) return;
+          var text = (item.textContent || "").trim();
+          var isStructuralContent = item.matches("img, .admin-real-image-wrap, .seo-builder-image-frame, .seo-builder-media, .seo-builder-banner__media, .seo-cta, .seo-builder-card, .seo-builder-file");
+          if (!text && !isStructuralContent) return;
+          var rect = item.getBoundingClientRect();
+          bottom = bottom === null ? rect.bottom : Math.max(bottom, rect.bottom);
+        });
+      });
+      if (blockHasContent(block) && isVisibleBox(block)) {
+        bottom = bottom === null ? blockRect.bottom : Math.max(bottom, blockRect.bottom);
+      }
+      if (bottom !== null) return bottom;
+      if (!blockHasContent(block) || !isVisibleBox(block)) return null;
+      return blockRect.bottom;
+    }
+
+    function compactImageRows(builder, blocks) {
+      // Do not auto-move image rows. Saved coordinates must match the admin preview exactly.
+    }
+
+    function trimBuilder(builder) {
+      if (!builder) return;
+      // Bottom clipping slack must not stretch grid rows or move saved blocks.
+      builder.style.alignContent = "start";
+      builder.style.height = "";
+      builder.style.removeProperty("overflow-y");
+      builder.style.marginBottom = "";
+      builder.style.setProperty("--seo-builder-trim-bottom", "0px");
+
+      var blocks = Array.prototype.slice.call(builder.querySelectorAll(":scope > .seo-builder-block"));
+      builder.style.display = "";
+      compactImageRows(builder, blocks);
+      var bottoms = blocks
+        .filter(blockHasContent)
+        .map(contentBottom)
+        .filter(function (value) { return Number.isFinite(value); });
+
+      if (!bottoms.length) {
+        builder.style.display = "none";
+        return;
+      }
+      var builderRect = builder.getBoundingClientRect();
+      var visibleBottom = Math.max.apply(Math, bottoms);
+      var slack = Math.max(6, Math.round(parseFloat(window.getComputedStyle(builder).fontSize || "16") * BOTTOM_SLACK_EM));
+      var excess = Math.round(builderRect.bottom - visibleBottom - slack);
+      var targetHeight = Math.max(0, Math.round(visibleBottom - builderRect.top + slack));
+      // Saved negative offsets can place a heading above the grid's origin.
+      builder.style.setProperty("overflow-y", "visible", "important");
+      if (excess > 1) {
+        builder.style.height = targetHeight + "px";
+        builder.style.setProperty("--seo-builder-trim-bottom", "-" + excess + "px");
+      } else if (excess < -1) {
+        builder.style.height = targetHeight + "px";
+      }
+    }
+
+    function trimAll() {
+      document.querySelectorAll(".seo-builder").forEach(trimBuilder);
+    }
+
+    window.SeoBuilderTrim = trimAll;
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", trimAll, { once: true });
+    } else {
+      trimAll();
+    }
+    window.addEventListener("load", trimAll, { passive: true });
+    window.addEventListener("resize", trimAll, { passive: true });
+    document.querySelectorAll(".seo-builder img").forEach(function (img) {
+      if (!img.complete) img.addEventListener("load", trimAll, { once: true, passive: true });
+    });
+  })();
+</script>

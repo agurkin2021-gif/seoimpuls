@@ -1,0 +1,123 @@
+{{- partial "init.html" . -}}
+
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {{- partial "yandex-metrika.html" . -}}
+        {{- $isLocalBuild := or hugo.IsServer (in .Site.BaseURL "localhost") (eq (getenv "HUGO_ENV") "development") (eq (getenv "HUGO_ENVIRONMENT") "development") -}}
+        {{- $forceNoIndex := .Site.Params.seo.noindex | default false -}}
+        {{- if or $isLocalBuild $forceNoIndex (eq .Kind "404") -}}
+        <meta name="robots" content="noindex,nofollow,noarchive,max-image-preview:standard" />
+        {{- else -}}
+        <meta name="robots" content="index,follow,max-image-preview:large" />
+        {{- end -}}
+        <title>{{ block "title" . }}{{ if and .IsHome .Title }}{{ .Title }} | {{ .Site.Title }}{{ else }}{{ .Site.Title }}{{ end }}{{ end }}</title>
+
+        {{- partial "head/meta.html" . -}}
+        {{- partial "head/link.html" . -}}
+        {{- partial "head/seo.html" . -}}
+    </head>
+    <body data-header-desktop="{{ .Site.Params.header.desktopMode }}" data-header-mobile="{{ .Site.Params.header.mobileMode }}" data-admin-page-path="{{ with .File }}content/{{ .Path }}{{ end }}">
+        {{- /* Check theme isDark before body rendering */ -}}
+        {{- $theme := .Site.Params.defaulttheme -}}
+        <script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('{{ $theme }}' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '{{ $theme }}' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div>
+
+        {{- /* Body wrapper */ -}}
+        <div class="wrapper">
+            {{- partial "header.html" . -}}
+            <main class="main">
+                <div class="container">
+                    {{- if ne .Kind "404" -}}
+                        {{- $isRU := eq .Site.Language.Lang "ru" -}}
+                        {{- $isES := eq .Site.Language.Lang "es" -}}
+                        {{- $homeLabel := cond $isRU "Главная" (cond $isES "Inicio" "Home") -}}
+                        {{- $currentLabel := .LinkTitle | default .Title -}}
+                        {{- $currentPermalink := .RelPermalink -}}
+                        <nav class="breadcrumbs" aria-label="Breadcrumb">
+                            <ol class="breadcrumbs__list">
+                                {{- if .IsHome -}}
+                                    <li class="breadcrumbs__item breadcrumbs__item--current" aria-current="page">{{ $homeLabel }}</li>
+                                {{- else -}}
+                                    <li class="breadcrumbs__item">
+                                        <a class="breadcrumbs__link" href="{{ "/" | relLangURL }}">{{ $homeLabel }}</a>
+                                    </li>
+                                    {{- range .Ancestors.Reverse -}}
+                                        {{- if and (not .IsHome) (ne .RelPermalink $currentPermalink) -}}
+                                            <li class="breadcrumbs__item">
+                                                <a class="breadcrumbs__link" href="{{ .RelPermalink }}">{{ .LinkTitle | default .Title }}</a>
+                                            </li>
+                                        {{- end -}}
+                                    {{- end -}}
+                                    <li class="breadcrumbs__item breadcrumbs__item--current" aria-current="page">{{ $currentLabel }}</li>
+                                {{- end -}}
+                            </ol>
+                        </nav>
+                    {{- end -}}
+                    {{- block "content" . }}{{ end -}}
+                </div>
+            </main>
+            {{- $hideFooter := in .RelPermalink "/consultation/" -}}
+            {{- if not $hideFooter -}}
+                {{- partial "legal-strip.html" . -}}
+                <div class="footer-reserve js-footer-reserve" aria-hidden="true"></div>
+                {{- partial "footer.html" . -}}
+            {{- end -}}
+        </div>
+
+        <div id="fixed-buttons">
+            <a href="#" id="back-to-top" class="fixed-button" title="{{ T `backToTop` }}">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path d="m12 18-6-7"></path>
+                    <path d="m12 18 6-7"></path>
+                    <path d="M12 17V6"></path>
+                </svg>
+            </a>
+
+            <a href="#" id="view-comments" class="fixed-button" title="{{ T `viewComments` }}">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path d="M4.5 7.5h15v9h-8l-4 3v-3h-3z"></path>
+                </svg>
+            </a>
+        </div>
+
+        {{- /* Load JavaScript scripts and CSS */ -}}
+        {{- partial "assets.html" . -}}
+        {{- partial "gdpr-consent.html" . -}}
+        <script>
+            (function () {
+                var DARK_ICON = "/favicon-blink-dark.png";
+                var LIGHT_ICON = "/favicon-blink-light.png";
+                var BLINK_EVERY_MS = 10000;
+                var LIGHT_ON_MS = 2000;
+
+                function startBlinkingFavicon() {
+                    var head = document.head || document.getElementsByTagName("head")[0];
+                    if (!head) return;
+
+                    var icon = head.querySelector('link[rel="icon"]') || document.createElement("link");
+                    icon.rel = "icon";
+                    icon.type = "image/png";
+                    if (!icon.parentNode) head.appendChild(icon);
+
+                    icon.href = DARK_ICON;
+                    window.setInterval(function () {
+                        icon.href = LIGHT_ICON;
+                        window.setTimeout(function () {
+                            icon.href = DARK_ICON;
+                        }, LIGHT_ON_MS);
+                    }, BLINK_EVERY_MS);
+                }
+
+                if (document.readyState === "loading") {
+                    document.addEventListener("DOMContentLoaded", startBlinkingFavicon, { once: true });
+                } else {
+                    startBlinkingFavicon();
+                }
+            })();
+        </script>
+    </body>
+</html>

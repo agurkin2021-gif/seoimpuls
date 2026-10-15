@@ -1,0 +1,2968 @@
+{{- define "title" -}}
+  {{ .Title }} | {{ .Site.Title }}
+{{- end -}}
+
+{{- define "content" -}}
+{{- $lang := .Site.Language.Lang -}}
+{{- $isRU := eq $lang "ru" -}}
+{{- $isES := eq $lang "es" -}}
+{{- $defaultSoftURL := "https://www.vdsina.com/?partner=45s5fn4exi" -}}
+{{- $softURL := .Params.vpsBannerUrl | default $defaultSoftURL -}}
+{{- $softLink := partial "affiliate-link-attrs.html" (dict "url" $softURL) -}}
+<section class="sb-page" aria-labelledby="sbTitle">
+  <div class="sb-wrap">
+    <h1 id="sbTitle" class="sb-title">{{ .Title }}</h1>
+
+    <a class="sb-card sb-vps-highlight" href="{{ $softLink.href | safeURL }}"{{ with $softLink.cloaked }} data-seo-cloaked-href="{{ . }}"{{ end }}{{ with $softLink.rel }} rel="{{ . }}"{{ end }} aria-label="{{ if $isRU }}VPS сервер для SEO-задач{{ else if $isES }}Servidor VPS para tareas SEO{{ else }}VPS server for SEO workloads{{ end }}">
+      <div class="sb-vps-highlight__media">
+        <img src="{{ "vps_servers.webp" | relURL }}" width="168" height="168" alt="{{ if $isRU }}VPS Server Hosting{{ else if $isES }}Hosting VPS{{ else }}VPS Server Hosting{{ end }}" loading="eager" decoding="async" fetchpriority="high" />
+      </div>
+      <div class="sb-vps-highlight__body">
+        <p class="sb-vps-highlight__eyebrow">VPS SERVER HOSTING</p>
+        <h2 class="sb-vps-highlight__title">
+          {{ if $isRU }}Лучший по цене и скорости VPS для SEO-задач{{ else if $isES }}VPS con la mejor relación entre precio y velocidad para tareas SEO{{ else }}Best VPS for price and speed for SEO workloads{{ end }}
+        </h2>
+        <p class="sb-vps-highlight__text">
+          {{ if $isRU }}Для SEO-софта, парсеров, автоматизации и многопоточных задач важны стабильная работа, высокая скорость отклика, достаточный запас ресурсов и круглосуточный удалённый доступ.{{ else if $isES }}El software SEO, los rastreadores, la automatización y las tareas multihilo necesitan estabilidad, una respuesta rápida, recursos suficientes y acceso remoto las 24 horas.{{ else }}SEO software, crawlers, automation, and multithreaded workloads need stable operation, fast response times, sufficient resources, and round-the-clock remote access.{{ end }}
+        </p>
+        <div class="sb-vps-highlight__chips" aria-label="{{ if $isRU }}Преимущества VPS{{ else if $isES }}Ventajas del VPS{{ else }}VPS benefits{{ end }}">
+          <span class="sb-vps-highlight__chip">{{ if $isRU }}VPS для SEO-задач{{ else if $isES }}VPS para tareas SEO{{ else }}VPS for SEO workloads{{ end }}</span>
+          <span class="sb-vps-highlight__chip">{{ if $isRU }}Баланс цены и скорости{{ else if $isES }}Equilibrio precio / velocidad{{ else }}Price / speed balance{{ end }}</span>
+          <span class="sb-vps-highlight__chip">{{ if $isRU }}Удалённый доступ 24/7{{ else if $isES }}Acceso remoto 24/7{{ else }}24/7 remote access{{ end }}</span>
+        </div>
+        <span class="sb-vps-highlight__link">{{ if $isRU }}Открыть блок VPS / Hosting{{ else if $isES }}Abrir bloque VPS / Hosting{{ else }}Open VPS / Hosting block{{ end }}</span>
+      </div>
+    </a>
+
+    <div class="sb-layout">
+      <section class="sb-card sb-stage">
+        <div class="sb-stage-main">
+          <aside class="sb-indicator">
+            <p class="sb-indicator-title">{{ if $isRU }}Индекс позиции{{ else if $isES }}Índice de posición{{ else }}Position Index{{ end }}</p>
+            <div id="sbRankCircle" class="sb-indicator-ring">
+              <p id="sbRankValue" class="sb-indicator-value">50+</p>
+            </div>
+            <p id="sbRankBand" class="sb-indicator-band">{{ if $isRU }}50+: низкая видимость{{ else if $isES }}50+: baja visibilidad{{ else }}50+: low visibility{{ end }}</p>
+            <p id="sbRankBonus" class="sb-indicator-bonus"></p>
+          </aside>
+
+          <div class="sb-center-stack">
+            <div id="sbDropzone" class="sb-dropzone">
+              <p id="sbPlaceholder" class="sb-placeholder">{{ if $isRU }}Выбранные позиции правого блока отображаются здесь и формируют набор.{{ else if $isES }}Las posiciones seleccionadas del bloque derecho se muestran aquí y forman la combinación.{{ else }}Selected positions from the right block appear here and form the set.{{ end }}</p>
+              <div id="sbChips" class="sb-chips"></div>
+            </div>
+            <div id="sbLeftNote" class="sb-left-note">
+              {{ if $isRU }}
+                💡 Расчёт и прогноз ориентировочные.<br>Стратегия строится под сайт с корректной иерархией, кластеризацией семантики и силосной архитектурой.<br>Управляемая перелинковка и технически чистый код.<br>Минимальный вес страниц, корректный хостинг и чистая техническая база.
+              {{ else if $isES }}
+                💡 El cálculo y el pronóstico son orientativos.<br>La estrategia se construye para un sitio con jerarquía correcta, clusterización semántica y arquitectura en silos.<br>Enlazado interno controlado y código técnicamente limpio.<br>Peso mínimo de páginas, hosting correcto y una base técnica limpia.
+              {{ else }}
+                💡 The estimate and forecast are indicative.<br>The strategy is built for a site with a correct hierarchy, semantic clustering, and silo architecture.<br>Controlled internal linking and technically clean code.<br>Minimal page weight, proper hosting, and a clean technical base.
+              {{ end }}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="sb-card sb-side">
+        <div class="sb-base-rows">
+          <div class="sb-group sb-base-row" data-step="0">
+            <div class="sb-row sb-row-2">
+              <button class="sb-btn" data-type="multi" data-key="onepage">{{ if $isRU }}Одностраничный сайт{{ else if $isES }}Sitio de una página{{ else }}Single-page site{{ end }}</button>
+              <button class="sb-btn" data-type="multi" data-key="multipage">{{ if $isRU }}Многостраничный сайт{{ else if $isES }}Sitio multipágina{{ else }}Multi-page site{{ end }}</button>
+            </div>
+          </div>
+
+          <div class="sb-group sb-base-row" data-step="1">
+            <div class="sb-row sb-row-3">
+              <button class="sb-btn" data-type="single" data-group="freq" data-key="low">{{ if $isRU }}Низкая конкуренция{{ else if $isES }}Baja competencia{{ else }}Low competition{{ end }}</button>
+              <button class="sb-btn" data-type="single" data-group="freq" data-key="mid">{{ if $isRU }}Средняя конкуренция{{ else if $isES }}Competencia media{{ else }}Medium competition{{ end }}</button>
+              <button class="sb-btn" data-type="single" data-group="freq" data-key="high">{{ if $isRU }}Высокая конкуренция{{ else if $isES }}Alta competencia{{ else }}High competition{{ end }}</button>
+            </div>
+          </div>
+
+          <div class="sb-group sb-base-row" data-step="2">
+            <div class="sb-row sb-row-2">
+              <button class="sb-btn" data-type="single" data-group="theme" data-key="white">{{ if $isRU }}Стандартные ниши{{ else if $isES }}Nichos estándar{{ else }}Standard niches{{ end }}</button>
+              <button class="sb-btn" data-type="single" data-group="theme" data-key="gray">{{ if $isRU }}iGaming / High-Risk проекты{{ else if $isES }}Proyectos iGaming / High-Risk{{ else }}iGaming / High-Risk projects{{ end }}</button>
+            </div>
+          </div>
+
+          <div class="sb-group sb-base-row" data-step="3">
+            <div class="sb-row sb-row-2">
+              <button class="sb-btn" data-type="multi" data-key="newregs">{{ if $isRU }}Новорег{{ else if $isES }}Dominio nuevo{{ else }}New reg domain{{ end }}</button>
+              <button class="sb-btn" data-type="multi" data-key="drops">{{ if $isRU }}Дроп домен{{ else if $isES }}Dominio expirado{{ else }}Dropped domain{{ end }}</button>
+            </div>
+          </div>
+
+          <div class="sb-group sb-base-row" data-step="4">
+            <div class="sb-row sb-row-2">
+              <button class="sb-btn" data-type="multi" data-key="static">{{ if $isRU }}Статичный сайт{{ else if $isES }}Sitio estático{{ else }}Static site{{ end }}</button>
+              <button class="sb-btn" data-type="multi" data-key="dynamic">{{ if $isRU }}Динамичный сайт{{ else if $isES }}Sitio dinámico{{ else }}Dynamic site{{ end }}</button>
+            </div>
+          </div>
+
+        </div>
+
+        <div id="sbToolsScope">
+          <h2 class="sb-side-title">{{ if $isRU }}Инструменты продвижения{{ else if $isES }}Herramientas SEO{{ else }}SEO Tools{{ end }}</h2>
+          <div id="sbPrereqNotice" class="sb-inline-notice" role="status" aria-live="polite"></div>
+
+          <div class="sb-group">
+              <div class="sb-submenu">
+                <button class="sb-btn" data-type="sub" data-parent="community" data-key="xr_forums">{{ if $isRU }}Форумы{{ else if $isES }}Foros{{ else }}Forums{{ end }}</button>
+                <button class="sb-btn" data-type="sub" data-parent="community" data-key="xr_comments">{{ if $isRU }}Комментарии{{ else if $isES }}Comentarios{{ else }}Comments{{ end }}</button>
+                <button class="sb-btn" data-type="sub" data-parent="community" data-key="xr_profiles">{{ if $isRU }}Профили{{ else if $isES }}Perfiles{{ else }}Profiles{{ end }}</button>
+                <button class="sb-btn" data-type="sub" data-parent="content" data-key="content_articles">{{ if $isRU }}Артикли{{ else if $isES }}Artículos{{ else }}Articles{{ end }}</button>
+                <button class="sb-btn" data-type="sub" data-parent="content" data-key="content_web20">Web 2.0</button>
+                <button class="sb-btn" data-type="sub" data-parent="content" data-key="content_t123">{{ if $isRU }}Тиер 1-2-3{{ else if $isES }}Nivel 1-2-3{{ else }}Tier 1-2-3{{ end }}</button>
+              </div>
+          </div>
+
+          <div class="sb-group">
+            <div class="sb-row sb-factor-grid">
+              <button class="sb-btn" data-type="multi" data-key="satellite">{{ if $isRU }}Сателлиты{{ else if $isES }}Sitios satélite{{ else }}Satellite sites{{ end }}</button>
+              <button class="sb-btn" data-type="multi" data-key="crowd">{{ if $isRU }}Крауд{{ else if $isES }}Enlaces de foros{{ else }}Crowd links{{ end }}</button>
+              <button class="sb-btn" data-type="multi" data-key="referral">{{ if $isRU }}Реферальный трафик{{ else if $isES }}Tráfico de referencia{{ else }}Referral traffic{{ end }}</button>
+              <button class="sb-btn" data-type="multi" data-key="social">{{ if $isRU }}Социальные сигналы{{ else if $isES }}Señales sociales{{ else }}Social Signals{{ end }}</button>
+              <button class="sb-btn" data-type="multi" data-key="branding">{{ if $isRU }}Брендирование{{ else if $isES }}Branding{{ else }}Branding{{ end }}</button>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <div class="sb-bottom-stack">
+      <button id="sbApply" class="sb-apply" type="button">{{ if $isRU }}ПРИМЕНИТЬ{{ else if $isES }}APLICAR{{ else }}APPLY{{ end }}</button>
+      <div id="sbResponse" class="sb-response sb-response-wide">{{ if $isRU }}Прогноз по текущей выборке: объяснение по инструментам и рабочий сценарий.{{ else if $isES }}Previsión para la selección actual: explicación de herramientas y escenario de trabajo.{{ else }}Forecast for the current selection: tool explanation and working scenario.{{ end }}</div>
+    </div>
+
+    <div id="sbQtyPicker" class="sb-qty-picker" aria-hidden="true">
+      <div class="sb-qty-backdrop"></div>
+      <div id="sbQtyPop" class="sb-qty-pop" role="dialog" aria-modal="true" aria-labelledby="sbQtyTitle">
+        <p id="sbQtyTitle" class="sb-qty-title"></p>
+        <div id="sbQtyWheel" class="sb-qty-wheel"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<style>
+main.main {
+    position: relative;
+    min-height: 100vh;
+    background-color: #070b14;
+    background-image: linear-gradient(180deg, rgba(6, 12, 24, 0.30) 0%, rgba(7, 12, 23, 0.58) 100%);
+    background-position: center top;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+  }
+
+  .sb-page {
+    width: calc(100% + 2rem);
+    margin: 0 -1rem;
+    border-top: 1px solid rgba(132, 161, 196, 0.24);
+    color: #e7edf8;
+    overflow: hidden;
+  }
+
+  @media (min-width: 768px) {
+    .sb-page {
+      padding-bottom: calc(116px + env(safe-area-inset-bottom, 0px));
+    }
+  }
+
+  .sb-wrap {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 24px 36px 34px;
+  }
+
+  .sb-title {
+    margin: 0 0 12px;
+    font-size: clamp(22px, 2.2vw, 34px);
+    line-height: 1.08;
+    font-weight: 760;
+    color: #d9e0ee;
+  }
+
+  .sb-vps-highlight {
+    display: grid;
+    grid-template-columns: minmax(180px, 244px) minmax(0, 1fr);
+    gap: 18px;
+    align-items: center;
+    margin-bottom: 12px;
+    padding: 16px 18px;
+    overflow: hidden;
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+    transform-origin: center;
+    transition: transform 0.14s ease, border-color 0.16s ease, background-color 0.16s ease;
+    background:
+      radial-gradient(circle at right top, rgba(38, 137, 197, 0.22), transparent 38%),
+      linear-gradient(135deg, rgba(8, 17, 31, 0.94) 0%, rgba(10, 22, 40, 0.92) 52%, rgba(8, 17, 31, 0.94) 100%);
+  }
+
+  .sb-vps-highlight:hover,
+  .sb-vps-highlight:focus-visible {
+    border-color: rgba(131, 213, 255, 0.56);
+    outline: none;
+  }
+
+  .sb-vps-highlight:active {
+    transform: translateY(1px) scale(0.995);
+  }
+
+  .sb-vps-highlight__media {
+    position: relative;
+    display: grid;
+    place-items: center;
+    min-height: 172px;
+    padding: 10px;
+    border-radius: 14px;
+    border: 1px solid rgba(114, 152, 191, 0.28);
+    background: linear-gradient(180deg, rgba(11, 22, 40, 0.92) 0%, rgba(8, 15, 29, 0.84) 100%);
+  }
+
+  .sb-vps-highlight__media::after {
+    content: "";
+    position: absolute;
+    inset: 10px;
+    border-radius: 12px;
+    background: radial-gradient(circle at center, rgba(52, 170, 255, 0.15), transparent 65%);
+    pointer-events: none;
+  }
+
+  .sb-vps-highlight__media img {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    max-width: 168px;
+    height: auto;
+    filter: drop-shadow(0 12px 30px rgba(18, 104, 160, 0.28));
+  }
+
+  .sb-vps-highlight__body {
+    display: grid;
+    gap: 10px;
+    align-content: center;
+  }
+
+  .sb-vps-highlight__eyebrow {
+    margin: 0;
+    color: rgba(125, 216, 255, 0.92);
+    font-size: 11px;
+    line-height: 1.2;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .sb-vps-highlight__title {
+    margin: 0;
+    color: #f1f7ff;
+    font-size: clamp(18px, 1.9vw, 28px);
+    line-height: 1.14;
+    font-weight: 780;
+  }
+
+  .sb-vps-highlight__text {
+    margin: 0;
+    max-width: 760px;
+    color: rgba(211, 226, 245, 0.92);
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  .sb-vps-highlight__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .sb-vps-highlight__chip {
+    display: inline-flex;
+    align-items: center;
+    min-height: 30px;
+    padding: 0 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(102, 171, 221, 0.42);
+    background: rgba(16, 32, 55, 0.82);
+    color: rgba(230, 240, 252, 0.95);
+    font-size: 12px;
+    line-height: 1.2;
+    font-weight: 680;
+    letter-spacing: 0.01em;
+  }
+
+  .sb-vps-highlight__link {
+    display: inline-flex;
+    box-sizing: border-box;
+    max-width: 100%;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    width: fit-content;
+    padding: 0 18px;
+    border-radius: 9px;
+    border: 1px solid rgba(102, 192, 244, 0.52);
+    background: linear-gradient(180deg, rgba(33, 113, 167, 0.94) 0%, rgba(23, 84, 130, 0.94) 100%);
+    color: #f4fbff;
+    font-size: 13px;
+    font-weight: 760;
+    letter-spacing: 0.01em;
+    text-decoration: none;
+    transition: transform 0.16s ease, border-color 0.16s ease, background-color 0.16s ease;
+  }
+
+  .sb-vps-highlight:hover .sb-vps-highlight__link,
+  .sb-vps-highlight:focus-visible .sb-vps-highlight__link,
+  .sb-vps-highlight__link:hover {
+    transform: translateY(-1px);
+    border-color: rgba(131, 213, 255, 0.72);
+    background: linear-gradient(180deg, rgba(38, 128, 186, 0.96) 0%, rgba(27, 97, 147, 0.96) 100%);
+  }
+
+  .sb-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 560px;
+    gap: 12px;
+    align-items: stretch;
+  }
+
+  .sb-layout.is-applied {
+    min-height: 0;
+    position: static;
+  }
+
+  .sb-layout > .sb-card {
+    box-sizing: border-box;
+    align-self: stretch;
+  }
+
+  .sb-layout.is-applied > .sb-side {
+    position: static;
+    width: auto;
+    margin: 0;
+  }
+
+  .sb-layout.is-applied > .sb-stage {
+    width: auto;
+    min-width: 0;
+  }
+
+  .sb-card {
+    border-radius: 12px;
+    border: 1px solid rgba(146, 174, 206, 0.32);
+    background: rgba(8, 16, 30, 0.82);
+    box-shadow: inset 0 1px 0 rgba(220, 234, 255, 0.08), 0 12px 24px rgba(0, 0, 0, 0.28);
+  }
+
+  .sb-stage {
+    padding: 14px;
+    min-height: 0;
+    min-width: 0;
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .sb-stage-main {
+    display: grid;
+    grid-template-columns: 162px minmax(0, 1fr);
+    gap: 12px;
+    align-items: start;
+  }
+
+  .sb-indicator {
+    border: 1px solid rgba(115, 140, 171, 0.36);
+    border-radius: 12px;
+    background: rgba(8, 16, 32, 0.72);
+    padding: 10px 8px;
+    display: grid;
+    justify-items: center;
+    gap: 8px;
+  }
+
+  .sb-indicator-title {
+    margin: 0;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: rgba(197, 214, 237, 0.92);
+    text-align: center;
+  }
+
+  .sb-indicator-ring {
+    --pos-color: #95A5A6;
+    width: 112px;
+    height: 112px;
+    border-radius: 50%;
+    border: 4px solid var(--pos-color);
+    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.15), rgba(8, 18, 34, 0.92) 68%);
+    display: grid;
+    place-items: center;
+    box-shadow: 0 0 22px rgba(0, 0, 0, 0.35);
+  }
+
+  .sb-indicator-value {
+    margin: 0;
+    font-size: 26px;
+    line-height: 1;
+    font-weight: 760;
+    color: var(--pos-color);
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.38);
+  }
+
+  .sb-indicator-band {
+    margin: 0;
+    font-size: 11px;
+    line-height: 1.35;
+    color: rgba(188, 206, 230, 0.94);
+    text-align: center;
+  }
+
+  .sb-indicator-bonus {
+    margin: 0;
+    font-size: 11px;
+    line-height: 1.25;
+    color: rgba(126, 214, 255, 0.95);
+    text-align: center;
+    font-weight: 700;
+  }
+
+  .sb-center-stack {
+    display: grid;
+    gap: 10px;
+    align-content: start;
+  }
+
+  .sb-left-note {
+    border: 1px solid rgba(116, 143, 177, 0.32);
+    border-radius: 10px;
+    background: rgba(9, 18, 34, 0.74);
+    padding: 11px 12px;
+    color: rgba(204, 222, 244, 0.96);
+    font-size: 13px;
+    line-height: 1.5;
+    min-height: 72px;
+  }
+
+  .sb-bottom-stack {
+    margin-top: 10px;
+    display: grid;
+    gap: 10px;
+  }
+
+  .sb-response-wide {
+    width: 100%;
+    min-height: 160px;
+  }
+
+  .sb-side-title {
+    margin: 0;
+    color: #dfe6f6;
+    font-size: 16px;
+    line-height: 1.25;
+    font-weight: 720;
+  }
+
+  .sb-dropzone {
+    position: relative;
+    border: 1px dashed rgba(118, 162, 206, 0.52);
+    border-radius: 12px;
+    background: linear-gradient(180deg, rgba(13, 31, 52, 0.68) 0%, rgba(10, 19, 35, 0.68) 100%);
+    min-height: 160px;
+    padding: 12px;
+  }
+
+  .sb-placeholder {
+    color: rgba(188, 206, 230, 0.86);
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  .sb-chips {
+    display: grid;
+    gap: 8px;
+    align-content: flex-start;
+  }
+
+  .sb-chip-base-col {
+    display: grid;
+    gap: 6px;
+    justify-items: start;
+  }
+
+  .sb-chips.is-base-complete .sb-chip-base-col {
+    padding-bottom: 8px;
+    margin-bottom: 2px;
+    border-bottom: 1px solid transparent;
+    border-image: linear-gradient(90deg, rgba(116, 205, 255, 0.12) 0%, rgba(146, 222, 255, 0.62) 50%, rgba(116, 205, 255, 0.12) 100%) 1;
+    box-shadow: 0 8px 14px -12px rgba(106, 192, 236, 0.35);
+    animation: sbDividerPulse 2.8s ease-in-out infinite;
+  }
+
+  @keyframes sbDividerPulse {
+    0% { box-shadow: 0 8px 14px -12px rgba(106, 192, 236, 0.22); }
+    50% { box-shadow: 0 8px 14px -12px rgba(146, 222, 255, 0.5); }
+    100% { box-shadow: 0 8px 14px -12px rgba(106, 192, 236, 0.22); }
+  }
+
+  .sb-chip-tools-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .sb-chip {
+    display: inline-flex;
+    align-items: center;
+    min-height: 30px;
+    padding: 0 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(99, 173, 223, 0.68);
+    background: rgba(26, 71, 108, 0.74);
+    color: #e8f4ff;
+    font-size: 13px;
+    font-weight: 620;
+    letter-spacing: 0.01em;
+  }
+
+  .sb-chip-danger {
+    border-color: rgba(247, 121, 121, 0.9);
+    background: rgba(106, 27, 27, 0.76);
+    color: #ffecec;
+  }
+
+  .sb-apply {
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 46px;
+    border: 1px solid rgba(95, 173, 216, 0.62);
+    border-radius: 9px;
+    background: #1f739f;
+    color: #edf8ff;
+    font-size: 15px;
+    font-weight: 720;
+    cursor: pointer;
+    transition: transform 0.16s ease, background-color 0.16s ease;
+  }
+
+  .sb-apply:hover {
+    transform: translateY(-1px);
+    background: #2a80ad;
+  }
+
+  .sb-response {
+    box-sizing: border-box;
+    border: 1px solid rgba(116, 143, 177, 0.28);
+    border-radius: 10px;
+    background: rgba(10, 18, 34, 0.72);
+    padding: 10px 12px;
+    color: rgba(202, 220, 243, 0.95);
+    font-family: "Segoe UI", "Helvetica Neue", "Noto Sans", Arial, sans-serif !important;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.58;
+    min-height: 110px;
+    overflow-wrap: anywhere;
+  }
+
+  .sb-response p {
+    margin: 0 0 13px;
+  }
+
+  .sb-response,
+  .sb-response * {
+    font-family: "Segoe UI", "Helvetica Neue", "Noto Sans", Arial, sans-serif !important;
+    font-size: inherit !important;
+    line-height: inherit !important;
+  }
+
+  .sb-response p:last-child {
+    margin-bottom: 0;
+  }
+
+  .sb-response ul {
+    margin: 6px 0 13px 18px;
+    padding: 0;
+  }
+
+  .sb-response li {
+    margin: 0 0 8px;
+  }
+
+  .sb-inline-link {
+    color: #eaf6ff;
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: underline;
+    text-decoration-color: rgba(131, 214, 248, 0.92);
+  }
+
+  .sb-response.is-collapsed {
+    display: none;
+  }
+
+  .sb-side {
+    padding: 12px;
+    display: grid;
+    gap: 8px;
+  }
+
+  .sb-group {
+    display: grid;
+    gap: 8px;
+  }
+
+  .sb-base-rows {
+    position: relative;
+    display: grid;
+    gap: 8px;
+  }
+
+  #sbToolsScope {
+    position: relative;
+    display: grid;
+    gap: 8px;
+    align-content: start;
+  }
+
+  .sb-inline-notice {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: clamp(34px, 3.4vw, 40px);
+    display: block;
+    padding: 10px 12px 10px 40px;
+    border-radius: 8px;
+    border: 1px solid rgb(227, 173, 92);
+    background: linear-gradient(180deg, rgb(64, 40, 18) 0%, rgb(35, 23, 12) 100%);
+    color: rgb(248, 224, 184);
+    font-size: 12px;
+    line-height: 1.4;
+    z-index: 20;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(4px);
+    transition: opacity 0.16s ease, transform 0.16s ease, visibility 0.16s ease;
+  }
+
+  .sb-inline-notice::before {
+    content: "!";
+    position: absolute;
+    left: 12px;
+    top: 12px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 1px solid rgba(235, 188, 116, 0.8);
+    color: rgba(255, 230, 190, 0.95);
+    font-size: 11px;
+    line-height: 14px;
+    text-align: center;
+  }
+
+  .sb-inline-notice.is-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .sb-prereq-title,
+  .sb-prereq-outro {
+    margin: 0;
+  }
+
+  .sb-prereq-list {
+    display: grid;
+    gap: 4px;
+    margin: 6px 0;
+  }
+
+  .sb-prereq-item {
+    display: grid;
+    grid-template-columns: 9px minmax(0, 1fr);
+    align-items: center;
+    gap: 8px;
+  }
+
+  .sb-prereq-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 207, 142, 0.9);
+    background: transparent;
+    box-sizing: border-box;
+    flex: 0 0 auto;
+  }
+
+  .sb-prereq-item.is-done .sb-prereq-dot {
+    border-color: #30d16f;
+    background: #30d16f;
+    box-shadow: 0 0 0 2px rgba(48, 209, 111, 0.2);
+  }
+
+  .sb-factor-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .sb-row {
+    display: grid;
+    gap: 8px;
+  }
+
+  .sb-row-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .sb-row-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+  .sb-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 40px;
+    padding: 0 8px;
+    border-radius: 8px;
+    border: 1px solid rgba(123, 151, 188, 0.34);
+    background: rgba(10, 18, 33, 0.72);
+    color: rgba(214, 226, 245, 0.96);
+    font-size: 12px;
+    font-weight: 650;
+    line-height: 1.15;
+    text-align: center;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    cursor: pointer;
+    transition: border-color 0.15s ease, background-color 0.15s ease, transform 0.15s ease;
+    user-select: none;
+    min-width: 0;
+  }
+
+  .sb-btn:hover {
+    border-color: rgba(163, 190, 226, 0.52);
+    background: rgba(13, 24, 42, 0.86);
+  }
+
+  .sb-btn.is-active {
+    border-color: rgb(91, 177, 224);
+    background: rgb(23, 55, 87);
+  }
+
+  .sb-btn.is-footprints {
+    border-color: rgba(247, 121, 121, 0.9) !important;
+    background: rgba(106, 27, 27, 0.76) !important;
+    color: #ffecec !important;
+  }
+
+  .sb-base-rows .sb-btn {
+    border-color: rgba(103, 177, 232, 0.72);
+    background: rgba(10, 18, 33, 0.72);
+  }
+
+  .sb-base-rows .sb-btn:hover {
+    border-color: rgba(131, 197, 240, 0.86);
+    background: rgba(13, 24, 42, 0.86);
+  }
+
+  .sb-base-rows .sb-btn.is-active {
+    border-color: rgb(131, 214, 248);
+    background: rgb(23, 55, 87);
+  }
+
+  .sb-parent {
+    justify-content: space-between;
+    padding: 0 10px;
+  }
+
+  .sb-parent::after {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-right: 1px solid rgba(205, 223, 246, 0.9);
+    border-bottom: 1px solid rgba(205, 223, 246, 0.9);
+    transform: rotate(45deg);
+    transition: transform 0.15s ease;
+    margin-left: 8px;
+  }
+
+  .sb-parent.is-open::after {
+    transform: rotate(-135deg) translate(-2px, -2px);
+  }
+
+  .sb-submenu {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .sb-submenu.is-open {
+    display: grid;
+  }
+
+  .sb-submenu .sb-btn {
+    min-height: 34px;
+    font-size: 12px;
+    font-weight: 650;
+    letter-spacing: 0;
+    padding: 0 8px;
+    overflow-wrap: normal;
+    word-break: normal;
+    hyphens: none;
+    background: rgba(10, 18, 33, 0.72);
+  }
+
+  .sb-submenu .sb-btn.is-active {
+    border-color: rgb(91, 177, 224);
+    background: rgb(23, 55, 87);
+  }
+
+  .sb-fly {
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    transform: translate(-50%, -50%);
+    border-radius: 999px;
+    border: 1px solid rgba(99, 173, 223, 0.76);
+    background: rgba(26, 71, 108, 0.92);
+    color: #eff8ff;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    padding: 7px 10px;
+    pointer-events: none;
+    opacity: 0.96;
+    transition: transform 0.62s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.62s ease;
+    will-change: transform, opacity;
+  }
+
+  .sb-fly.is-flying {
+    transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(0.52);
+    opacity: 0;
+  }
+
+  .sb-qty-picker {
+    position: fixed;
+    inset: 0;
+    z-index: 1500;
+    pointer-events: none;
+  }
+
+  .sb-qty-picker.is-open {
+    pointer-events: auto;
+  }
+
+  .sb-qty-backdrop {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+  }
+
+  .sb-qty-pop {
+    position: absolute;
+    width: calc(100vw - 24px);
+    max-width: 260px;
+    border-radius: 12px;
+    border: 1px solid rgba(110, 171, 220, 0.58);
+    background: linear-gradient(180deg, rgba(8, 18, 34, 0.98) 0%, rgba(10, 17, 31, 0.98) 100%);
+    box-shadow: 0 18px 34px rgba(0, 0, 0, 0.42);
+    padding: 12px;
+    transform: translateY(8px) scale(0.98);
+    opacity: 0;
+    transition: transform 0.16s ease, opacity 0.16s ease;
+    max-height: calc(100vh - 28px);
+    overflow: hidden;
+    display: grid;
+    gap: 10px;
+  }
+
+  .sb-qty-picker.is-open .sb-qty-pop {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+
+  .sb-qty-title {
+    margin: 0;
+    color: rgba(220, 234, 252, 0.96);
+    font-size: 13px;
+    line-height: 1.3;
+    font-weight: 700;
+  }
+
+  .sb-qty-wheel {
+    border: 1px solid rgba(95, 145, 194, 0.54);
+    border-radius: 10px;
+    background: rgba(8, 14, 27, 0.86);
+    max-height: 184px;
+    overflow-y: auto;
+    scroll-snap-type: y proximity;
+    padding: 6px;
+    display: grid;
+    gap: 6px;
+  }
+
+  .sb-qty-item {
+    min-height: 34px;
+    border: 1px solid rgba(108, 154, 199, 0.4);
+    border-radius: 8px;
+    background: rgba(9, 18, 33, 0.72);
+    color: rgba(220, 234, 252, 0.95);
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    scroll-snap-align: center;
+  }
+
+  .sb-qty-item:hover {
+    border-color: rgba(145, 199, 241, 0.72);
+    background: rgba(14, 27, 47, 0.92);
+  }
+
+  .sb-qty-item.is-active {
+    border-color: rgba(127, 209, 255, 0.92);
+    background: rgba(25, 58, 90, 0.96);
+  }
+
+  .sb-qty-item.is-footprints {
+    border-color: rgba(108, 154, 199, 0.4);
+    background: rgba(9, 18, 33, 0.72);
+    color: rgba(220, 234, 252, 0.95);
+  }
+
+  .sb-qty-item.is-footprints.is-active {
+    border-color: rgba(255, 159, 159, 0.96);
+    background: rgba(126, 32, 32, 0.95);
+  }
+
+  .sb-qty-item.is-disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    pointer-events: none;
+    filter: saturate(0.7);
+  }
+
+  @media (max-width: 1180px) {
+    .sb-wrap { padding-left: 18px; padding-right: 18px; }
+    .sb-vps-highlight { grid-template-columns: 220px minmax(0, 1fr); }
+    .sb-layout { grid-template-columns: 1fr; }
+    .sb-stage { min-height: 380px; }
+  }
+
+  @media (max-width: 767px) {
+    .sb-page { width: 100%; margin: 0; }
+    .sb-wrap { padding-top: 14px; padding-bottom: 20px; }
+    .sb-title { font-size: clamp(20px, 7vw, 28px); }
+    .sb-vps-highlight { grid-template-columns: 1fr; padding: 14px; }
+    .sb-vps-highlight__media { min-height: 148px; }
+    .sb-vps-highlight__media img { max-width: 148px; }
+    .sb-vps-highlight__title { font-size: clamp(17px, 5.4vw, 24px); }
+    .sb-vps-highlight__text { font-size: 13px; }
+    .sb-vps-highlight__link { width: 100%; }
+    .sb-row-3, .sb-submenu { grid-template-columns: 1fr 1fr; }
+    .sb-row-2 { grid-template-columns: 1fr 1fr; }
+    .sb-factor-grid { grid-template-columns: 1fr 1fr; }
+    .sb-stage-main { grid-template-columns: 1fr; }
+    .sb-indicator { justify-items: start; }
+    .sb-indicator-ring { width: 96px; height: 96px; }
+    .sb-btn { min-height: 42px; padding: 6px 8px; font-size: 11px; }
+    .sb-submenu .sb-btn { font-size: 11px; min-height: 36px; }
+    .sb-inline-notice { font-size: 11px; }
+  }
+</style>
+
+<script>
+(function () {
+  var chipsHost = document.getElementById("sbChips");
+  var placeholder = document.getElementById("sbPlaceholder");
+  var dropzone = document.getElementById("sbDropzone");
+  var applyBtn = document.getElementById("sbApply");
+  var response = document.getElementById("sbResponse");
+  var leftNote = document.getElementById("sbLeftNote");
+  var defaultLeftNoteHtml = leftNote ? leftNote.innerHTML : "";
+  var rankCircle = document.getElementById("sbRankCircle");
+  var rankValue = document.getElementById("sbRankValue");
+  var rankBand = document.getElementById("sbRankBand");
+  var rankBonus = document.getElementById("sbRankBonus");
+  var qtyPicker = document.getElementById("sbQtyPicker");
+  var qtyPop = document.getElementById("sbQtyPop");
+  var qtyTitle = document.getElementById("sbQtyTitle");
+  var qtyWheel = document.getElementById("sbQtyWheel");
+  var toolsScope = document.getElementById("sbToolsScope");
+  var prereqNotice = document.getElementById("sbPrereqNotice");
+  var baseRows = document.querySelector(".sb-base-rows");
+  var layoutEl = document.querySelector(".sb-layout");
+  var buttons = Array.prototype.slice.call(document.querySelectorAll(".sb-btn[data-type]"));
+
+  var state = {
+    single: { freq: "", theme: "" },
+    singleKey: { freq: "", theme: "" },
+    multi: [],
+    qty: { satellite: 1, crowd: 1, r301: 1 },
+    qtyMeta: { satelliteFootprints: false },
+    open: { community: false, content: false }
+  };
+  var T = (function () {
+    {{- if $isES }}
+    return {
+        bandTop: "1-3: zona top (rara vez estable)",
+        bandHigh: "4-10: primera página fuerte",
+        bandPage1: "11-20: borde de primera página",
+        bandPage2: "21-35: visible pero inestable",
+        bandLow: "36-50: visibilidad baja",
+        bandOut: "50+: fuera del foco estable en SERP",
+        selectOne: "Primero selecciona al menos un botón a la derecha.",
+        prereqIntro: "Por favor, primero selecciona:",
+        prereqOutro: "Después activa las herramientas SEO.",
+        reqFreq: "Competencia",
+        reqTheme: "Temática",
+        reqDomain: "Edad del dominio",
+        reqSite: "Formato del sitio",
+        reqPages: "Tipo de sitio",
+        bonusLabel: "Bonus de herramientas:",
+        qtyPromptSatellite: "Indica la cantidad de sitios satélite (1-20):",
+        qtyPromptCrowd: "Indica la cantidad de enlaces crowd (1-20):",
+        qtyFootprintsLabel: "HUELLAS EN SITIOS SATÉLITE",
+        qtyFootprintsHint: "Huellas: patrones repetidos (plantilla, técnicas o IP) que vinculan sitios de una red.",
+        qtyFootprintsChip: "Sitios satélite: huellas presentes",
+        applyCta: "APLICAR",
+        cancelCta: "CANCELAR",
+    };
+    {{- else if $isRU }}
+    return {
+        bandTop: "1-3: топ-зона (редко стабильна)",
+        bandHigh: "4-10: сильная первая страница",
+        bandPage1: "11-20: граница первой страницы",
+        bandPage2: "21-35: есть видимость, но нестабильно",
+        bandLow: "36-50: низкая видимость",
+        bandOut: "50+: вне стабильной видимости",
+        selectOne: "Сначала выберите хотя бы одну кнопку справа.",
+        prereqIntro: "Пожалуйста, сначала выберите:",
+        prereqOutro: "После этого включайте инструменты продвижения.",
+        reqFreq: "Конкуренция",
+        reqTheme: "Тематика",
+        reqDomain: "Возраст домена",
+        reqSite: "Формат сайта",
+        reqPages: "Тип сайта",
+        bonusLabel: "Бонус инструментов:",
+        qtyPromptSatellite: "Укажите количество сателлитов (1-20):",
+        qtyPromptCrowd: "Укажите количество крауд-ссылок (1-20):",
+        qtyFootprintsLabel: "НАЛИЧИЕ ФУТ ПРИНТОВ",
+        qtyFootprintsHint: "Футпринты: повторяющиеся признаки сети (шаблон, техпрофиль, IP), по которым сайты связываются между собой.",
+        qtyFootprintsChip: "Сателлиты: НАЛИЧИЕ ФУТ ПРИНТОВ",
+        applyCta: "ПРИМЕНИТЬ",
+        cancelCta: "ОТМЕНИТЬ",
+    };
+    {{- else }}
+    return {
+      bandTop: "1-3: top zone (rarely stable)",
+      bandHigh: "4-10: strong first page",
+      bandPage1: "11-20: edge of page one",
+      bandPage2: "21-35: visible but unstable",
+      bandLow: "36-50: low visibility",
+      bandOut: "50+: outside stable SERP focus",
+      selectOne: "First select at least one button on the right.",
+      prereqIntro: "Please select first:",
+      prereqOutro: "Then enable promotion tools.",
+      reqFreq: "Competition",
+      reqTheme: "Topic",
+      reqDomain: "Domain age",
+      reqSite: "Site format",
+      reqPages: "Site type",
+      bonusLabel: "Tools bonus:",
+      qtyPromptSatellite: "Enter number of satellite sites (1-20):",
+      qtyPromptCrowd: "Enter number of crowd links (1-20):",
+      qtyFootprintsLabel: "SATELLITE SITE FOOTPRINTS",
+      qtyFootprintsHint: "Footprints: repeated patterns (template, tech stack, IP) that connect sites in one network.",
+      qtyFootprintsChip: "Satellite sites: footprints present",
+      applyCta: "APPLY",
+      cancelCta: "CANCEL",
+    };
+    {{- end }}
+  })();
+  var isApplied = false;
+  var qtyPickerState = {
+    key: "",
+    label: "",
+    btn: null,
+    tempValue: 0,
+    tempSpecial: false
+  };
+
+  function setApplyState(applied) {
+    isApplied = !!applied;
+    if (layoutEl) layoutEl.classList.toggle("is-applied", isApplied);
+    if (applyBtn) {
+      applyBtn.textContent = isApplied ? T.cancelCta : T.applyCta;
+      applyBtn.setAttribute("aria-pressed", isApplied ? "true" : "false");
+    }
+    if (!isApplied && leftNote) {
+      leftNote.innerHTML = defaultLeftNoteHtml;
+    }
+  }
+
+  function refreshAppliedResponse() {
+    if (!isApplied || !response) return;
+
+    if (!hasRequiredBaseSelection()) {
+      var prereqHtml = buildPrereqNoticeHtml();
+      hidePrereqNotice();
+      if (leftNote && prereqHtml) {
+        leftNote.innerHTML = prereqHtml;
+      }
+      response.classList.add("is-collapsed");
+      response.style.removeProperty("min-height");
+      response.textContent = "";
+      return;
+    }
+
+    if (leftNote) {
+      leftNote.innerHTML = defaultLeftNoteHtml;
+    }
+    var list = tokens();
+    response.classList.remove("is-collapsed");
+    if (!list.length) {
+      response.textContent = T.selectOne;
+      enforceResponseFont();
+      return;
+    }
+
+    var model = estimateModel();
+    response.innerHTML = buildLocalizedNarrativeResponse(list, model);
+    enforceResponseFont();
+  }
+
+  function addToken(token) {
+    if (!token) return;
+    if (state.multi.indexOf(token) === -1) state.multi.push(token);
+  }
+
+  function removeToken(token) {
+    state.multi = state.multi.filter(function (t) { return t !== token; });
+  }
+
+  function tokens() {
+    var ordered = [];
+    if (state.single.freq) ordered.push(state.single.freq);
+    if (state.single.theme) ordered.push(state.single.theme);
+    return ordered.concat(state.multi);
+  }
+
+  function isButtonActive(selector) {
+    var el = document.querySelector(selector);
+    return !!(el && el.classList.contains("is-active"));
+  }
+
+  function isMultiKeyActive(key) {
+    return isButtonActive('.sb-btn[data-type="multi"][data-key="' + key + '"]');
+  }
+
+  function isSatelliteEffective() {
+    return isMultiKeyActive("satellite") && !state.qtyMeta.satelliteFootprints;
+  }
+
+  function isSubKeyActive(parent, key) {
+    return isButtonActive('.sb-btn[data-type="sub"][data-parent="' + parent + '"][data-key="' + key + '"]');
+  }
+
+  function clamp(value, min, max) {
+    return Math.max(min, Math.min(max, value));
+  }
+
+  function escapeHtml(text) {
+    return String(text || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
+
+  function visibilityBand(position) {
+    if (position <= 3) return { color: "#0B8F3A", text: T.bandTop };
+    if (position <= 10) return { color: "#2ECC71", text: T.bandHigh };
+    if (position <= 20) return { color: "#F1C40F", text: T.bandPage1 };
+    if (position <= 35) return { color: "#E67E22", text: T.bandPage2 };
+    if (position <= 50) return { color: "#E74C3C", text: T.bandLow };
+    return { color: "#95A5A6", text: T.bandOut };
+  }
+
+  function isQuantityKey(key) {
+    return key === "satellite" || key === "crowd" || key === "r301";
+  }
+
+  function quantityRangeForKey(key) {
+    if (key === "satellite" || key === "crowd") return { min: 1, max: 20 };
+    if (key === "r301") return { min: 1, max: 2 };
+    return null;
+  }
+
+  function quantityPromptForKey(key) {
+    if (key === "satellite") return T.qtyPromptSatellite;
+    if (key === "crowd") return T.qtyPromptCrowd;
+    return "";
+  }
+
+  function quantityValue(key) {
+    var range = quantityRangeForKey(key);
+    if (!range) return 0;
+    var value = Number(state.qty[key]);
+    if (!Number.isFinite(value)) value = range.min;
+    return clamp(Math.round(value), range.min, range.max);
+  }
+
+  function canUseSatelliteFootprints(count) {
+    return Number(count) >= 3;
+  }
+
+  function normalizeSatelliteFootprintsState() {
+    if (!state.qtyMeta.satelliteFootprints) return;
+    if (canUseSatelliteFootprints(quantityValue("satellite"))) return;
+    state.qtyMeta.satelliteFootprints = false;
+    var satelliteBtn = document.querySelector('.sb-btn[data-type="multi"][data-key="satellite"]');
+    if (satelliteBtn) satelliteBtn.classList.remove("is-footprints");
+  }
+
+  function selectedQuantityValue(key) {
+    if (!isMultiKeyActive(key)) return 0;
+    return quantityValue(key);
+  }
+
+  function buildQuantityWheel(key, selectedValue, specialOn) {
+    var range = quantityRangeForKey(key);
+    if (!range || !qtyWheel) return;
+    var html = "";
+    if (key === "satellite") {
+      var spActive = specialOn ? " is-active" : "";
+      var spDisabled = canUseSatelliteFootprints(selectedValue) ? "" : " is-disabled";
+      html += '<button type="button" class="sb-qty-item is-footprints' + spActive + spDisabled + '" data-special="satellite_footprints" title="' + escapeHtml(T.qtyFootprintsHint) + '">' + escapeHtml(T.qtyFootprintsLabel) + "</button>";
+    }
+    for (var n = range.min; n <= range.max; n++) {
+      var activeClass = (!specialOn && n === selectedValue) ? " is-active" : "";
+      html += '<button type="button" class="sb-qty-item' + activeClass + '" data-value="' + n + '">' + n + "</button>";
+    }
+    qtyWheel.innerHTML = html;
+  }
+
+  function setActiveWheelSelection(value, specialOn) {
+    if (!qtyWheel) return;
+    if (specialOn && !canUseSatelliteFootprints(value)) specialOn = false;
+    qtyPickerState.tempValue = value;
+    qtyPickerState.tempSpecial = !!specialOn;
+    qtyWheel.querySelectorAll(".sb-qty-item").forEach(function (item) {
+      var isSpecial = item.getAttribute("data-special") === "satellite_footprints";
+      if (isSpecial) {
+        item.classList.toggle("is-disabled", !canUseSatelliteFootprints(value));
+        item.classList.toggle("is-active", qtyPickerState.tempSpecial);
+        return;
+      }
+      var itemValue = Number(item.getAttribute("data-value"));
+      var isNumericActive = !qtyPickerState.tempSpecial && value > 0 && itemValue === value;
+      item.classList.toggle("is-active", isNumericActive);
+    });
+  }
+
+  function scrollWheelToValue(value) {
+    if (!qtyWheel) return;
+    var target = qtyWheel.querySelector('.sb-qty-item[data-value="' + value + '"]');
+    if (!target) return;
+    target.scrollIntoView({ block: "center", inline: "nearest" });
+  }
+
+  function closestWheelValue() {
+    if (!qtyWheel) return qtyPickerState.tempValue;
+    var items = qtyWheel.querySelectorAll('.sb-qty-item[data-value]');
+    if (!items.length) return qtyPickerState.tempValue;
+    var wheelRect = qtyWheel.getBoundingClientRect();
+    var centerY = wheelRect.top + wheelRect.height / 2;
+    var nearest = items[0];
+    var minDist = Infinity;
+
+    items.forEach(function (item) {
+      var rect = item.getBoundingClientRect();
+      var itemCenter = rect.top + rect.height / 2;
+      var dist = Math.abs(itemCenter - centerY);
+      if (dist < minDist) {
+        minDist = dist;
+        nearest = item;
+      }
+    });
+
+    return Number(nearest.getAttribute("data-value"));
+  }
+
+  function placeQtyPicker(anchorBtn) {
+    if (!qtyPop || !anchorBtn) return;
+    var rect = anchorBtn.getBoundingClientRect();
+    var popRect = qtyPop.getBoundingClientRect();
+    var width = popRect.width || 260;
+    var height = popRect.height || 280;
+    var gap = 8;
+
+    var left = rect.left + rect.width / 2 - width / 2;
+    var top = rect.bottom + gap;
+
+    if (left < 8) left = 8;
+    if (left + width > window.innerWidth - 8) left = window.innerWidth - width - 8;
+    if (top + height > window.innerHeight - 8) top = Math.max(8, rect.top - height - gap);
+
+    qtyPop.style.left = left + "px";
+    qtyPop.style.top = top + "px";
+  }
+
+  function closeQtyPicker() {
+    if (!qtyPicker) return;
+    qtyPicker.classList.remove("is-open");
+    qtyPicker.setAttribute("aria-hidden", "true");
+    qtyPickerState.key = "";
+    qtyPickerState.label = "";
+    qtyPickerState.btn = null;
+  }
+
+  function openQtyPicker(key, label, btn) {
+    if (!qtyPicker || !qtyWheel || !qtyTitle) return;
+    var isAlreadyActive = btn && btn.classList.contains("is-active");
+    var selected = isAlreadyActive ? quantityValue(key) : 0;
+    qtyPickerState.key = key;
+    qtyPickerState.label = label;
+    qtyPickerState.btn = btn;
+    qtyPickerState.tempValue = selected;
+    qtyPickerState.tempSpecial = isAlreadyActive && key === "satellite" && !!state.qtyMeta.satelliteFootprints;
+
+    qtyTitle.textContent = quantityPromptForKey(key);
+    buildQuantityWheel(key, selected, qtyPickerState.tempSpecial);
+    setActiveWheelSelection(selected, qtyPickerState.tempSpecial);
+    qtyPicker.classList.add("is-open");
+    qtyPicker.setAttribute("aria-hidden", "false");
+
+    requestAnimationFrame(function () {
+      placeQtyPicker(btn);
+      if (selected > 0) scrollWheelToValue(selected);
+    });
+  }
+
+  function labelWithQuantity(baseLabel, key) {
+    if (!isQuantityKey(key)) return baseLabel;
+    if (key === "satellite" && state.qtyMeta.satelliteFootprints) return T.qtyFootprintsChip;
+    return baseLabel + " x" + quantityValue(key);
+  }
+
+  function formatBonusValue(value) {
+    if (!Number.isFinite(value)) return "0";
+    if (Math.abs(value - Math.round(value)) < 0.05) return String(Math.round(value));
+    return value.toFixed(1);
+  }
+
+  function satelliteBonusByCount(count) {
+    if (count <= 0) return 0;
+    var firstBonus = 5;
+    if (state.singleKey.freq === "mid") firstBonus = 3;
+    if (state.singleKey.freq === "high") firstBonus = 1;
+    return count * firstBonus;
+  }
+
+  function satellitePositionBoostByCount(count) {
+    if (count <= 0) return 0;
+    var firstBoost = 5;
+    if (state.singleKey.freq === "mid") firstBoost = 3;
+    if (state.singleKey.freq === "high") firstBoost = 1;
+    return count * firstBoost;
+  }
+
+  function satelliteToolBonusCurrent() {
+    if (!isSatelliteEffective()) return 0;
+    return satelliteBonusByCount(quantityValue("satellite"));
+  }
+
+  function hasSatelliteQuantityActive() {
+    return isSatelliteEffective() && quantityValue("satellite") > 0;
+  }
+
+  function crowdBonusByCount(count) {
+    if (count <= 5) return count * 1.2;
+    if (count <= 10) return 6 + (count - 5) * 0.8;
+    return 10 + (count - 10) * 0.5;
+  }
+
+  function crowdPositionBoostByCount(count) {
+    if (count <= 0) return 0;
+    if (count <= 5) return count * 0.8;
+    if (count <= 10) return 4 + (count - 5) * 0.45;
+    return 6.25 + (count - 10) * 0.25;
+  }
+
+  function redirectBonusByCount(count) {
+    if (count <= 0) return 0;
+    var perRedirect = 4;
+    if (state.singleKey.freq === "mid") perRedirect = 6;
+    if (state.singleKey.freq === "high") perRedirect = 4;
+    return count * perRedirect * redirectContextMultiplier();
+  }
+
+  function redirectPositionBoostByCount(count) {
+    if (count <= 0) return 0;
+    var perRedirect = 3;
+    if (state.singleKey.freq === "mid") perRedirect = 4.5;
+    if (state.singleKey.freq === "high") perRedirect = 3;
+    return count * perRedirect * redirectContextMultiplier();
+  }
+
+  function redirectContextMultiplier() {
+    var m = 1;
+    if (isMultiKeyActive("onepage")) m += 0.25;
+    if (isMultiKeyActive("newregs")) m += 0.20;
+    if (isMultiKeyActive("multipage")) m -= 0.45;
+    if (isMultiKeyActive("drops")) m -= 0.35;
+    return clamp(m, 0.25, 1.6);
+  }
+
+  function xrProfilesBonus() {
+    if (state.singleKey.freq === "high") return 0;
+    if (state.singleKey.freq === "mid") return 0.5;
+    return 0.8;
+  }
+
+  function xrProfilesPositionBoost() {
+    if (state.singleKey.freq === "high") return 0;
+    if (state.singleKey.freq === "mid") return 0.35;
+    return 0.6;
+  }
+
+  function contentArticlesBonus() {
+    if (state.singleKey.freq === "high") return 0.3;
+    if (state.singleKey.freq === "mid") return 0.4;
+    return 0.5;
+  }
+
+  function contentArticlesPositionBoost() {
+    if (state.singleKey.freq === "high") return 0.12;
+    if (state.singleKey.freq === "mid") return 0.18;
+    return 0.22;
+  }
+
+  function contentWeb20Bonus() {
+    return 0.2;
+  }
+
+  function contentWeb20PositionBoost() {
+    return 0.18;
+  }
+
+  function contentTier123Bonus() {
+    return 6.0;
+  }
+
+  function contentTier123PositionBoost() {
+    return 2.9;
+  }
+
+  function socialSignalsBonus() {
+    return 4.2;
+  }
+
+  function socialSignalsPositionBoost() {
+    return 1.4;
+  }
+
+  function toolBonusPoints() {
+    var bonus = 0;
+    if (isSubKeyActive("community", "xr_forums")) bonus += 3;
+    if (isSubKeyActive("community", "xr_comments")) bonus += 3;
+    if (isSubKeyActive("community", "xr_profiles")) bonus += xrProfilesBonus();
+    if (isSubKeyActive("content", "content_articles")) bonus += contentArticlesBonus();
+    if (isSubKeyActive("content", "content_web20")) bonus += contentWeb20Bonus();
+    if (isSubKeyActive("content", "content_t123")) bonus += contentTier123Bonus();
+    if (hasSatelliteQuantityActive()) bonus += satelliteBonusByCount(quantityValue("satellite"));
+    if (isMultiKeyActive("crowd")) bonus += crowdBonusByCount(quantityValue("crowd"));
+    if (isMultiKeyActive("r301")) bonus += redirectBonusByCount(quantityValue("r301"));
+    if (isMultiKeyActive("referral")) bonus += 3;
+    if (isMultiKeyActive("social")) bonus += socialSignalsBonus();
+    if (isMultiKeyActive("branding")) bonus += 3;
+    if (isMultiKeyActive("parasite_seo")) bonus += 0.3;
+    return Math.round(bonus * 10) / 10;
+  }
+
+  function hasAnyCommunitySubActive() {
+    return isSubKeyActive("community", "xr_forums") || isSubKeyActive("community", "xr_comments") || isSubKeyActive("community", "xr_profiles");
+  }
+
+  function hasAnyContentSubActive() {
+    return isSubKeyActive("content", "content_articles") || isSubKeyActive("content", "content_web20") || isSubKeyActive("content", "content_t123");
+  }
+
+  function hasAnyPromotionToolActive() {
+    return (
+      hasAnyCommunitySubActive() ||
+      hasAnyContentSubActive() ||
+      hasSatelliteQuantityActive() ||
+      isMultiKeyActive("crowd") ||
+      isMultiKeyActive("r301") ||
+      isMultiKeyActive("referral") ||
+      isMultiKeyActive("social") ||
+      isMultiKeyActive("branding") ||
+      isMultiKeyActive("parasite_seo")
+    );
+  }
+
+  function hasAnyPromotionToolExceptSatellite() {
+    return (
+      hasAnyCommunitySubActive() ||
+      hasAnyContentSubActive() ||
+      isMultiKeyActive("crowd") ||
+      isMultiKeyActive("r301") ||
+      isMultiKeyActive("referral") ||
+      isMultiKeyActive("social") ||
+      isMultiKeyActive("branding") ||
+      isMultiKeyActive("parasite_seo")
+    );
+  }
+
+  function adjustedToolBonus(rawBonus) {
+    var freqScale = 0.22;
+    if (state.singleKey.freq === "low") freqScale = 0.30;
+    if (state.singleKey.freq === "mid") freqScale = 0.24;
+    if (state.singleKey.freq === "high") freqScale = 0.20;
+
+    var adjusted = rawBonus * freqScale;
+
+    if (isMultiKeyActive("onepage")) {
+      if (state.singleKey.freq === "high") adjusted -= 2.0;
+      else if (state.singleKey.freq === "mid") adjusted -= 0.5;
+      else adjusted += 0.5;
+    }
+    if (isMultiKeyActive("multipage")) {
+      if (state.singleKey.freq === "high") adjusted += 2.0;
+      else if (state.singleKey.freq === "mid") adjusted += 0.8;
+    }
+
+    if (isMultiKeyActive("dynamic")) adjusted += 0.8;
+    if (isMultiKeyActive("static")) adjusted += 0.2;
+    if (isMultiKeyActive("drops")) adjusted += 1.2;
+    if (isMultiKeyActive("newregs")) adjusted -= 0.3;
+
+    if (isMultiKeyActive("r301")) {
+      var redirectBoost = 0;
+      var redirectCount = quantityValue("r301");
+      if (state.singleKey.freq === "low") redirectBoost = 5.0 * redirectCount;
+      else if (state.singleKey.freq === "mid") redirectBoost = 5.5 * redirectCount;
+      else redirectBoost = 3.6 * redirectCount;
+
+      redirectBoost *= redirectContextMultiplier();
+      if (hasAnyCommunitySubActive() || hasAnyContentSubActive()) redirectBoost += 1.5;
+      if (isMultiKeyActive("onepage") && isMultiKeyActive("newregs")) redirectBoost += 0.8;
+      if (isMultiKeyActive("multipage") || isMultiKeyActive("drops")) redirectBoost -= 0.8;
+      if (redirectBoost < 0) redirectBoost = 0;
+
+      adjusted += redirectBoost;
+    }
+
+    return clamp(Math.round(adjusted), 0, 24);
+  }
+
+  function baseScenarioPositionFromHeader() {
+    var delta = 0;
+    var risk = 0;
+    var trust = 0;
+
+    var basePos = 44;
+    if (state.singleKey.freq === "low") basePos = 30;
+    if (state.singleKey.freq === "mid") basePos = 42;
+    if (state.singleKey.freq === "high") basePos = 56;
+
+    if (state.singleKey.theme === "white") { delta -= 1; trust += 1; }
+    if (state.singleKey.theme === "gray") { delta += 1; risk += 2; }
+
+    if (isMultiKeyActive("drops")) { delta -= 2; risk += 2; }
+    if (isMultiKeyActive("newregs")) { delta += 1; }
+
+    if (isMultiKeyActive("onepage")) {
+      if (state.singleKey.freq === "high") delta += 4;
+      else if (state.singleKey.freq === "mid") delta += 1;
+      else delta -= 1;
+    }
+    if (isMultiKeyActive("multipage")) {
+      if (state.singleKey.freq === "high") delta -= 2;
+      else if (state.singleKey.freq === "mid") delta -= 1;
+    }
+    if (isMultiKeyActive("static")) {
+      if (state.singleKey.freq === "high") delta += 1;
+      else if (state.singleKey.freq === "low") delta -= 1;
+    }
+    if (isMultiKeyActive("dynamic")) {
+      if (state.singleKey.freq === "high") delta -= 2;
+      else if (state.singleKey.freq === "mid") delta -= 1;
+    }
+
+    var hasHeaderAuthority = isMultiKeyActive("drops");
+    if (!hasHeaderAuthority && state.singleKey.freq === "high") {
+      delta += 4;
+      risk += 1;
+    }
+
+    var raw = basePos + delta + Math.round(risk * 0.6) - Math.round(Math.max(0, trust) * 0.35);
+
+    var floor = 6;
+    if (state.singleKey.freq === "mid") floor = 14;
+    if (state.singleKey.freq === "high") floor = 22;
+    if (state.singleKey.theme === "gray") floor += 1;
+    if (risk >= 8) floor += 3;
+    floor = Math.max(6, floor);
+
+    return clamp(Math.round(raw), floor, 90);
+  }
+
+  function estimateModel() {
+    var hasPromoTools = hasAnyPromotionToolActive();
+    var delta = 0;
+    var risk = 0;
+    var trust = 0;
+    var activeCount = 0;
+
+    function applyFactor(active, posDelta, riskDelta, trustDelta) {
+      if (!active) return;
+      activeCount += 1;
+      delta += posDelta;
+      risk += riskDelta || 0;
+      trust += trustDelta || 0;
+    }
+
+    var basePos = 44;
+    if (state.singleKey.freq === "low") basePos = 30;
+    if (state.singleKey.freq === "mid") basePos = 42;
+    if (state.singleKey.freq === "high") basePos = 56;
+
+    if (state.singleKey.theme === "white") { delta -= 1; trust += 1; }
+    if (state.singleKey.theme === "gray") { delta += 1; risk += 2; }
+
+    if (isSatelliteEffective()) {
+      activeCount += 1;
+      delta -= satellitePositionBoostByCount(quantityValue("satellite"));
+    }
+    if (isMultiKeyActive("crowd")) {
+      activeCount += 1;
+      delta -= crowdPositionBoostByCount(quantityValue("crowd"));
+      trust += 2;
+    }
+    if (isMultiKeyActive("r301")) {
+      activeCount += 1;
+      delta -= redirectPositionBoostByCount(quantityValue("r301"));
+      trust += 1;
+    }
+    applyFactor(isMultiKeyActive("drops"), -2, 2, 0);
+    applyFactor(isMultiKeyActive("newregs"), 1, 0, 0);
+    applyFactor(isMultiKeyActive("referral"), 0, 0, 0);
+    applyFactor(isMultiKeyActive("social"), -socialSignalsPositionBoost(), 0, 1.2);
+    applyFactor(isMultiKeyActive("branding"), -2, 0, 2);
+    applyFactor(isMultiKeyActive("parasite_seo"), -0.7, 0.7, -0.35);
+
+    applyFactor(isSubKeyActive("community", "xr_forums"), -1, 0, 1);
+    applyFactor(isSubKeyActive("community", "xr_comments"), -1, 0, 0);
+    applyFactor(isSubKeyActive("community", "xr_profiles"), -xrProfilesPositionBoost(), 0.2, 0);
+    applyFactor(isSubKeyActive("content", "content_articles"), -contentArticlesPositionBoost(), 0.2, 0);
+    applyFactor(isSubKeyActive("content", "content_web20"), -contentWeb20PositionBoost(), 0.2, 0);
+    applyFactor(isSubKeyActive("content", "content_t123"), -contentTier123PositionBoost(), 1.2, -0.4);
+
+    if (isMultiKeyActive("onepage")) {
+      if (state.singleKey.freq === "high") delta += 4;
+      else if (state.singleKey.freq === "mid") delta += 1;
+      else delta -= 1;
+    }
+    if (isMultiKeyActive("multipage")) {
+      if (state.singleKey.freq === "high") delta -= 2;
+      else if (state.singleKey.freq === "mid") delta -= 1;
+    }
+    if (isMultiKeyActive("static")) {
+      if (state.singleKey.freq === "high") delta += 1;
+      else if (state.singleKey.freq === "low") delta -= 1;
+    }
+    if (isMultiKeyActive("dynamic")) {
+      if (state.singleKey.freq === "high") delta -= 2;
+      else if (state.singleKey.freq === "mid") delta -= 1;
+    }
+
+    var authorityPack = isSatelliteEffective() || isMultiKeyActive("drops") || isMultiKeyActive("r301");
+    var foundationPack = isMultiKeyActive("crowd") || isMultiKeyActive("social") || isMultiKeyActive("branding");
+    var aggressivePack = state.singleKey.theme === "gray" || isSubKeyActive("content", "content_t123") || isMultiKeyActive("parasite_seo");
+
+    if (authorityPack && foundationPack) {
+      delta -= 4;
+      trust += 1;
+    }
+    if (authorityPack && !foundationPack && !isSatelliteEffective() && !isMultiKeyActive("r301")) {
+      delta += 2;
+      risk += 1;
+    }
+    if (!authorityPack && state.singleKey.freq === "high") {
+      delta += 4;
+      risk += 1;
+    }
+    if (isMultiKeyActive("newregs") && (isMultiKeyActive("drops") || isMultiKeyActive("parasite_seo"))) {
+      delta += 1;
+      risk += 1;
+    }
+    if (isMultiKeyActive("parasite_seo") && (foundationPack || authorityPack)) {
+      delta -= 0.7;
+      trust += 0.35;
+    }
+    if (isMultiKeyActive("parasite_seo") && !foundationPack && !authorityPack) {
+      delta += 0.7;
+      risk += 0.35;
+    }
+    if (isMultiKeyActive("parasite_seo") && !isMultiKeyActive("branding")) {
+      risk += 0.35;
+    }
+    if (state.singleKey.theme === "gray" && authorityPack) {
+      delta -= 1;
+      risk += 1;
+    }
+    if (state.singleKey.freq === "high" && authorityPack && foundationPack) {
+      delta -= 5;
+    }
+    if (trust < 0) {
+      delta += 1;
+    }
+
+    var baseScenarioPosition = baseScenarioPositionFromHeader();
+
+    if (!hasPromoTools) {
+      return {
+        position: baseScenarioPosition,
+        risk: 0,
+        trust: 0,
+        indicatorBonus: 0,
+        effectiveBonus: 0,
+        activeCount: 0,
+        aggressivePack: false,
+        authorityPack: false,
+        foundationPack: false
+      };
+    }
+
+    if (isSatelliteEffective() && !hasAnyPromotionToolExceptSatellite()) {
+      var satelliteOnlyBoost = satellitePositionBoostByCount(quantityValue("satellite"));
+      var satelliteOnlyPosition = clamp(Math.round(baseScenarioPosition - satelliteOnlyBoost), 6, 90);
+      var satelliteOnlyBonus = toolBonusPoints();
+      return {
+        position: satelliteOnlyPosition,
+        risk: 1,
+        trust: 0,
+        indicatorBonus: satelliteOnlyBonus,
+        effectiveBonus: 0,
+        activeCount: 1,
+        aggressivePack: false,
+        authorityPack: true,
+        foundationPack: false
+      };
+    }
+
+    var indicatorBonus = toolBonusPoints();
+    var nonSatelliteBonus = Math.max(0, indicatorBonus - satelliteToolBonusCurrent());
+    var effectiveBonus = adjustedToolBonus(nonSatelliteBonus);
+    delta -= effectiveBonus;
+
+    var positionRaw = basePos + delta + Math.round(risk * 0.35) - Math.round(Math.max(0, trust) * 0.45);
+
+    var floor = 6;
+    if (state.singleKey.freq === "mid") floor = 10;
+    if (state.singleKey.freq === "high") floor = 10;
+    if (aggressivePack) floor += 1;
+    if (risk >= 8) floor += 2;
+    if (state.singleKey.freq === "high" && authorityPack && foundationPack && trust >= 3 && risk <= 8) floor -= 6;
+    if (isSatelliteEffective()) floor -= Math.min(8, Math.floor(quantityValue("satellite") / 2));
+    if (isMultiKeyActive("r301")) floor -= (2 * quantityValue("r301"));
+    if (indicatorBonus >= 20) floor -= 3;
+    if (indicatorBonus >= 35) floor -= 4;
+    floor = Math.max(6, floor);
+
+    var position = clamp(Math.round(positionRaw), floor, 90);
+    if (hasPromoTools) position = Math.min(position, baseScenarioPosition);
+
+    return {
+      position: position,
+      risk: risk,
+      trust: trust,
+      indicatorBonus: indicatorBonus,
+      effectiveBonus: effectiveBonus,
+      activeCount: activeCount,
+      aggressivePack: aggressivePack,
+      authorityPack: authorityPack,
+      foundationPack: foundationPack
+    };
+  }
+
+  function estimateUncertainty(model) {
+    var spread = 4 + Math.round(model.risk * 0.9);
+    if (state.singleKey.freq === "high") spread += 2;
+    if (model.aggressivePack) spread += 2;
+    if (model.foundationPack && model.authorityPack) spread -= 1;
+    if (model.trust >= 4) spread -= 1;
+    return clamp(spread, 4, 18);
+  }
+
+  function estimateRange(model) {
+    var spread = estimateUncertainty(model);
+    return {
+      low: clamp(model.position - spread, 1, 99),
+      high: clamp(model.position + spread, 1, 99),
+      spread: spread
+    };
+  }
+
+  function updateRankIndicator() {
+    var model = estimateModel();
+    var band = visibilityBand(model.position);
+
+    if (rankCircle) rankCircle.style.setProperty("--pos-color", band.color);
+    if (rankValue) rankValue.textContent = model.position > 50 ? "50+" : "#" + model.position;
+    if (rankBand) rankBand.textContent = band.text;
+    if (rankBonus) rankBonus.textContent = model.indicatorBonus > 0 ? (T.bonusLabel + " +" + formatBonusValue(model.indicatorBonus)) : "";
+  }
+
+  function renderChips() {
+    normalizeSatelliteFootprintsState();
+    var baseList = [];
+    var toolList = [];
+
+    if (state.single.freq) baseList.push(state.single.freq);
+    if (state.single.theme) baseList.push(state.single.theme);
+
+    var baseDomainBtn = document.querySelector('.sb-btn[data-type="multi"][data-key="newregs"].is-active, .sb-btn[data-type="multi"][data-key="drops"].is-active');
+    var baseSiteBtn = document.querySelector('.sb-btn[data-type="multi"][data-key="static"].is-active, .sb-btn[data-type="multi"][data-key="dynamic"].is-active');
+    var baseStructureBtn = document.querySelector('.sb-btn[data-type="multi"][data-key="onepage"].is-active, .sb-btn[data-type="multi"][data-key="multipage"].is-active');
+    if (baseDomainBtn) baseList.push(baseDomainBtn.textContent.trim());
+    if (baseSiteBtn) baseList.push(baseSiteBtn.textContent.trim());
+    if (baseStructureBtn) baseList.push(baseStructureBtn.textContent.trim());
+
+    ["satellite", "crowd", "r301", "referral", "social", "branding", "parasite_seo"].forEach(function (key) {
+      var btn = document.querySelector('.sb-btn[data-type="multi"][data-key="' + key + '"]');
+      if (btn && btn.classList.contains("is-active")) {
+        toolList.push({
+          text: labelWithQuantity(btn.textContent.trim(), key),
+          danger: key === "satellite" && state.qtyMeta.satelliteFootprints
+        });
+      }
+    });
+    ["xr_forums", "xr_comments", "xr_profiles", "content_articles", "content_web20", "content_t123"].forEach(function (key) {
+      var btn = document.querySelector('.sb-btn[data-type="sub"][data-key="' + key + '"]');
+      if (btn && btn.classList.contains("is-active")) toolList.push({ text: btn.textContent.trim(), danger: false });
+    });
+
+    var html = "";
+    if (baseList.length) {
+      html += '<div class="sb-chip-base-col">' + baseList.map(function (w) { return '<span class="sb-chip">' + w + '</span>'; }).join("") + '</div>';
+    }
+    if (toolList.length) {
+      html += '<div class="sb-chip-tools-row">' + toolList.map(function (item) {
+        var chipClass = item.danger ? "sb-chip sb-chip-danger" : "sb-chip";
+        return '<span class="' + chipClass + '">' + item.text + '</span>';
+      }).join("") + '</div>';
+    }
+
+    chipsHost.innerHTML = html;
+    chipsHost.classList.toggle("is-base-complete", hasRequiredBaseSelection());
+    placeholder.style.display = (baseList.length || toolList.length) ? "none" : "block";
+    updateRankIndicator();
+    applyButtonTooltips();
+  }
+
+  function flyWord(word, fromEl) {
+    if (!word || !fromEl || !dropzone) return;
+
+    var from = fromEl.getBoundingClientRect();
+    var to = dropzone.getBoundingClientRect();
+
+    var startX = from.left + from.width / 2;
+    var startY = from.top + from.height / 2;
+    var endX = to.left + to.width / 2;
+    var endY = to.top + 42;
+
+    var el = document.createElement("div");
+    el.className = "sb-fly";
+    el.textContent = word;
+    el.style.left = startX + "px";
+    el.style.top = startY + "px";
+    el.style.setProperty("--dx", (endX - startX) + "px");
+    el.style.setProperty("--dy", (endY - startY) + "px");
+    document.body.appendChild(el);
+
+    requestAnimationFrame(function () {
+      el.classList.add("is-flying");
+    });
+
+    setTimeout(function () {
+      if (el.parentNode) el.parentNode.removeChild(el);
+    }, 700);
+  }
+
+  function setSingle(group, key, label, btn) {
+    document.querySelectorAll('.sb-btn[data-type="single"][data-group="' + group + '"]').forEach(function (n) {
+      n.classList.remove("is-active");
+    });
+    btn.classList.add("is-active");
+    state.single[group] = label;
+    state.singleKey[group] = key;
+    flyWord(label, btn);
+    refreshAppliedResponse();
+    renderChips();
+  }
+
+  function toggleMulti(key, label, btn) {
+    var on = btn.classList.toggle("is-active");
+    if (on) {
+      if (key === "drops") {
+        var newregsBtn = document.querySelector('.sb-btn[data-type="multi"][data-key="newregs"]');
+        if (newregsBtn && newregsBtn.classList.contains("is-active")) {
+          newregsBtn.classList.remove("is-active");
+          removeToken(newregsBtn.textContent.trim());
+        }
+      }
+      if (key === "newregs") {
+        var dropsBtn = document.querySelector('.sb-btn[data-type="multi"][data-key="drops"]');
+        if (dropsBtn && dropsBtn.classList.contains("is-active")) {
+          dropsBtn.classList.remove("is-active");
+          removeToken(dropsBtn.textContent.trim());
+        }
+      }
+      if (key === "static") {
+        var dynamicBtn = document.querySelector('.sb-btn[data-type="multi"][data-key="dynamic"]');
+        if (dynamicBtn && dynamicBtn.classList.contains("is-active")) {
+          dynamicBtn.classList.remove("is-active");
+          removeToken(dynamicBtn.textContent.trim());
+        }
+      }
+      if (key === "dynamic") {
+        var staticBtn = document.querySelector('.sb-btn[data-type="multi"][data-key="static"]');
+        if (staticBtn && staticBtn.classList.contains("is-active")) {
+          staticBtn.classList.remove("is-active");
+          removeToken(staticBtn.textContent.trim());
+        }
+      }
+      if (key === "onepage") {
+        var multipageBtn = document.querySelector('.sb-btn[data-type="multi"][data-key="multipage"]');
+        if (multipageBtn && multipageBtn.classList.contains("is-active")) {
+          multipageBtn.classList.remove("is-active");
+          removeToken(multipageBtn.textContent.trim());
+        }
+      }
+      if (key === "multipage") {
+        var onepageBtn = document.querySelector('.sb-btn[data-type="multi"][data-key="onepage"]');
+        if (onepageBtn && onepageBtn.classList.contains("is-active")) {
+          onepageBtn.classList.remove("is-active");
+          removeToken(onepageBtn.textContent.trim());
+        }
+      }
+      addToken(label);
+      flyWord(label, btn);
+    } else {
+      removeToken(label);
+    }
+    if (key === "satellite") {
+      btn.classList.toggle("is-footprints", on && state.qtyMeta.satelliteFootprints);
+      if (!on) {
+        state.qtyMeta.satelliteFootprints = false;
+        state.qty.satellite = 1;
+      }
+    }
+    refreshAppliedResponse();
+    renderChips();
+  }
+
+  function setParentOpen(parentKey, open, parentBtn) {
+    state.open[parentKey] = open;
+    parentBtn.classList.toggle("is-open", open);
+    parentBtn.classList.toggle("is-active", open);
+
+    var menu = document.querySelector('.sb-submenu[data-parent="' + parentKey + '"]');
+    if (menu) menu.classList.toggle("is-open", open);
+
+    var changed = false;
+    if (!open) {
+      document.querySelectorAll('.sb-btn[data-type="sub"][data-parent="' + parentKey + '"]').forEach(function (subBtn) {
+        if (subBtn.classList.contains("is-active")) {
+          subBtn.classList.remove("is-active");
+          removeToken(subBtn.textContent.trim());
+          changed = true;
+        }
+      });
+    }
+    if (changed) refreshAppliedResponse();
+    renderChips();
+  }
+
+  function ensureParentActive(parentKey) {
+    var parentBtn = document.querySelector('.sb-btn[data-type="parent"][data-key="' + parentKey + '"]');
+    if (!parentBtn) return;
+    if (!state.open[parentKey]) setParentOpen(parentKey, true, parentBtn);
+  }
+
+  function hidePrereqNotice() {
+    if (!prereqNotice) return;
+    prereqNotice.classList.remove("is-visible");
+    prereqNotice.textContent = "";
+  }
+
+  function prereqItems() {
+    return [
+      { num: 1, label: T.reqPages, done: (isMultiKeyActive("onepage") || isMultiKeyActive("multipage")) },
+      { num: 2, label: T.reqFreq, done: !!state.singleKey.freq },
+      { num: 3, label: T.reqTheme, done: !!state.singleKey.theme },
+      { num: 4, label: T.reqDomain, done: (isMultiKeyActive("newregs") || isMultiKeyActive("drops")) },
+      { num: 5, label: T.reqSite, done: (isMultiKeyActive("static") || isMultiKeyActive("dynamic")) }
+    ];
+  }
+
+  function buildPrereqNoticeHtml() {
+    var items = prereqItems();
+    var allDone = items.every(function (item) { return item.done; });
+    if (allDone) return "";
+
+    var listHtml = items.map(function (item) {
+      var itemClass = item.done ? "sb-prereq-item is-done" : "sb-prereq-item is-missing";
+      return '<div class="' + itemClass + '"><span class="sb-prereq-dot" aria-hidden="true"></span><span>' + item.num + '. ' + escapeHtml(item.label) + '</span></div>';
+    }).join("");
+
+    return (
+      '<p class="sb-prereq-title">' + escapeHtml(T.prereqIntro) + '</p>' +
+      '<div class="sb-prereq-list">' + listHtml + '</div>' +
+      '<p class="sb-prereq-outro">' + escapeHtml(T.prereqOutro) + '</p>'
+    );
+  }
+
+  function showPrereqNotice() {
+    if (!prereqNotice) return;
+    var html = buildPrereqNoticeHtml();
+    if (!html) {
+      hidePrereqNotice();
+      return;
+    }
+    prereqNotice.innerHTML = html;
+    prereqNotice.classList.add("is-visible");
+  }
+
+  document.addEventListener("click", function (event) {
+    if (!prereqNotice || !prereqNotice.classList.contains("is-visible")) return;
+    if (toolsScope && toolsScope.contains(event.target)) return;
+    hidePrereqNotice();
+  });
+
+  function hasRequiredBaseSelection() {
+    var hasFreq = !!state.singleKey.freq;
+    var hasTheme = !!state.singleKey.theme;
+    var hasDomainType = isMultiKeyActive("newregs") || isMultiKeyActive("drops");
+    var hasSiteType = isMultiKeyActive("static") || isMultiKeyActive("dynamic");
+    var hasPagesFormat = isMultiKeyActive("onepage") || isMultiKeyActive("multipage");
+    return hasFreq && hasTheme && hasDomainType && hasSiteType && hasPagesFormat;
+  }
+
+  function updateBaseDividerState() {
+    if (!baseRows) return;
+    baseRows.classList.toggle("is-complete", hasRequiredBaseSelection());
+  }
+
+  function refreshPrereqNoticeIfVisible() {
+    if (!prereqNotice || !prereqNotice.classList.contains("is-visible")) return;
+    var html = buildPrereqNoticeHtml();
+    if (!html) {
+      hidePrereqNotice();
+      return;
+    }
+    prereqNotice.innerHTML = html;
+  }
+
+  function isBaseRequirementKey(key) {
+    return key === "newregs" || key === "drops" || key === "static" || key === "dynamic" || key === "onepage" || key === "multipage";
+  }
+
+  function resetPromotionToolsIfBaseInvalid() {
+    if (hasRequiredBaseSelection()) return;
+
+    var changed = false;
+
+    document.querySelectorAll('.sb-btn[data-type="sub"]').forEach(function (subBtn) {
+      if (!subBtn.classList.contains("is-active")) return;
+      subBtn.classList.remove("is-active");
+      removeToken(subBtn.textContent.trim());
+      changed = true;
+    });
+
+    document.querySelectorAll('.sb-btn[data-type="multi"]').forEach(function (multiBtn) {
+      var mKey = multiBtn.getAttribute("data-key");
+      if (isBaseRequirementKey(mKey)) return;
+      if (!multiBtn.classList.contains("is-active")) return;
+      multiBtn.classList.remove("is-active");
+      if (mKey === "satellite") {
+        multiBtn.classList.remove("is-footprints");
+        state.qtyMeta.satelliteFootprints = false;
+        state.qty.satellite = 1;
+      }
+      removeToken(multiBtn.textContent.trim());
+      changed = true;
+    });
+
+    document.querySelectorAll('.sb-btn[data-type="parent"]').forEach(function (parentBtn) {
+      var pKey = parentBtn.getAttribute("data-key");
+      if (state.open[pKey]) changed = true;
+      state.open[pKey] = false;
+      parentBtn.classList.remove("is-open");
+      parentBtn.classList.remove("is-active");
+    });
+
+    document.querySelectorAll('.sb-submenu').forEach(function (menu) {
+      menu.classList.remove("is-open");
+    });
+
+    if (changed) {
+      refreshAppliedResponse();
+      renderChips();
+    }
+  }
+
+  function afterMultiStateChange() {
+    resetPromotionToolsIfBaseInvalid();
+    updateBaseDividerState();
+    refreshPrereqNoticeIfVisible();
+  }
+
+  function applyQtySelection(options) {
+    var keepOpen = !!(options && options.keepOpen);
+    var key = qtyPickerState.key;
+    var label = qtyPickerState.label;
+    var btn = qtyPickerState.btn;
+    if (!key || !btn) {
+      closeQtyPicker();
+      return;
+    }
+
+    var shouldCancelSatellite = false;
+    if (key === "satellite") {
+      var wasFootprints = !!state.qtyMeta.satelliteFootprints;
+      state.qtyMeta.satelliteFootprints = !!qtyPickerState.tempSpecial;
+      if (!state.qtyMeta.satelliteFootprints) state.qty.satellite = qtyPickerState.tempValue;
+      shouldCancelSatellite = wasFootprints && !state.qtyMeta.satelliteFootprints && qtyPickerState.tempValue < 3;
+    } else {
+      state.qty[key] = qtyPickerState.tempValue;
+    }
+
+    if (key === "satellite" && shouldCancelSatellite && btn.classList.contains("is-active")) {
+      toggleMulti(key, label, btn);
+      afterMultiStateChange();
+      setActiveWheelSelection(0, false);
+      if (keepOpen) {
+        requestAnimationFrame(function () {
+          placeQtyPicker(btn);
+        });
+        return;
+      }
+      closeQtyPicker();
+      return;
+    }
+
+    if (!btn.classList.contains("is-active")) {
+      toggleMulti(key, label, btn);
+    } else {
+      if (key === "satellite") btn.classList.toggle("is-footprints", state.qtyMeta.satelliteFootprints);
+      refreshAppliedResponse();
+      renderChips();
+    }
+
+    afterMultiStateChange();
+    if (keepOpen) {
+      requestAnimationFrame(function () {
+        placeQtyPicker(btn);
+      });
+      return;
+    }
+    closeQtyPicker();
+  }
+
+  if (qtyPicker && qtyWheel && qtyPop) {
+    qtyWheel.addEventListener("click", function (event) {
+      var target = event.target.closest(".sb-qty-item");
+      if (!target) return;
+      var btn = qtyPickerState.btn;
+      var key = qtyPickerState.key;
+      var label = qtyPickerState.label;
+      var special = target.getAttribute("data-special");
+      if (special === "satellite_footprints") {
+        if (!canUseSatelliteFootprints(qtyPickerState.tempValue)) return;
+        if (qtyPickerState.tempSpecial && btn && btn.classList.contains("is-active")) {
+          toggleMulti(key, label, btn);
+          afterMultiStateChange();
+          setActiveWheelSelection(0, false);
+          requestAnimationFrame(function () {
+            placeQtyPicker(btn);
+          });
+          return;
+        }
+        var specialOn = !qtyPickerState.tempSpecial;
+        setActiveWheelSelection(quantityValue("satellite"), specialOn);
+        applyQtySelection({ keepOpen: true });
+        return;
+      }
+      var value = Number(target.getAttribute("data-value"));
+      if (!Number.isFinite(value)) return;
+      var persistedValue = quantityValue(key);
+      var isSameActiveValue =
+        !qtyPickerState.tempSpecial &&
+        persistedValue === value &&
+        btn &&
+        btn.classList.contains("is-active");
+      if (isSameActiveValue) {
+        setActiveWheelSelection(value, false);
+        applyQtySelection({ keepOpen: true });
+        return;
+      }
+      setActiveWheelSelection(value, false);
+      applyQtySelection({ keepOpen: true });
+    });
+
+    var wheelTick = null;
+    qtyWheel.addEventListener("scroll", function () {
+      if (wheelTick) window.cancelAnimationFrame(wheelTick);
+      wheelTick = window.requestAnimationFrame(function () {
+        wheelTick = null;
+        setActiveWheelSelection(closestWheelValue(), false);
+      });
+    });
+
+    qtyPicker.addEventListener("click", function (event) {
+      if (!event.target.classList.contains("sb-qty-backdrop")) return;
+
+      var clickX = event.clientX;
+      var clickY = event.clientY;
+      var passthroughTarget = null;
+
+      qtyPicker.style.pointerEvents = "none";
+      var underlayEl = document.elementFromPoint(clickX, clickY);
+      qtyPicker.style.pointerEvents = "";
+
+      if (underlayEl) {
+        passthroughTarget =
+          underlayEl.closest(".sb-btn") ||
+          underlayEl.closest("#sbApply") ||
+          underlayEl.closest(".sb-parent-btn");
+      }
+
+      if (passthroughTarget) {
+        closeQtyPicker();
+        passthroughTarget.click();
+        return;
+      }
+
+      closeQtyPicker();
+    });
+
+    window.addEventListener("resize", function () {
+      if (!qtyPicker.classList.contains("is-open")) return;
+      placeQtyPicker(qtyPickerState.btn);
+    });
+
+    window.addEventListener("scroll", function () {
+      if (!qtyPicker.classList.contains("is-open")) return;
+      placeQtyPicker(qtyPickerState.btn);
+    }, true);
+  }
+
+  buttons.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var type = btn.getAttribute("data-type");
+      var label = btn.textContent.trim();
+      var key = btn.getAttribute("data-key");
+
+      if (type === "single") {
+        var group = btn.getAttribute("data-group");
+        if (btn.classList.contains("is-active")) {
+          btn.classList.remove("is-active");
+          state.single[group] = "";
+          state.singleKey[group] = "";
+          refreshAppliedResponse();
+          renderChips();
+          resetPromotionToolsIfBaseInvalid();
+          updateBaseDividerState();
+          refreshPrereqNoticeIfVisible();
+          return;
+        }
+        setSingle(group, key, label, btn);
+        resetPromotionToolsIfBaseInvalid();
+        updateBaseDividerState();
+        refreshPrereqNoticeIfVisible();
+        return;
+      }
+
+      if (type === "multi") {
+        if (isQuantityKey(key)) {
+          if (!isBaseRequirementKey(key) && !hasRequiredBaseSelection()) {
+            showPrereqNotice();
+            return;
+          }
+          if (
+            btn.classList.contains("is-active") &&
+            !(qtyPicker && qtyPicker.classList.contains("is-open") && qtyPickerState.key === key)
+          ) {
+            toggleMulti(key, label, btn);
+            afterMultiStateChange();
+            if (qtyPicker && qtyPicker.classList.contains("is-open")) closeQtyPicker();
+            return;
+          }
+          if (qtyPicker && qtyPicker.classList.contains("is-open") && qtyPickerState.key === key) {
+            if (btn.classList.contains("is-active")) {
+              toggleMulti(key, label, btn);
+              afterMultiStateChange();
+            }
+            closeQtyPicker();
+            return;
+          }
+          openQtyPicker(key, label, btn);
+          return;
+        }
+
+        if (btn.classList.contains("is-active")) {
+          toggleMulti(key, label, btn);
+          afterMultiStateChange();
+          return;
+        }
+
+        if (!isBaseRequirementKey(key) && !hasRequiredBaseSelection()) {
+          showPrereqNotice();
+          return;
+        }
+        toggleMulti(key, label, btn);
+        afterMultiStateChange();
+        return;
+      }
+
+      if (type === "parent") {
+        var parentKey = key;
+        setParentOpen(parentKey, !state.open[parentKey], btn);
+        refreshPrereqNoticeIfVisible();
+        return;
+      }
+
+      if (type === "sub") {
+        if (!hasRequiredBaseSelection()) {
+          showPrereqNotice();
+          return;
+        }
+        var p = btn.getAttribute("data-parent");
+        ensureParentActive(p);
+
+        var on = btn.classList.toggle("is-active");
+        if (on) {
+          addToken(label);
+          flyWord(label, btn);
+        } else {
+          removeToken(label);
+        }
+        refreshAppliedResponse();
+        renderChips();
+        updateBaseDividerState();
+        refreshPrereqNoticeIfVisible();
+      }
+    });
+  });
+
+  function explainSelectedKey(key) {
+    {{- if $isRU }}
+    switch (key) {
+        case "freq_low": return "Сайт с низкой конкуренцией в выдаче.";
+        case "freq_mid": return "Сайт со средней конкуренцией в выдаче.";
+        case "freq_high": return "Сайт с высокой конкуренцией в выдаче.";
+        case "theme_white": return "Стандартные ниши: услуги, торговля и другие традиционные направления бизнеса.";
+        case "theme_gray": return "iGaming / High-Risk проекты: онлайн-игры на деньги и другие высокорисковые ниши с повышенными требованиями к стратегии продвижения.";
+        case "newregs": return "Новорег: сайт создан на новом домене без истории.";
+        case "drops": return "Дроп-домен: сайт создан на домене с историей.";
+        case "static": return "Статичный сайт: контент меняется редко или почти не обновляется.";
+        case "dynamic": return "Динамичный сайт: контент регулярно обновляется.";
+        case "onepage": return "Одностраничный сайт: с ключевым запросом в URL и Title, часто используется как сателлит.";
+        case "multipage": return "Многостраничный сайт: полноценный сайт с множеством страниц.";
+        case "satellite":
+          if (state.qtyMeta.satelliteFootprints) return "Наличие футпринтов у сателлитов: повторяющиеся признаки сети (шаблон, техпрофиль, IP), по которым сайты связываются между собой и хуже передают вес.";
+          return "Сателлиты: собственные вспомогательные сайты для поддержки основного проекта. По умолчанию используем тематичные доноры с DR 60 и страницы, которые уже находятся в топе Google по ключевому запросу, прописанному в URL и Title. Выбрано сайтов: " + selectedQuantityValue("satellite") + ".";
+        case "crowd": return "Крауд: ссылки на ликвидных форумах, чаще всего модерируемых. Выбрано ссылок: " + selectedQuantityValue("crowd") + ".";
+        case "referral": return "Реферальный трафик: переходы целевой аудитории на сайт. Бонус: +3 балла.";
+        case "social": return "Социальные сигналы: реакции и переходы на сайт из социальных сетей.";
+        case "branding": return "Брендирование: формирование узнаваемости бренда и брендового спроса.";
+        case "xr_forums": return "Форумы: ссылки, размещенные в темах и обсуждениях на форумах.";
+        case "xr_comments": return "Комментарии: ссылочный шум из комментариев; шум полезен для кластеров и брендирования.";
+        case "xr_profiles": return "Профили: ссылки, проставленные в профилях пользователей на сайтах.";
+        case "content_articles": return "Артикли: статьи, созданные на отдельной странице донора без чужих постов рядом.";
+        case "content_web20": return "Web 2.0: ссылки из блоговых и пользовательских платформ второго уровня.";
+        case "content_t123": return "Tier 1-2-3: пирамидальная схема ссылок, где уровни ссылаются друг на друга поэтапно.";
+        default: return "Выбранный пункт: отдельный элемент текущей ссылочной конфигурации.";
+    }
+
+    {{- else if $isES }}
+    switch (key) {
+        case "freq_low": return "Sitio con competencia baja en SERP.";
+        case "freq_mid": return "Sitio con competencia media en SERP.";
+        case "freq_high": return "Sitio con competencia alta en SERP.";
+        case "theme_white": return "Nichos estándar: servicios, comercio y otros sectores tradicionales.";
+        case "theme_gray": return "Proyectos iGaming / High-Risk: juegos de azar online y otros nichos de alto riesgo que requieren una estrategia SEO adaptada.";
+        case "newregs": return "Dominio nuevo: sitio creado sobre un dominio nuevo sin historial.";
+        case "drops": return "Dominio expirado: sitio creado sobre un dominio con historial.";
+        case "static": return "Sitio estático: contenido con pocas o casi ninguna actualización.";
+        case "dynamic": return "Sitio dinámico: contenido que se actualiza de forma regular.";
+        case "onepage": return "Sitio de una página: con palabra clave en URL y Title, suele utilizarse como sitio satélite.";
+        case "multipage": return "Sitio multipágina: sitio completo con muchas páginas.";
+        case "satellite":
+          if (state.qtyMeta.satelliteFootprints) return "Huellas en sitios satélite: patrones repetidos (plantilla, perfil técnico o IP) que conectan sitios y reducen la transferencia de peso.";
+          return "Sitios satélite: sitios auxiliares propios que apoyan al proyecto principal. En este modelo usamos donantes temáticos con DR 60 y páginas ya posicionadas en Google para la palabra clave objetivo indicada en URL y Title. Sitios seleccionados: " + selectedQuantityValue("satellite") + ".";
+        case "crowd": return "Crowd: enlaces en foros activos y normalmente moderados. Enlaces seleccionados: " + selectedQuantityValue("crowd") + ".";
+        case "referral": return "Tráfico de referencia: visitas de la audiencia objetivo al sitio. Bonificación: +3 puntos.";
+        case "social": return "Señales sociales: reacciones y visitas al sitio desde redes sociales.";
+        case "branding": return "Branding: construcción de reconocimiento de marca y demanda de marca.";
+        case "xr_forums": return "Foros: enlaces colocados en hilos y discusiones de foros.";
+        case "xr_comments": return "Comentarios: ruido de enlaces desde comentarios; es útil para clusters y branding.";
+        case "xr_profiles": return "Perfiles: enlaces colocados en perfiles de usuarios en distintos sitios.";
+        case "content_articles": return "Artículos: artículos en una página separada del donante, sin posts ajenos alrededor.";
+        case "content_web20": return "Web 2.0: enlaces desde plataformas de blogs y contenido de usuario.";
+        case "content_t123": return "Tier 1-2-3: estructura piramidal donde los niveles se enlazan entre sí por etapas.";
+        default: return "Elemento seleccionado: parte de la configuración actual de enlaces.";
+    }
+
+    {{- else }}
+    switch (key) {
+      case "freq_low": return "Site with low competition in SERP.";
+      case "freq_mid": return "Site with medium competition in SERP.";
+      case "freq_high": return "Site with high competition in SERP.";
+      case "theme_white": return "Standard niches: services, commerce, and other traditional business sectors.";
+      case "theme_gray": return "iGaming / High-Risk projects: online gambling and other high-risk niches that need a tailored SEO strategy.";
+      case "newregs": return "New-reg domain: site built on a new domain with no history.";
+      case "drops": return "Dropped domain: site built on a domain with history.";
+      case "static": return "Static site: content is rarely or never updated.";
+      case "dynamic": return "Dynamic site: content is updated regularly.";
+      case "onepage": return "Single-page site: with a target keyword in URL and title, often used as a satellite site.";
+      case "multipage": return "Multi-page site: a full website with many pages.";
+      case "satellite":
+        if (state.qtyMeta.satelliteFootprints) return "Satellite site footprints: repeated patterns (template, tech profile, IP) that connect sites and weaken link transfer.";
+        return "Satellite sites: owned supporting websites for the main project. In this model we use topical DR60 donors and pages already ranking in Google for the target keyword set in URL and Title. Selected sites: " + selectedQuantityValue("satellite") + ".";
+      case "crowd": return "Crowd links: links from active forums, usually moderated. Selected links: " + selectedQuantityValue("crowd") + ".";
+      case "referral": return "Referral traffic: visits from the target audience. Bonus: +3 points.";
+      case "social": return "Social signals: reactions and visits coming from social networks.";
+      case "branding": return "Branding: building brand recognition and branded demand.";
+      case "xr_forums": return "Forums: links placed in forum threads and discussions.";
+      case "xr_comments": return "Comments: link noise from comment sections; useful for clusters and branding.";
+      case "xr_profiles": return "Profiles: links placed in user profiles across sites.";
+      case "content_articles": return "Articles: articles created on a donor page without adjacent third-party posts.";
+      case "content_web20": return "Web 2.0: links from blog and user-generated platforms.";
+      case "content_t123": return "Tier 1-2-3: pyramid link structure where levels link to each other in stages.";
+      default: return "Selected item: part of the current link setup.";
+    }
+    {{- end }}
+  }
+
+  function explainKeyForButton(btn) {
+    var type = btn.getAttribute("data-type");
+    var key = btn.getAttribute("data-key");
+    if (!key) return "";
+    if (type === "single") {
+      var group = btn.getAttribute("data-group");
+      if (group === "freq" || group === "theme") return group + "_" + key;
+    }
+    return key;
+  }
+
+  function applyButtonTooltips() {
+    buttons.forEach(function (btn) {
+      var mappedKey = explainKeyForButton(btn);
+      if (!mappedKey) return;
+      btn.setAttribute("title", explainSelectedKey(mappedKey));
+    });
+  }
+
+  function activeMultiLabel(key) {
+    var btn = document.querySelector('.sb-btn[data-type="multi"][data-key="' + key + '"]');
+    if (!btn || !btn.classList.contains("is-active")) return "";
+    return labelWithQuantity(btn.textContent.trim(), key);
+  }
+
+  function activeSubLabel(key) {
+    var btn = document.querySelector('.sb-btn[data-type="sub"][data-key="' + key + '"]');
+    if (!btn || !btn.classList.contains("is-active")) return "";
+    return btn.textContent.trim();
+  }
+
+  function pushActiveSub(list, key) {
+    var label = activeSubLabel(key);
+    if (label) list.push(label);
+  }
+
+  {{- if $isRU }}
+  function buildLocalizedNarrativeResponse(list, model) {
+    var position = model.position;
+    var band = visibilityBand(position);
+    var range = estimateRange(model);
+    var setup = list.join(", ");
+
+    var isOnepage = isMultiKeyActive("onepage");
+    var isMultipage = isMultiKeyActive("multipage");
+    var isStatic = isMultiKeyActive("static");
+    var isDynamic = isMultiKeyActive("dynamic");
+    var isDrops = isMultiKeyActive("drops");
+    var isNewregs = isMultiKeyActive("newregs");
+    var isWhite = state.singleKey.theme === "white";
+    var isGray = state.singleKey.theme === "gray";
+
+    var hasXr = isSubKeyActive("community", "xr_forums") || isSubKeyActive("community", "xr_comments") || isSubKeyActive("community", "xr_profiles");
+    var hasContent = isSubKeyActive("content", "content_articles") || isSubKeyActive("content", "content_web20") || isSubKeyActive("content", "content_t123");
+
+    var contextLines = [];
+    if (isOnepage) {
+      contextLines.push("В этой конфигурации конкуренция читается в первую очередь по одному ключевому запросу, под который заточен URL, Title и основной материал страницы.");
+    } else if (isMultipage) {
+      contextLines.push("Для многостраничного формата уровень конкуренции читается по тематике и кластерам, а не только по одному keyword.");
+    }
+
+    if (isDrops) {
+      contextLines.push("Дроп-домен лучше раскрывается, когда его историческая тематика совпадает с текущей тематикой проекта.");
+      if (hasXr || hasContent) {
+        contextLines.push("При использовании выбранных форматов ссылок учитывайте историю дроп-домена и соответствие площадок тематике проекта.");
+      }
+    }
+    if (isNewregs) {
+      contextLines.push("Для новорега важна явная проверка, что домен действительно новый и без негативной истории.");
+    }
+
+    if (isStatic && isMultiKeyActive("satellite")) {
+      contextLines.push("Статичный сайт хорошо подходит для сателлита: главная страница как основная точка силы плюс 3-5 отдельных статей под смежные ключи.");
+      contextLines.push("Рабочая модель здесь: вывести тематический проект в топ, зафиксировать его авторитет в нише и использовать площадку как сильный источник качественного релевантного трафика и экспертных рекомендаций для основного бренда.");
+    } else if (isStatic) {
+      contextLines.push("Статичный сайт подходит для проекта с редко обновляемым контентом. Важны понятная структура, тематические материалы и техническая стабильность.");
+    }
+    if (isDynamic) {
+      contextLines.push("Динамичный формат удобен регулярными обновлениями: Google обычно хорошо воспринимает живую структуру и постоянное расширение контента.");
+    }
+
+    if (isWhite) {
+      contextLines.push("Продвижение в стандартных нишах обычно идёт плавно и системно: за счет структуры, контента и ровного ссылочного темпа.");
+    }
+    if (isGray) {
+      contextLines.push("Для iGaming / High-Risk проектов учитывайте высокую конкуренцию, качество площадок и риски выбранного темпа продвижения.");
+    }
+
+    var toolLines = [];
+    if (hasXr) {
+      var xrParts = [];
+      pushActiveSub(xrParts, "xr_forums");
+      pushActiveSub(xrParts, "xr_comments");
+      pushActiveSub(xrParts, "xr_profiles");
+      toolLines.push("Выбранные форматы ссылок (" + xrParts.join(", ") + ") расширяют присутствие проекта на тематических площадках. Важны качество размещения и соответствие контексту.");
+    }
+
+    if (hasContent) {
+      var contentParts = [];
+      pushActiveSub(contentParts, "content_articles");
+      pushActiveSub(contentParts, "content_web20");
+      pushActiveSub(contentParts, "content_t123");
+      toolLines.push("Контентные площадки и ссылочные уровни дополняют структуру продвижения; активировано: " + contentParts.join(", ") + ".");
+    }
+
+    if (isMultiKeyActive("satellite")) {
+      toolLines.push("Для сателлитов в этой модели используем тематичные доноры с DR 60 и страницы, которые уже находятся в топе Google по ключевому запросу, прописанному в URL и Title.");
+      if (state.qtyMeta.satelliteFootprints) {
+        toolLines.push("Футпринты у сателлитов — это когда Google видит, что сайты похожи и принадлежат одному владельцу.");
+        toolLines.push("При включенном пункте «Наличие футпринтов» обнуляется именно вклад сателлитов по количеству сайтов, а остальная выбранная структура продолжает работать.");
+        toolLines.push("Если такое видно явно, Google может не учитывать ссылки всей сети сателлитов и иногда выбрасывает такие сайты из индекса.");
+        toolLines.push("Поэтому сателлиты лучше брать у проверенных источников, а свою сеть обычно держать компактной — до 5 сайтов, с разными IP и разным техпрофилем.");
+      } else {
+        toolLines.push("Сателлиты (" + activeMultiLabel("satellite") + "): в практике сильнее отрабатывают собственные сети микросайтов, потому что проще контролировать тематику донора, нужный ключ в URL/Title и размещение со страницы, которая уже занимает устойчивые позиции в Топ-10.");
+      }
+    }
+    if (isMultiKeyActive("crowd")) {
+      toolLines.push("Крауд (" + activeMultiLabel("crowd") + "): основной эффект дают модерируемые площадки с логичным, осмысленным и тематическим размещением по месту.");
+    }
+    if (isMultiKeyActive("referral")) {
+      toolLines.push("Реферальный трафик: Переходы целевой аудитории обеспечивают качественную посещаемость сайта. Поисковые системы видят реальный интерес пользователей, что напрямую повышает видимость бренда в органической выдаче и в ответах AI-ассистентов");
+    }
+    if (isMultiKeyActive("social")) {
+      toolLines.push("Социальные сигналы усиливают узнаваемость и расширяют присутствие проекта в поисковых системах и AI-экосистеме.");
+    }
+    if (isMultiKeyActive("branding")) {
+      toolLines.push("Брендирование собирает доверие в контур: от аккаунтов и контента до основного проекта; при массовой поддержке бренд-сигналы растут быстрее.");
+    }
+
+    var nativeLines = [];
+    if (hasXr || hasContent) {
+      nativeLines.push("Сочетайте выбранные форматы обратных ссылок с тематическим контентом и контролем качества размещений.");
+    }
+    if (hasXr || hasContent || isMultiKeyActive("satellite")) {
+      nativeLines.push("Собирайте сайт на __ABUSE_SERVER__ с FastPanel: Сайт быстрее и стабильнее работает для пользователей и поисковых систем, отсутствие серверных ошибок");
+    }
+
+    var contextHtml = contextLines.length ? ("<ul>" + contextLines.map(function (line) { return "<li>" + escapeHtml(line) + "</li>"; }).join("") + "</ul>") : "";
+    var toolsHtml = toolLines.length ? ("<ul>" + toolLines.map(function (line) { return "<li>" + escapeHtml(line).replace(/^Реферальный трафик:/, "<strong>Реферальный трафик:</strong>") + "</li>"; }).join("") + "</ul>") : "";
+    var nativeServerLink = '<a href="{{ $softLink.href | safeURL }}"{{ with $softLink.cloaked }} data-seo-cloaked-href="{{ . }}"{{ end }}{{ with $softLink.rel }} rel="{{ . }}"{{ end }} class="sb-inline-link">VPS-сервере</a>';
+    var nativeHtml = nativeLines.length ? ("<ul>" + nativeLines.map(function (line) {
+      var escaped = escapeHtml(line);
+      return "<li>" + escaped.replace("__ABUSE_SERVER__", nativeServerLink) + "</li>";
+    }).join("") + "</ul>") : "";
+    var toolsSectionHtml = toolLines.length
+      ? ("<p><strong>🛠 Как отрабатывают выбранные инструменты:</strong></p>" + toolsHtml)
+      : "<p><strong>🛠 Как отрабатывают выбранные инструменты:</strong> Выберите инструменты для продвижения сайта.</p>";
+
+    return (
+      "<p><strong>📌 Текущая конфигурация:</strong> " + escapeHtml(setup) + ".</p>" +
+      "<p><strong>📈 Прогноз диапазона:</strong> #" + range.low + " - #" + range.high + ", ориентир по индикатору: " + (position > 50 ? "50+" : "#" + position) + " (" + escapeHtml(band.text) + ").</p>" +
+      "<p><strong>🧩 Сценарий по шапке:</strong></p>" +
+      contextHtml +
+      toolsSectionHtml +
+      (nativeHtml ? ("<p><strong>🚀 Практика запуска и эффективного развертывания связки:</strong></p>" + nativeHtml) : "")
+    );
+  }
+
+  {{- else if $isES }}
+  function buildLocalizedNarrativeResponse(list, model) {
+    var position = model.position;
+    var band = visibilityBand(position);
+    var range = estimateRange(model);
+    var setup = list.join(", ");
+
+    var isOnepage = isMultiKeyActive("onepage");
+    var isMultipage = isMultiKeyActive("multipage");
+    var isStatic = isMultiKeyActive("static");
+    var isDynamic = isMultiKeyActive("dynamic");
+    var isDrops = isMultiKeyActive("drops");
+    var isNewregs = isMultiKeyActive("newregs");
+    var isWhite = state.singleKey.theme === "white";
+    var isGray = state.singleKey.theme === "gray";
+
+    var hasXr = isSubKeyActive("community", "xr_forums") || isSubKeyActive("community", "xr_comments") || isSubKeyActive("community", "xr_profiles");
+    var hasContent = isSubKeyActive("content", "content_articles") || isSubKeyActive("content", "content_web20") || isSubKeyActive("content", "content_t123");
+
+    var contextLines = [];
+    if (isOnepage) {
+      contextLines.push("En esta configuración la competencia se mide primero por una palabra clave principal: URL, Title y contenido se ajustan a una sola consulta.");
+    } else if (isMultipage) {
+      contextLines.push("En formato multipágina la competencia se mide por temática y clusters, no solo por una sola palabra clave.");
+    }
+
+    if (isDrops) {
+      contextLines.push("El dominio drop funciona mejor cuando su historial temático coincide con la temática actual del proyecto.");
+      if (hasXr || hasContent) {
+        contextLines.push("Al usar los formatos de enlaces seleccionados, revisa el historial del dominio expirado y la relevancia temática de las plataformas.");
+      }
+    }
+    if (isNewregs) {
+      contextLines.push("Para dominio nuevo conviene verificar claramente que no tenga historial negativo.");
+    }
+
+    if (isStatic && isMultiKeyActive("satellite")) {
+      contextLines.push("Sitio estático: buena base para un sitio satélite. La home funciona como punto principal de fuerza más 3-5 artículos por claves cercanas.");
+      contextLines.push("Modelo de trabajo: posicionar el proyecto temático, consolidar su autoridad en el nicho y utilizarlo como una fuente sólida de tráfico relevante de calidad y recomendaciones expertas para la marca principal.");
+    } else if (isStatic) {
+      contextLines.push("Un sitio estático encaja con un proyecto cuyo contenido cambia poco. Importan una estructura clara, contenido temático y estabilidad técnica.");
+    }
+    if (isDynamic) {
+      contextLines.push("Sitio dinámico: permite actualización regular y expansión continua de contenido.");
+    }
+
+    if (isWhite) {
+      contextLines.push("Los nichos estándar suelen crecer de forma estable por estructura, contenido y ritmo de enlaces controlado.");
+    }
+    if (isGray) {
+      contextLines.push("En proyectos iGaming / High-Risk, considera la competencia, la calidad de las plataformas y los riesgos del ritmo de promoción elegido.");
+    }
+
+    var toolLines = [];
+    if (hasXr) {
+      var xrParts = [];
+      pushActiveSub(xrParts, "xr_forums");
+      pushActiveSub(xrParts, "xr_comments");
+      pushActiveSub(xrParts, "xr_profiles");
+      toolLines.push("Los formatos de enlaces seleccionados (" + xrParts.join(", ") + ") amplían la presencia del proyecto en plataformas temáticas. Importan la calidad y la relevancia del contexto.");
+    }
+
+    if (hasContent) {
+      var contentParts = [];
+      pushActiveSub(contentParts, "content_articles");
+      pushActiveSub(contentParts, "content_web20");
+      pushActiveSub(contentParts, "content_t123");
+      toolLines.push("Las plataformas de contenido y los niveles de enlaces complementan la estrategia; activado: " + contentParts.join(", ") + ".");
+    }
+
+    if (isMultiKeyActive("satellite")) {
+      toolLines.push("Para los sitios satélite en este modelo usamos donantes temáticos con DR 60 y páginas que ya están en top de Google para la palabra clave objetivo definida en URL y Title.");
+      if (state.qtyMeta.satelliteFootprints) {
+        toolLines.push("Las huellas en sitios satélite significan que Google ve patrones repetidos y relacion entre sitios del mismo propietario.");
+        toolLines.push("Con la opción de footprints activada, se anula solo el aporte de los sitios satélite por cantidad; el resto de la estructura sigue trabajando.");
+        toolLines.push("Por eso conviene usar fuentes comprobadas y mantener red propia compacta: hasta 5 sitios, con IP y perfil técnico distintos.");
+      } else {
+        toolLines.push("Sitios satélite (" + activeMultiLabel("satellite") + "): las redes propias de micrositios suelen rendir mejor porque permiten controlar la temática del donante, la palabra clave en URL/Title y la publicación desde una página con posiciones estables en el Top 10.");
+      }
+    }
+    if (isMultiKeyActive("crowd")) {
+      toolLines.push("Crowd (" + activeMultiLabel("crowd") + "): el mayor efecto proviene de plataformas moderadas con publicaciones lógicas, relevantes y acordes con el contexto.");
+    }
+    if (isMultiKeyActive("referral")) {
+      toolLines.push("Tráfico de referencia: Las visitas de la audiencia objetivo aportan tráfico de calidad al sitio. Los motores de búsqueda detectan el interés real de los usuarios, lo que aumenta directamente la visibilidad de la marca en los resultados orgánicos y en las respuestas de los asistentes de IA.");
+    }
+    if (isMultiKeyActive("social")) {
+      toolLines.push("Señales sociales ayudan al reconocimiento de marca y presencia del proyecto en buscadores y ecosistemas AI.");
+    }
+    if (isMultiKeyActive("branding")) {
+      toolLines.push("Branding fortalece confianza desde cuentas y contenido hasta el proyecto principal; con soporte masivo la marca gana tracción más rápido.");
+    }
+
+    var nativeLines = [];
+    if (hasXr || hasContent) {
+      nativeLines.push("Combina los formatos de enlaces seleccionados con contenido temático y control de calidad de las publicaciones.");
+    }
+    if (hasXr || hasContent || isMultiKeyActive("satellite")) {
+      nativeLines.push("Crea el sitio en un __ABUSE_SERVER__ con FastPanel: el sitio funciona de forma más rápida y estable para los usuarios y los buscadores, sin errores del servidor.");
+    }
+
+    var contextHtml = contextLines.length ? ("<ul>" + contextLines.map(function (line) { return "<li>" + escapeHtml(line) + "</li>"; }).join("") + "</ul>") : "";
+    var toolsHtml = toolLines.length ? ("<ul>" + toolLines.map(function (line) { return "<li>" + escapeHtml(line).replace(/^Tráfico de referencia:/, "<strong>Tráfico de referencia:</strong>") + "</li>"; }).join("") + "</ul>") : "";
+    var nativeServerLink = '<a href="{{ $softLink.href | safeURL }}"{{ with $softLink.cloaked }} data-seo-cloaked-href="{{ . }}"{{ end }}{{ with $softLink.rel }} rel="{{ . }}"{{ end }} class="sb-inline-link">servidor VPS</a>';
+    var nativeHtml = nativeLines.length ? ("<ul>" + nativeLines.map(function (line) {
+      var escaped = escapeHtml(line);
+      return "<li>" + escaped.replace("__ABUSE_SERVER__", nativeServerLink) + "</li>";
+    }).join("") + "</ul>") : "";
+    var toolsSectionHtml = toolLines.length
+      ? ("<p><strong>\uD83D\uDEE0 Cómo trabajan las herramientas seleccionadas:</strong></p>" + toolsHtml)
+      : "<p><strong>\uD83D\uDEE0 Cómo trabajan las herramientas seleccionadas:</strong> Selecciona herramientas para promocionar el sitio.</p>";
+
+    return (
+      "<p><strong>\uD83D\uDCCC Configuración actual:</strong> " + escapeHtml(setup) + ".</p>" +
+      "<p><strong>\uD83D\uDCC8 Rango previsto:</strong> #" + range.low + " - #" + range.high + ", referencia del indicador: " + (position > 50 ? "50+" : "#" + position) + " (" + escapeHtml(band.text) + ").</p>" +
+      "<p><strong>\uD83E\uDDE9 Escenario por cabecera:</strong></p>" +
+      contextHtml +
+      toolsSectionHtml +
+      (nativeHtml ? ("<p><strong>\uD83D\uDE80 Práctica de lanzamiento e implementación eficiente:</strong></p>" + nativeHtml) : "")
+    );
+  }
+
+  {{- else }}
+  function buildLocalizedNarrativeResponse(list, model) {
+    var position = model.position;
+    var band = visibilityBand(position);
+    var range = estimateRange(model);
+    var setup = list.join(", ");
+
+    var isOnepage = isMultiKeyActive("onepage");
+    var isMultipage = isMultiKeyActive("multipage");
+    var isStatic = isMultiKeyActive("static");
+    var isDynamic = isMultiKeyActive("dynamic");
+    var isDrops = isMultiKeyActive("drops");
+    var isNewregs = isMultiKeyActive("newregs");
+    var isWhite = state.singleKey.theme === "white";
+    var isGray = state.singleKey.theme === "gray";
+
+    var hasXr = isSubKeyActive("community", "xr_forums") || isSubKeyActive("community", "xr_comments") || isSubKeyActive("community", "xr_profiles");
+    var hasContent = isSubKeyActive("content", "content_articles") || isSubKeyActive("content", "content_web20") || isSubKeyActive("content", "content_t123");
+
+    var contextLines = [];
+    if (isOnepage) {
+      contextLines.push("In this setup, competition is read mainly by one target keyword: URL, title, and page content are aligned to that query.");
+    } else if (isMultipage) {
+      contextLines.push("For multi-page projects, competition is evaluated by topic coverage and clusters, not by a single keyword only.");
+    }
+
+    if (isDrops) {
+      contextLines.push("A dropped domain works better when its historical topic matches your current niche.");
+      if (hasXr || hasContent) {
+        contextLines.push("When using the selected link formats, review the expired domain's history and the topical relevance of the platforms.");
+      }
+    }
+    if (isNewregs) {
+      contextLines.push("For new domains, verify clearly that the domain is truly new and has no negative history.");
+    }
+
+    if (isStatic && isMultiKeyActive("satellite")) {
+      contextLines.push("Static format works well for satellite sites: homepage as the power page plus 3-5 focused support articles.");
+      contextLines.push("Working model: rank the topical project, establish its authority in the niche, and use it as a strong source of quality relevant traffic and expert recommendations for the main brand.");
+    } else if (isStatic) {
+      contextLines.push("A static site suits a project with infrequently updated content. A clear structure, relevant content, and technical stability matter.");
+    }
+    if (isDynamic) {
+      contextLines.push("Dynamic format supports regular updates and continuous content expansion.");
+    }
+
+    if (isWhite) {
+      contextLines.push("Standard niches usually grow steadily through structure, content quality, and controlled link pace.");
+    }
+    if (isGray) {
+      contextLines.push("For iGaming / High-Risk projects, consider competition, platform quality, and the risks of the chosen promotion pace.");
+    }
+
+    var toolLines = [];
+    if (hasXr) {
+      var xrParts = [];
+      pushActiveSub(xrParts, "xr_forums");
+      pushActiveSub(xrParts, "xr_comments");
+      pushActiveSub(xrParts, "xr_profiles");
+      toolLines.push("The selected link formats (" + xrParts.join(", ") + ") expand the project\'s presence on relevant platforms. Placement quality and context matter.");
+    }
+
+    if (hasContent) {
+      var contentParts = [];
+      pushActiveSub(contentParts, "content_articles");
+      pushActiveSub(contentParts, "content_web20");
+      pushActiveSub(contentParts, "content_t123");
+      toolLines.push("Content platforms and link tiers complement the promotion strategy; active now: " + contentParts.join(", ") + ".");
+    }
+
+    if (isMultiKeyActive("satellite")) {
+      toolLines.push("For satellite sites in this model, we use topical DR60 donors and pages already ranking in Google for the target keyword set in URL and Title.");
+      if (state.qtyMeta.satelliteFootprints) {
+        toolLines.push("Satellite site footprints mean Google can connect sites by repeated ownership patterns.");
+        toolLines.push("When footprints are enabled, only the quantity-based satellite site contribution is zeroed, while the rest of the stack continues.");
+        toolLines.push("In practice, use trusted sources and keep your own network compact: up to 5 sites, with separate IPs and technical profiles.");
+      } else {
+        toolLines.push("Satellite sites (" + activeMultiLabel("satellite") + "): owned microsite networks tend to perform better because they offer control over the donor topic, the target keyword in URL/Title, and placement on a page holding stable Top 10 positions.");
+      }
+    }
+    if (isMultiKeyActive("crowd")) {
+      toolLines.push("Crowd links (" + activeMultiLabel("crowd") + "): the main effect comes from moderated platforms with logical, meaningful, and contextually relevant placements.");
+    }
+    if (isMultiKeyActive("referral")) {
+      toolLines.push("Referral traffic: Visits from the target audience bring quality traffic to the site. Search engines see genuine user interest, which directly increases brand visibility in organic search results and in AI assistant responses.");
+    }
+    if (isMultiKeyActive("social")) {
+      toolLines.push("Social signals improve brand recognition and project visibility across search systems and AI ecosystems.");
+    }
+    if (isMultiKeyActive("branding")) {
+      toolLines.push("Branding builds trust from accounts and content to the main project; at scale, brand signals accelerate faster.");
+    }
+
+    var nativeLines = [];
+    if (hasXr || hasContent) {
+      nativeLines.push("Combine the selected backlink formats with relevant content and placement quality control.");
+    }
+    if (hasXr || hasContent || isMultiKeyActive("satellite")) {
+      nativeLines.push("Build the site on a __ABUSE_SERVER__ with FastPanel: the site runs faster and more reliably for users and search engines, without server errors.");
+    }
+
+    var contextHtml = contextLines.length ? ("<ul>" + contextLines.map(function (line) { return "<li>" + escapeHtml(line) + "</li>"; }).join("") + "</ul>") : "";
+    var toolsHtml = toolLines.length ? ("<ul>" + toolLines.map(function (line) { return "<li>" + escapeHtml(line).replace(/^Referral traffic:/, "<strong>Referral traffic:</strong>") + "</li>"; }).join("") + "</ul>") : "";
+    var nativeServerLink = '<a href="{{ $softLink.href | safeURL }}"{{ with $softLink.cloaked }} data-seo-cloaked-href="{{ . }}"{{ end }}{{ with $softLink.rel }} rel="{{ . }}"{{ end }} class="sb-inline-link">VPS server</a>';
+    var nativeHtml = nativeLines.length ? ("<ul>" + nativeLines.map(function (line) {
+      var escaped = escapeHtml(line);
+      return "<li>" + escaped.replace("__ABUSE_SERVER__", nativeServerLink) + "</li>";
+    }).join("") + "</ul>") : "";
+    var toolsSectionHtml = toolLines.length
+      ? ("<p><strong>\uD83D\uDEE0 How selected tools perform:</strong></p>" + toolsHtml)
+      : "<p><strong>\uD83D\uDEE0 How selected tools perform:</strong> Select tools to promote the site.</p>";
+
+    return (
+      "<p><strong>\uD83D\uDCCC Current setup:</strong> " + escapeHtml(setup) + ".</p>" +
+      "<p><strong>\uD83D\uDCC8 Forecast range:</strong> #" + range.low + " - #" + range.high + ", indicator reference: " + (position > 50 ? "50+" : "#" + position) + " (" + escapeHtml(band.text) + ").</p>" +
+      "<p><strong>\uD83E\uDDE9 Header scenario:</strong></p>" +
+      contextHtml +
+      toolsSectionHtml +
+      (nativeHtml ? ("<p><strong>\uD83D\uDE80 Launch and efficient deployment practice:</strong></p>" + nativeHtml) : "")
+    );
+  }
+
+  {{- end }}
+  var responseFontFamily = '"Segoe UI", "Helvetica Neue", "Noto Sans", Arial, sans-serif';
+  var responseFontSize = "16px";
+  var responseLineHeight = "1.58";
+  function enforceResponseFont() {
+    if (!response) return;
+    response.style.setProperty("font-family", responseFontFamily, "important");
+    response.style.setProperty("font-size", responseFontSize, "important");
+    response.style.setProperty("line-height", responseLineHeight, "important");
+    response.style.setProperty("font-weight", "400", "important");
+    response.querySelectorAll("p, ul, ol, li, strong, span, em, a").forEach(function (node) {
+      node.style.setProperty("font-family", responseFontFamily, "important");
+      node.style.setProperty("font-size", "inherit", "important");
+      node.style.setProperty("line-height", "inherit", "important");
+    });
+  }
+
+  var scrollAnimRaf = 0;
+  function getResponseTargetY(opts) {
+    opts = opts || {};
+    var startY = window.pageYOffset || document.documentElement.scrollTop || 0;
+    var header = document.querySelector(".custom-header");
+    var headerOffset = 0;
+    if (header) {
+      var pos = window.getComputedStyle(header).position;
+      if (pos === "fixed" || pos === "sticky") {
+        headerOffset = header.getBoundingClientRect().height + 10;
+      }
+    }
+
+    var rect = response.getBoundingClientRect();
+    var topTarget = startY + rect.top - headerOffset - 12;
+    var extraBottomPad = Number(opts.extraBottomPad) || 0;
+    var bottomTarget = startY + rect.bottom - window.innerHeight + 22 + extraBottomPad;
+    var targetY = opts.preferBottom
+      ? Math.max(topTarget, bottomTarget)
+      : topTarget;
+    return Math.max(0, targetY);
+  }
+
+  function scrollToResponseSmooth(opts) {
+    if (!response) return;
+    opts = opts || {};
+    var targetY = getResponseTargetY(opts);
+    var currentY = window.pageYOffset || document.documentElement.scrollTop || 0;
+    if (Math.abs(targetY - currentY) < 1) return;
+
+    if (scrollAnimRaf) {
+      window.cancelAnimationFrame(scrollAnimRaf);
+      scrollAnimRaf = 0;
+    }
+
+    // Tiny instant nudge removes perceived click pause; then browser performs smooth deceleration.
+    window.scrollTo(0, currentY + (targetY > currentY ? 10 : -10));
+    window.scrollTo({ top: targetY, behavior: "smooth" });
+  }
+
+  applyBtn.addEventListener("click", function () {
+    if (isApplied) {
+      response.classList.add("is-collapsed");
+      response.style.removeProperty("min-height");
+      setApplyState(false);
+      return;
+    }
+
+    if (!hasRequiredBaseSelection()) {
+      showPrereqNotice();
+      setApplyState(false);
+      return;
+    }
+
+    var list = tokens();
+    if (!list.length) {
+      response.classList.remove("is-collapsed");
+      response.style.removeProperty("min-height");
+      response.textContent = T.selectOne;
+      enforceResponseFont();
+      setApplyState(false);
+      return;
+    }
+
+    response.classList.remove("is-collapsed");
+    setApplyState(true);
+    response.style.minHeight = "420px";
+    response.textContent = "{{ if $isRU }}Формируем прогноз...{{ else if $isES }}Generando pronóstico...{{ else }}Building forecast...{{ end }}";
+    enforceResponseFont();
+    scrollToResponseSmooth({ preferBottom: true, extraBottomPad: 220 });
+
+    window.setTimeout(function () {
+      if (!isApplied || !hasRequiredBaseSelection()) return;
+      var model = estimateModel();
+      response.innerHTML = buildLocalizedNarrativeResponse(tokens(), model);
+      response.style.removeProperty("min-height");
+      enforceResponseFont();
+    }, 0);
+  });
+
+  setApplyState(false);
+  enforceResponseFont();
+  renderChips();
+  updateBaseDividerState();
+  applyButtonTooltips();
+})();
+</script>
+{{ partial "affiliate-link-script.html" . }}
+{{- end -}}

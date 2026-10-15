@@ -1,0 +1,64 @@
+{{- $updatesLimit := 6 -}}
+{{- $updatesSource := slice -}}
+{{- range .Site.RegularPages -}}
+  {{- $showOnHome := eq .Params.showOnHome true -}}
+  {{- $hasRealDate := ge (.Date.Format "2006") "2000" -}}
+  {{- if and $showOnHome $hasRealDate (not .Draft) -}}
+    {{- $updatesSource = $updatesSource | append . -}}
+  {{- end -}}
+{{- end -}}
+{{- $updates := after $updatesLimit (sort $updatesSource "Date" "desc") -}}
+{{- $items := slice -}}
+{{- range $updates -}}
+  {{- $postImage := .Params.image | default "" -}}
+  {{- with .Params.images -}}
+    {{- if and (not $postImage) (gt (len .) 0) -}}{{- $postImage = index . 0 -}}{{- end -}}
+  {{- end -}}
+  {{- if eq $postImage "/news/eeat_optimized_20kb.webp" -}}
+    {{- $postImage = "/news/eeat_home_420x260.webp" -}}
+  {{- end -}}
+  {{- $postBuilderBlocks := slice -}}
+  {{- with .Params.builderJson -}}
+    {{- $postBuilderBlocks = transform.Unmarshal (dict "format" "json") . -}}
+  {{- end -}}
+  {{- $postBody := partial "news-body-source.html" . -}}
+  {{- $postBodyHtml := partial "news-body.html" $postBody -}}
+  {{- $postBodyPlain := $postBody | plainify -}}
+  {{- $postBodyPlain = replaceRE `\*\*([^*]+)\*\*` `${1}` $postBodyPlain -}}
+  {{- $postBodyPlain = replaceRE `\[([^\]]+)\]\([^)]+\)` `${1}` $postBodyPlain -}}
+  {{- $postBodyPlain = replace $postBodyPlain "**" "" -}}
+  {{- $postButtonLabel := .Params.buttonLabel | default "" -}}
+  {{- $postButtonUrl := .Params.buttonUrl | default "" -}}
+  {{- $postTargetUrl := .Params.targetUrl | default (.Params.homeUrl | default (.Params.clusterUrl | default .RelPermalink)) -}}
+  {{- if and (hasPrefix $postTargetUrl "/") (not (hasPrefix $postTargetUrl "//")) -}}{{- $postTargetUrl = $postTargetUrl | relLangURL -}}{{- end -}}
+  {{- if and (hasPrefix $postButtonUrl "/") (not (hasPrefix $postButtonUrl "//")) -}}{{- $postButtonUrl = $postButtonUrl | relLangURL -}}{{- end -}}
+{{- $postButtonStyle := "" -}}
+{{- with $postBuilderBlocks -}}
+    {{- range . -}}
+      {{- if and (eq (.type | default "") "buttons") (not $postButtonStyle) -}}
+        {{- if eq (.buttonWidthMode | default "auto") "custom" -}}{{- with .buttonPixelWidth -}}{{- $postButtonStyle = printf "%s width: %vpx;" $postButtonStyle . -}}{{- end -}}{{- end -}}
+        {{- with .buttonPixelHeight -}}{{- $postButtonStyle = printf "%s height: %vpx; min-height: %vpx;" $postButtonStyle . . -}}{{- end -}}
+        {{- with .buttonBgColor -}}{{- $postButtonStyle = printf "%s background: %s; border-color: %s;" $postButtonStyle . . -}}{{- end -}}
+        {{- with .buttonTextColor -}}{{- $postButtonStyle = printf "%s color: %s;" $postButtonStyle . -}}{{- end -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $postFilePath := "" -}}
+  {{- with .File -}}{{- $postFilePath = replace .Path "\\" "/" -}}{{- end -}}
+  {{- $items = $items | append (dict
+    "title" .LinkTitle
+    "path" (printf "content/%s" $postFilePath)
+    "dateISO" (.Date.Format "2006-01-02")
+    "dateText" (.Date | time.Format ":date_medium")
+    "url" $postTargetUrl
+    "cluster" (.Params.cluster | default "")
+    "image" $postImage
+    "imageWidth" (.Params.imageWidth | default 0)
+    "body" $postBodyPlain
+    "bodyHtml" $postBodyHtml
+    "buttonLabel" $postButtonLabel
+    "buttonUrl" $postButtonUrl
+    "buttonStyle" $postButtonStyle
+  ) -}}
+{{- end -}}
+{{- dict "items" $items | jsonify -}}

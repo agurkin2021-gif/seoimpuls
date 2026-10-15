@@ -1,0 +1,4 @@
+{{- $raw := printf "%s" (. | default "") -}}
+{{- $html := $raw | markdownify -}}
+{{- $html = replaceRE `(?s)^<p>(.*)</p>\n?$` `${1}` $html -}}
+{{- partial "affiliate-link-cloak.html" $html -}}

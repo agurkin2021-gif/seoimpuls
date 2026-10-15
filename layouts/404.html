@@ -1,0 +1,24 @@
+{{- define "title" }}
+    {{- T "pageNotFound" | printf "404 %v" }} - {{ .Site.Title -}}
+{{- end -}}
+
+{{- define "content" -}}
+    <div class="page" id="content-404">
+        <h1 id="error-emoji"></h1>
+        <p class="error-text">
+            {{- T "pageNotFoundText" -}}&nbsp;
+            <a href="javascript:void(0);" title="{{ T `back` }}" onclick="window.history.back();">
+                <svg viewBox="0 0 24 24" width="1em" height="1em" aria-hidden="true" focusable="false" style="vertical-align:-0.12em;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;">
+                    <path d="M20 12H7"></path>
+                    <path d="m12 17-5-5 5-5"></path>
+                </svg>
+            </a>
+        </p>
+    </div>
+    <script type="text/javascript">
+        (function() {
+            var emojiArray = ['\\(o_o)/', '(^_^)', '(^-^*)', '(o_O)', '(^_^)b', '(T_T)', '(=\'X\'=)', '(>_<)', '(;-;)'];
+            document.getElementById('error-emoji').appendChild(document.createTextNode(emojiArray[Math.floor(Math.random() * emojiArray.length)]));
+        })();
+    </script>
+{{- end -}}

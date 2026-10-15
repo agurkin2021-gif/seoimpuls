@@ -1,0 +1,276 @@
+baseURL = "https://seoimpuls.com/"
+languageCode = "en-us"
+title = "SeoImpuls"
+cleanDestinationDir = true
+ignoreFiles = ['^lib/.*']
+enableRobotsTXT = true
+disableKinds = ["taxonomy", "term"]
+
+defaultContentLanguage = "en"
+defaultContentLanguageInSubdir = false
+
+[outputs]
+  home = ["HTML", "RSS", "JSON", "NewsFeed"]
+
+[outputFormats.NewsFeed]
+  mediaType = "application/json"
+  baseName = "news-feed"
+  isPlainText = true
+  notAlternative = true
+
+[minify]
+  minifyOutput = true
+
+[module]
+  [[module.imports]]
+    path = "github.com/dillonzq/LoveIt"
+
+[params]
+  title = "SeoImpuls"
+  description = "SEO promotion, backlink strategy, and technical optimization for scalable search growth."
+  images = ["/SEOIMPULS_logo.webp"]
+
+  [params.author]
+    name = "SeoImpuls Team"
+
+  [params.app]
+    title = "SeoImpuls"
+    themeColor = "#061126"
+    iconColor = "#5bbad5"
+    tileColor = "#061126"
+
+  [params.seo]
+    image = "/SEOIMPULS_logo.webp"
+    thumbnailUrl = "/SEOIMPULS_logo.webp"
+    noindex = false
+
+  [params.verification]
+    google = ""
+    bing = ""
+    yandex = ""
+    pinterest = ""
+    baidu = ""
+
+  [params.analytics]
+    enable = false
+
+    [params.analytics.google]
+      id = ""
+      anonymizeIP = true
+
+  [params.page.seo]
+    images = ["/SEOIMPULS_logo.webp"]
+
+    [params.page.seo.publisher]
+      name = "SeoImpuls"
+      logoUrl = "/SEOIMPULS_logo.webp"
+
+[params.page.code]
+  copy = false
+
+[params.page.share]
+  enable = false
+
+[languages]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  [languages.en]
+    languageName = "English"
+    languageCode = "en-US"
+    weight = 1
+
+    [languages.en.params.home]
+      rss = 10
+
+      [languages.en.params.home.profile]
+        enable = true
+        title = "SEO Strategy and Technical SEO Insights"
+        subtitle = ""
+        social = false
+
+      [languages.en.params.home.posts]
+        enable = false
+
+    [[languages.en.menu.main]]
+      name = "Home"
+      url = "/"
+      weight = 1
+
+    [[languages.en.menu.main]]
+      name = "Link Building Services"
+      url = "/link-building-services/"
+      weight = 3
+
+    [[languages.en.menu.main]]
+      name = "Software"
+      url = "/soft/"
+      weight = 5
+
+    [[languages.en.menu.main]]
+      name = "FAQ"
+      url = "/faq/"
+      weight = 7
+
+    [[languages.en.menu.main]]
+      name = "About"
+      url = "/about/"
+      weight = 8
+
+    [[languages.en.menu.main]]
+      name = "News"
+      url = "/news/"
+      weight = 6
+
+
+  [languages.es]
+    languageName = "Español"
+    languageCode = "es-ES"
+    weight = 2
+
+    [languages.es.params.home]
+      rss = 10
+
+      [languages.es.params.home.profile]
+        enable = true
+        title = "Estrategia SEO e insights técnicos"
+        subtitle = ""
+        social = false
+
+      [languages.es.params.home.posts]
+        enable = false
+
+    [[languages.es.menu.main]]
+      name = "Inicio"
+      url = "/"
+      weight = 1
+
+    [[languages.es.menu.main]]
+      name = "Servicios de link building"
+      url = "/servicios-de-link-building/"
+      weight = 3
+
+    [[languages.es.menu.main]]
+      name = "Software"
+      url = "/soft/"
+      weight = 5
+
+    [[languages.es.menu.main]]
+      name = "Preguntas frecuentes"
+      url = "/faq/"
+      weight = 7
+
+    [[languages.es.menu.main]]
+      name = "Sobre nosotros"
+      url = "/about/"
+      weight = 8
+
+    [[languages.es.menu.main]]
+      name = "Noticias"
+      url = "/news/"
+      weight = 6
+
+  [languages.ru]
+    languageName = "Russian"
+    languageCode = "ru-RU"
+    weight = 3
+
+    [languages.ru.params.home]
+      rss = 10
+
+      [languages.ru.params.home.profile]
+        enable = true
+        title = "SEO Strategy and Technical SEO Insights"
+        subtitle = ""
+        social = false
+
+      [languages.ru.params.home.posts]
+        enable = false
+
+    [[languages.ru.menu.main]]
+      name = "\u0413\u043b\u0430\u0432\u043d\u0430\u044f"
+      url = "/"
+      weight = 1
+
+    [[languages.ru.menu.main]]
+      name = "\u0423\u0441\u043b\u0443\u0433\u0438 \u043b\u0438\u043d\u043a\u0431\u0438\u043b\u0434\u0438\u043d\u0433\u0430"
+      url = "/uslugi-linkbildinga/"
+      weight = 3
+
+    [[languages.ru.menu.main]]
+      name = "\u0421\u043e\u0444\u0442"
+      url = "/soft/"
+      weight = 5
+
+    [[languages.ru.menu.main]]
+      name = "\u0427\u0430\u0441\u0442\u044b\u0435 \u0432\u043e\u043f\u0440\u043e\u0441\u044b"
+      url = "/faq/"
+      weight = 7
+
+    [[languages.ru.menu.main]]
+      name = "\u041e \u043d\u0430\u0441"
+      url = "/about/"
+      weight = 8
+
+    [[languages.ru.menu.main]]
+      name = "\u041d\u043e\u0432\u043e\u0441\u0442\u0438"
+      url = "/news/"
+      weight = 6

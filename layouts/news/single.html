@@ -1,0 +1,31 @@
+{{ define "title" }}{{ .Title }} | {{ .Site.Title }}{{ end }}
+{{ define "content" }}
+<style>
+  .news-story{max-width:840px;margin:0 auto;padding:28px 20px 48px;font-family:"Segoe UI","Helvetica Neue","Noto Sans",Arial,sans-serif;overflow-wrap:anywhere}
+  body[theme=dark] .news-story{color:#dfe6f6}
+  .news-story h1,.news-story strong{color:inherit}
+  .news-story h1{font-size:clamp(28px,4vw,42px);line-height:1.2;margin:0 0 12px}
+  .news-story time{display:block;margin-bottom:20px;font-size:14px;opacity:.75}
+  .news-story__image{display:block;width:100%;height:auto;margin:0 0 24px;border-radius:10px}
+  {{ if eq (.Params.newsLayout | default "image-left") "image-left" }}
+  .news-story{max-width:1280px;padding:28px 0 48px}
+  .news-story__layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px;align-items:start}
+  .news-story__image{width:100%;max-width:100%;margin:0}
+  @media(max-width:767px){.news-story__layout{grid-template-columns:minmax(0,1fr);gap:24px}}
+  {{ end }}
+  .news-story__body{font-size:16px;line-height:1.65}
+  .news-story__body p{margin:0 0 18px}
+  .news-story__body a{text-decoration:underline}
+</style>
+<article class="news-story">
+  <h1>{{ .Title }}</h1>
+  <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date | time.Format ":date_medium" }}</time>
+  {{ if eq (.Params.newsLayout | default "image-left") "image-left" }}<div class="news-story__layout">{{ end }}
+  {{ with .Params.image }}
+    {{ $config := imageConfig (path.Join "static" (trim . "/")) }}
+    <img class="news-story__image" src="{{ . | safeURL }}" alt="{{ $.Title }}" width="{{ $config.Width }}" height="{{ $config.Height }}" decoding="async">
+  {{ end }}
+  <div class="news-story__body">{{ .Content }}</div>
+  {{ if eq (.Params.newsLayout | default "image-left") "image-left" }}</div>{{ end }}
+</article>
+{{ end }}

@@ -1,0 +1,26 @@
+{{- if ne .Kind "404" -}}
+  {{- $isRU := eq .Site.Language.Lang "ru" -}}
+  {{- $isES := eq .Site.Language.Lang "es" -}}
+  {{- $homeLabel := cond $isRU "Главная" (cond $isES "Inicio" "Home") -}}
+  {{- $currentLabel := .LinkTitle | default .Title -}}
+  {{- $currentPermalink := .RelPermalink -}}
+  <nav class="breadcrumbs" aria-label="Breadcrumb">
+    <ol class="breadcrumbs__list">
+      {{- if .IsHome -}}
+        <li class="breadcrumbs__item breadcrumbs__item--current" aria-current="page">{{ $homeLabel }}</li>
+      {{- else -}}
+        <li class="breadcrumbs__item">
+          <a class="breadcrumbs__link" href="{{ "/" | relLangURL }}">{{ $homeLabel }}</a>
+        </li>
+        {{- range .Ancestors.Reverse -}}
+          {{- if and (not .IsHome) (ne .RelPermalink $currentPermalink) -}}
+            <li class="breadcrumbs__item">
+              <a class="breadcrumbs__link" href="{{ .RelPermalink }}">{{ .LinkTitle | default .Title }}</a>
+            </li>
+          {{- end -}}
+        {{- end -}}
+        <li class="breadcrumbs__item breadcrumbs__item--current" aria-current="page">{{ $currentLabel }}</li>
+      {{- end -}}
+    </ol>
+  </nav>
+{{- end -}}

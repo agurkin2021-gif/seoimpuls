@@ -1,0 +1,295 @@
+{{- $isRU := eq .Site.Language.Lang "ru" -}}
+{{- $isES := eq .Site.Language.Lang "es" -}}
+{{- $privacyURL := "privacy-policy/" | relLangURL -}}
+{{- $cookieURL := "cookie-policy/" | relLangURL -}}
+{{- $gaID := .Site.Params.analytics.google.id | default "" -}}
+{{- $gaAnonymize := .Site.Params.analytics.google.anonymizeIP | default true -}}
+{{- $labels := dict -}}
+{{- if $isRU -}}
+  {{- $labels = dict
+    "title" "Мы уважаем вашу приватность"
+    "text" "Мы используем необходимые cookie для работы сайта и, с вашего согласия, аналитические cookie (Google Analytics, Yandex Metrica)."
+    "privacyPolicy" "Политика конфиденциальности"
+    "cookiePolicy" "Политика cookie"
+    "acceptAll" "\u041F\u0440\u0438\u043D\u044F\u0442\u044C \u0432\u0441\u0435"
+    "rejectNonEssential" "\u041E\u0442\u043A\u043B\u043E\u043D\u0438\u0442\u044C \u043D\u0435\u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\u044B\u0435"
+    "managePreferences" "\u041D\u0430\u0441\u0442\u0440\u043E\u0438\u0442\u044C cookie"
+    "preferencesTitle" "Настройки cookie"
+    "preferencesText" "Выберите, какие категории cookie разрешить."
+    "essential" "Необходимые (всегда активны)"
+    "analytics" "Аналитика (Google Analytics, Yandex Metrica)"
+    "savePreferences" "Сохранить выбор"
+    "close" "Закрыть"
+  -}}
+{{- else if $isES -}}
+  {{- $labels = dict
+    "title" "Respetamos tu privacidad"
+    "text" "Usamos cookies esenciales para el funcionamiento del sitio y, con tu consentimiento, cookies analíticas (Google Analytics, Yandex Metrica)."
+    "privacyPolicy" "Política de Privacidad"
+    "cookiePolicy" "Política de Cookies"
+    "acceptAll" "Aceptar todo"
+    "rejectNonEssential" "Rechazar no esenciales"
+    "managePreferences" "Gestionar preferencias"
+    "preferencesTitle" "Preferencias de cookies"
+    "preferencesText" "Elige qué categorías de cookies permitir."
+    "essential" "Esenciales (siempre activas)"
+    "analytics" "Analítica (Google Analytics, Yandex Metrica)"
+    "savePreferences" "Guardar preferencias"
+    "close" "Cerrar"
+  -}}
+{{- else -}}
+  {{- $labels = dict
+    "title" "We respect your privacy"
+    "text" "We use essential cookies for site operation and, with your consent, analytics cookies (Google Analytics, Yandex Metrica)."
+    "privacyPolicy" "Privacy Policy"
+    "cookiePolicy" "Cookie Policy"
+    "acceptAll" "Accept All"
+    "rejectNonEssential" "Reject Non-Essential"
+    "managePreferences" "Manage Preferences"
+    "preferencesTitle" "Cookie Preferences"
+    "preferencesText" "Choose which cookie categories to allow."
+    "essential" "Essential (always on)"
+    "analytics" "Analytics (Google Analytics, Yandex Metrica)"
+    "savePreferences" "Save preferences"
+    "close" "Close"
+  -}}
+{{- end -}}
+
+<div id="gdprConsentBackdrop" class="gdpr-consent-backdrop" hidden></div>
+
+<section id="gdprConsentBanner" class="gdpr-consent-banner" aria-live="polite" hidden>
+  <h2 id="gdprConsentTitle" class="gdpr-consent-title">{{ index $labels "title" }}</h2>
+  <p id="gdprConsentText" class="gdpr-consent-text">{{ index $labels "text" }}</p>
+  <p class="gdpr-consent-links">
+    <a id="gdprPrivacyLink" href="{{ $privacyURL }}">{{ index $labels "privacyPolicy" }}</a>
+    <span aria-hidden="true">&bull;</span>
+    <a id="gdprCookieLink" href="{{ $cookieURL }}">{{ index $labels "cookiePolicy" }}</a>
+  </p>
+  <div class="gdpr-consent-actions">
+    <button id="gdprAcceptAll" type="button" class="gdpr-consent-btn gdpr-consent-btn--primary">{{ index $labels "acceptAll" }}</button>
+    <button id="gdprReject" type="button" class="gdpr-consent-btn">{{ index $labels "rejectNonEssential" }}</button>
+    <button id="gdprManage" type="button" class="gdpr-consent-btn">{{ index $labels "managePreferences" }}</button>
+  </div>
+</section>
+
+<section id="gdprConsentModal" class="gdpr-consent-modal" role="dialog" aria-modal="true" aria-labelledby="gdprPrefTitle" hidden>
+  <button id="gdprCloseModal" class="gdpr-consent-close" type="button" aria-label="{{ index $labels "close" }}">&times;</button>
+  <h2 id="gdprPrefTitle" class="gdpr-consent-title">{{ index $labels "preferencesTitle" }}</h2>
+  <p id="gdprPrefText" class="gdpr-consent-text">{{ index $labels "preferencesText" }}</p>
+  <div class="gdpr-consent-option">
+    <label>
+      <input type="checkbox" checked disabled />
+      <span id="gdprEssentialLabel">{{ index $labels "essential" }}</span>
+    </label>
+  </div>
+  <div class="gdpr-consent-option">
+    <label>
+      <input id="gdprAnalyticsToggle" type="checkbox" />
+      <span id="gdprAnalyticsLabel">{{ index $labels "analytics" }}</span>
+    </label>
+  </div>
+  <div class="gdpr-consent-actions">
+    <button id="gdprSavePrefs" type="button" class="gdpr-consent-btn gdpr-consent-btn--primary">{{ index $labels "savePreferences" }}</button>
+    <button id="gdprModalAcceptAll" type="button" class="gdpr-consent-btn">{{ index $labels "acceptAll" }}</button>
+    <button id="gdprModalReject" type="button" class="gdpr-consent-btn">{{ index $labels "rejectNonEssential" }}</button>
+  </div>
+</section>
+
+<script>
+  (function () {
+    var CONSENT_KEY = "seoimpuls_cookie_consent_v2";
+    var POLICY_VERSION = "2026-02-28";
+    var SITE_LANG = {{ .Site.Language.Lang | jsonify | safeJS }};
+    {{- if $gaID }}
+    var GA_ID = {{ $gaID | jsonify | safeJS }};
+    var GA_ANON = {{ if $gaAnonymize }}true{{ else }}false{{ end }};
+    var gtagLoaded = false;
+
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+
+    window.gtag("consent", "default", {
+      ad_storage: "denied",
+      analytics_storage: "denied",
+      ad_user_data: "denied",
+      ad_personalization: "denied",
+      wait_for_update: 500
+    });
+    {{- end }}
+
+    function getStoredConsent() {
+      var raw = "";
+      try {
+        raw = window.localStorage ? localStorage.getItem(CONSENT_KEY) : "";
+      } catch (e) {}
+      if (!raw) {
+        var m = document.cookie.match(new RegExp("(^| )" + CONSENT_KEY + "=([^;]+)"));
+        raw = m ? decodeURIComponent(m[2]) : "";
+      }
+      if (!raw) return null;
+      try {
+        var parsed = JSON.parse(raw);
+        return typeof parsed.analytics === "boolean" ? parsed : null;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function storeConsent(state) {
+      var value = JSON.stringify({
+        analytics: !!state.analytics,
+        updatedAt: new Date().toISOString(),
+        policyVersion: POLICY_VERSION,
+        lang: SITE_LANG,
+        source: state && state.source ? String(state.source) : "ui"
+      });
+      try {
+        if (window.localStorage) localStorage.setItem(CONSENT_KEY, value);
+      } catch (e) {}
+      var secureAttr = window.location && window.location.protocol === "https:" ? "; Secure" : "";
+      document.cookie = CONSENT_KEY + "=" + encodeURIComponent(value) + "; path=/; max-age=31536000; SameSite=Lax" + secureAttr;
+    }
+
+    function isGlobalPrivacyControlEnabled() {
+      try {
+        return navigator.globalPrivacyControl === true || window.globalPrivacyControl === true;
+      } catch (e) {
+        return false;
+      }
+    }
+
+    {{- if $gaID }}
+    function loadGAIfAllowed() {
+      if (!GA_ID || gtagLoaded) return;
+      gtagLoaded = true;
+      var s = document.createElement("script");
+      s.async = true;
+      s.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(GA_ID);
+      s.onload = function () {
+        window.gtag("js", new Date());
+        var cfg = {};
+        if (GA_ANON) cfg.anonymize_ip = true;
+        window.gtag("config", GA_ID, cfg);
+      };
+      document.head.appendChild(s);
+    }
+    {{- end }}
+
+    function applyConsent(analyticsAllowed) {
+      if (window.seoimpulsMetrikaConsent) window.seoimpulsMetrikaConsent(analyticsAllowed);
+      {{- if $gaID }}
+      var granted = analyticsAllowed ? "granted" : "denied";
+      window.gtag("consent", "update", {
+        ad_storage: "denied",
+        analytics_storage: granted,
+        ad_user_data: "denied",
+        ad_personalization: "denied"
+      });
+      if (analyticsAllowed) loadGAIfAllowed();
+      {{- end }}
+    }
+
+    var banner = document.getElementById("gdprConsentBanner");
+    var modal = document.getElementById("gdprConsentModal");
+    var backdrop = document.getElementById("gdprConsentBackdrop");
+    var analyticsToggle = document.getElementById("gdprAnalyticsToggle");
+    var desktopMedia = window.matchMedia("(min-width: 768px)");
+
+    function syncBannerFooterOffset() {
+      if (!banner) return;
+      var footer = document.querySelector(".custom-footer");
+      var floatingFooter = document.body.classList.contains("footer-floating");
+      if (!footer || !desktopMedia.matches || !floatingFooter) {
+        document.body.style.removeProperty("--gdpr-footer-offset");
+        return;
+      }
+      var footerHeight = Math.ceil(footer.getBoundingClientRect().height || 0);
+      if (footerHeight > 0) {
+        document.body.style.setProperty("--gdpr-footer-offset", footerHeight + "px");
+      }
+    }
+
+    function showBanner() {
+      syncBannerFooterOffset();
+      banner.hidden = false;
+      backdrop.hidden = false;
+      backdrop.classList.remove("is-modal");
+    }
+
+    function hideBanner() {
+      banner.hidden = true;
+      if (modal.hidden) backdrop.hidden = true;
+    }
+
+    function openModal() {
+      var saved = getStoredConsent();
+      analyticsToggle.checked = !!(saved && saved.analytics);
+      modal.hidden = false;
+      backdrop.hidden = false;
+      backdrop.classList.add("is-modal");
+    }
+
+    function closeModal() {
+      modal.hidden = true;
+      backdrop.classList.remove("is-modal");
+      if (banner.hidden) backdrop.hidden = true;
+    }
+
+    function saveChoice(analyticsAllowed, source) {
+      storeConsent({ analytics: !!analyticsAllowed, source: source || "ui" });
+      applyConsent(!!analyticsAllowed);
+      hideBanner();
+      closeModal();
+    }
+
+    syncBannerFooterOffset();
+
+    var saved = getStoredConsent();
+    var gpcEnabled = isGlobalPrivacyControlEnabled();
+    if (gpcEnabled && saved && saved.analytics) {
+      saved = { analytics: false };
+      storeConsent({ analytics: false, source: "gpc" });
+    }
+    if (saved) {
+      applyConsent(!!saved.analytics);
+    } else {
+      showBanner();
+    }
+
+    document.getElementById("gdprAcceptAll").addEventListener("click", function () { saveChoice(true, "banner_accept_all"); });
+    document.getElementById("gdprReject").addEventListener("click", function () { saveChoice(false, "banner_reject"); });
+    document.getElementById("gdprManage").addEventListener("click", openModal);
+    document.getElementById("gdprSavePrefs").addEventListener("click", function () { saveChoice(analyticsToggle.checked, "modal_save"); });
+    document.getElementById("gdprModalAcceptAll").addEventListener("click", function () { saveChoice(true, "modal_accept_all"); });
+    document.getElementById("gdprModalReject").addEventListener("click", function () { saveChoice(false, "modal_reject"); });
+    document.getElementById("gdprCloseModal").addEventListener("click", closeModal);
+    backdrop.addEventListener("click", function () {
+      if (!modal.hidden) closeModal();
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && !modal.hidden) closeModal();
+    });
+
+    if ("MutationObserver" in window) {
+      var bodyClassObserver = new MutationObserver(syncBannerFooterOffset);
+      bodyClassObserver.observe(document.body, { attributes: true, attributeFilter: ["class"] });
+    }
+    window.addEventListener("resize", syncBannerFooterOffset, { passive: true });
+    if (typeof desktopMedia.addEventListener === "function") {
+      desktopMedia.addEventListener("change", syncBannerFooterOffset);
+    } else if (typeof desktopMedia.addListener === "function") {
+      desktopMedia.addListener(syncBannerFooterOffset);
+    }
+
+    document.querySelectorAll(".js-cookie-settings, [data-cookie-settings='true']").forEach(function (btn) {
+      btn.addEventListener("click", function (e) {
+        e.preventDefault();
+        showBanner();
+        openModal();
+        if (typeof btn.blur === "function") {
+          btn.blur();
+        }
+      });
+    });
+  })();
+</script>

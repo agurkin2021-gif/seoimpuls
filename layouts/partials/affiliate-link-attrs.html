@@ -1,0 +1,33 @@
+{{- $url := trim (.url | default "") " " -}}
+{{- $defaultVdsinaPartner := "https://www.vdsina.com/?partner=45s5fn4exi" -}}
+{{- $isVdsinaAlias := or (eq $url "/go/vdsina/") (eq $url "/go/vdsina") (eq $url "/soft/") (eq $url "/soft") (eq $url "/ru/soft/") (eq $url "/ru/soft") (eq $url "/es/soft/") (eq $url "/es/soft") -}}
+{{- $isExternal := or (hasPrefix $url "http://") (hasPrefix $url "https://") -}}
+{{- $isRootRelative := and (hasPrefix $url "/") (not (hasPrefix $url "//")) -}}
+{{- $isFixedRootPath := or (hasPrefix $url "/go/") (hasPrefix $url "/ru/") (hasPrefix $url "/es/") (hasPrefix $url "/link-building-services/") (hasPrefix $url "/uslugi-linkbildinga/") (hasPrefix $url "/servicios-de-link-building/") (hasPrefix $url "/soft/") -}}
+{{- if and $isRootRelative (not $isFixedRootPath) -}}{{- $url = $url | relLangURL -}}{{- end -}}
+{{- if and (not $isExternal) (not $isRootRelative) (ne $url "#") (ne $url "") -}}{{- $url = $url | relLangURL -}}{{- end -}}
+{{- $partner := "" -}}
+{{- if or (hasPrefix $url "https://www.vdsina.com/?partner=") (hasPrefix $url "https://vdsina.com/?partner=") -}}
+  {{- $partner = replaceRE `^https://(?:www\.)?vdsina\.com/\?partner=([A-Za-z0-9_-]+).*$` `${1}` $url -}}
+{{- end -}}
+{{- $href := $url -}}
+{{- $cloakedHref := "" -}}
+{{- $rel := "" -}}
+{{- if $isVdsinaAlias -}}
+  {{- $href = "/go/vdsina/" -}}
+  {{- $cloakedHref = $defaultVdsinaPartner -}}
+  {{- $rel = "nofollow sponsored noopener" -}}
+{{- else if and $partner (ne $partner $url) -}}
+  {{- $href = "/go/vdsina/" -}}
+  {{- $cloakedHref = printf "https://www.vdsina.com/?partner=%s" $partner -}}
+  {{- $rel = "nofollow sponsored noopener" -}}
+{{- end -}}
+{{- $target := "" -}}
+{{- if eq .nofollow true -}}
+  {{- $rel = delimit (uniq (split (strings.TrimSpace (printf "%s nofollow" $rel)) " ")) " " -}}
+{{- end -}}
+{{- if eq .newTab true -}}
+  {{- $target = "_blank" -}}
+  {{- $rel = delimit (uniq (split (strings.TrimSpace (printf "%s noopener noreferrer" $rel)) " ")) " " -}}
+{{- end -}}
+{{- return (dict "href" $href "cloaked" $cloakedHref "rel" $rel "target" $target) -}}

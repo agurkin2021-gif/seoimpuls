@@ -1,0 +1,3 @@
+{{- $html := partial "seo-builder-text.html" . -}}
+{{- $html = replaceRE `(?s)^<p>(.*)</p>\s*$` `${1}` $html -}}
+{{- $html | safeHTML -}}
