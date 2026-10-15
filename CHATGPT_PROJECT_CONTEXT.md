@@ -52,6 +52,13 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — Retrigger preview after GitHub Pages configuration
+- User confirmed Settings → Pages → Build and deployment → Source: GitHub Actions enabled. Previous preview runs failed before deployment while Pages was not initialized.
+- Context-only commit to white-seo-rebuild intentionally triggers the existing push-based Publish SEOImpuls working preview workflow again. No site content, production server, DNS, main, or hosting changes.
+- Publication and browser URL remain UNVERIFIED until the new workflow run succeeds and preview is reachable.
+- Next: inspect workflow and preview URL; if failed, fix the actual deployment error.
+
+
 ### 2026-10-15 — Attempt automatic GitHub Pages enablement after first preview failure
 - First preview run failed at actions/configure-pages@v5: Get Pages site failed / HTTP 404 Not Found. Hugo build, strict white-hat and retired URL checks had passed; artifact/deploy steps were not reached.
 - Updated .github/workflows/publish-preview.yml to use actions/configure-pages@v5 enablement: true, requesting automatic Pages activation for the now-public repository. A successful deployment is NOT assumed before observing the new run.
