@@ -52,6 +52,12 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — EN FAQ migration guidance clarified without gray-service terminology
+- Previous ES homepage commit 25fedcd4: Hugo QA and context guard PASS; diagnostic found 7 issues in 6 HTML. One /faq/ flag came from neutral use of the word backlinks in a URL migration answer.
+- content/faq/index.md: replaced that single word with the more precise reader-facing «incoming external links»; kept the warning to assess visibility, link history and equivalent destination before URL changes. No deletion of valid SEO explanations; Title, H1, canonical, scope and other FAQ content unchanged.
+- New GitHub Actions require confirmation; affiliate redirect /go/vdsina/ remains per owner request. All other 6 findings are affiliate-route classification, not automatic evidence of Google violations. No server/main/Pages changes.
+- Next: implement context-aware affiliate checker with allowlisted relevant destination pages and rel/disclosure checks, retaining the endpoint, then run strict diagnostic separately and mark remaining GSC/visual/real SERP blockers.
+
 ### 2026-10-15 — ES homepage converted from ranking-factor claims to helpful SEO workflow
 - Previous RU homepage commit abbe7833: Hugo Actions #38800292702 PASS, context #38800292764 PASS. RU home H1/self canonical, genuine SEO links and visible VPS partner disclosure checked, scanner 8 findings/6 HTML, 30 retired routes, RELEASE BLOCKED.
 - Rewritten content/_index.es.md homeJson all general "ranking factors" except previously corrected and disclosed VPS hosting item6. New H1/Title «SEOImpuls — servicios SEO y posicionamiento orgánico». First hero CTA now /es/servicios/ matching «Servicios SEO»; secondary remains /es/about/.
@@ -500,7 +506,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Проверить CI ES homepage /es/ после смены hero /es/servicios/, H1 и удаления manipulative copy без изменения прозрачной VPS партнёрки. Затем заняться английской FAQ старой формулировкой, исправить shared homepage defaults чтобы исключить регрессию, проверить весь static build и affiliate context по allowed links, а не blanket ban /go/vdsina/. Потом строгий site gate, GSC, реальный SERP и 390/1280 visual QA. Main/server untouched.
+Проверить CI после точечной правки английской FAQ, затем отдельно проверить разрешённые партнёрские ссылки по реальным HTML страницам и строгим правилам rel/disclosure/context. Не удалять /go/vdsina/ автоматически. Следом скорректировать слишком широкие old gray fallback тексты и запускать strict gate, затем GSC, точный SERP и визуальный QA. Main/сервер без изменений.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 

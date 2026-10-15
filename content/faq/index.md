@@ -44,7 +44,7 @@ A technical review can include language URLs, canonical signals and hreflang rel
 
 ## Should I remove or redirect my existing service pages?
 
-Not without reviewing their search visibility, backlinks, purpose and suitable replacement pages. A permanent redirect should point to a genuinely relevant destination. Where no equivalent content exists, keeping a misleading redirect can be worse than retiring the URL correctly.
+Not without reviewing their search visibility, incoming external links, purpose and suitable replacement pages. A permanent redirect should point to a genuinely relevant destination. Where no equivalent content exists, keeping a misleading redirect can be worse than retiring the URL correctly.
 
 ## How is progress measured?
 
