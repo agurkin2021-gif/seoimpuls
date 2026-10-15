@@ -252,6 +252,37 @@ jobs:
           assert not Path('public/uslugi-linkbildinga/index.html').exists(),'Old gray hub generated'
           print('PASS: RU catalog canonical, EN hreflang, 3 live cards, homepage/menu targets')
           PY
+      - name: Verify localized ES keyword research migration
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          from html.parser import HTMLParser
+          class Audit(HTMLParser):
+              def __init__(self):
+                  super().__init__();self.h1=[];self.in_h1=False;self.canon=[];self.alts={};self.links=[]
+              def handle_starttag(self,t,attrs):
+                  a=dict(attrs)
+                  if t=='h1':self.in_h1=True
+                  if t=='a':self.links.append(a.get('href',''))
+                  if t=='link' and a.get('rel')=='canonical':self.canon.append(a.get('href',''))
+                  if t=='link' and a.get('rel')=='alternate':self.alts[a.get('hreflang')]=a.get('href','')
+              def handle_endtag(self,t):
+                  if t=='h1':self.in_h1=False
+              def handle_data(self,s):
+                  if self.in_h1:self.h1.append(s)
+          path=Path('public/es/servicios/investigacion-palabras-clave/index.html')
+          assert path.is_file(),'ES keyword page missing'
+          p=Audit();p.feed(path.read_text(encoding='utf-8'))
+          assert ''.join(p.h1).strip()=='Investigación de palabras clave para SEO',p.h1
+          assert p.canon==['https://seoimpuls.com/es/servicios/investigacion-palabras-clave/'],p.canon
+          assert p.alts.get('en-us')=='https://seoimpuls.com/services/keyword-research/',p.alts
+          assert p.alts.get('ru-ru')=='https://seoimpuls.com/ru/uslugi/semanticheskoe-yadro/',p.alts
+          assert '/es/seo/' in p.links,'ES technical SEO link missing'
+          assert not Path('public/servicios-de-link-building/palabras-clave/index.html').exists()
+          assert not Path('public/es/servicios-de-link-building/palabras-clave/index.html').exists()
+          print('PASS: ES keyword H1, canonical, EN/RU alternates, SEO link and removed old URL')
+          PY
       - name: Inventory rendered affiliate placements (diagnostic, no deployment)
         run: python3 scripts/audit_affiliate_links.py --site public --max-details 150
       - name: Report whole-site white-hat release blockers (diagnostic, never deploy)

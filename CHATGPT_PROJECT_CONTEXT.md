@@ -52,6 +52,13 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — ES keyword research migrated to clean commercial URL
+- Previous RU services hub commit 5a9543f8: Hugo #38793415941 PASS, context #38793416117 PASS; /ru/uslugi/ self canonical, EN hreflang, three live SEO service cards, new menu/home link, 24 retired URLs and 50 whole-site diagnostic findings; RELEASE BLOCKED.
+- Rebuilt content/services/keyword-research/index.es.md under /es/servicios/investigacion-palabras-clave/ with Title/H1 «Investigación de palabras clave para SEO»; own commercial intent, eight detailed content sections, historical US$90 conditional on scope and no ranking guarantees. translationKey remains services-keyword-research, enabling EN and RU hreflang.
+- Updated exact two ES old inbound references from /servicios-de-link-building/palabras-clave/ in old ES catalog and ES website-creation source, registered old URL in docs/retired-routes-en.txt. Same-intent 301 only proposed for future live migration.
+- Search-intent evidence in docs/research/2026-10-15-es-keyword-migration.md, SERP_UNVERIFIED (not exact Google top 10/geo). QA checks ES H1/canonical/RU/EN alternates and absence of old route. New CI pending; ES hub still old until consultation and then parent migration. No server/main changes, visual QA and GSC pending.
+- Next: verify this CI, then ES consultation /es/servicios/consultoria-seo/ with old-hub inbound link update, then clean ES catalog /es/servicios/.
+
 ### 2026-10-15 — RU clean SEO catalog and primary navigation rebuilt
 - Previous RU consultation commit f956fcbc passed Hugo #38792517329 and context guard #38792517336. True RU keyword and consultation pages now exist independently of the old link-building namespace.
 - content/services/_index.ru.md: new canonical /ru/uslugi/, H1 «SEO-услуги для сайта», only 3 truthful cards for /ru/seo/, /ru/uslugi/semanticheskoe-yadro/ and /ru/uslugi/seo-konsultaciya/; translationKey services retained for EN/RU/ES alternates. No old link-selling/satellite offer in this new catalog.
@@ -396,7 +403,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Проверить GitHub Actions RU /ru/uslugi/: three cards, H1, canonical, en-us hreflang, /ru/uslugi/ in homepage/menu and /uslugi-linkbildinga/ entirely absent. Then rebuild ES keyword /es/servicios/investigacion-palabras-clave/ with old-page link corrections, ES consultation, ES /es/servicios/ catalog. No live deployment, redirects or changes to main.
+Проверить CI ES keyword research /es/servicios/investigacion-palabras-clave/: H1/canonical/RU-EN hreflang, старый /servicios-de-link-building/palabras-clave/ отсутствует, все ссылки обновлены. При PASS перенести ES consultation /es/servicios/consultoria-seo/, потом новый /es/servicios/ hub/menu/home и удалить старую категорию, QA по всем языкам. Main/production untouched.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 

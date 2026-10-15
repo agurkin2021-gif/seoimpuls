@@ -24,3 +24,4 @@
 /uslugi-linkbildinga/sbor-semanticheskogo-yadra/
 /uslugi-linkbildinga/seo-konsultaciya/
 /uslugi-linkbildinga/
+/servicios-de-link-building/palabras-clave/
