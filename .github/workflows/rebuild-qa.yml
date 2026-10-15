@@ -398,6 +398,52 @@ jobs:
           assert {'sponsored','nofollow'}.issubset(set(affiliate[0]['rel'].split())),affiliate[0]
           print('PASS: RU website development migrated, canonical, linked services and disclosed affiliate')
           PY
+      - name: Verify ES website-development migration and RU-ES alternate
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          from html.parser import HTMLParser
+          class P(HTMLParser):
+              def __init__(self):
+                  super().__init__();self.h=[];self.in_h=False;self.canon=[];self.alts={};self.links=[];self.anchors=[];self.active=None
+              def handle_starttag(self,t,attrs):
+                  a=dict(attrs)
+                  if t=='h1':self.in_h=True
+                  if t=='a':
+                      self.active={'href':a.get('href',''),'rel':a.get('rel',''),'text':''}
+                      self.links.append(a.get('href',''))
+                  if t=='link' and a.get('rel')=='canonical':self.canon.append(a.get('href',''))
+                  if t=='link' and a.get('rel')=='alternate':self.alts[a.get('hreflang')]=a.get('href','')
+              def handle_endtag(self,t):
+                  if t=='h1':self.in_h=False
+                  if t=='a' and self.active:self.anchors.append(self.active);self.active=None
+              def handle_data(self,s):
+                  if self.in_h:self.h.append(s)
+                  if self.active:self.active['text']+=s
+          target={'es':('es/servicios/desarrollo-web/','Desarrollo web a medida para empresas'),
+                  'ru':('ru/uslugi/razrabotka-saitov/','Разработка сайтов на чистом коде')}
+          pages={}
+          for locale,(path,title) in target.items():
+              file=Path('public/'+path+'index.html')
+              assert file.is_file(),('Missing page',path)
+              x=P();x.feed(file.read_text(encoding='utf-8'))
+              assert ''.join(x.h).strip()==title,(path,x.h)
+              assert x.canon==['https://seoimpuls.com/'+path],(path,x.canon)
+              pages[locale]=x
+          for p in pages.values():
+              assert p.alts.get('ru-ru')=='https://seoimpuls.com/ru/uslugi/razrabotka-saitov/',p.alts
+              assert p.alts.get('es-es')=='https://seoimpuls.com/es/servicios/desarrollo-web/',p.alts
+          es=pages['es']
+          for href in ('/es/servicios/investigacion-palabras-clave/','/es/servicios/consultoria-seo/'):
+              assert href in es.links,('Related service link missing',href)
+          affiliate=[a for a in es.anchors if a['href']=='/go/vdsina/']
+          assert len(affiliate)==1,('ES affiliate count',affiliate)
+          assert 'afiliado' in affiliate[0]['text'].casefold(),affiliate
+          assert {'sponsored','nofollow'}.issubset(set(affiliate[0]['rel'].split())),affiliate
+          assert not Path('public/servicios-de-link-building/creacion-de-sitios-web/index.html').exists()
+          print('PASS: ES website development canonical, RU/ES hreflang, links and affiliate disclosure')
+          PY
       - name: Inventory rendered affiliate placements (diagnostic, no deployment)
         run: python3 scripts/audit_affiliate_links.py --site public --max-details 150
       - name: Report whole-site white-hat release blockers (diagnostic, never deploy)

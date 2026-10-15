@@ -52,6 +52,14 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — ES website development migrated from satellite mixed offer
+- Previous RU website-development commit e82b4843: Hugo build #38796288559 PASS and context guard #38796289464 PASS. Retired routes 28, 45 generated HTML, 17 diagnostic findings in 11 pages, RELEASE BLOCKED. New RU /ru/uslugi/razrabotka-saitov/ canonical, related SEO links and properly disclosed optional VPS affiliate checked.
+- Replaced content/services/website-creation/index.es.md with legitimate scoped web-development page at /es/servicios/desarrollo-web/ (H1 «Desarrollo web a medida para empresas»). Removed satellite/ranking claims and made pricing of US$75/$16 historical and subject to confirmation. Existing translationKey services-website-creation retained, with ES and RU as available variants; EN version remains draft.
+- Old /servicios-de-link-building/creacion-de-sitios-web/ added to docs/retired-routes-en.txt. SEO intent, public competitor examples and migration caveats in docs/research/2026-10-15-es-web-development-migration.md. Real exact Google top-10 SERP, GSC/live HTTP/referring links, and actual current business rates still UNVERIFIED. No production 301/410.
+- .github/workflows/rebuild-qa.yml now checks generated RU/ES mutual hreflang, titles, canonical, local related links and clearly labeled sponsored/nofollow VPS referral. CI result for this commit PENDING.
+- The new website development page is not yet a fourth card in the RU/ES SEO services catalog: expand catalogs after checking pages and confirming product terms; do not disturb three existing SEO intents or fake an EN page.
+- Main, live server, DNS, GitHub Pages and partner endpoint unchanged. Next: CI; decide whether to add RU/ES website development as complementary cards; then remove /es/soft/ empty archive and rewrite RU/ES SEO/About/home copy.
+
 ### 2026-10-15 — RU website creation migrated out of old link-selling namespace
 - Baseline commit c07b0c29: Hugo #38794930874 PASS and context guard #38794930526 PASS; 27 retired routes and 20 informational audit findings in 11 HTML; release BLOCKED.
 - Inspected content/services/website-creation/index.ru.md: legacy product combines honest responsive website development with a satellite package and other questionable claims. Replaced with a practical, bounded website-development offer using real source capabilities: small landing/multipage sites, semantic markup, mobile layout, basic technical SEO, conditional DNS/HTTPS and handover; NO satellite packages or ranking guarantees.
@@ -433,7 +441,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Проверить GitHub Actions для RU /ru/uslugi/razrabotka-saitov/, включая href/rel партнёрской VPS-ссылки, canonical и отсутствие старого /uslugi-linkbildinga/sozdanie-saitov/. Затем отдельным коммитом переписать ES сайт-разработку /es/servicios/desarrollo-web/ и списать старый /servicios-de-link-building/creacion-de-sitios-web/. Только после проверки обеих локалей решать, добавлять ли веб-разработку в каталоги как четвёртую реальную услугу (бизнес-условия требуют подтверждения). Далее /es/soft/ и оставшиеся RU/ES тексты; main/production не менять.
+Проверить Actions по ES /es/servicios/desarrollo-web/: H1/canonical, ES↔RU hreflang, отсутствие старого /servicios-de-link-building/creacion-de-sitios-web/, тематическая партнёрская VPS-ссылка. После PASS проверить текущую достоверность предложения и при необходимости добавить легитимную веб-разработку четвёртой карточкой в RU/ES SEO catalogs, обновив все QA. Затем /es/soft/ и остальные RU/ES тексты; без изменений main/server.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 
