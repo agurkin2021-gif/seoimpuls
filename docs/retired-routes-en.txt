@@ -7,3 +7,4 @@
 /link-building-services/microsite-development/
 /link-building-services/website-creation/
 /seo-strategy-builder/
+/soft/

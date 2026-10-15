@@ -52,6 +52,13 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — Blank EN Software page excluded from Hugo
+- Previous strategy builder change 113bf180: Hugo/retired routes QA and context guard PASS.
+- Source content/soft/index.md: empty content section (one blank builder block, no real utility), draft:false -> true. Existing /soft/ added to docs/retired-routes-en.txt so CI checks it is not published or linked.
+- Issue remains: layouts/partials/affiliate-link-attrs.html and affiliate-link-cloak.html can repurpose soft URLs as /go/vdsina/; static/go/vdsina/index.html remains. This is NOT solved by drafting the content page; specific separate template cleanup is next.
+- No production redirects/410 done. New CI pending. Main, DNS and site server unchanged. EN/ES/RU tools require distinct legitimate service plans, not placeholder pages.
+- Next: confirm CI and eliminate unrelated affiliate-alias behavior in shared templates and static endpoint with links audit.
+
 ### 2026-10-15 — Old English SEO Strategy Builder hidden from candidate
 - Previous website-creation commit 5806f7de: Hugo/retired-routes #38778332743 PASS, context #38778332779 PASS. Diagnostic scanner: 167 findings in 35 of 60 HTML, versus earlier baseline 300 in 55 of 66. This is internal audit output, not a Google penalty measure.
 - content/strategy-builder/index.md /seo-strategy-builder/: added draft: true to prevent the legacy strategy generator from publishing its old page while it remains based on unsuitable SEO practices. Existing script/template source stays available in main.
@@ -240,7 +247,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Проверить GitHub Actions после прекращения генерации EN /seo-strategy-builder/. Затем по отдельному проходу изучить /soft/ и static/go/vdsina, включая внутренние ссылки и скриптовые перенаправления, подготовить корректные изменения и CI. Не изменять main, действующий сайт или Pages.
+Проверить CI после исключения EN /soft/. Затем отдельно убрать партнёрские подмены ссылок /soft/ и /go/vdsina/ из Hugo-шаблонов и статического endpoint. Проверить полную карту входящих ссылок, не трогать main/production.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 
