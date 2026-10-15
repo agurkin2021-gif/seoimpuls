@@ -52,6 +52,14 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — Global RU/ES menus and language-switcher cleanup
+- Whole-site audit GitHub Actions #38774047519: Hugo and individual EN page QA PASS; informational scanner found 300 issues across 55 of 66 HTML (195 legacy nav, 29 old public routes, 75 visible-text flags, 1 affiliate endpoint). RELEASE READINESS BLOCKED; this is baseline, not ranking penalty evidence.
+- Edited hugo.toml: removed ES/RU menu items naming link building and empty software, introduced clean localized SEO links /es/seo/, /ru/seo/.
+- Edited layouts/partials/header.html: removed hardcoded old-language URL exceptions and forced fallback to legacy link-building hubs; untranslated languages now fall back to respective locale home instead.
+- Added docs/research/2026-10-15-global-menu-cleanup.md with evidence and limitations; improved build QA to inspect localized primary navigation.
+- Not yet ready: old RU/ES SEO pages and homes are still original, as are gray service pages; scanner will continue BLOCKED. Production and main untouched.
+- Next: verify localized nav QA, then retire or rewrite legacy public pages and draft empty software/strategy builder by language; avoid redirecting unrelated content.
+
 ### 2026-10-15 — Sitewide release-readiness blocker scanner
 - FAQ QA #38773548639 PASS и контекст #38773548616 PASS. Все изменения только white-seo-rebuild.
 - Добавлен scripts/whitehat_content_gate.py: сканирует generated HTML EN/RU/ES, sitemap и навигацию на старые ссылки, услуги ссылочного продвижения, PBN, Tier/DR, инструмент-автоматизацию, рефералку VPS. В режиме --strict статус ошибки блокирует релиз.
@@ -167,7 +175,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Проверить новый rebuild-qa: whole-site audit должен показать RELEASE READINESS BLOCKED и конкретные устаревшие URL при неизменном успешном Hugo. Затем последовательно вывести из генерации в рабочей ветке нерелевантные EN gray услуги (draft, без production 410/301), очистить soft/strategy-builder и меню. RU/ES отдельно, сверка GSC перед действующим релизом.
+Проверить меню RU/ES через Hugo CI. Затем приступить к RU/ES страницам /seo/ и главной (важный высокий приоритет), а старые gray страницы и builder исключить из будущей генерации постранично; составить URL/301/410 с GSC и live crawl перед production релизом. Удерживать full-site strict white-hat gate до 0 блокеров.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 

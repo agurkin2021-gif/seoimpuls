@@ -204,14 +204,9 @@ defaultContentLanguageInSubdir = false
       weight = 1
 
     [[languages.es.menu.main]]
-      name = "Servicios de link building"
-      url = "/servicios-de-link-building/"
+      name = "Servicios SEO"
+      url = "/seo/"
       weight = 3
-
-    [[languages.es.menu.main]]
-      name = "Software"
-      url = "/soft/"
-      weight = 5
 
     [[languages.es.menu.main]]
       name = "Preguntas frecuentes"
@@ -251,14 +246,9 @@ defaultContentLanguageInSubdir = false
       weight = 1
 
     [[languages.ru.menu.main]]
-      name = "\u0423\u0441\u043b\u0443\u0433\u0438 \u043b\u0438\u043d\u043a\u0431\u0438\u043b\u0434\u0438\u043d\u0433\u0430"
-      url = "/uslugi-linkbildinga/"
+      name = "SEO-услуги"
+      url = "/seo/"
       weight = 3
-
-    [[languages.ru.menu.main]]
-      name = "\u0421\u043e\u0444\u0442"
-      url = "/soft/"
-      weight = 5
 
     [[languages.ru.menu.main]]
       name = "\u0427\u0430\u0441\u0442\u044b\u0435 \u0432\u043e\u043f\u0440\u043e\u0441\u044b"

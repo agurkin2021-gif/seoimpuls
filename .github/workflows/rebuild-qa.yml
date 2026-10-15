@@ -149,6 +149,24 @@ jobs:
           for service_url in ('/seo/','/services/','/services/keyword-research/','/services/seo-consultation/'):
               if service_url not in faq.links:raise SystemExit('Missing FAQ service link: '+service_url)
           print('PASS: EN FAQ H1, canonical, helpful answers and internal service links.')
+          class PrimaryNav(HTMLParser):
+              def __init__(self):
+                  super().__init__();self.active=False;self.hrefs=[]
+              def handle_starttag(self,tag,attrs):
+                  attrs=dict(attrs)
+                  if tag=='nav' and 'custom-header__nav' in attrs.get('class',''):self.active=True
+                  if self.active and tag=='a':self.hrefs.append(attrs.get('href',''))
+              def handle_endtag(self,tag):
+                  if tag=='nav' and self.active:self.active=False
+          for lang in ('ru','es'):
+              menu=PrimaryNav()
+              menu.feed(Path('public/'+lang+'/index.html').read_text(encoding='utf-8'))
+              if '/'+lang+'/seo/' not in menu.hrefs:
+                  raise SystemExit('Missing localized SEO menu link for '+lang+': '+str(menu.hrefs))
+              if any(('link-building' in u or 'uslugi-linkbildinga' in u or '/soft/' in u) for u in menu.hrefs):
+                  raise SystemExit('Legacy or broken menu link for '+lang+': '+str(menu.hrefs))
+          print('PASS: RU/ES menus use localized SEO path with no gray legacy category.')
+
 
 
 

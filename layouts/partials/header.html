@@ -43,15 +43,6 @@
       {{ with .Site.Menus.main }}
         {{ range . }}
           {{- $menuURL := .URL | relLangURL -}}
-          {{- if and (eq $.Site.Language.Lang "ru") (eq .URL "/uslugi-linkbildinga/") -}}
-            {{- $menuURL = .URL -}}
-          {{- end -}}
-          {{- if and (eq $.Site.Language.Lang "ru") (eq .URL "/soft/") -}}
-            {{- $menuURL = .URL -}}
-          {{- end -}}
-          {{- if and (eq $.Site.Language.Lang "es") (eq .URL "/servicios-de-link-building/") -}}
-            {{- $menuURL = .URL -}}
-          {{- end -}}
           <a class="custom-header__link" href="{{ $menuURL }}">{{ .Name }}</a>
         {{ end }}
       {{ end }}
@@ -74,17 +65,7 @@
           {{ with $.Page.Params.url }}
             {{ $currentURL = . }}
           {{ end }}
-          {{ $basePath := $currentURL | replaceRE `^/(en|es|ru)(/|$)` "/" }}
           {{ $fallback := cond (eq $lang "en") "/" (printf "/%s/" $lang) }}
-          {{ if or (hasPrefix $basePath "/link-building-services/") (hasPrefix $basePath "/uslugi-linkbildinga/") (hasPrefix $basePath "/servicios-de-link-building/") }}
-            {{ if eq $lang "ru" }}
-              {{ $fallback = "/uslugi-linkbildinga/" }}
-            {{ else if eq $lang "es" }}
-              {{ $fallback = "/servicios-de-link-building/" }}
-            {{ else }}
-              {{ $fallback = "/link-building-services/" }}
-            {{ end }}
-          {{ end }}
           {{ $target := $fallback }}
           {{ if $.Page }}
             {{ if and (ne $lang $.Site.Language.Lang) $.Page.IsTranslated }}
