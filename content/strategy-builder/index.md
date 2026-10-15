@@ -2,6 +2,7 @@
 title: "SEO Strategy Builder"
 slug: "seo-strategy-builder"
 translationKey: "strategy-builder"
+draft: true
 description: "Build a custom SEO strategy by combining link building tactics, infrastructure choices, and risk-balanced execution."
 ---
 

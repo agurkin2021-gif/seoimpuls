@@ -6,3 +6,4 @@
 /link-building-services/tier-1-2-3/
 /link-building-services/microsite-development/
 /link-building-services/website-creation/
+/seo-strategy-builder/

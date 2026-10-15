@@ -52,6 +52,13 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — Old English SEO Strategy Builder hidden from candidate
+- Previous website-creation commit 5806f7de: Hugo/retired-routes #38778332743 PASS, context #38778332779 PASS. Diagnostic scanner: 167 findings in 35 of 60 HTML, versus earlier baseline 300 in 55 of 66. This is internal audit output, not a Google penalty measure.
+- content/strategy-builder/index.md /seo-strategy-builder/: added draft: true to prevent the legacy strategy generator from publishing its old page while it remains based on unsuitable SEO practices. Existing script/template source stays available in main.
+- Added /seo-strategy-builder/ to docs/retired-routes-en.txt for a blocking generated HTML/sitemap/link test. No live URL/status modification or deployment. RU/ES builder pages remain and need separate work.
+- This commit's CI is pending. Future legitimate tool needs independent intent/SERP audit and real white-hat recommendations, not superficial wording changes.
+- Next: verify CI then inspect EN /soft/ and legacy affiliate redirect separately; remove them only after route/reference review. Context and production rules unchanged.
+
 ### 2026-10-15 — EN website creation page temporarily disabled
 - Previous 052a215d: build #38777959133 PASS; context guard #38777959083 PASS.
 - Existing content/services/website-creation/index.md mixes ordinary website development with unrelated legacy services under /link-building-services/website-creation/. Changed only draft:false to true.
@@ -233,7 +240,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Проверить Actions после временного отключения legacy EN website creation. Затем разобрать старый EN раздел /link-building-services/, software и strategy-builder; проверить ссылки и метаданные, прежде чем принимать следующие изменения. Server/main без изменений.
+Проверить GitHub Actions после прекращения генерации EN /seo-strategy-builder/. Затем по отдельному проходу изучить /soft/ и static/go/vdsina, включая внутренние ссылки и скриптовые перенаправления, подготовить корректные изменения и CI. Не изменять main, действующий сайт или Pages.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 
