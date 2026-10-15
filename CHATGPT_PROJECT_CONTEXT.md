@@ -52,6 +52,15 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — EN About SEOImpuls authenticity and trust rewrite
+- Working branch white-seo-rebuild; consultation QA #38772846555 PASS, context guard #38772846622 PASS.
+- Reworked content/about/index.md: About SEOImpuls H1, factual methods, boundaries, technical SEO, keyword research, content, consultation, evidence standards and contact.
+- Removed unverified current ratings and aggregate Kwork numbers and historical link-service promotion from EN About; avoided inventing cases or generic claims about client results. Kept original /about/ URL and translationKey.
+- New docs/research/2026-10-15-en-about-trust-audit.md records prior-claim risk and brand-intent ownership. No fake claim of generic query top-10 relevance.
+- Expanded .github/workflows/rebuild-qa.yml H1/canonical/clean content/service links/anchors About checks; verify this commit in Actions.
+- RU/ES remain legacy; server, DNS, production and main untouched.
+- Next: confirm CI then replace thin EN FAQ and begin global audit for legacy gray URLs across all locales.
+
 ### 2026-10-15 — EN SEO consultation rebuilt and added to services catalog
 - Working branch white-seo-rebuild; /services/ QA #38772264988 PASS, context guard #38772264795 PASS. Production unchanged.
 - Rewritten content/services/seo-consultation/index.md: title/H1 «SEO Consultation & Strategy Review»; unique URL /services/seo-consultation/; prep, diagnostics topics, session boundaries, deliverables/outcomes, FAQ, contacts. Retained legacy published $350 and around three hours as reference terms to confirm; removed unverified lifetime support/case claims and link-building topics.
@@ -141,7 +150,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Проверить Hugo rebuild-qa и контекст после EN SEO Consultation. Затем провести полную инвентаризацию всех серых EN страниц/внутренних ссылок/навигации и подготовить безопасные корректировки в white-seo-rebuild. RU и ES пока legacy. Для 301/410/развёртывания обязательно согласовать отдельный production релиз после GSC и полного QA.
+Проверить rebuild-qa для EN About; затем переписать EN FAQ (реальные вопросы, подтверждённые условия, без гарантированных позиций). После этого аудит страниц старых услуг, редактора SEO Strategy Builder и ссылок во всех языках. Действующий сервер не трогать. Каждый коммит включает обновление CHATGPT_PROJECT_CONTEXT.md.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 

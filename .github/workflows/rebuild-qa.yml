@@ -116,6 +116,22 @@ jobs:
           if '/services/seo-consultation/' not in hub.links:
               raise SystemExit('SEO consultation is missing from clean services catalog')
           print('PASS: /services/seo-consultation/ H1/canonical, content, anchors and catalog link.')
+          about=Page()
+          about.feed(Path('public/about/index.html').read_text(encoding='utf-8'))
+          if ''.join(about.h1).strip()!='About SEOImpuls':
+              raise SystemExit('Incorrect About H1: '+str(about.h1))
+          if about.canonical!=['https://seoimpuls.com/about/']:
+              raise SystemExit('Unexpected About canonical: '+str(about.canonical))
+          about_txt=' '.join(' '.join(about.visible).split()).lower()
+          for legacy in ('link building services','years of practical experience in seo, link building',
+                         '2,900+','1,690+','100% of orders delivered successfully','pbn','tier 1-2-3'):
+              if legacy in about_txt:raise SystemExit('Unverified/legacy claims on About: '+legacy)
+          if '/services/' not in about.links or '/seo/' not in about.links:
+              raise SystemExit('Missing approved service links on About')
+          for anchor in ('approach','services','accountability','trust','contact'):
+              if anchor not in about.ids:raise SystemExit('Missing About section: '+anchor)
+          print('PASS: About SEOImpuls contains transparent approach, service links, no legacy statistics.')
+
 
 
 
