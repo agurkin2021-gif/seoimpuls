@@ -499,6 +499,38 @@ jobs:
               assert forbidden not in txt,('Unsupported legacy About claim',forbidden)
           print('PASS: RU About H1/canonical/hreflang, real service links and no old statistical claims')
           PY
+      - name: Check ES About factual scope and local service navigation
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from html.parser import HTMLParser
+          from pathlib import Path
+          class P(HTMLParser):
+              def __init__(self):
+                  super().__init__();self.h=[];self.onh=False;self.canon=[];self.alts={};self.hrefs=[];self.text=[]
+              def handle_starttag(self,t,attrs):
+                  a=dict(attrs)
+                  if t=='h1':self.onh=True
+                  if t=='a':self.hrefs.append(a.get('href',''))
+                  if t=='link' and a.get('rel')=='canonical':self.canon.append(a.get('href',''))
+                  if t=='link' and a.get('rel')=='alternate':self.alts[a.get('hreflang')]=a.get('href','')
+              def handle_endtag(self,t):
+                  if t=='h1':self.onh=False
+              def handle_data(self,s):
+                  self.text.append(s)
+                  if self.onh:self.h.append(s)
+          p=P();p.feed(Path('public/es/about/index.html').read_text(encoding='utf-8'))
+          visible=' '.join(' '.join(p.text).split()).casefold()
+          assert ''.join(p.h).strip()=='Sobre SEOImpuls',p.h
+          assert p.canon==['https://seoimpuls.com/es/about/'],p.canon
+          assert p.alts.get('en-us')=='https://seoimpuls.com/about/',p.alts
+          assert p.alts.get('ru-ru')=='https://seoimpuls.com/ru/about/',p.alts
+          for href in ('/es/servicios/','/es/seo/'):
+              assert href in p.hrefs,href
+          for forbidden in ('2 900+','1 690+','69 %','link building'):
+              assert forbidden not in visible,(forbidden,visible[:200])
+          print('PASS: ES About H1/canonical/EN-RU alternates and clean factual presentation')
+          PY
       - name: Inventory rendered affiliate placements (diagnostic, no deployment)
         run: python3 scripts/audit_affiliate_links.py --site public --max-details 150
       - name: Report whole-site white-hat release blockers (diagnostic, never deploy)

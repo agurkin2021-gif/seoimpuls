@@ -52,6 +52,13 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — ES About rewritten for verifiable company presentation
+- Previous RU About commit 585839d4: Hugo QA #38798382949 PASS; context #38798382835 PASS; 30 retired URLs/44 HTML, 12 scanner findings in 9 pages, RELEASE BLOCKED. RU About H1/canonical/EN+ES hreflang, service links and removal of old 2900+/1690+/rating claims verified.
+- Replaced content/about/index.es.md with new «Sobre SEOImpuls»: business approach, technical SEO/semantics/consultation/site-development service scope, fact-based validation, historic Kwork caveat and contact CTAs. Removed old link selling and unverified historical aggregate ratings/counts. Retained existing Kwork.com profile as reference, not proof of current SEO service outcomes.
+- New doc docs/research/2026-10-15-es-about-review.md records claim audit. CI check in .github/workflows/rebuild-qa.yml verifies ES About H1/canonical, EN/RU hreflang, services/technical SEO links and no unsupported historic metrics.
+- CI for this commit PENDING; all website/sitewide release gate issues, exact SERP/GSC and visual QA remain open. Main/production/DNS/Pages unchanged. 
+- Next: after CI, rebuild technical SEO /ru/seo/ and /es/seo/ under same URLs with genuine technical diagnostic intent (avoid competing with /ru/uslugi/ and /es/servicios/); then homepages and FAQ.
+
 ### 2026-10-15 — RU About revised to verifiable white-hat agency scope
 - Previous ES soft commit ce3b3b1a: Hugo #38797895399 PASS and context #38797895380 PASS. /es/soft/ draft, fallback card2 no longer uses /es/soft/; 30 retired URLs / 44 HTML, 13 diagnostic findings in 10 files, RELEASE BLOCKED.
 - Replaced content/about/index.ru.md with new H1 «О SEOImpuls», clear description and six structured blocks: practical approach, real service scope, transparent deliverables, historical Kwork evidence caveat, localized service CTAs and contact. Old link-selling pitch and unverified 2900+/1690+/5.0/69% aggregates removed from the new page. Associated historical Kwork URL retained as reference, NOT proof of white SEO service results.
@@ -463,7 +470,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Проверить GitHub Actions RU About /ru/about/ после удаления старых неподтверждённых чисел; проверить canonical, RU↔EN↔ES hreflang и пути /ru/uslugi/, /ru/seo/. Если PASS — переписать ES /es/about/ без выдуманных кейсов и старой линк-продажи, отдельным коммитом с контекстом. Далее SEO RU/ES и homepage RU/ES, FAQ EN, contextual affiliate gate, GSC/visual QA. Server/main неизменны.
+Проверить GitHub Actions ES About /es/about/ с H1/canonical/hreflang и очищенными историческими статистиками. Далее по одной странице RU /ru/seo/ и ES /es/seo/: реальный технический SEO-интент, проверяемые диагностические действия и рекомендации, убрать backlink guarantees; затем RU/ES главные и EN FAQ. Релизный сканер + точный SERP/GSC/390px/1280px QA до публикации. Main и сервер не менять.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 
