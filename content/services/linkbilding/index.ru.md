@@ -4,7 +4,7 @@ description: "Многоуровневый линкбилдинг с Tier 1, Tie
 slug: "linkbilding"
 translationKey: "services-link-building"
 date: "2026-08-28"
-draft: false
+draft: true
 showOnHome: false
 image: "/uploads/linkbilding-png-1788973299-q62-1788973310213.webp"
 images:

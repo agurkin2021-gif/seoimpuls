@@ -52,6 +52,13 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — RU link-building sales page retired
+- Previous white-seo-rebuild commit 5fb8666e: GitHub Actions 38788366497 (Hugo and retired route validation) PASS and 38788366136 (context guard) PASS. 15 retired URLs, 51 HTML pages, 117 informational scan findings in 26 files; release blocked.
+- content/services/linkbilding/index.ru.md: draft:false → true; old URL /uslugi-linkbildinga/linkbilding/ no longer appropriate (paid tiered links via forums/blogs).
+- content/services/_index.ru.md: removed exactly 2 matching image/button blocks. content/_index.ru.md: replaced old home newsUrl with /ru/news/; all other homepage elements retained. Registered the URL in docs/retired-routes-en.txt; details in docs/research/2026-10-15-ru-linkbuilding-retirement.md.
+- Test before declaring pass: new Hugo Actions and context guard, no generated former page/inbound links, /ru/news/ destination. No live 301/410 and no production, main, Pages or affiliate endpoint changes.
+- Next: after passing CI, retire RU /uslugi-linkbildinga/obratnye-ssylki/, then RU artificial DR, followed by ES equivalents. Preserve genuine keyword research and consulting content.
+
 ### 2026-10-15 — ES satellite/microsite sales withdrawn from candidate
 - Previous RU satellite commit 1def6013: Hugo build #38788100026 PASS, context guard #38788099520 PASS, retired routes 14 / 52 HTML PASS, diagnostic 123 findings in 27 HTML files, RELEASE READINESS BLOCKED.
 - content/services/desarrollo-de-micrositio/index.es.md: draft:false → true for /servicios-de-link-building/desarrollo-de-micrositio/. The source bundled microsites/satellites with guaranteed first-page Google positions and authority placements; this is withdrawn without pretending the same intent is served by honest SEO services.
@@ -330,7 +337,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Проверить GitHub Actions после ES microsite/satellite retire. Затем выполнить сводный отчёт по четырём выведенным URL Tier/сателлитов и оставшимся legacy EN/RU/ES commercial URLs. Следующий контролируемый этап: очищение старых RU/ES каталогов линкбилдинга, обратных ссылок и DR; сохранить добросовестные SEO-услуги (семантика, консультация) для будущей правильной миграции, не перенаправлять все старые URL на главную. Main/сервер не трогать.
+Сначала проверить GitHub Actions после RU /uslugi-linkbildinga/linkbilding/ retire, включая newsUrl → /ru/news/. Затем отдельно RU Backlinks и RU DR. В ES — отдельные проходы Estrategia, Backlinks и Domain Rating. Будущие 301/410 требуют GSC и проверки живых URL. Main/production не менять.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 
