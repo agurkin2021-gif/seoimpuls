@@ -60,6 +60,14 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — Reproducible EN-home responsive browser audit added
+- User authorized detailed technical/visual audit of English homepage only; no RU/ES or other EN page modification.
+- Opera live Preview screenshot and accessibility tree verified visible H1, logo, SVG service images, 8 service areas, 3 deliverables, contacts, and internal paths. Desktop cookie consent banner covers part of the service cards before dismissal; expected overlay vs blocking UX needs viewport tests.
+- Added `.github/workflows/en-home-browser-audit.yml` and `scripts/audit_en_home_browser.cjs` to build existing Hugo site and run isolated Playwright Chromium lab checks at 390 and 1280 CSS px, capture screenshots and collect HTML, CSS overflow, links, images, JSON-LD, JS errors, footer behavior and cookie overlay. Workflow stores screenshots and JSON in a GitHub Actions artifact. Audit script does NOT write to site content or production.
+- Browser audit run for THIS commit still pending. No claim of 390/1280 success until artifact and logs are read; production seoimpuls.com, main, RU/ES untouched.
+- Next: inspect audit Actions run, screenshot evidence and failed checks; record severity and fix only confirmed EN-home regressions in separate scoped commits. Google SERP/GSC and real-user CWV still pending.
+
+
 ### 2026-10-15 — Restore original animated footer popup on English homepage
 - Owner reported English homepage footer no longer popped up as before. Root cause: EN-only visual CSS from c8631964 forcibly set `.custom-footer--en-home {position:static!important}`, overriding the existing global `body.footer-floating .custom-footer` fixed/animated behavior.
 - Removed only the EN-only static-position override and the related desktop overrides that erased footer reserve space and moved cookie consent banner. Original shared CSS and footer JS floating/scroll/idle/popup logic remain untouched.
