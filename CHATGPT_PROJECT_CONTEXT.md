@@ -52,6 +52,13 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — RU satellite promotional page removed from candidate
+- Previous ES Tier commit 25051e7c: Hugo #38787834456 PASS and context guard #38787834442 PASS. Retired-route check: 13 URLs over 53 HTML, zero stale links; 131 whole-site diagnostic findings in 28 files, release BLOCKED.
+- Source content/services/sozdanie-satellitov/index.ru.md → draft:true for /uslugi-linkbildinga/sozdanie-satellitov/. Current page bundled site creation with satellite ranking schemes, guaranteed Google Top and paid authority placements, hence not a legitimate same-intent white SEO replacement.
+- Removed exactly two corresponding RU catalog blocks (image and button) in content/services/_index.ru.md, keeping other services for their own audit. Added route to docs/retired-routes-en.txt for CI; rationale docs/research/2026-10-15-ru-satellites-retirement.md.
+- Main/production/Pages untouched; no 301/410 actions on server. GSC/live indexing/backlink analysis still pending. Genuine website development to be evaluated separately under independent legitimate intent. VDSina explicit endpoint unchanged, but affiliate reference inside retired gray content no longer rendered.
+- New CI pending; next: verify result, then separately retire ES legacy satellite/microsite page and its 2 catalog cards. Whole site still RELEASE READINESS BLOCKED.
+
 ### 2026-10-15 — ES Tier 1–2–3 withheld and removed from ES catalog
 - RU Tier commit 603d15b9: Hugo #38787608283 PASS and context guard #38787608200 PASS; retired check 12 URLs/54 HTML, whole-site diagnostic 140 findings/29 affected files, RELEASE READINESS BLOCKED.
 - content/services/tier-1-2-3/index.es.md: draft false → true for /servicios-de-link-building/tier-1-2-3/. Removed precisely two blocks referencing this URL (ES catalog image and corresponding button) from content/services/_index.es.md. Other catalog products left for separate passes.
@@ -315,7 +322,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Проверить GitHub Actions после ES Tier 1–2–3 отключения. При PASS — отдельно разобрать и вывести из генерации RU /uslugi-linkbildinga/sozdanie-satellitov/ вместе с соответствующей карточкой, записью retired manifest, исследованием и контекстом. Потом отдельно ES /servicios-de-link-building/desarrollo-de-micrositio/. Сервер/main не менять.
+Проверить GitHub Actions после отключения RU /uslugi-linkbildinga/sozdanie-satellitov/ и удаления её 2 блоков из RU каталога. При PASS отдельно аналогично обработать ES /servicios-de-link-building/desarrollo-de-micrositio/ (реальная разработка сайтов отдельно от сателлитов), затем провести сводный аудит оставшихся gray pages, внутренних ссылок и фактической миграционной карты. Никаких изменений сервера/main.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 

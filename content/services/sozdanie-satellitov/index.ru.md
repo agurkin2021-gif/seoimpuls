@@ -3,7 +3,7 @@ title: "Создание сателлитов"
 description: "Создание тематических сайтов-сателлитов и профильных медиа-проектов под ключ."
 slug: "sozdanie-satellitov"
 translationKey: "services-microsite-development"
-draft: false
+draft: true
 showOnHome: false
 image: "/uploads/microsites-1788963920-q54-1788963925284.webp"
 images:
