@@ -60,6 +60,16 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — EN homepage commercial blocks QA confirmed in Opera
+- Subtitle commit 439eae23: GitHub Pages #14 PASS, Hugo QA #73 PASS; Opera confirmed approved text.
+- Service-area cards commit 6dca9e29: Pages #15 PASS, Hugo QA #74 PASS; Opera confirmed service heading and agreed-scope text.
+- Deliverables cards commit e6623ae1: Pages #16 PASS, Hugo QA #75 PASS; Opera confirmed three scoped outputs.
+- Final buyer CTA commit ed27a5a8: Pages #17 PASS, Hugo QA #76 PASS; Opera confirmed new heading, copy, Telegram and consultation URLs.
+- Opera confirmed four EN supporting targets (/services/, /seo/, /services/keyword-research/, /services/seo-consultation/) open without 404.
+- These tests do not establish organic ranking, complete 390/1280px visual QA, accessibility or page speed. SERP_UNVERIFIED; GSC_PENDING. No production, main or RU/ES changes.
+- Next: EN-home desktop/mobile visual and technical QA, then geo-fixed real Google SERP and GSC.
+
+
 ### 2026-10-15 — EN homepage buyer CTA clarified and commercial blocks completed
 - Previous deliverables commit e6623ae1: Pages workflow #16 and Hugo rebuild QA #75 both PASS; Opera confirmed "What You Receive" and all three scoped outcomes on live Preview.
 - Edited ONLY EN conditional CTA section in layouts/index.html. H2 now "Discuss Your Website’s SEO Priorities"; new paragraph explains what information the visitor should share (website, target market, current SEO problem) and the next step (discuss scope and deliverables) without promising positions. Retained Telegram and SEO consultation links.
@@ -658,22 +668,16 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Приоритет владельца: **только английская главная `/`**. Действующая ветка `white-seo-rebuild`, Preview: https://agurkin2021-gif.github.io/seoimpuls/. `main` не менять, `seoimpuls.com` production не публиковать, RU/ES и другие EN страницы не редактировать.
+Приоритет владельца: работать только с английской главной /. RU/ES и прочие EN страницы пока не редактировать. main — исходник; production https://seoimpuls.com/ не изменять.
 
-Серия EN главной на 2026-10-15:
-1. H1 `Professional SEO Services` принят владельцем, опубликован и проверен в Opera (commit 2398c4c4).
-2. Ошибочные пути ссылок Preview устранены (637d914c), Hugo и Pages PASS.
-3. Подзаголовок очищен от неподтверждённых claims (439eae23); Opera/Hugo/Pages PASS.
-4. Восемь услуг оформлены как EN-only responsive scope cards (6dca9e29); Opera/Hugo/Pages PASS.
-5. EN-only "What You Receive" с условными outputs: SEO findings, keyword-to-page map, verification plan (e6623ae1); Opera/Hugo/Pages PASS.
-6. Последний CTA уточнён — требуется проверить результат нового коммита.
+Завершено и опубликовано в GitHub Pages Preview https://agurkin2021-gif.github.io/seoimpuls/:
+- H1 Professional SEO Services; проверенный по содержимому подзаголовок без необоснованных обещаний.
+- 8 направлений SEO в EN-only карточках с зависимостью состава работ от согласованного объёма.
+- 3 потенциальных результата SEO-работ в EN-only блоке What You Receive.
+- Финальный CTA с Telegram и страницей консультации.
+- Последний контентный коммит ed27a5a8: GitHub Pages #17 PASS, Hugo QA #76 PASS; Opera подтвердил блоки и 4 целевых EN URL.
 
-**Следующее действие строго по порядку:**
-- Проверить последний GitHub Actions rebuild/Pages и открыть свежий Preview в Opera; проверить заголовок CTA, подзаголовок, обе кнопки и ссылки.
-- Визуальный QA на ширинах 390 и 1280 px; проверить отсутствие горизонтального overflow, корректность SVG/logo, cookie notice, контраст, мобильное меню, доступность фокуса.
-- Проверить generated EN HTML: один H1, Title/meta, self canonical для production URL, hreflang reciprocity, JSON-LD, все EN ссылки, скорость, noindex только у Preview.
-- Точный целевой рынок и geo/device Google SERP top-10 + GSC пока отсутствуют: `SERP_UNVERIFIED`, `GSC_PENDING`. Не заявлять окончательный SEO-оптимум до проверки.
-- Перед каждой новой правкой и в том же коммите актуализировать контекст, не редактировать другие локали.
+Следующий этап: EN-home technical/visual QA на 390/1280px, проверка изображений, Core Web Vitals, accessibility, cookie banner, canonical/hreflang, JSON-LD, внутренние ссылки. Затем гео-фильтрованный Google top-10 и данные GSC. До этого SERP_UNVERIFIED, GSC_PENDING, VISUAL_QA_PARTIAL; нет утверждения READY_FOR_RELEASE.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 
