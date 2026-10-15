@@ -52,6 +52,14 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — ES clean SEO catalog replaces link-selling hub
+- Previous ES consultation commit fc75fac8: Hugo #38794106882 PASS, context #38794106978 PASS, ES consultation new H1/canonical/EN-RU alternates and old URL retirement; 26 retired routes, 38 diagnostics in 16 HTML, RELEASE BLOCKED.
+- content/services/_index.es.md rebuilt as /es/servicios/ with H1/Title «Servicios SEO para sitios web», 3 honest cards linking /es/seo/, /es/servicios/investigacion-palabras-clave/, /es/servicios/consultoria-seo/; translationKey services retained.
+- content/_index.es.md: homepage brand SEO title/description, first service card and link corrected (VPS affiliate block retained). content/seo/index.es.md catalog CTA corrected; layouts/index.html ES fallback labels, URLs, SEO icon corrected; hugo.toml ES menu now has Servicios SEO catalog and SEO técnico detail.
+- Old /servicios-de-link-building/ added to docs/retired-routes-en.txt for build/link/sitemap gate. docs/research/2026-10-15-es-services-architecture.md maps unique intents and notes SERP_UNVERIFIED. NOT a same-intent redirect to the new clean catalog.
+- QA extended for ES hub 3 cards, title/canonical, menu, homepage, three-way EN/RU/ES canonical/hreflang for hub/keyword/consult. New Actions for current commit PENDING; strict release remains BLOCKED by other gray RU/ES and sitewide QA. Main, DNS, server, Pages unchanged.
+- Next: inspect all latest Actions, verify no broken links and hreflang, inventory remaining legacy gray active pages and review website creation. Then full post-page SERP/on-page audit RU/ES and final release test; live migration requires separate owner authorization.
+
 ### 2026-10-15 — ES SEO consultation migrated to clean service URL
 - Previous ES keyword migration commit 47926dc5: Hugo CI #38793772992 PASS and context guard #38793772952 PASS. New /es/servicios/investigacion-palabras-clave/ H1/canonical/EN-RU alternates passed; 25 retired URLs, site scanner 44 findings/18 affected pages. RELEASE BLOCKED.
 - Rebuilt content/services/seo-consultation/index.es.md at /es/servicios/consultoria-seo/ with H1 «Consultoría SEO para sitios web», advisory search intent and distinct content from ES keyword/technical pages. Replaced corrupt legacy description, unlimited lifetime support and link-selling offers; old US$350/three hours explicitly historical pending confirmation.
@@ -410,7 +418,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Проверить CI ES consultation /es/servicios/consultoria-seo/: H1, self-canonical, hreflang EN/RU, keyword link, old URL removed. При PASS перейти к ES /es/servicios/ hub с меню, главной, ES SEO CTA, old /servicios-de-link-building/ route retirement and SEO QA. Main/production untouched.
+Проверить GitHub Actions /es/servicios/ и полный EN/RU/ES reciprocal hreflang для каталога, семантики и консультаций; отладить до PASS. Далее проанализировать оставшиеся gray legacy pages в RU/ES (особенно website-creation и soft), устранить плохие ссылки и каннибализацию, выполнить точный SERP top-10 и mobile/desktop QA. Main/production/Pages не менять.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 

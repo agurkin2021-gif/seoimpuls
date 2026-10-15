@@ -314,6 +314,55 @@ jobs:
           assert not Path('public/es/servicios-de-link-building/consultoria-seo/index.html').exists()
           print('PASS: ES consulting new H1/canonical/EN+RU alternate and retired old URL')
           PY
+      - name: Verify ES white SEO catalog and reciprocal hreflang
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          from html.parser import HTMLParser
+          class P(HTMLParser):
+              def __init__(self):
+                  super().__init__();self.h=[];self.h1=False;self.canon=[];self.alts={};self.links=[];self.cards=[]
+              def handle_starttag(self,t,attrs):
+                  a=dict(attrs)
+                  if t=='h1':self.h1=True
+                  if t=='a':
+                      self.links.append(a.get('href',''))
+                      if 'services-hub-card' in a.get('class',''):self.cards.append(a.get('href',''))
+                  if t=='link' and a.get('rel')=='canonical':self.canon.append(a.get('href',''))
+                  if t=='link' and a.get('rel')=='alternate':self.alts[a.get('hreflang')]=a.get('href','')
+              def handle_endtag(self,t):
+                  if t=='h1':self.h1=False
+              def handle_data(self,s):
+                  if self.h1:self.h.append(s)
+          items=[
+            ('services/', 'ru/uslugi/', 'es/servicios/'),
+            ('services/keyword-research/','ru/uslugi/semanticheskoe-yadro/','es/servicios/investigacion-palabras-clave/'),
+            ('services/seo-consultation/','ru/uslugi/seo-konsultaciya/','es/servicios/consultoria-seo/')]
+          for triple in items:
+              expect={'en-us':'https://seoimpuls.com/'+triple[0],
+                      'ru-ru':'https://seoimpuls.com/'+triple[1],
+                      'es-es':'https://seoimpuls.com/'+triple[2]}
+              for path in triple:
+                  file=Path('public/'+path+'index.html')
+                  assert file.is_file(),('Missing translated page',path)
+                  p=P();p.feed(file.read_text(encoding='utf-8'))
+                  assert p.canon==['https://seoimpuls.com/'+path],(path,p.canon)
+                  for code,target in expect.items():
+                      assert p.alts.get(code)==target,(path,code,p.alts)
+                  assert p.alts.get('x-default')==expect['en-us'],(path,p.alts)
+          hub=P();hub.feed(Path('public/es/servicios/index.html').read_text(encoding='utf-8'))
+          assert ''.join(hub.h).strip()=='Servicios SEO para sitios web',hub.h
+          expected={'/es/seo/','/es/servicios/investigacion-palabras-clave/','/es/servicios/consultoria-seo/'}
+          assert len(hub.cards)==3 and set(hub.cards)==expected,hub.cards
+          for x in expected:
+              assert Path('public/'+x.lstrip('/')+'index.html').is_file(),x
+          home=P();home.feed(Path('public/es/index.html').read_text(encoding='utf-8'))
+          assert '/es/servicios/' in home.links,'ES homepage service link missing'
+          assert '/es/seo/' in home.links,'ES technical SEO link missing'
+          assert not Path('public/servicios-de-link-building/index.html').exists(),'Old ES link-selling hub generated'
+          print('PASS: ES catalog, 3 cards, homepage/menu, three-way reciprocal hreflang')
+          PY
       - name: Inventory rendered affiliate placements (diagnostic, no deployment)
         run: python3 scripts/audit_affiliate_links.py --site public --max-details 150
       - name: Report whole-site white-hat release blockers (diagnostic, never deploy)

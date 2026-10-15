@@ -205,8 +205,13 @@ defaultContentLanguageInSubdir = false
 
     [[languages.es.menu.main]]
       name = "Servicios SEO"
-      url = "/seo/"
+      url = "/servicios/"
       weight = 3
+
+    [[languages.es.menu.main]]
+      name = "SEO técnico"
+      url = "/seo/"
+      weight = 5
 
     [[languages.es.menu.main]]
       name = "Preguntas frecuentes"

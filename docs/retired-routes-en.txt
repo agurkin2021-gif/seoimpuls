@@ -26,3 +26,4 @@
 /uslugi-linkbildinga/
 /servicios-de-link-building/palabras-clave/
 /servicios-de-link-building/consultoria-seo/
+/servicios-de-link-building/

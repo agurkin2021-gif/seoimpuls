@@ -4,7 +4,7 @@
 {{- $isES := eq $lang "es" -}}
 {{- $builderURL := cond $isRU "/ru/seo/" (cond $isES "/es/seo/" "/seo/") -}}
 {{- $newsListURL := cond $isRU "/ru/news/" (cond $isES "/es/news/" "/news/") -}}
-{{- $servicesURL := cond $isRU "/ru/uslugi/" (cond $isES "/servicios-de-link-building/" "/services/") -}}
+{{- $servicesURL := cond $isRU "/ru/uslugi/" (cond $isES "/es/servicios/" "/services/") -}}
 {{- $seoURL := cond $isRU "/ru/seo/" (cond $isES "/es/seo/" "/seo/") -}}
 {{- $casesURL := $seoURL -}}
 {{- $softURL := cond $isES "/es/soft/" "/soft/" -}}
@@ -324,9 +324,9 @@
     {{- $homeNewsImage = "/news/eeat_home_420x260.webp" -}}
   {{- end -}}
 {{- end -}}
-{{- $homeCard1Title := index $home "card1Title" | default (cond $isRU "SEO-услуги" (cond $isES "Estrategias de backlinks" "Backlink Strategies")) -}}
-{{- $homeCard1Item1 := index $home "card1Item1" | default (cond $isRU "Технический SEO-аудит" (cond $isES "Análisis de distribución de anchors" "Anchor distribution analysis")) -}}
-{{- $homeCard1Item3 := index $home "card1Item3" | default (cond $isRU "Семантика и стратегия контента" (cond $isES "Crecimiento de autoridad controlado" "Controlled authority growth")) -}}
+{{- $homeCard1Title := index $home "card1Title" | default (cond $isRU "SEO-услуги" (cond $isES "Servicios SEO" "Backlink Strategies")) -}}
+{{- $homeCard1Item1 := index $home "card1Item1" | default (cond $isRU "Технический SEO-аудит" (cond $isES "Auditoría técnica e indexación" "Anchor distribution analysis")) -}}
+{{- $homeCard1Item3 := index $home "card1Item3" | default (cond $isRU "Семантика и стратегия контента" (cond $isES "Investigación de palabras clave" "Controlled authority growth")) -}}
 {{- $homeCard1UrlRaw := index $home "card1Url" | default $servicesURL -}}
 {{- $homeCard1Url := $homeCard1UrlRaw -}}
 {{- if and (not (hasPrefix $homeCard1Url "http://")) (not (hasPrefix $homeCard1Url "https://")) (not (hasPrefix $homeCard1Url "/")) -}}{{- $homeCard1Url = $homeCard1Url | relLangURL -}}{{- end -}}
@@ -464,7 +464,7 @@
           <a class="seo-card" href="{{ $homeCard1Link.href | safeURL }}"{{ with $homeCard1Link.cloaked }} data-seo-cloaked-href="{{ . }}"{{ end }}{{ with $homeCard1Link.rel }} rel="{{ . }}"{{ end }} data-home-link-field="card1Url" data-home-link-value="{{ $homeCard1UrlRaw }}">
             <div class="seo-card-head">
               <span class="seo-card-icon" aria-hidden="true">
-                <img src="{{ if or (eq $lang "en") (eq $lang "ru") }}/uploads/seo-icon-search-optimization.svg{{ else }}{{ "backlinks-icon-64.webp" | relURL }}{{ end }}" alt="" width="64" height="64" decoding="async" />
+                <img src="/uploads/seo-icon-search-optimization.svg" alt="" width="64" height="64" decoding="async" />
               </span>
               <h3 class="seo-card-title" data-home-field="card1Title">{{ partial "home-inline.html" $homeCard1Title }}</h3>
             </div>
