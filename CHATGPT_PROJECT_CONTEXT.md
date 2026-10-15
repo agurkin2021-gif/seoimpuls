@@ -52,6 +52,14 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — Sitewide release-readiness blocker scanner
+- FAQ QA #38773548639 PASS и контекст #38773548616 PASS. Все изменения только white-seo-rebuild.
+- Добавлен scripts/whitehat_content_gate.py: сканирует generated HTML EN/RU/ES, sitemap и навигацию на старые ссылки, услуги ссылочного продвижения, PBN, Tier/DR, инструмент-автоматизацию, рефералку VPS. В режиме --strict статус ошибки блокирует релиз.
+- Добавлен docs/WHITE_HAT_RELEASE_READINESS.md с обязательными этапами: замена/удаление старых услуг, безопасная миграция URL, локализация, QA.
+- Изменён .github/workflows/rebuild-qa.yml: шаг информативного sitewide-сканирования выводит BLOCKED при обнаружении остатков, но НЕ падает специально до завершения процесса. Сам успешный build НЕ ОЗНАЧАЕТ возможность публикации.
+- Полный строгий gate и live/GSC/browser QA пока не пройдены; ожидаем старые услуги в EN/RU/ES, /soft/, /seo-strategy-builder/, /go/vdsina/.
+- Следующее действие: проверить Actions и его список блокирующих страниц, затем начать обезвреживание старых публичных материалов по отдельным страницам с фиксацией будущего 301/410 и без live-сервера.
+
 ### 2026-10-15 — EN FAQ rewritten for buyer questions, trust and accuracy
 - Previous About QA #38773315827 PASS, context guard #38773315866 PASS. Server untouched.
 - Rewritten content/faq/index.md: preserved /faq/, unique Title/H1 «SEO Services FAQ» and meta; 13 real service questions including audit vs keyword research, GSC, migration, measured outcomes, timelines, scope and languages.
@@ -159,7 +167,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Проверить QA FAQ. Затем подготовить подробный audit leftover gray service URLs, link building and strategy-builder/soft pages across EN/RU/ES; stage removal only on white-seo-rebuild and no production deployment. Maintain GSC/redirect caveats and each-commit context rule.
+Проверить новый rebuild-qa: whole-site audit должен показать RELEASE READINESS BLOCKED и конкретные устаревшие URL при неизменном успешном Hugo. Затем последовательно вывести из генерации в рабочей ветке нерелевантные EN gray услуги (draft, без production 410/301), очистить soft/strategy-builder и меню. RU/ES отдельно, сверка GSC перед действующим релизом.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 
