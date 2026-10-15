@@ -52,6 +52,15 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — ES artificial Domain Rating offer and misleading catalog links retired
+- Previous ES Backlinks commit bda3c0d3: Hugo + retired URL check #38790748502 PASS; context #38790748461 PASS. Candidate: 46 HTML, 20 retired URLs, 80 diagnostics in 21 pages, RELEASE READINESS BLOCKED.
+- content/services/domain-rating/index.es.md now contains only a draft archival stub under /servicios-de-link-building/domain-rating/; full historical page remains in main. Old artificially elevated third-party metric service is no longer offered in rebuilt site.
+- In content/services/_index.es.md removed exactly two old cards: «Domain Rating» button misleadingly linking to '/' and matching unl inked image. Existing genuine consulting/semantics/site-creation elements unchanged; no claims of their full quality readiness.
+- docs/retired-routes-en.txt adds /servicios-de-link-building/domain-rating/ and docs/research/2026-10-15-es-dr-retirement.md records migration decision. This commit must pass Hugo, retired-route and context guard QA.
+- All six direct old RU/ES gray service page candidates (RU link strategy, backlinks, DR; ES link strategy, backlinks, DR) are retired. But two parent catalogs still have legacy URL/name/content, and RU/ES homepage/SEO/service content needs further work. Full strict release gate BLOCKED.
+- No production HTTP changes, 301/410, Page publication, GSC export, browser/visual QA, or new affiliate removal. Main and server unchanged.
+- Next after CI: inspect residual whole-site scanner and plan clean /ru/uslugi/ and /es/servicios/ with same-intent migration of genuine keyword research/consultation before retiring parent legacy hubs. Do not auto-redirect gray hubs to generic pages.
+
 ### 2026-10-15 — ES Backlinks discontinued page and fake catalog CTA withdrawn
 - Previous ES link-strategy commit 29e6cb9c: CI #38790360032 Hugo+retired-routes PASS; context guard #38790360037 PASS; 19 retired URLs across 47 HTML, 85 diagnostic findings/22 affected pages, release BLOCKED.
 - content/services/backlinks/index.es.md replaced in white-seo-rebuild with a small draft-only stub; full original saved in main. Old URL /servicios-de-link-building/backlinks/.
@@ -365,7 +374,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Сначала проверить CI после ES Backlinks retire. Далее отдельным коммитом ES /servicios-de-link-building/domain-rating/ и убрать обе его карточки (включая ложный переход на главную). После этого обследовать оставшиеся RU/ES каталоги, приготовить новую истинно SEO-архитектуру и сохранять ценные семантику/консультации. Не публиковать до GSC/QA; сервер/main без изменений.
+Проверить CI после ES DR retire и сводный список неиндексируемых старых URL. Далее следующий архитектурный этап: инвентаризация и проектирование чистых RU/ES /ru/uslugi/ и /es/servicios/, проверка реальных интентов для семантики и SEO-консультаций, правильная миграция URL и hreflang; затем убрать старые RU/ES link-building parent catalogs. Не утверждать release readiness до strict gate, GSC и browser QA. Main/production неизменны.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 

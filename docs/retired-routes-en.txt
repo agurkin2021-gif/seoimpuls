@@ -20,3 +20,4 @@
 /uslugi-linkbildinga/uvelechenie-domen-reytinga/
 /servicios-de-link-building/estrategia-de-link-building/
 /servicios-de-link-building/backlinks/
+/servicios-de-link-building/domain-rating/
