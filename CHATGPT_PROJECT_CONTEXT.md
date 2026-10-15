@@ -52,6 +52,13 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — RU keyword research migrated to independent white SEO URL
+- Previous commit f312bb56: Hugo build #38791068670 PASS and context #38791068844 PASS; old sales 21 routes removed, 45 HTML; sitewide scanner 74 findings in 20 HTML, RELEASE BLOCKED.
+- Rewritten content/services/keyword-research/index.ru.md: new canonical /ru/uslugi/semanticheskoe-yadro/; H1/Title «Сбор семантического ядра и кластеризация запросов», commercial intent distinct from /ru/seo/, original translationKey preserved. Eight meaningful sections: input, formats, intent clustering, methodology, deliverables, pricing caveat, FAQ, contact. Historical $90 is explicitly pending confirmation; no false guarantees.
+- Updated RU catalog inbound links and old website-creation embedded keyword-service link from /uslugi-linkbildinga/sbor-semanticheskogo-yadra/ to /ru/uslugi/semanticheskoe-yadro/. Registered withdrawn candidate old URL in retired-route manifest to fail on remaining links/HTML/sitemap. New research docs/research/2026-10-15-ru-keyword-migration.md with competitor URLs and explicit SERP_UNVERIFIED: search examples are NOT exact verified Google top-10.
+- Tests for this commit require Hugo build, new page canonical/H1 and absence of old URL, link audit, context guard; live 301 has NOT been applied and must await GSC and live traffic/referrers, no server or main changes. Existing RU catalog still has old parent namespace until its own migration and is not release-ready.
+- Next: after CI, rebuild RU consultation with independent /ru/uslugi/seo-konsultaciya/, then replace RU catalog and homepage/menu references, and finish ES equivalents. Visual QA still pending.
+
 ### 2026-10-15 — ES artificial Domain Rating offer and misleading catalog links retired
 - Previous ES Backlinks commit bda3c0d3: Hugo + retired URL check #38790748502 PASS; context #38790748461 PASS. Candidate: 46 HTML, 20 retired URLs, 80 diagnostics in 21 pages, RELEASE READINESS BLOCKED.
 - content/services/domain-rating/index.es.md now contains only a draft archival stub under /servicios-de-link-building/domain-rating/; full historical page remains in main. Old artificially elevated third-party metric service is no longer offered in rebuilt site.
@@ -374,7 +381,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Проверить CI после ES DR retire и сводный список неиндексируемых старых URL. Далее следующий архитектурный этап: инвентаризация и проектирование чистых RU/ES /ru/uslugi/ и /es/servicios/, проверка реальных интентов для семантики и SEO-консультаций, правильная миграция URL и hreflang; затем убрать старые RU/ES link-building parent catalogs. Не утверждать release readiness до strict gate, GSC и browser QA. Main/production неизменны.
+Проверить Actions RU Keyword Research: /ru/uslugi/semanticheskoe-yadro/ generated, H1/canonical/EN hreflang, old URL absent, references fixed. При PASS — переписать RU SEO consultation на /ru/uslugi/seo-konsultaciya/ с одновременной заменой ссылки в RU hub; затем сделать новый чистый RU каталог /ru/uslugi/ и поправить меню/главную/SEO links. Испанские эквиваленты отдельно. Main/сервер не трогать.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 
