@@ -52,6 +52,13 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — Restore WhatsApp and Telegram icons in published preview
+- User screenshot: footer WhatsApp and Telegram shortcuts were blank squares on GitHub Pages preview; source footer relied on Font Awesome `fab` glyphs, whose icon font is not reliably available in this preview.
+- Replaced only those two icon glyph nodes in layouts/partials/footer.html with self-contained inline SVG using currentColor, preserving original anchor URLs, labels, shortcuts, JS selectors, and footer layout. No changes to site-wide icons or page content.
+- Existing Hugo Actions and Pages preview need to run for this commit. Visual preview and mobile QA still pending verification; no changes to production server, DNS, main, or site routing.
+- Next: confirm build and Page deployment; inspect footer at desktop/mobile width and check social links. Then return to services-hub review.
+
+
 ### 2026-10-15 — Pages environment branch rule corrected; preview redeployment triggered
 - GitHub environment screenshot confirms `github-pages` now permits `white-seo-rebuild` instead of `main`, without required reviewers or wait timer. Previous attempts were blocked by deployment branch restriction.
 - Context-only commit triggers the preview workflow after the permission change. Site content, production, DNS, main untouched. New preview success and actual URL must still be verified.
