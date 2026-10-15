@@ -60,6 +60,14 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — EN home subtitle grounded in actual service scope
+- Compared EN homepage copy with current `/seo/`, `/services/`, keyword-research and SEO-consultation content; those support technical audits, on-page, keyword research, content strategy, international SEO and scoped deliverables.
+- Changed **only EN** `content/_index.md` description, which renders the homepage hero subtitle and meta description: "Technical SEO audits, on-page optimization, keyword research, content strategy and international SEO — with clear priorities and defined deliverables.".
+- Removed unsubstantiated "experienced specialists" and overly sweeping "Complete SEO solutions"; retained broad professional SEO commercial intent without promising rankings. H1 `Professional SEO Services`, offers, URLs and other languages unchanged.
+- Updated EN generated-HTML QA subtitle assertion and research note. CI/Preview publication of THIS commit pending and require direct verification in Opera. SERP_UNVERIFIED / GSC_PENDING.
+- Next: inspect published subtitle and QA, then restructure the EN homepage commercial service list and deliverables without duplicating the existing specialized service pages.
+
+
 ### 2026-10-15 — Fix preview root-relative links after live Opera validation
 - Opera verified commit 2398c4c4: EN homepage H1 "Professional SEO Services" and approved subtitle display; GitHub Pages workflow #12 and rebuild QA #71 both successful.
 - Found a confirmed preview-path defect: unquoted Hugo-minified `href=/services/`, `href=/seo/`, `href=/#how-it-works` were not rewritten by the previous quote-only regular expression and linked to the wrong GitHub Pages root.

@@ -23,3 +23,8 @@ CI-generated HTML: one H1, correct canonical, all four paths, no broken anchor a
 - New H1/Title: `Professional SEO Services`.
 - Visible subtitle and meta description: `Complete SEO solutions from experienced specialists: technical SEO, on-page optimization, keyword research, content strategy and international SEO.`
 - Real first-ten Google organic competitors, organic ranking difficulty, GSC query signals and target geo remain SERP_UNVERIFIED / GSC_PENDING.
+
+## EN subtitle verification — 2026-10-15
+- Removed unsupported wording about experience and unqualified full-service delivery. Actual supporting English pages identify technical SEO audits, on-page optimization, keyword research, content strategy, international SEO and scope-specific deliverables.
+- Published copy candidate: `Technical SEO audits, on-page optimization, keyword research, content strategy and international SEO — with clear priorities and defined deliverables.`
+- H1 remains `Professional SEO Services`; all claims of results are qualified by agreed scope. Geo SERP and GSC not verified.
