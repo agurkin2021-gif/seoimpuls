@@ -28,3 +28,9 @@ CI-generated HTML: one H1, correct canonical, all four paths, no broken anchor a
 - Removed unsupported wording about experience and unqualified full-service delivery. Actual supporting English pages identify technical SEO audits, on-page optimization, keyword research, content strategy, international SEO and scope-specific deliverables.
 - Published copy candidate: `Technical SEO audits, on-page optimization, keyword research, content strategy and international SEO — with clear priorities and defined deliverables.`
 - H1 remains `Professional SEO Services`; all claims of results are qualified by agreed scope. Geo SERP and GSC not verified.
+
+## EN homepage service scope — 2026-10-15
+- Service-area H2: `What Our SEO Services Cover`; 8 concise service capabilities separate from explicit outcomes, with EN-only two-column responsive layout.
+- Added visible disclaimer that the agreed scope determines included work. This prevents implying every buyer automatically receives every listed service.
+- Service capabilities grounded in existing EN `/seo/`, `/services/`, and `/services/keyword-research/` coverage. Not a claim of guaranteed implementation, rankings or fixed deliverables.
+- Pending: confirm live Preview and CI, then independent deliverables block with conditional wording.

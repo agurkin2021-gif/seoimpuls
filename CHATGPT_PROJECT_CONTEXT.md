@@ -60,6 +60,14 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — EN homepage service areas separated from generic deliverables
+- After homepage subtitle commit 439eae23, Pages workflow #14 and rebuild QA #73 PASS, and Opera verified new subtitle in actual Preview.
+- Replaced EN-only `homeJson` "What an SEO Engagement Delivers" mixed list with "What Our SEO Services Cover": eight explicitly scoped service areas (technical/indexation, on-page, keyword research, content, architecture, performance, international SEO, implementation/measurement). Content grounded in current /seo/ and EN service offerings; no guaranteed ranking or invented proof.
+- Added EN-only explanatory text that only agreed work is included, and EN-only two-column service cards with one-column mobile fallback. RU/ES markup and content values untouched.
+- Extended blocking EN generated-HTML QA for service coverage and scope disclaimer. Real Pages/Opera checks for THIS commit are pending.
+- Next: confirm Hugo/strict/Pages PASS and live EN appearance. Then create a distinct short "What You Receive" outcomes section with deliverable examples conditional on the agreed scope, without repeating every service.
+
+
 ### 2026-10-15 — EN home subtitle grounded in actual service scope
 - Compared EN homepage copy with current `/seo/`, `/services/`, keyword-research and SEO-consultation content; those support technical audits, on-page, keyword research, content strategy, international SEO and scoped deliverables.
 - Changed **only EN** `content/_index.md` description, which renders the homepage hero subtitle and meta description: "Technical SEO audits, on-page optimization, keyword research, content strategy and international SEO — with clear priorities and defined deliverables.".

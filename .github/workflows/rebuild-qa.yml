@@ -707,6 +707,11 @@ jobs:
           if '/seo/' not in page.links or '/services/' not in page.links or '/services/keyword-research/' not in page.links:
               raise SystemExit('Required EN service routes missing')
           if 'technical seo audits, on-page optimization, keyword research, content strategy and international seo — with clear priorities and defined deliverables.' not in visible:raise SystemExit('EN homepage subtitle mismatch')
+          for fragment in ('what our seo services cover','technical seo & indexing','on-page seo:',
+                           'keyword research:','content strategy:','site architecture:',
+                           'performance & usability:','international seo:',
+                           'implementation & measurement:','the agreed scope determines'):
+              if fragment not in visible:raise SystemExit('EN service-coverage section missing '+fragment)
           if '/go/vdsina/' in page.links:raise SystemExit('Unrelated hosting affiliate remains')
           if 'how-it-works' not in page.ids:raise SystemExit('SEO process anchor missing: '+str(page.ids[:40]))
           if page.canonical!=['https://seoimpuls.com/']:raise SystemExit('Unexpected canonical: '+str(page.canonical))
