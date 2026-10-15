@@ -712,6 +712,9 @@ jobs:
                            'performance & usability:','international seo:',
                            'implementation & measurement:','the agreed scope determines'):
               if fragment not in visible:raise SystemExit('EN service-coverage section missing '+fragment)
+          for fragment in ('what you receive','prioritized seo findings','keyword-to-page map',
+                           'verification plan','depending on the agreed work'):
+              if fragment not in visible:raise SystemExit('EN deliverables block missing '+fragment)
           if '/go/vdsina/' in page.links:raise SystemExit('Unrelated hosting affiliate remains')
           if 'how-it-works' not in page.ids:raise SystemExit('SEO process anchor missing: '+str(page.ids[:40]))
           if page.canonical!=['https://seoimpuls.com/']:raise SystemExit('Unexpected canonical: '+str(page.canonical))

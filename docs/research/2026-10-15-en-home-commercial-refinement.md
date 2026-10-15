@@ -34,3 +34,8 @@ CI-generated HTML: one H1, correct canonical, all four paths, no broken anchor a
 - Added visible disclaimer that the agreed scope determines included work. This prevents implying every buyer automatically receives every listed service.
 - Service capabilities grounded in existing EN `/seo/`, `/services/`, and `/services/keyword-research/` coverage. Not a claim of guaranteed implementation, rankings or fixed deliverables.
 - Pending: confirm live Preview and CI, then independent deliverables block with conditional wording.
+
+## EN homepage agreed-scope deliverables — 2026-10-15
+- Added EN-only `What You Receive` with three typical scoped outputs: prioritized SEO findings, keyword-to-page mapping and verification plan. These are examples contingent on what the client commissions, not fixed universal package promises.
+- Scoped responsive layout and EN-only QA assertions; no changes to supporting pages or RU/ES.
+- Previous service cards verified on published Preview (Pages #15 and rebuild #74 PASS). New deliverables deployment and mobile screenshot check pending.

@@ -60,6 +60,13 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — EN homepage outcomes distinguished from service areas
+- Previous service areas commit 6dca9e29 verified in GitHub: Pages workflow #15 PASS, rebuild QA #74 PASS. Opera confirmed EN services heading, coverage text and visible scope qualification in live Preview.
+- Added an English-only responsive "What You Receive" section in layouts/index.html after service coverage. Three *conditional* examples: Prioritized SEO Findings, Keyword-to-Page Map, Verification Plan. They describe outputs supported by existing English SEO/keyword/consultation pages, not guaranteed universal package contents.
+- New EN-only CSS for 3-column desktop, 2-column intermediate and 1-column mobile; separate from RU/ES styling. No edits to other pages, title, H1, metadata, navigational routes, main or production.
+- Updated blocking EN generated-HTML QA; CI/Preview for THIS commit pending. Next: verify new page in Opera and adjust final consultation CTA for clarity if required.
+
+
 ### 2026-10-15 — EN homepage service areas separated from generic deliverables
 - After homepage subtitle commit 439eae23, Pages workflow #14 and rebuild QA #73 PASS, and Opera verified new subtitle in actual Preview.
 - Replaced EN-only `homeJson` "What an SEO Engagement Delivers" mixed list with "What Our SEO Services Cover": eight explicitly scoped service areas (technical/indexation, on-page, keyword research, content, architecture, performance, international SEO, implementation/measurement). Content grounded in current /seo/ and EN service offerings; no guaranteed ranking or invented proof.
