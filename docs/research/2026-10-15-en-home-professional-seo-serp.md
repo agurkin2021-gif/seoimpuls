@@ -66,3 +66,8 @@
 ## Implementation log: gap 2 — service choice (2026-10-15)
 - Added EN-only `Which SEO Service Fits Your Website?` selector after deliverables, with 3 links: /seo/ (technical), /services/keyword-research/ (intent map), /services/seo-consultation/ (focused advice). Nothing new promised beyond existing English offerings.
 - Scoped grid at 3 columns / 1 mobile, descriptive link text and :focus-visible. CI/Preview pending for this commit.
+
+## Implementation log: gap 3 — cost, timing and scope (2026-10-15)
+- Added EN-only three direct buyer answers for quote factors (site size, URL set, market, data, implementation), result timing uncertainty and optional individual service selection; no invented amounts or guarantees. Source: layouts/index.html.
+- Added links from this micro FAQ to existing /faq/ and /about/ instead of duplicating their long-form material. No FAQPage schema added; homepage remains a commercial page.
+- Current commit QA/Preview pending.

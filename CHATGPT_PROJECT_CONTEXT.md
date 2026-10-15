@@ -60,6 +60,13 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — EN homepage SERP gap 3: transparent pricing/timing/scope answers
+- Following service-choice commit c3853d95 (Pages #27 and Hugo QA #86 PASS; Opera confirmed three existing service routes and EN heading), added EN-only "Pricing, Timing & SEO Scope" with 3 buyer questions: how SEO price is scoped, difference between deliverables and Google ranking timelines, and choosing only necessary services.
+- No made-up prices, fixed retainer plans, guaranteed rankings, deliverable timing, staff numbers or invented credentials. Linked to existing /faq/ and /about/ for detailed policies/trust. Content addresses top10 SEO buyer SERP features (commercial comparison, pricing, timetable).
+- EN-only 3-column cards with one-column mobile; blocking HTML assertions and research log updated. RU/ES, other EN pages and production untouched. QA/Preview of THIS commit pending.
+- Next: verify visual+Hugo/Pages, then on-page audit of intent coverage and unresolved proof/physical geo; separate actual GSC/KD checks before claiming overall competitive strength.
+
+
 ### 2026-10-15 — EN homepage SERP gap 2: route buyers to correct SEO work
 - Prior gap #1 commit c21cc128 (definition of professional SEO services) passed Hugo QA #85 and Pages #26; Opera confirmed specialist-not-agency wording.
 - Added EN-only `Which SEO Service Fits Your Website?` block with three truthful service entry points and links: technical SEO assessment (/seo/), keyword/intent mapping (/services/keyword-research/), and focused SEO consultation (/services/seo-consultation/). No retainer, industry specialization, performance guarantee or invented offer created.

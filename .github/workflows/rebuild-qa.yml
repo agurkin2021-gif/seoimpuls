@@ -736,6 +736,14 @@ jobs:
               raise SystemExit('EN service choice anchor missing')
           if '/services/seo-consultation/' not in page.links:
               raise SystemExit('EN consultation route missing')
+          for fragment in ('pricing, timing & seo scope',
+                           'how is seo service pricing determined?',
+                           'how long does seo take?',
+                           'do i need every seo service?',
+                           'rankings nor a fixed results date'):
+              if fragment not in visible:raise SystemExit('EN buyer decision Q&A missing '+fragment)
+          for url in ('/faq/','/about/'):
+              if url not in page.links:raise SystemExit('EN trust/FAQ internal link missing '+url)
           if '/go/vdsina/' in page.links:raise SystemExit('Unrelated hosting affiliate remains')
           if 'how-it-works' not in page.ids:raise SystemExit('SEO process anchor missing: '+str(page.ids[:40]))
           if page.canonical!=['https://seoimpuls.com/']:raise SystemExit('Unexpected canonical: '+str(page.canonical))
