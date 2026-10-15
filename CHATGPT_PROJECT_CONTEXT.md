@@ -52,6 +52,14 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — Automatic visual preview workflow added
+- New .github/workflows/publish-preview.yml builds the white-seo-rebuild branch as a standalone GitHub Pages preview at https://agurkin2021-gif.github.io/seoimpuls/ after each push.
+- Preview is explicitly noindex and uses a /seoimpuls/ path compatibility rewrite for root-relative HTML/CSS URLs. Source, production domain, main, server and DNS unchanged.
+- GitHub Pages must be enabled in Settings > Pages > Build and deployment > Source: GitHub Actions. Private-repository plan eligibility and successful first deployment are NOT yet verified. The preview URL is a target, not confirmed live until the Pages action succeeds.
+- Release QA still BLOCKED by unperformed real SERP/GSC/visual/URL migration checks; publishing preview is not production approval.
+- Next: verify preview workflow run and real visual navigation. Then audit services-hub.html as planned.
+
+
 ### 2026-10-15 — Shared homepage fallback copy hardened across EN/RU/ES
 - The current head 220e1957 had Hugo build #38802848725 PASS and context guard #38802848651 PASS, including blocking strict white-hat gate and contextual affiliate validation.
 - In layouts/index.html replaced fallback defaults for first services card and homepage process items 1, 4 and 5 for all languages. Fallback no longer offers backlink packages, algorithmic link-weight promises or behavioral-factor ranking manipulation. New copy describes technical audit, search intent, content, canonical/indexation and measured outcomes.
@@ -525,6 +533,8 @@ IMPORT_STATUS: completed
 - Следующий этап: загрузка ZIP и успешный импорт GitHub Actions.
 
 ## 6. Следующее действие
+
+Сначала проверить GitHub Pages preview workflow и открыть фактический визуальный результат. Если GitHub Pages не настроен, включить Source: GitHub Actions в Settings → Pages (при поддержке приватного репозитория планом). Затем выполнить аудит services-hub.html, Hugo/strict QA и обновить контекст в том же коммите.
 
 Проверить CI после изменений layouts/index.html. Затем отдельно очистить layouts/partials/services-hub.html от устаревшего механизма ранжирования карточек ссылочных услуг, сохранив ссылки и порядок трёх легитимных сервисов EN/RU/ES. Проверить Hugo/strict QA и контекст. Потом SERP/GSC/390px/1280px review до разрешения публикации.
 
