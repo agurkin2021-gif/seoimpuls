@@ -444,6 +444,29 @@ jobs:
           assert not Path('public/servicios-de-link-building/creacion-de-sitios-web/index.html').exists()
           print('PASS: ES website development canonical, RU/ES hreflang, links and affiliate disclosure')
           PY
+      - name: Check empty ES software retirement and safe homepage card fallback
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          from html.parser import HTMLParser
+          assert not Path('public/es/soft/index.html').exists(), 'ES empty software page still generated'
+          s=Path('layouts/index.html').read_text(encoding='utf-8')
+          assert '"/es/soft/"' not in s, 'ES software fallback still in Hugo template'
+          assert '"/soft/"' not in s, 'Old EN software fallback still in Hugo template'
+          assert 'if $homeCard2Link.href' in s, 'Explicit card URL guard is missing'
+          class Cards(HTMLParser):
+              def __init__(self):
+                  super().__init__();self.cards=[]
+              def handle_starttag(self,t,attrs):
+                  a=dict(attrs)
+                  if t=='a' and a.get('data-home-link-field')=='card2Url':
+                      self.cards.append(a.get('href',''))
+          for lang,path in [('en','public/index.html'),('ru','public/ru/index.html'),('es','public/es/index.html')]:
+              p=Cards();p.feed(Path(path).read_text(encoding='utf-8'))
+              assert len(p.cards)==1 and p.cards[0] and '/soft/' not in p.cards[0],(lang,p.cards)
+          print('PASS: blank ES software removed; explicit home card 2 preserved in EN/RU/ES')
+          PY
       - name: Inventory rendered affiliate placements (diagnostic, no deployment)
         run: python3 scripts/audit_affiliate_links.py --site public --max-details 150
       - name: Report whole-site white-hat release blockers (diagnostic, never deploy)

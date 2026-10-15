@@ -29,3 +29,4 @@
 /servicios-de-link-building/
 /uslugi-linkbildinga/sozdanie-saitov/
 /servicios-de-link-building/creacion-de-sitios-web/
+/es/soft/

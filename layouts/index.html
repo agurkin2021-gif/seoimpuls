@@ -7,7 +7,7 @@
 {{- $servicesURL := cond $isRU "/ru/uslugi/" (cond $isES "/es/servicios/" "/services/") -}}
 {{- $seoURL := cond $isRU "/ru/seo/" (cond $isES "/es/seo/" "/seo/") -}}
 {{- $casesURL := $seoURL -}}
-{{- $softURL := cond $isES "/es/soft/" "/soft/" -}}
+{{/* Disabled legacy Software path: render card 2 only when an explicit URL is set in homeJson. */}}
 {{- $builderBlocks := slice -}}
 {{- with .Params.builderJson -}}
   {{- $builderBlocks = transform.Unmarshal (dict "format" "json") . -}}
@@ -335,7 +335,7 @@
 {{- $homeCard2Item1 := index $home "card2Item1" | default (cond $isRU "Настройка инфраструктуры" (cond $isES "Configuración de infraestructura" "Infrastructure setup")) -}}
 {{- $homeCard2Item2 := index $home "card2Item2" | default (cond $isRU "Хостинг приватных сетей" (cond $isES "Hosting de red privada" "Private network hosting")) -}}
 {{- $homeCard2Item3 := index $home "card2Item3" | default (cond $isRU "Тонкая настройка производительности" (cond $isES "Ajuste de rendimiento" "Performance tuning")) -}}
-{{- $homeCard2UrlRaw := index $home "card2Url" | default $softURL -}}
+{{- $homeCard2UrlRaw := index $home "card2Url" | default "" -}}
 {{- $homeCard2Url := $homeCard2UrlRaw -}}
 {{- if and (not (hasPrefix $homeCard2Url "http://")) (not (hasPrefix $homeCard2Url "https://")) (not (hasPrefix $homeCard2Url "/")) -}}{{- $homeCard2Url = $homeCard2Url | relLangURL -}}{{- end -}}
 {{- $homeCard2Link := partial "affiliate-link-attrs.html" (dict "url" $homeCard2Url) -}}
@@ -474,6 +474,7 @@
             </ul>
           </a>
 
+          {{- if $homeCard2Link.href -}}
           <a class="seo-card" href="{{ $homeCard2Link.href | safeURL }}"{{ with $homeCard2Link.cloaked }} data-seo-cloaked-href="{{ . }}"{{ end }}{{ with $homeCard2Link.rel }} rel="{{ . }}"{{ end }} data-home-link-field="card2Url" data-home-link-value="{{ $homeCard2UrlRaw }}">
             <div class="seo-card-head">
               <span class="seo-card-icon" aria-hidden="true">
@@ -487,6 +488,7 @@
               <li data-home-field="card2Item3">{{ partial "home-inline.html" $homeCard2Item3 }}</li>
             </ul>
           </a>
+          {{- end -}}
         </aside>
       </div>
     </section>

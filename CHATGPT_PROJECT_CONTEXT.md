@@ -52,6 +52,14 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — Empty ES /soft/ disabled and homepage fallbacks hardened
+- Previous RU/ES catalog commit 6423127c: Hugo build #38797215145 PASS, context #38797215007 PASS. RU & ES each have 4 service cards including legitimate independently scoped website development, 29 retired URLs across 45 HTML, 15 audit findings/11 affected pages, RELEASE BLOCKED. EN remains 3 cards.
+- content/soft/index.es.md: draft:true; /es/soft/ content had only an empty builder block and no useful SEO software; old URL added to docs/retired-routes-en.txt. Original remains in main, no server 410/redirect to affiliate.
+- layouts/index.html: removed deprecated card2 fallback to /es/soft/ or /soft/. Second homepage card is rendered only when homeJson supplies an explicit URL; EN/RU/ES homeJson already contain such URLs, so current real destinations unchanged. The approved hosting referral stays; non-contextual forced redirects stay removed.
+- See docs/research/2026-10-15-es-soft-retirement.md for route evidence. New CI will verify ES software absent, no stale source fallback, and explicit second card exists on all three homepages.
+- New commit build/context guard pending. Other remaining release blockers: RU/ES homepage and /seo/ copy, RU/ES About, EN FAQ, explicit affiliate route conservative scanner flag. GSC, exact SERP top-10 and visual QA still missing.
+- Next: verify CI then separately clean RU and ES About pages; keep brand claims verifiable and no invented clients. Site main, production, DNS, Pages unchanged.
+
 ### 2026-10-15 — RU/ES catalogs include independent website development service
 - Previous ES dev commit 4cbbe2d1: Hugo #38796764348 PASS, context #38796764349 PASS, 29 retired routes, 45 generated HTML, 15 diagnostics/11 files; RU/ES H1, canonical, mutual hreflang, relevant links and sponsored affiliate labels passed. No live deploy; new site-dev offer needs current business/pricing confirmation before production.
 - Added a fourth honest card to content/services/_index.ru.md at /ru/uslugi/razrabotka-saitov/ and content/services/_index.es.md at /es/servicios/desarrollo-web/. Source images reused; old 3 SEO service cards not moved. Added content explanation distinguishing site development from audits, keyword research and consultation. EN catalog remains 3 while EN web dev translation is draft.
@@ -448,7 +456,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Проверить GitHub Actions для четвёртой карточки RU/ES веб-разработки: оба каталога ровно 4 карточки с проверенными URL, valid H1/canonical, без серых терминов. Затем отдельно /es/soft/ — пустая страница/legacy anchor. Потом последовательно About RU/ES, SEO RU/ES, homepage RU/ES, EN FAQ. Никогда не удалять /go/vdsina/ автоматически; ссылки должны быть тематическими, обозначенными как sponsored. Main/live server/DNS/Pages без изменений.
+Проверить GitHub Actions после ES /es/soft/ draft и удаления скрытого software fallback в homepage template. Убедиться, что EN/RU/ES card2 с существующим URL остаются рабочими, а старые URL не в sitemap/HTML. Следующий пошаговый этап — RU About, ES About, RU/ES SEO и главные по одной странице. Затем EN FAQ и контекстный affiliate gate без blanket removal /go/vdsina/. Release и GSC/visual QA всё ещё BLOCKED. Main/сервер не трогать.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 
