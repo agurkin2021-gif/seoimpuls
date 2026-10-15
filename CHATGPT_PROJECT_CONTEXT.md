@@ -52,6 +52,13 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — RU SEO consultation migrated to independent white SEO URL
+- Previous RU keyword commit 516da541 CI #38792210897 PASS, context guard #38792210910 PASS: /ru/uslugi/semanticheskoe-yadro/ H1/canonical/en-us alternate, old URL retired and no stale links, 68 diagnostic findings in 20 HTML. Release BLOCKED.
+- Replaced content/services/seo-consultation/index.ru.md with substantive white SEO advisory content at /ru/uslugi/seo-konsultaciya/; retained translationKey for EN/ES matching, clear advisory vs technical-audit vs semantic clustering intent. Removed corrupt source meta and claims of perpetual support, mass link-selling topics, ranking guarantees. Prior $350/three hours explicitly marked historical pending confirmation.
+- Updated exact referring RU hub links /uslugi-linkbildinga/seo-konsultaciya/ → /ru/uslugi/seo-konsultaciya/; registered old route as candidate withdrawn in docs/retired-routes-en.txt (only proposed future relevant 301, NOT live). New source evidence doc docs/research/2026-10-15-ru-consultation-migration.md with SERP_UNVERIFIED sample competitive pages.
+- New QA validates generated H1, canonical, hreflang EN, real RU keyword internal link and old route absence. CI for THIS commit pending. RU hub still displays old category/name and is next. Main/production untouched, visual QA and GSC pending.
+- Next: rebuild RU /ru/uslugi/ as the legitimate non-gray catalog, change homepage card and RU primary navigation; inspect cross-language and legacy hub links. Then ES analogues.
+
 ### 2026-10-15 — RU keyword research migrated to independent white SEO URL
 - Previous commit f312bb56: Hugo build #38791068670 PASS and context #38791068844 PASS; old sales 21 routes removed, 45 HTML; sitewide scanner 74 findings in 20 HTML, RELEASE BLOCKED.
 - Rewritten content/services/keyword-research/index.ru.md: new canonical /ru/uslugi/semanticheskoe-yadro/; H1/Title «Сбор семантического ядра и кластеризация запросов», commercial intent distinct from /ru/seo/, original translationKey preserved. Eight meaningful sections: input, formats, intent clustering, methodology, deliverables, pricing caveat, FAQ, contact. Historical $90 is explicitly pending confirmation; no false guarantees.
@@ -381,7 +388,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Проверить Actions RU Keyword Research: /ru/uslugi/semanticheskoe-yadro/ generated, H1/canonical/EN hreflang, old URL absent, references fixed. При PASS — переписать RU SEO consultation на /ru/uslugi/seo-konsultaciya/ с одновременной заменой ссылки в RU hub; затем сделать новый чистый RU каталог /ru/uslugi/ и поправить меню/главную/SEO links. Испанские эквиваленты отдельно. Main/сервер не трогать.
+Проверить Actions после RU консультации. Если H1/canonical/hreflang/retired-URL PASS, перестроить RU parent services /ru/uslugi/ с тремя легитимными карточками и целевым меню, исправить RU homepage и прочие старые ссылки. Только после QA RU → ES keyword и consult. Live 301/410, main, production без изменений.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 
