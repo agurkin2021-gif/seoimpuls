@@ -60,6 +60,14 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — Restore original animated footer popup on English homepage
+- Owner reported English homepage footer no longer popped up as before. Root cause: EN-only visual CSS from c8631964 forcibly set `.custom-footer--en-home {position:static!important}`, overriding the existing global `body.footer-floating .custom-footer` fixed/animated behavior.
+- Removed only the EN-only static-position override and the related desktop overrides that erased footer reserve space and moved cookie consent banner. Original shared CSS and footer JS floating/scroll/idle/popup logic remain untouched.
+- Kept existing EN-home contacts-only presentation (WhatsApp, Telegram, email). RU/ES unchanged. Did not reintroduce generic unrelated social links or unverified embedded map.
+- Added `scripts/verify_en_footer_popup.py` and blocking steps in both rebuild QA and Pages Preview workflow to protect original footer animation and generated EN footer markup. Browser scroll interaction still requires follow-up verification after publication.
+- No main, production, DNS, H1/CTA/content changes. Next: verify workflows and test actual scroll/idle/reveal behavior in browser; inspect mobile footer and cookie consent placement.
+
+
 ### 2026-10-15 — EN homepage commercial blocks QA confirmed in Opera
 - Subtitle commit 439eae23: GitHub Pages #14 PASS, Hugo QA #73 PASS; Opera confirmed approved text.
 - Service-area cards commit 6dca9e29: Pages #15 PASS, Hugo QA #74 PASS; Opera confirmed service heading and agreed-scope text.
@@ -677,7 +685,7 @@ IMPORT_STATUS: completed
 - Финальный CTA с Telegram и страницей консультации.
 - Последний контентный коммит ed27a5a8: GitHub Pages #17 PASS, Hugo QA #76 PASS; Opera подтвердил блоки и 4 целевых EN URL.
 
-Следующий этап: EN-home technical/visual QA на 390/1280px, проверка изображений, Core Web Vitals, accessibility, cookie banner, canonical/hreflang, JSON-LD, внутренние ссылки. Затем гео-фильтрованный Google top-10 и данные GSC. До этого SERP_UNVERIFIED, GSC_PENDING, VISUAL_QA_PARTIAL; нет утверждения READY_FOR_RELEASE.
+Следующий этап: ПЕРВЫМ проверить восстановленное всплытие футера EN на живом Preview при прокрутке и паузе (desktop), отдельное отображение на мобильных устройствах и позицию cookie-banner. Затем EN-home technical/visual QA на 390/1280px, проверка изображений, Core Web Vitals, accessibility, cookie banner, canonical/hreflang, JSON-LD, внутренние ссылки. Затем гео-фильтрованный Google top-10 и данные GSC. До этого SERP_UNVERIFIED, GSC_PENDING, VISUAL_QA_PARTIAL; нет утверждения READY_FOR_RELEASE.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 
