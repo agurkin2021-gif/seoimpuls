@@ -363,6 +363,41 @@ jobs:
           assert not Path('public/servicios-de-link-building/index.html').exists(),'Old ES link-selling hub generated'
           print('PASS: ES catalog, 3 cards, homepage/menu, three-way reciprocal hreflang')
           PY
+      - name: Verify RU website-development migration and transparency
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          from html.parser import HTMLParser
+          class P(HTMLParser):
+              def __init__(self):
+                  super().__init__();self.h1=[];self.inside=False;self.canon=[];self.links=[];self.anchors=[];self.current=None
+              def handle_starttag(self,t,attrs):
+                  a=dict(attrs)
+                  if t=='h1':self.inside=True
+                  if t=='a':self.current={'href':a.get('href',''),'rel':a.get('rel',''),'label':''};self.links.append(a.get('href',''))
+                  if t=='link' and a.get('rel')=='canonical':self.canon.append(a.get('href',''))
+              def handle_endtag(self,t):
+                  if t=='h1':self.inside=False
+                  if t=='a' and self.current:self.anchors.append(self.current);self.current=None
+              def handle_data(self,s):
+                  if self.inside:self.h1.append(s)
+                  if self.current:self.current['label']+=s
+          file=Path('public/ru/uslugi/razrabotka-saitov/index.html')
+          assert file.is_file(),'RU website development page is missing'
+          p=P();p.feed(file.read_text(encoding='utf-8'))
+          assert ''.join(p.h1).strip()=='Разработка сайтов на чистом коде',p.h1
+          assert p.canon==['https://seoimpuls.com/ru/uslugi/razrabotka-saitov/'],p.canon
+          assert '/ru/uslugi/semanticheskoe-yadro/' in p.links
+          assert '/ru/uslugi/seo-konsultaciya/' in p.links
+          assert not Path('public/uslugi-linkbildinga/sozdanie-saitov/index.html').exists()
+          assert not Path('public/ru/uslugi-linkbildinga/sozdanie-saitov/index.html').exists()
+          affiliate=[x for x in p.anchors if x['href']=='/go/vdsina/']
+          assert len(affiliate)==1,('RU affiliate links',affiliate)
+          assert 'партнёр' in affiliate[0]['label'].casefold(),affiliate[0]
+          assert {'sponsored','nofollow'}.issubset(set(affiliate[0]['rel'].split())),affiliate[0]
+          print('PASS: RU website development migrated, canonical, linked services and disclosed affiliate')
+          PY
       - name: Inventory rendered affiliate placements (diagnostic, no deployment)
         run: python3 scripts/audit_affiliate_links.py --site public --max-details 150
       - name: Report whole-site white-hat release blockers (diagnostic, never deploy)

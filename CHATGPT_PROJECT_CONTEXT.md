@@ -52,6 +52,14 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — RU website creation migrated out of old link-selling namespace
+- Baseline commit c07b0c29: Hugo #38794930874 PASS and context guard #38794930526 PASS; 27 retired routes and 20 informational audit findings in 11 HTML; release BLOCKED.
+- Inspected content/services/website-creation/index.ru.md: legacy product combines honest responsive website development with a satellite package and other questionable claims. Replaced with a practical, bounded website-development offer using real source capabilities: small landing/multipage sites, semantic markup, mobile layout, basic technical SEO, conditional DNS/HTTPS and handover; NO satellite packages or ranking guarantees.
+- New clean candidate URL /ru/uslugi/razrabotka-saitov/, Title/H1 «Разработка сайтов на чистом коде», preserved translationKey=services-website-creation and relevant image. Historical $75/$16 is labeled not an approved present tariff; confirm current business offering and terms before release. Clearly labeled optional VPS referral /go/vdsina/ with sponsored/nofollow must be checked in generated HTML.
+- Old /uslugi-linkbildinga/sozdanie-saitov/ appended to docs/retired-routes-en.txt; no live redirect/410. docs/research/2026-10-15-ru-web-development-migration.md documents a publicly sampled competitor comparison (NOT exact Google top 10), intent, gaps, URL migration and unknown GSC. Updated blocking QA to verify H1, canonical, internal links, old URL absence, and single explicitly disclosed affiliate.
+- Current commit CI pending. Full original kept in main. RU/ES catalogs still show exactly three already-reviewed SEO offers; development service is not added as a fourth card until both locales and offering scope are checked. Existing EN translation remains draft.
+- Next: check current CI; separately rebuild ES /servicios-de-link-building/creacion-de-sitios-web/ at /es/servicios/desarrollo-web/, preserving translationKey and reviewing pricing. Then consider RU/ES catalog cards together and move to /es/soft/. No live server, DNS, Pages or main changes.
+
 ### 2026-10-15 — RU/ES architecture quality gate confirmed; remaining issues inventoried
 - Previous ES catalog commit 91a86bf5: GitHub Actions #38794561199 PASS (Hugo, 27 retired routes over 45 HTML, 3-page RU/ES/EN catalog + keyword + consultation reciprocal hreflang, canonical and cards), context #38794561487 PASS. Whole-site diagnostic 21 findings in 12 HTML; site release BLOCKED.
 - Fixed content/services/_index.ru.md: removed the leftover negative advertising reference to artificial Domain Rating and link networks; instead clarified verification criteria. This is only a local copy correction; 3 RU cards and all paths unchanged.
@@ -425,7 +433,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Проверить Actions после удаления лишней серой терминологии из RU каталога. Далее по одной странице проверить RU /uslugi-linkbildinga/sozdanie-saitov/ и ES /servicios-de-link-building/creacion-de-sitios-web/: реальное предложение разработки сайтов или сателлиты, SERP-интент, переход в правильный URL/черновик без фальшивого 301. Затем ES /soft/, RU/ES SEO/About/home и полные SEO/visual/GSC проверки. См. docs/research/2026-10-15-remaining-sitewide-issues.md. Main/production неизменны.
+Проверить GitHub Actions для RU /ru/uslugi/razrabotka-saitov/, включая href/rel партнёрской VPS-ссылки, canonical и отсутствие старого /uslugi-linkbildinga/sozdanie-saitov/. Затем отдельным коммитом переписать ES сайт-разработку /es/servicios/desarrollo-web/ и списать старый /servicios-de-link-building/creacion-de-sitios-web/. Только после проверки обеих локалей решать, добавлять ли веб-разработку в каталоги как четвёртую реальную услугу (бизнес-условия требуют подтверждения). Далее /es/soft/ и оставшиеся RU/ES тексты; main/production не менять.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 
