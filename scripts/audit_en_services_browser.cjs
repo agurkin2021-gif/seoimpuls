@@ -14,7 +14,7 @@ let browser;
 (async()=>{
   browser = await chromium.launch({headless:true,args:["--no-sandbox"]});
   const report = {root:ROOT,viewports:[]};
-  for(const width of [390,768,1280]){
+  for(const width of [390,768,1280,1600]){
     const context=await browser.newContext({
       viewport:{width,height:width===390?844:800},deviceScaleFactor:1,
       isMobile:width===390,hasTouch:width===390,locale:"en-US",reducedMotion:"reduce"
@@ -107,7 +107,45 @@ let browser;
       };
     });
     console.log("HOME_LEFT_EDGE_BASELINE "+JSON.stringify({width,alignment}));
+    const alignReference=alignment.headerBrand?.left;
+    const compareLeft=[
+      ["Home breadcrumb",alignment.breadcrumbHome],
+      ["Hero heading",alignment.heroTitle],
+      ["Services heading",alignment.servicesHeading],
+      ["Process border",alignment.processPanel],
+      ["Definition heading",alignment.definitionTitle],
+      ["Deliverables heading",alignment.deliverablesTitle],
+      ["FAQ heading",alignment.faqTitle],
+      ["Contact panel border",alignment.contactShell],
+      ["Footer contacts",alignment.footerContacts]
+    ];
+    const compareRight=[
+      ["Breadcrumb",alignment.breadcrumb?.right-alignment.breadcrumb?.padRight],
+      ["Hero",alignment.heroShell?.right-alignment.heroShell?.padRight],
+      ["Services",alignment.servicesShell?.right-alignment.servicesShell?.padRight],
+      ["Process border",alignment.processPanel?.right],
+      ["Deliverables",alignment.deliverablesShell?.right-alignment.deliverablesShell?.padRight],
+      ["FAQ",alignment.faqShell?.right-alignment.faqShell?.padRight],
+      ["Contact panel border",alignment.contactShell?.right],
+      ["Footer",alignment.footerShell?.right-alignment.footerShell?.padRight]
+    ];
+    const alignErrors=[];
+    if(!Number.isFinite(alignReference))alignErrors.push("No header baseline");
+    for(const [label,box] of compareLeft){
+      if(!box||Math.abs(box.left-alignReference)>2.1)
+        alignErrors.push(label+": left="+box?.left+" vs header="+alignReference);
+    }
+    const targetRight=alignment.headerShell?.right-alignment.headerShell?.padRight;
+    for(const [label,right] of compareRight){
+      if(!Number.isFinite(right)||Math.abs(right-targetRight)>2.1)
+        alignErrors.push(label+": right="+right+" vs header="+targetRight);
+    }
+    if(Math.abs(alignment.headerShell?.left-alignment.container?.left)>1||
+       Math.abs(alignment.headerShell?.right-alignment.container?.right)>1)
+      alignErrors.push("Header and content container outer widths differ");
+    console.log("EN_HOME_RAIL_QA "+JSON.stringify({width,targetLeft:alignReference,targetRight,alignErrors}));
     const fail=[];
+    if(alignErrors.length)fail.push("EN homepage unified left/right rail: "+alignErrors.join(" | "));
     if(response.status()!==200)fail.push("Home HTTP "+response.status());
     if(main.title!=="Professional SEO Services | SeoImpuls")fail.push("Home title "+main.title);
     if(main.h1.length!==1||main.h1[0]!=="Professional SEO Services")fail.push("Home H1");

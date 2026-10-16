@@ -864,6 +864,97 @@
 </style>
 {{ end }}
 
+
+{{ if eq $lang "en" }}
+<style id="seo-en-home-rail-alignment">
+/*
+ * One centered, 1280px content rail on the EN homepage.
+ * Header, "Home" breadcrumb, hero, services, process, answers,
+ * enquiry panel and footer use identical horizontal insets.
+ * Do not affect RU/ES or interior pages.
+ */
+:root { --seo-en-home-rail-gutter:32px; }
+@media (max-width:980px) { :root { --seo-en-home-rail-gutter:24px; } }
+@media (max-width:767px) { :root { --seo-en-home-rail-gutter:18px; } }
+
+.main .container {
+  box-sizing:border-box;
+  width:100%;
+  max-width:1280px;
+  margin-inline:auto;
+  padding-inline:0;
+}
+.custom-header__inner {
+  box-sizing:border-box;
+  max-width:1280px;
+  padding-inline:var(--seo-en-home-rail-gutter);
+}
+.main .breadcrumbs {
+  box-sizing:border-box;
+  width:100%;
+  max-width:1280px;
+  padding-inline:var(--seo-en-home-rail-gutter);
+  margin:8px auto 0;
+}
+.seo-central--art-directed {
+  box-sizing:border-box;
+  width:100%;
+  max-width:1280px;
+  margin-inline:auto;
+}
+.seo-central--art-directed .seo-hero-content,
+.seo-central--art-directed .seo-en-primary-services,
+.seo-central--art-directed .seo-news-strip,
+.seo-central--art-directed .seo-en-home-definition,
+.seo-central--art-directed .seo-en-home-deliverables,
+.seo-central--art-directed .seo-en-buyer-faq {
+  box-sizing:border-box;
+  width:100%;
+  max-width:1280px;
+  margin-inline:auto;
+  padding-left:var(--seo-en-home-rail-gutter);
+  padding-right:var(--seo-en-home-rail-gutter);
+}
+.seo-central--art-directed .seo-en-home-deliverables,
+.seo-central--art-directed .seo-en-buyer-faq {
+  position:relative;
+  border-top:0;
+}
+.seo-central--art-directed .seo-en-home-deliverables::before,
+.seo-central--art-directed .seo-en-buyer-faq::before {
+  content:"";position:absolute;top:0;
+  left:var(--seo-en-home-rail-gutter);
+  right:var(--seo-en-home-rail-gutter);
+  height:1px;background:#334c5e;pointer-events:none;
+}
+/* The contact panel is an inset surface: its border aligns with card borders. */
+.seo-central--art-directed .seo-en-home-scope {
+  box-sizing:border-box;
+  width:calc(100% - (2 * var(--seo-en-home-rail-gutter)));
+  max-width:calc(1280px - (2 * var(--seo-en-home-rail-gutter)));
+  margin:16px auto 35px;
+  padding-inline:clamp(18px,2.7vw,30px);
+}
+.custom-footer--en-home .footer-wrap {
+  box-sizing:border-box;
+  width:100%;
+  max-width:1280px;
+  padding-left:var(--seo-en-home-rail-gutter);
+  padding-right:var(--seo-en-home-rail-gutter);
+}
+.custom-footer--en-home .footer-contacts {
+  transform:none;
+  margin:0;
+}
+@media(max-width:767px) {
+  .seo-central--art-directed .seo-en-home-scope {
+    margin:10px auto 30px;
+    padding:24px 18px 26px;
+  }
+}
+</style>
+{{ end }}
+
 {{ if $isRU }}
 {{ partial "ru-home-content.html" . }}
 {{ else }}

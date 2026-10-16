@@ -1,5 +1,13 @@
 # SEOImpuls — основной контекст проекта (читать первым)
 
+## 2026-10-16 — EN HOME UNIFIED CONTENT RAIL (PENDING QA)
+- Browser baseline confirmed actual horizontal mismatch: width 1280px: header logo x18, Home breadcrumb x34, hero/services x120, footer contacts x32; width 768px: x16/x32/x120/x32; width 390px: x12/x28/x34/x18. This is the precise defect reported by owner and not a subjective styling dispute.
+- EN-only HTML style in `layouts/index.html` now establishes centered 1280px frame, shared gutters 32/24/18px, removes conflicting `-1rem` width/margins and 120px content indent; aligns header/breadcrumb/content/footer rails. Contact panel borders share the service-card rail; heading inside panel remains intentionally inset. RU/ES templates, texts and other URLs untouched.
+- EN/RU browser test adds numeric x-coordinate assertions with ±2.1px tolerance at 390,768,1280,1600px and logs coordinates `EN_HOME_RAIL_QA`. Existing seven-service, responsive, SEO and RU isolation checks stay.
+- STATUS **SOURCE_COMMITTED / STRICT_PENDING / VISUAL_BROWSER_PENDING / PREVIEW_PENDING**. Do not call corrected until Playwright/Opera measurement proves it. No changes to main or production.
+- Next check relevant Actions on this commit, correct any actual failures, visually inspect published preview and preserve noindex.
+
+
 ## 2026-10-16 — EN homepage header/breadcrumb/content/footer left-edge audit (measurement phase)
 - Owner reports header/footer and the “Home” breadcrumb not sharing one left baseline with page content; asks to correct specifically this geometry, not reopen content/SEO or redesign another page.
 - Source inspection verifies incompatible gutters: English homepage sections inherit desktop `padding-left:120px` (old floating-contact clearance), header/breadcrumb use `18px`, footer uses `32px` on wide desktop; mobile uses mixed `12px/16px/18px`. This accounts for visible x-offsets but pixel baseline requires browser measurement.
