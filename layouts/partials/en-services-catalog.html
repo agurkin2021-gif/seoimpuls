@@ -51,6 +51,16 @@
 .seo-central--services .seo-catalog__cta-links{display:flex;flex-wrap:wrap;gap:13px 20px}
 .seo-central--services .seo-catalog__cta-links a{color:#8cddfb;font-weight:700;text-underline-offset:3px}
 @media(max-width:1020px){.seo-central--services .seo-catalog__grid{grid-template-columns:repeat(2,minmax(0,1fr))}.seo-central--services .seo-catalog__choice-grid{grid-template-columns:1fr}}
+@media(min-width:641px) and (max-width:1020px) {
+  /* 768px has a wrapped 171px header; 120px offset hid anchored headings. */
+  .seo-central--services .seo-catalog__group,
+  .seo-central--services .seo-catalog__matching,
+  .seo-central--services .seo-catalog__scope,
+  .seo-central--services .seo-catalog__example,
+  .seo-central--services .seo-catalog__faq,
+  .seo-central--services .seo-catalog__heading[id] {scroll-margin-top:192px}
+}
+
 @media(max-width:640px){
 /* This partial is EN-catalogue only: preserve explicit accept/reject, but avoid a 3-row mobile consent wall. */
 .gdpr-consent-banner .gdpr-consent-actions{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px}

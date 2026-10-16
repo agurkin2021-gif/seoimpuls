@@ -62,6 +62,11 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-16 — Step 1 tablet hash-offset regression, source fix
+- Initial Step 1 commit `f9bc7bb`: Hugo strict QA #38851634622 PASS, Pages #38851634633 PASS, context #38851634739 PASS. Browser #38851634798 FAIL: 390px PASS and 1280px PASS, but 768px `sectionTop 120` is behind sticky header bottom `171`; first 768 QA exposes a real breakpoint issue.
+- Adjusted **only scoped EN catalogue partial CSS** at tablet widths 641–1020px to `scroll-margin-top:192px` on group/matching/scope/example/FAQ sections and catalog heading target. 390 and 1280 retain 120px. Plan status stays **STEP 1 IN_PROGRESS**, full 390/768/1280 browser rerun pending. No homepage/RU/ES/sibling page/production changes.
+
+
 ### 2026-10-16 — Controlled plan Step 1: move problem-to-service decision before catalogue
 - Follow `docs/plans/EN_SEO_SERVICES_FINISH_PLAN.md`, STEP 1 IN_PROGRESS. Changed only `layouts/partials/en-services-catalog.html` (exactly one 3-choice selector moved after the three EN hero cards and before 23 workstreams), `scripts/verify_en_services_route.py` (HTML order/no duplicate assertion), `scripts/audit_en_services_browser.cjs` (390/768/1280 + selector order + expected grid), and EN-only Playwright workflow triggers and artifact label to include partial/data edits. Updated plan and this context in SAME COMMIT.
 - Preserved all 23 workstreams, four group navigation, existing Title/H1/URL/canonical, existing 3 child URLs, illustrations, hypothetical sample output, EN homepage and all RU/ES source untouched. No production deployment.
