@@ -60,6 +60,14 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — Audited competitive whitespace beyond baseline SERP gaps
+- Compared six directly competing organic landing URLs from owner-approved `professional seo services` Google Web top 10; direct providers coalition SEO + homepage, Netlynx, Blue Media, Thrive and Americaneagle (5 unique brands). Excluded directories Clutch, Semrush, RevenueBase, Bark for like-for-like provider UX comparisons.
+- Observed all providers explain services, several have cases, reports, pricing/timelines, so generic SEO copy does not differentiate SEOImpuls. Six inspected landing pages **did not visibly disclose a worked SEO recommendation record with affected URLs, evidence, implementation owner and acceptance test**; similarly no explicit read-only Search Console access note or "when not to order SEO" decision rule found. These are **page snapshot observations, not proof of competitors' missing internal capabilities/site-wide content**.
+- Sourced buyer pain from Google Search Central guidance (written explanation, read-only GSC initial audits) and Reddit discussions (actionable deliverables, named URLs, ownership). Full evidence, comparison, limitations and ranked differentiators saved as `docs/research/2026-10-15-en-home-competitor-white-space.md`.
+- Highest-value proposed differentiation: clear illustrative SEO finding record (NOT a fake case) and read-only access reassurance. No site edits in this research commit. H1 remains `Professional SEO Services`. Next: establish actual handoff practice before implying guaranteed deliverables; only then implement one scoped EN-home specimen and QA at 390/1280.
+- RU, ES, other EN pages, main and production untouched. GSC_PENDING / PROOF_REQUIRED / GEO_PHYSICAL_UNVERIFIED.
+
+
 ### 2026-10-15 — EN-home WCAG contrast and light/dark keyboard QA accepted
 - EN bottom CTA contrast correction (eb900c69) had Hugo #91 PASS and Pages #32 PASS; visible Preview checked with Opera. Dark axe #38829064787 PASS: zero confirmed WCAG A/AA violations at 390/1280 and eight EN CTA keyboard focus states with 3px outlines.
 - Light-theme follow-up audit commit da5d2b31: axe #38829420871 PASS. Both **light and dark theme**, 390 & 1280px: 0 confirmed WCAG A/AA violations, CTA focus gate PASS. `incomplete` axe flags persist (aria-prohibited-attr 2, color-contrast 77) and still require manual review.
@@ -788,11 +796,13 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Current branch white-seo-rebuild; only English homepage edits allowed, main/RU/ES/production seoimpuls.com untouched. Existing Google Web SERP top 10 `professional seo services` US gl=en-locale snapshot and intent closure documented in `docs/research/2026-10-15-en-home-professional-seo-serp.md` and competitors CSV. Hugo/Pages + 390/1280 responsive browser checks PASS. Latest EN CTA WCAG contrast fix eb900c69 published; light + dark 390/1280 axe run #38829420871 PASS with no **confirmed** automated WCAG A/AA violations and CTA keyboard focus visible. Manual incomplete nodes remain.
+Only EN homepage `/` in `white-seo-rebuild`; never alter RU/ES, other EN pages, main or `seoimpuls.com` production.
 
-Next priority: obtain **actual GSC property data** (queries/pages last 3–6 months, page impressions/clicks/CTR/ranking, cannibalization `/` vs `/services/`) after user-authorized connection. Current Opera session is not logged into Search Console. Windsor.ai plugin suggested but not connected. Do not infer SEO keyword difficulty/actual country impressions from global Keyword Planner volume or SERP. Also obtain real proof of case studies, specialist identities, testimonials from authorized owner materials; do not invent. Field CrUX unavailable on preview. Only after verified evidence adjust EN content/architecture, preserving approved H1 unless justified.
+Completed: owner-selected H1 `Professional SEO Services`; organic Google Web SERP top10 and buyer intent gap closure (SERP snapshot `hl=en&gl=us&pws=0&udm=14`, physical geo not independently verified); visual, Hugo, Pages and automatic WCAG dark+light 390/1280 QA PASS. See `docs/research/2026-10-15-en-home-professional-seo-serp.md`.
 
-Status: technical/visual/automated accessibility QA PASS with manual caveats; GSC_PENDING / GEO_PHYSICAL_UNVERIFIED / PROOF_REQUIRED / RELEASE_BLOCKED.
+**Most recent research:** `docs/research/2026-10-15-en-home-competitor-white-space.md`. Inspected six direct-provider top-10 landing URL samples. Competitive whitespace lies in **publicly demonstrating issue-level SEO recommendation format and acceptance criteria**, a precise implementation/approval handoff, read-only GSC access policy, and honest no-upsell eligibility. These observations DO NOT prove competitors lack the services privately or site-wide. Do not invent sample client cases.
+
+Next: user confirms real service/output practice for publishing a sample format; alternatively keep research only. If adding one compact **illustrative, not real-client** SEO finding below `What You Receive`, check Hugo strict, Pages Preview, Opera 390/1280, axe and update context same commit. Later authenticated GSC `/` vs `/services/` and genuine proof of specialists/cases remain blockers; GSC_PENDING/PROOF_REQUIRED/GEO_PHYSICAL_UNVERIFIED.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 
