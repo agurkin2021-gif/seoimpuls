@@ -787,7 +787,7 @@ jobs:
           print('PASS: EN keyword research new URL, H1, canonical, sections and clean copy.')
           hub=Page()
           hub.feed(Path('public/seo-services/index.html').read_text(encoding='utf-8'))
-          if ''.join(hub.h1).strip()!='Choose the Right SEO Work for Your Website':
+          if ''.join(hub.h1).strip()!='Find the Right SEO Service for Your Business':
               raise SystemExit('Unexpected /seo-services/ H1: '+str(hub.h1))
           if hub.canonical!=['https://seoimpuls.com/seo-services/']:
               raise SystemExit('Unexpected /seo-services/ canonical: '+str(hub.canonical))

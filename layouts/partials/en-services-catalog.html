@@ -20,6 +20,9 @@
 .seo-central--services .seo-catalog__real-qa {margin:21px 0 0;padding:18px 18px 15px;border:1px solid rgba(112,185,226,.40);border-radius:8px;background:rgba(7,29,48,.8)}
 .seo-central--services .seo-catalog__real-qa h3 {color:#f1f8ff;font-size:18px;line-height:1.35;margin:0 0 8px}
 .seo-central--services .seo-catalog__real-qa p {color:#ceddeb;font-size:14px;line-height:1.57;margin:0 0 10px}
+.seo-central--services .seo-catalog__real-qa>summary{cursor:pointer;color:#edf6ff;font-size:15px;font-weight:700;line-height:1.5}
+.seo-central--services .seo-catalog__real-qa>summary:focus-visible{outline:2px solid #9ce2fd;outline-offset:3px}
+.seo-central--services .seo-catalog__real-qa h3{margin-top:14px}
 .seo-central--services .seo-catalog__real-qa ol {margin:0 0 12px;padding-left:21px;display:grid;gap:8px}
 .seo-central--services .seo-catalog__real-qa li {color:#d4e3ef;font-size:14px;line-height:1.55}
 .seo-central--services .seo-catalog__real-qa a {color:#97dffa;text-underline-offset:3px}
@@ -106,21 +109,21 @@
 </style>
 <section class="seo-catalog" aria-labelledby="seo-catalog-title" data-en-catalog="1">
 <section class="seo-catalog__matching" aria-labelledby="seo-catalog-match">
-<h2 class="seo-catalog__heading" id="seo-catalog-match">Which SEO Service Should You Start With?</h2>
-<p class="seo-catalog__lede">Select a starting point based on the issue you can already describe. Detailed work is scoped on the destination page.</p>
+<h2 class="seo-catalog__heading" id="seo-catalog-match">Which SEO Service Fits Your Business?</h2>
+<p class="seo-catalog__lede">Choose what you want to receive: a website check, a list of customer searches or a clear plan for your business.</p>
 <div class="seo-catalog__choice-grid">
 {{- range .choices }}
 <article class="seo-catalog__choice">
 <h3>{{ .start }}</h3>
 <p><strong>Problem:</strong> {{ .problem }}</p>
 <p><strong>Usual output:</strong> {{ .result }}</p>
-<a href="{{ .url | relURL }}">Review {{ .start }}</a>
+<a href="{{ .url | relURL }}">See {{ .start }} details</a>
 </article>
 {{- end }}
 </div>
 </section>
-<h2 class="seo-catalog__heading" id="seo-catalog-title">What SEO Work May Include</h2>
-<p class="seo-catalog__lede">Start with one of the three services above. The areas below are examples of work that may be included after a review — you do not need to choose individual tasks.</p>
+<h2 class="seo-catalog__heading" id="seo-catalog-title">Other SEO Work, Explained Simply</h2>
+<p class="seo-catalog__lede">You do not need to know SEO terminology. These examples show what research and website improvements can involve. They are not four extra services you must buy.</p>
 <div class="seo-catalog__areas" aria-label="Examples of SEO project scope">
 {{- range .scope_areas }}
 <section class="seo-catalog__area" id="seo-area-{{ .id }}" aria-labelledby="seo-area-title-{{ .id }}">
@@ -132,28 +135,29 @@
 </section>
 {{- end }}
 </div>
-<p class="seo-catalog__scope-disclaimer">These are not separate packages. Specialized reviews, implementation and deliverables depend on the agreed scope and confirmed project fit. No search ranking or traffic outcome is guaranteed.</p>
+<p class="seo-catalog__scope-disclaimer">These are not separate packages. Additional work such as competitor research or page improvements is discussed only when the work can be agreed and delivered. Keyword research does not require an existing website. Rankings and traffic are not guaranteed.</p>
 <a class="seo-catalog__sample-link" href="#seo-catalog-example">See an example SEO finding ↓</a>
 <section class="seo-catalog__scope" aria-labelledby="seo-catalog-scope">
-<h2 class="seo-catalog__heading" id="seo-catalog-scope">How Scope and Deliverables Are Defined</h2>
-<p>SEO work is not a pre-filled checklist: it begins with the website's actual problems, target market and available evidence. A diagnostic review and changes to a live website are separate responsibilities.</p>
+<h2 class="seo-catalog__heading" id="seo-catalog-scope">How We Work With Your Business</h2>
+<p>Start with a business idea, an existing keyword list or a website address. We agree what you need and what you will receive before any work starts.</p>
 <ol>
-<li><strong>Define the brief.</strong> Share the website URL, market, business goal and examples of the issue. Identify what access or data would be required.</li>
-<li><strong>Agree the work.</strong> Define affected pages or templates, research methods, deliverable format and any dependencies before starting.</li>
-<li><strong>Document the output.</strong> Deliver relevant findings such as an issue register, keyword-to-URL map, content brief or migration plan as specified in the scope.</li>
-<li><strong>Validate separately.</strong> If implementation is commissioned, agree who makes changes and how results will be checked. Rankings and timing are not guaranteed.</li>
+<li><strong>Tell us about your business.</strong> Describe what you sell and where your customers are. A website is optional for keyword research.</li>
+<li><strong>Choose the result.</strong> Agree on a keyword list, a website audit or a consultation plan.</li>
+<li><strong>Receive your work.</strong> Get a clear report or spreadsheet with the information you agreed to receive.</li>
+<li><strong>Decide what happens next.</strong> Review the recommendations. Website changes are optional and must be agreed separately.</li>
 </ol>
 </section>
 <section class="seo-catalog__example" id="seo-catalog-example" aria-labelledby="seo-catalog-example-title">
-<h2 class="seo-catalog__heading" id="seo-catalog-example-title">What a Verifiable SEO Finding Looks Like</h2>
-<p class="seo-catalog__example-note">Illustrative reporting format only — not a real client case, completed audit or ranking claim. Actual findings require website-specific evidence.</p>
+<h2 class="seo-catalog__heading" id="seo-catalog-example-title">Example: What an SEO Audit Report Can Show</h2>
+<p class="seo-catalog__example-note">Illustrative reporting format only — not a real client case. This sample shows how we explain a problem, what we checked and the next step.</p>
 <div class="seo-catalog__evidence-grid">
-  <div class="seo-catalog__evidence-item"><strong>Possible problem</strong><p>An important URL intended for search includes a <code>noindex</code> directive in its returned HTML.</p></div>
-  <div class="seo-catalog__evidence-item"><strong>Evidence to collect</strong><p>Record the URL, HTTP status, source and rendered HTML, robots directives and available Search Console observations.</p></div>
-  <div class="seo-catalog__evidence-item"><strong>Recommended decision</strong><p>Confirm whether exclusion is intentional. Change only the approved directive or template, with rollback instructions if needed.</p></div>
-  <div class="seo-catalog__evidence-item"><strong>Acceptance check</strong><p>Fetch the updated live URL, verify intended robots directives and internal links, then review indexing after recrawling. Removing <code>noindex</code> does not guarantee inclusion.</p></div>
+  <div class="seo-catalog__evidence-item"><strong>Possible problem</strong><p>A setting tells Google not to show an important page in search results (called <code>noindex</code>).</p></div>
+  <div class="seo-catalog__evidence-item"><strong>What we check</strong><p>We check that the page loads and record the setting and the affected page address.</p></div>
+  <div class="seo-catalog__evidence-item"><strong>What to do</strong><p>Confirm whether the page should appear in Google. If it should, plan a correction.</p></div>
+  <div class="seo-catalog__evidence-item"><strong>How to check</strong><p>Check whether the agreed setting has been corrected. Google still decides if the page appears.</p></div>
 </div>
-<div class="seo-catalog__real-qa" data-internal-qa-proof="1">
+<details class="seo-catalog__real-qa" data-internal-qa-proof="1">
+<summary>See a real example of how we check our own work</summary>
 <h3>Verified Internal QA Record — Not a Client Case</h3>
 <p>To demonstrate the evidence-to-fix workflow, this catalogue's own responsive test uncovered a real defect. These are recorded layout measurements from GitHub Actions, <strong>not</strong> customer results or a Google ranking improvement.</p>
 <ol>
@@ -163,7 +167,7 @@
 <li><strong>Acceptance result:</strong> A fresh 768px test measured the section at 192px and the header at 171px, confirming the heading was no longer obscured. <a href="https://github.com/agurkin2021-gif/seoimpuls/actions/runs/38851849354">Inspect the passing retest</a>.</li>
 </ol>
 <p>This illustrates a reproducible QA report for our own project. It does not establish external client experience, predict search performance or replace a website-specific SEO audit.</p>
-</div>
+</details>
 </section>
 <section class="seo-catalog__faq" aria-labelledby="seo-catalog-faq">
 <h2 class="seo-catalog__heading" id="seo-catalog-faq">Questions About SEO Work</h2>
@@ -172,8 +176,8 @@
 {{- end }}
 </section>
 <section class="seo-catalog__cta" aria-labelledby="seo-catalog-contact">
-<h2 id="seo-catalog-contact">Discuss Your Website's SEO Priorities</h2>
-<p>Send the website URL, target markets and the problem you want to solve. The next step can be a technical audit, keyword map or focused consultation.</p>
+<h2 id="seo-catalog-contact">Tell Us What Your Business Needs</h2>
+<p>Share what your business offers, who you want to reach and what you need. A website address is optional for keyword research but useful for an audit.</p>
 <div class="seo-catalog__cta-links">
 <a href="{{ "/services/seo-consultation/" | relURL }}">Review SEO consultation</a>
 <a href="https://t.me/Seoimpuls" rel="noopener noreferrer">Contact via Telegram</a>

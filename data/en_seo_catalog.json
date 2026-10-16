@@ -2,85 +2,85 @@
   "scope_areas": [
     {
       "id": "technical",
-      "name": "Technical checks",
-      "summary": "Find what prevents important pages from being discovered, understood or used.",
+      "name": "SEO Audit — Check Your Website",
+      "summary": "Find out whether problems on your website make it harder for Google to show your business.",
       "examples": [
-        "Crawling, indexation, canonicals and redirects",
-        "JavaScript rendering and structured data",
-        "Mobile performance and page templates"
+        "Check whether important pages can appear in Google",
+        "Find issues with pages, links and loading",
+        "Get a clear list of recommended fixes"
       ]
     },
     {
       "id": "content",
-      "name": "Keywords and content",
-      "summary": "Connect real searches to useful pages without duplicating the same intent.",
+      "name": "Keyword Research — Find Customer Searches",
+      "summary": "Find phrases people type into Google, even when your business does not have a website yet.",
       "examples": [
-        "Keyword groups, search intent and page mapping",
-        "On-page improvements, content audits and briefs",
-        "Internal linking, competitor gaps and cannibalization"
+        "Collect searches relevant to your products or services",
+        "Group related searches by topic (keyword clustering)",
+        "Receive a spreadsheet with keyword groups"
       ]
     },
     {
       "id": "specialized",
-      "name": "Specialized site needs",
-      "summary": "Additional reviews only when the website and confirmed expertise make them relevant.",
+      "name": "SEO Competitor Analysis — See What Rivals Do",
+      "summary": "Find businesses that appear in Google for searches that matter to you, then compare their pages and topics.",
       "examples": [
-        "Multilingual and local-search requirements",
-        "Online stores, large sites, image and video pages",
-        "Clarity and crawlability for AI-assisted search"
+        "Identify competing businesses in Google search",
+        "Compare questions and topics their pages cover",
+        "Get a report of gaps and possible opportunities"
       ]
     },
     {
       "id": "strategy",
-      "name": "Priorities and validation",
-      "summary": "Decide what matters first and how agreed changes will be checked.",
+      "name": "On-Page SEO — Improve Your Website Pages",
+      "summary": "See what individual pages could explain better to people and Google. Actual changes are separately agreed.",
       "examples": [
-        "SEO consultation, decisions and practical priorities",
-        "Search Console or analytics review with authorized access",
-        "Implementation checks and evidence-based reporting"
+        "Review page titles, headings and descriptions",
+        "Suggest clearer text and useful links",
+        "Agree which improvements are worth making first"
       ]
     }
   ],
   "choices": [
     {
-      "problem": "Important pages are not indexed, or redirects are wrong.",
-      "start": "Technical SEO audit",
-      "result": "Technical issue register and priority checks",
+      "start": "SEO audit",
+      "problem": "Your website exists, but you are unsure why people have trouble finding it on Google.",
+      "result": "A clear report of problems and the most important fixes",
       "url": "/seo/"
     },
     {
-      "problem": "Search demand is unclear or pages target competing queries.",
       "start": "Keyword research",
-      "result": "Intent groups and keyword-to-URL mapping",
+      "problem": "You want to know what people search for or need to organize a list of search terms.",
+      "result": "A spreadsheet of searches grouped by topic",
       "url": "/services/keyword-research/"
     },
     {
-      "problem": "Several areas need work and priorities are uncertain.",
       "start": "SEO consultation",
-      "result": "Focused recommendations and a scoped next-step plan",
+      "problem": "You need advice about what to do first for your business.",
+      "result": "Practical recommendations and a clear next-step plan",
       "url": "/services/seo-consultation/"
     }
   ],
   "faq": [
     {
-      "question": "Are these work areas separate service packages?",
-      "answer": "No. They are examples of checks or research that can be included when relevant. Start with a technical audit, keyword research or SEO consultation; the actual scope, deliverables and terms are agreed for each project."
+      "question": "Can you find keywords for my business before I have a website?",
+      "answer": "Yes. Tell us what you sell and which country or language you want to reach. Keyword research gives you a list of relevant Google searches. Keyword clustering means grouping related phrases together in a spreadsheet."
     },
     {
-      "question": "What affects the cost and delivery time?",
-      "answer": "Site size, number of URLs and templates, target markets, data quality, available access, reporting depth and who implements fixes all affect a quote and schedule. The catalogue is not a fixed-price offer; specific deliverables and terms must be agreed before work begins."
+      "question": "What is the difference between keyword research and an SEO audit?",
+      "answer": "Keyword research shows what customers search for, while an SEO audit checks an existing website for issues that may affect search visibility. A website is not required for keyword research."
     },
     {
-      "question": "Is implementation included with an audit?",
-      "answer": "Not automatically. Diagnosis, development and verification are separate responsibilities. Access, implementation steps and deliverables require agreement."
+      "question": "What will I receive from a service?",
+      "answer": "Depending on the work you choose: a keyword spreadsheet grouped by topic, a website audit with a list of priorities, or a consultation with practical next steps. The result and scope are confirmed before work starts."
     },
     {
-      "question": "Can SEO work guarantee rankings, rich results or AI citations?",
-      "answer": "No. Search systems determine indexing and presentation. We can identify issues, propose fixes and evaluate evidence, but cannot guarantee inclusion, placement or traffic."
+      "question": "Will you make changes to my website or send a report?",
+      "answer": "Keyword research, a website audit and consultation can be delivered as research, reports or advice. Website editing, new text and technical fixes require a separate agreement."
     },
     {
-      "question": "Do you offer artificial authority-building packages?",
-      "answer": "No. Automated placements, purchased links intended to manipulate rankings, link networks and manufactured authority metrics are excluded. Ethical editorial outreach planning never guarantees third-party coverage."
+      "question": "Can you guarantee first place in Google?",
+      "answer": "No. We can research searches, identify issues and recommend improvements, but search engines decide rankings and traffic. We do not offer purchased links intended to manipulate rankings."
     }
   ]
 }

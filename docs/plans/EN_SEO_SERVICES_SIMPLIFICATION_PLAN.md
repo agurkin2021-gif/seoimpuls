@@ -1,5 +1,5 @@
 # SEOImpuls — customer-first EN /seo-services/ simplification
-Date: 2026-10-16. Status: **CODE_QA_PASS / RESPONSIVE_VISUAL_QA_PASS / OWNER_REVIEW_PENDING**. Authorized scope: **ONLY /seo-services/**. Owner explicitly prohibits any assistant-initiated transition to another page.
+Date: 2026-10-16. Status: **EDITED_QA_PENDING / OWNER_REVIEW_PENDING — plain-language SEO offer**. Authorized scope: **ONLY /seo-services/**. Owner explicitly prohibits any assistant-initiated transition to another page.
 
 ## Problem (verified in source, not presumed Google traffic data)
 - 23 equal-weight workstream cards: 3 established commercial pages, 14 constituent tasks, 6 specialist areas without confirmed standalone offer.
@@ -8,7 +8,7 @@ Date: 2026-10-16. Status: **CODE_QA_PASS / RESPONSIVE_VISUAL_QA_PASS / OWNER_REV
 - Actual commercial menu: Technical SEO audit (/seo/), Keyword research (/services/keyword-research/), SEO consultation (/services/seo-consultation/).
 
 ## UX acceptance contract
-- Keep /seo-services/, approved HTML Title and H1, self canonical, breadcrumbs, 3 relevant linked destination URLs, noindex Pages preview and truthful service limitations.
+- Keep /seo-services/, existing HTML Title, self canonical, breadcrumbs, 3 relevant linked destinations, noindex Pages preview and honest limits. The H1 is updated under the owner's newer requirement for buyer-friendly wording.
 - Exactly 3 primary entry service cards. An existing choice-by-problem selector may remain only if it adds useful problem/outcome clarity; it must not create 23 competing offers.
 - Replace the 23 visually equal cards with a **short 4-area scope overview**, e.g. technical diagnostics; keywords/pages/content; platform/market specializations; research, implementation and measurement. Maximum 4 visible work-area blocks, each with one concise description and simple examples. Treat these as examples of possible scope, not standalone promised packages or separate destinations.
 - Limit granular links to the 3 genuine service landing pages plus one unambiguous consultation/contact CTA. Do not fake authority, expertise, quotes, testimonials, rankings, package prices or client results. Specialist fit requires confirmation rather than a claim of established capability.
@@ -50,3 +50,13 @@ Date: 2026-10-16. Status: **CODE_QA_PASS / RESPONSIVE_VISUAL_QA_PASS / OWNER_REV
 - Responsive Chromium #38899499592 PASS for source `46bc35e` which is unchanged by later test-only fix. 390/768/1280 browser `fail:[]`; 3 service cards, 3 buyer decisions, 4 informative scope cards/12 examples, 0 old 23 tiles, 0 per-task email CTAs; broken links, overflow and runtime/network failures zero. Tablet and desktop floating shortcuts 2, overlapping category text 0.
 - Screenshot artifact #12044858940 downloaded and inspected: desktop full page, mobile full page, tablet category and viewport captures. Four area grid is 2 columns on desktop/tablet and one on mobile; no observed clipping or contact overlap. This is manual screenshot review, not formal WCAG certification.
 - Page status **CODE_QA_PASS / RESPONSIVE_VISUAL_QA_PASS / OWNER_REVIEW_PENDING**. Do not mark the second page closed or begin any other page without an explicit user instruction.
+
+## 2026-10-16 — Plain service descriptions with search terms (ACTIVE UPDATE)
+- Owner wants a catalogue readable by non-SEO business owners but containing phrases people actually search. Peer examples use SEO Audit, Keyword Research, SEO Consultation, SEO Competitor Analysis and On-Page SEO; **no verified search volume or exact localized SERP positions** were established. No keyword ranking guarantees.
+- Existing three commercial pages/links remain: /seo/, /services/keyword-research/, /services/seo-consultation/. Cards now display SEO Audit / Keyword Research / SEO Consultation with everyday explanations of what problem each solves and what result is delivered. All three existing service images stay, especially /uploads/semantika-1788907052-q46-1788907068324.webp for semantic keyword research.
+- Keyword research is explicitly a standalone deliverable before a website exists; search phrases are cleaned and grouped by topic (clustering) into a spreadsheet.
+- The four information cards use clear searchable terms (SEO Audit, Keyword Research, SEO Competitor Analysis, On-Page SEO) with business-first explanations. The last two are possible additionally agreed work, NOT independent confirmed service packages or new URLs.
+- H1 was deliberately changed to "Find the Right SEO Service for Your Business" to remove the misleading requirement of a website, retaining original Title/URL/canonical. Page benefits, process, CTA, FAQ and sample audit wording simplified. Historical technical self-QA disclosure retained but initially collapsed.
+- Changed only EN /seo-services/ source, EN-guarded shared presentation, dedicated SEO QA and that page's H1 assertion in sitewide CI, with the required context. No edits to the homepage, other service pages, RU/ES, main or production.
+- Status **EDITED_QA_PENDING**, dependent on fresh Hugo/strict, Pages noindex preview, browser 390/768/1280 and inspected screenshots. Older PASS runs applied to different source.
+- NEVER switch to other pages without explicit new owner command.

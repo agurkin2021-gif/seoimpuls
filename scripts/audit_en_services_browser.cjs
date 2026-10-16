@@ -54,7 +54,7 @@ let browser;
     areaCount:document.querySelectorAll(".seo-catalog__area").length,
     topicCount:document.querySelectorAll(".seo-catalog__topic").length,
     scopeDisclaimer:(document.querySelector(".seo-catalog__scope-disclaimer")?.textContent||"").includes("These are not separate packages"),
-    specialistQualifier:(document.querySelector(".seo-catalog__scope-disclaimer")?.textContent||"").includes("Specialized reviews, implementation and deliverables depend"),
+    specialistQualifier:(document.querySelector(".seo-catalog__scope-disclaimer")?.textContent||"").includes("Additional work such as competitor research or page improvements"),
     choiceCount:document.querySelectorAll(".seo-catalog__choice").length,
     selectorBeforeCatalogue:(()=>{
       const selector=document.querySelector(".seo-catalog__matching");
@@ -70,6 +70,10 @@ let browser;
     verifiedInternalQaLinks:Array.from(document.querySelectorAll('[data-internal-qa-proof] a[href]')).map(a=>a.href),
     exampleDisclaimer:(document.querySelector(".seo-catalog__example-note")?.textContent||"").includes("not a real client case"),
     faqQuestionCount:document.querySelectorAll(".seo-catalog__faq details").length,
+    benefits:Array.from(document.querySelectorAll(".services-hub-card__benefit")).map(x=>x.textContent.trim()),
+    keywordImagePresent:!!document.querySelector('img[src*="semantika-1788907052-q46-1788907068324.webp"]'),
+    competitorExplained:(document.querySelector(".seo-catalog__areas")?.textContent||"").includes("SEO Competitor Analysis"),
+    plainProcess:(document.querySelector(".seo-catalog__scope")?.textContent||"").includes("Tell us about your business"),
     detailLinks:Array.from(document.querySelectorAll(".seo-catalog__detail-link")).map(a=>({text:a.textContent.trim(),href:a.href})),
     legacyGranularEnquiries:document.querySelectorAll(".seo-catalog a[href^='mailto:'][href*='subject=']").length,
     cards:Array.from(document.querySelectorAll(".services-hub-card")).map(x=>({label:x.textContent.trim(),href:x.href})),
@@ -103,7 +107,7 @@ let browser;
   console.log("SERVICES_STAGE "+width+" checked "+paths.length+" local routes");
   const fail=[];
   if(res.status()!==200)fail.push("HTTP");
-  if(data.h1.length!==1||data.h1[0]!=="Choose the Right SEO Work for Your Website")fail.push("H1");
+  if(data.h1.length!==1||data.h1[0]!=="Find the Right SEO Service for Your Business")fail.push("H1");
   if(data.title!=="SEO Audits, Keyword Research & Consulting | SeoImpuls")fail.push("Title");
   if(!/^(en-us|en)$/i.test(data.seoHead.lang)||data.seoHead.robots.length!==1||!data.seoHead.robots[0].startsWith("index,follow")||
      !data.seoHead.description.includes("Compare SEO audits")||!data.seoHead.ogTitle||!data.seoHead.ogDescription||
@@ -113,6 +117,7 @@ let browser;
   }
   if(data.canonical!=="https://seoimpuls.com/seo-services/")fail.push("Canonical");
   if(data.cards.length!==3)fail.push("Cards");
+  if(data.benefits.length!==3||!data.benefits.some(x=>x.includes("No website needed"))||!data.keywordImagePresent||!data.competitorExplained||!data.plainProcess)fail.push("Plain-language benefits or original keyword image missing");
   if(data.workstreamCount!==0||data.areaCount!==4||data.topicCount!==12||data.choiceCount!==3)fail.push("Concise four-area scope");
   if(!data.scopeDisclaimer||!data.specialistQualifier||data.legacyGranularEnquiries!==0||data.detailLinks.length)fail.push("Work components must not look like standalone offers");
   if(!data.selectorBeforeCatalogue)fail.push("Buyer choice must precede concise scope overview");

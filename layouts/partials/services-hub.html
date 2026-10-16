@@ -319,6 +319,10 @@
   /* EN catalog contains exactly 3 offered services; no fourth empty column. */
   .seo-central--services .services-hub {grid-template-columns:repeat(3,minmax(0,1fr));}
   .seo-central--services .services-hub__intro {max-width:850px;margin:0 auto 22px;text-align:center;color:#cbdced;font-size:16px;line-height:1.58;}
+  /* EN catalogue: plain customer benefit next to each searched service term. */
+  .seo-central--services .services-hub-card__body{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:8px;min-height:116px;padding:15px 29px 17px 16px}
+  .seo-central--services .services-hub-card__benefit{display:block;color:#c6dcee;font-size:14px;line-height:1.48;font-weight:400}
+  .seo-central--services .services-hub-card__label{font-size:clamp(17px,1.25vw,21px)}
   .custom-footer--en-services .footer-wrap {grid-template-columns:minmax(0,1fr);gap:0;padding:12px 28px;}
   .custom-footer--en-services .footer-contacts {justify-content:flex-start;flex-wrap:wrap;}
   @media(max-width:1020px) {
@@ -333,7 +337,7 @@
 </style>
 
   {{- if eq $lang "en" }}
-  <p class="services-hub__intro">Choose the right starting point: a technical SEO audit for website issues, keyword research for search intent and page planning, or focused consultation for deciding priorities. Browse the additional white-hat SEO workstreams below; access, implementation and deliverables are agreed separately.</p>
+  <p class="services-hub__intro">Choose the right starting point: check an existing website for problems, find what your customers search for, or get a clear SEO plan for your business. You can order keyword research before your website exists.</p>
   {{- end }}
   <div class="services-hub" data-services-hub="1">
     {{- range $cardIndex, $card := sort $cards "rank" -}}
@@ -357,6 +361,12 @@
         </span>
         <span class="services-hub-card__body">
           <h2 class="services-hub-card__label">{{ $card.label }}</h2>
+          {{- if eq $lang "en" -}}
+            {{- if eq $href "/seo/" -}}<span class="services-hub-card__benefit">See what may prevent Google from finding your pages. Get a report showing what to fix first.</span>
+            {{- else if eq $href "/services/keyword-research/" -}}<span class="services-hub-card__benefit">Find the searches customers use. Get a spreadsheet of keywords grouped by topic. No website needed.</span>
+            {{- else if eq $href "/services/seo-consultation/" -}}<span class="services-hub-card__benefit">Get practical advice on what to do first and a clear list of next steps.</span>
+            {{- end -}}
+          {{- end -}}
           <span class="services-hub-card__meta">{{ i18n "readMore" | default "Open" }}</span>
         </span>
       </a>

@@ -59,7 +59,7 @@ def contains_path(links,path):
     return any(urlsplit(link).path.endswith(path) for link in links)
 
 hub=parse('seo-services/index.html')
-assert ''.join(hub.h1).strip()=='Choose the Right SEO Work for Your Website',hub.h1
+assert ''.join(hub.h1).strip()=='Find the Right SEO Service for Your Business',hub.h1
 assert len(hub.canonical)==1 and hub.canonical[0].endswith('/seo-services/'),hub.canonical
 assert ''.join(hub.title).strip()=='SEO Audits, Keyword Research & Consulting | SeoImpuls',hub.title
 assert hub.html_lang.lower() in ('en-us','en'),hub.html_lang
@@ -76,19 +76,19 @@ assert hub.class_counts.get('seo-catalog__area',0)==4,'Four concise scope areas 
 assert hub.class_counts.get('seo-catalog__topic',0)==12,'Three examples per work area required'
 assert hub.class_counts.get('seo-catalog__workstream',0)==0,'Old 23 workstream tiles must not render'
 assert not hub.workstream_links,'Workstream-specific contact links must not render'
-assert 'Start with one of the three services above' in hub_markup,'Single buyer entry path missing'
+assert 'You do not need to know SEO terminology' in hub_markup,'Plain customer explanation missing'
 assert 'These are not separate packages' in hub_markup,'Not fixed packages caveat missing'
-assert 'Specialized reviews, implementation and deliverables depend' in hub_markup,'Specialist scope must be qualified'
+assert 'Additional work such as competitor research or page improvements' in hub_markup,'Additional work must be qualified'
 catalog_data=json.loads(Path('data/en_seo_catalog.json').read_text(encoding='utf-8'))
 assert len(catalog_data.get('scope_areas',[]))==4,'Four work areas in source'
 assert all(len(x['examples'])==3 for x in catalog_data['scope_areas']),'Keep scope concise'
 assert 'groups' not in catalog_data,'Old misleading 23 workstreams must not remain as source data'
 assert hub.class_counts.get('seo-catalog__choice',0) == 3,'Three direct buyer entry paths are required'
 pos_selector=hub_markup.find('<section class=seo-catalog__matching')
-pos_directory=hub_markup.find('What SEO Work May Include')
+pos_directory=hub_markup.find('Other SEO Work, Explained Simply')
 if pos_selector < 0: pos_selector=hub_markup.find('<section class="seo-catalog__matching')
 assert pos_selector>=0 and pos_directory>pos_selector, 'Three-way buyer selector must appear before the concise scope overview'
-assert hub_markup.count('Which SEO Service Should You Start With?')==1,'Duplicate service decision selector'
+assert hub_markup.count('Which SEO Service Fits Your Business?')==1,'Duplicate service decision selector'
 
 assert hub.class_counts.get('seo-catalog__toc',0)==0,'Overloaded categories navigation should be removed'
 assert hub.class_counts.get('seo-catalog__back',0)==0,'No repetitive return links'
@@ -101,17 +101,22 @@ assert hub.tags.get('details',0)>=5,'SEO buyer FAQ needs at least five answers'
 for target in ('seo-area-technical','seo-area-content','seo-area-specialized','seo-area-strategy','seo-catalog-example'):
     assert target in hub.ids,(target,'Missing concise work area or example')
 assert 'Illustrative reporting format only' in hub_markup,'Do not present an example as an actual client case'
-assert 'What a Verifiable SEO Finding Looks Like' in hub_markup,'Concrete audit output example missing'
+assert 'Example: What an SEO Audit Report Can Show' in hub_markup,'Concrete audit output example missing'
 assert hub.class_counts.get('seo-catalog__real-qa',0)==1,'One verified internal QA evidence record required'
 assert '<strong>not</strong> customer results' in hub_markup,'Internal report must expressly deny customer result claims'
 for marker in ('Verified Internal QA Record', '38851634798', '38851849354', 'customer results', 'section at 192px'):
     assert marker in hub_markup,('Missing or untraceable internal QA proof',marker)
 
 
-for required in ('What SEO Work May Include','How Scope and Deliverables Are Defined','Questions About SEO Work'):
+for required in ('Other SEO Work, Explained Simply','How We Work With Your Business','Questions About SEO Work'):
     assert required in hub_markup,(required,'Missing useful buyer guidance')
 assert '23 standalone packages' not in hub_markup,'Old 23-card FAQ language remains'
 assert 'SEO work enquiry:' not in hub_markup,'Granular mailto CTAs not removed'
+assert hub.class_counts.get('services-hub-card__benefit',0)==3,'Each real service should explain its buyer outcome'
+assert '/uploads/semantika-1788907052-q46-1788907068324.webp' in hub_markup,'Original keyword-research illustration missing'
+for phrase in ('SEO Audit','Keyword Research','SEO Consultation','SEO Competitor Analysis','On-Page SEO','spreadsheet','No website needed'):
+    assert phrase in hub_markup,('Search term or plain benefit missing',phrase)
+assert hub.class_counts.get('seo-catalog__real-qa',0)==1,'Verifiable QA record must remain available'
 for path in ('/seo/','/services/keyword-research/','/services/seo-consultation/'):
     assert contains_path(hub.links,path),(path,hub.links)
 crumb=[doc for doc in hub.jsonld if doc.get('@type')=='BreadcrumbList']
@@ -133,7 +138,7 @@ old=parse('services/index.html')
 oldtext=(Path('public')/'services/index.html').read_text(encoding='utf-8')
 assert old.refresh or re.search(r'window\.location|location\.href',oldtext,re.I),'Old URL must redirect'
 assert 'seo-services/' in oldtext,'Old alias misses new hub'
-assert 'Choose the Right SEO Work for Your Website' not in ''.join(old.h1),'Duplicate old catalog'
+assert 'Find the Right SEO Service for Your Business' not in ''.join(old.h1),'Duplicate old catalog'
 # Multilingual Hugo outputs a root sitemapindex and language-specific sitemaps.
 import xml.etree.ElementTree as ET
 root_sitemap=ET.parse('public/sitemap.xml').getroot()

@@ -1,4 +1,16 @@
 # SEOImpuls — основной контекст проекта (читать первым)
+## АКТИВНАЯ ЗАДАЧА 2026-10-16 — понятные услуги с поисковыми запросами (QA PENDING)
+**ВЫШЕСТОЯЩИЙ ЗАПРЕТ: работать только с EN /seo-services/; не переходить на другие страницы без новой прямой команды владельца.** Продакшен, main, домашняя EN страница, /seo/, соседние EN услуги, RU и ES — не изменять.
+- Новый запрос владельца: названия услуг должны включать узнаваемые англоязычные SEO-поисковые фразы, но описания обязаны быть понятны владельцу обычного бизнеса, не специалисту по SEO: проблема → польза → результат.
+- В каталоге остаются только **3 реально опубликованных коммерческих направления**: SEO Audit (URL /seo/), Keyword Research (URL /services/keyword-research/), SEO Consultation (URL /services/seo-consultation/). В карточки добавлены короткие человеческие описания результата; оригинальные изображения сохранены.
+- Для Keyword Research явно объяснено, что сбор поисковых фраз и их группировка (clustering) — самостоятельная услуга с результатом в электронной таблице; работа возможна до появления сайта. Оригинал рисунка /uploads/semantika-1788907052-q46-1788907068324.webp сохранён без изменений.
+- 4 информационные карточки содержат темы SEO Audit, Keyword Research, SEO Competitor Analysis, On-Page SEO и объясняют их без жаргона. Последние два направления НЕ объявлены подтверждёнными отдельными продуктами и не получили новых URL/цен: лишь возможный согласуемый объём работ.
+- H1 EN каталога специально изменён с "Choose the Right SEO Work for Your Website" на "Find the Right SEO Service for Your Business" в связи с новым поручением; SEO Title "SEO Audits, Keyword Research & Consulting | SeoImpuls", URL и canonical сохранены. Сокращён профессиональный жаргон в FAQ, CTA, примере и процессе; внутренний проверяемый QA-отчёт сохранён, но скрыт в разворачиваемом блоке, чтобы не перегружать посетителя.
+- Изменяются только `content/services/_index.md`, EN-ветка `layouts/partials/services-hub.html`, `data/en_seo_catalog.json`, `layouts/partials/en-services-catalog.html`, `scripts/verify_en_services_route.py`, `scripts/audit_en_services_browser.cjs`, одна проверка H1 /seo-services/ в `.github/workflows/rebuild-qa.yml`, `docs/plans/EN_SEO_SERVICES_SIMPLIFICATION_PLAN.md` и этот контекст. Изображения/детальные страницы/домены/публикация на основном сервере не тронуты.
+- Публичные конкурентные страницы подтверждают употребимость названий услуг как формулировок, но **нет проверенной частотности или достоверного локального Google SERP top-10**. Не объявлять это измерением поискового спроса.
+**ТЕКУЩИЙ СТАТУС: EDITED_QA_PENDING; после Git-коммита проверить Hugo/strict, Pages noindex, Playwright 390/768/1280 и скриншоты. Не объявлять PASS до подтверждённых результатов. После проверки всё равно оставаться на /seo-services/ до команды владельца.**
+
+
 
 ## /seo-services/ ACCEPTANCE EVIDENCE — 2026-10-16 (OWNER REVIEW PENDING)
 - Current page source `46bc35e` and EN-only assertion fix `462aa03`. New page is accessible in **GitHub Pages preview**; original production server untouched.
@@ -138,6 +150,14 @@ IMPORT_STATUS: completed
 7. Перед новым чатом прочитать AGENTS.md и этот файл прямо из репозитория, проверить фактическое состояние GitHub/Actions и продолжить с секции 6 «Следующее действие».
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
+
+### 2026-10-16 — EN /seo-services/ buyer-friendly search-facing service language (new version, QA pending)
+- Владелец просит писать услуги простым языком для бизнес-клиента, сохранив реальные SEO-ключевые формулировки. Вторую страницу переписали: SEO Audit / Keyword Research / SEO Consultation — три основные услуги с чётким результатом.
+- Сохранена иллюстрация семантического ядра и самостоятельный сбор/группировка запросов без готового сайта. Дополнительные SEO Competitor Analysis и On-Page SEO только как краткие варианты работ по отдельному согласованию, без новых коммерческих страниц и обещаний.
+- Новый H1 "Find the Right SEO Service for Your Business"; URL, SEO title и canonical без изменения. FAQ, CTA и пример понятнее; внутренний технический QA пример свёрнут, ссылки на фактические проверки остаются.
+- Изменены исключительно источники EN /seo-services/, соответствующие EN-ограниченные QA и этот журнал с планом; другая страница и production не изменены. Строгие и визуальные тесты ещё не завершены — **EDITED_QA_PENDING**.
+- Следующий этап: проверить сработавшие Actions Hugo/strict/Pages/Playwright 390/768/1280; при необходимости исправить только дефекты этой страницы. **Запрещено самостоятельно переходить к другому URL.**
+
 
 ### 2026-10-16 — EN /seo-services/ simplification: all automated + manual screenshot QA passed
 - New source 46bc35e (four work areas / 12 examples / 3 services); targeted static test heading correction 462aa03 (no HTML change).
@@ -1207,6 +1227,9 @@ IMPORT_STATUS: completed
 - Следующий этап: загрузка ZIP и успешный импорт GitHub Actions.
 
 ## 6. Следующее действие
+
+**OWNER-LOCK OVERRIDE (2026-10-16): EN /seo-services/ only. Newly edited business-friendly service names and cards need Hugo/strict, Pages preview and browser 390/768/1280 QA, then owner acceptance. Never switch page automatically. Older NEXT instructions below are superseded.**
+
 
 **OVERRIDE 2026-10-16:** ONLY /seo-services/ has active edit permission; reopened for UX simplification of 23 confusing workstreams. Follow docs/plans/EN_SEO_SERVICES_SIMPLIFICATION_PLAN.md. Do not move to /seo/ or other pages unless the OWNER issues a separate command, even after QA passes. All older NEXT instructions below are historical and superseded.
 
