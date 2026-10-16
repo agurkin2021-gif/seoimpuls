@@ -71,3 +71,32 @@
 - Added EN-only three direct buyer answers for quote factors (site size, URL set, market, data, implementation), result timing uncertainty and optional individual service selection; no invented amounts or guarantees. Source: layouts/index.html.
 - Added links from this micro FAQ to existing /faq/ and /about/ instead of duplicating their long-form material. No FAQPage schema added; homepage remains a commercial page.
 - Current commit QA/Preview pending.
+
+## Implementation and acceptance (completed 2026-10-15)
+**Scope-limited EN-home SERP gaps closed and tested:**
+
+| Buyer question / signal | Owning EN section | Implementation | Status |
+|---|---|---|---|
+| Who offers these professional SEO services? | H2 What Are Professional SEO Services? | Specialist stance, not an agency; explain scope limits | c21cc128; Hugo #85, Pages #26 PASS; Opera confirmed |
+| Which exact SEO work should I commission? | H2 Which SEO Service Fits Your Website? | Three supported links to technical audit, keyword research and consultation | c3853d95; Hugo #86, Pages #27 PASS; Opera confirmed |
+| What does SEO cost, when do results appear, what is included? | H2 Pricing, Timing & SEO Scope | Three factual short answers; no made-up amounts/timing; links to /faq/ and /about/ | f19b17a0; Hugo #87, Pages #28 PASS; Opera confirmed |
+| What does the work include and deliver? | Existing What Our SEO Services Cover, What You Receive | Eight capabilities and three conditional outputs with real scope limits | Already implemented; retained |
+| How does work proceed? | Diagnose/Prioritize/Validate; bottom project enquiry CTA | Existing process and Telegram/consultation choice | Already implemented; retained |
+| Trust evidence and specialist names | About page and supplied evidence | No invented testimonials, case studies, staff, certificates, industry specialisms or public prices | PROOF_REQUIRED; do not populate without verified material |
+
+**Final automatic browser regression:** GitHub Actions run [#38826904019](https://github.com/agurkin2021-gif/seoimpuls/actions/runs/38826904019) PASS. Chromium at exactly 390 and 1280 CSS px: HTTP 200; single H1 `Professional SEO Services`; Title `Professional SEO Services | SeoImpuls`; meta description correct; self canonical https://seoimpuls.com/; `en-US` language; index/follow on production-base Hugo build; JSON-LD WebSite/BreadcrumbList parse valid; all 4 images load; no broken local URLs, browser JS errors or network failures; no horizontal overflow. The desktop floating footer still reveals after idle, mobile footer stays at document end, cookies can be declined. Page now contains direct definition, eight service areas, three deliverables, three matching services, three price/timing/scope answers and a final contact route.
+
+**Related file:** `docs/research/2026-10-15-en-home-professional-seo-competitors.csv` is the machine-readable exact ranking snapshot and does not claim ranking stability. The organic SERP is competitive; Google Ads low "Competition" is not SEO keyword difficulty.
+
+**Remaining evidence gaps, not solved by copy edits:**
+- Unverified owner-specific case studies, public customer feedback, real specialist biographies/credentials. Owner-supplied verifiable material is required.
+- Target country for actual commercial leads not approved. This is a gl=us localized browser snapshot, not a US IP-resident ranking. GSC queries/landing pages and organic SERP volatility remain unknown.
+- Page's `/services/` directory also targets broad SEO-services terminology. Distinct intent mapping is preserved, but cannibalization cannot be quantified without GSC and query/URL overlap.
+- Real-user LCP/INP/CLS field data, WCAG keyboard/contrast and final production URL behavior have not been established.
+- No fabricated off-page SEO offer just to mimic competing SEO agencies. The EN homepage is content/technical QA-ready in Preview, **not READY_FOR_RELEASE**.
+
+### Next scoped actions
+1. Independently validate main country/market and real GSC query-to-page data; update status only with evidence.
+2. Request authentic proof inputs before any E-E-A-T/case-study claims.
+3. Measure Core Web Vitals/keyboard contrast and review P2 cookie overlay UX separately.
+4. Leave RU/ES and production untouched until owner explicitly changes scope.

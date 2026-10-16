@@ -60,6 +60,15 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — EN-home Google top10 competitor register & intent closure QA finalized
+- Created `docs/research/2026-10-15-en-home-professional-seo-competitors.csv` with all ten final URLs from live Google Web query and source parameters, plus entity/type/gap signals. Duplicate Coalition URL is preserved as two actual result URLs. Direct Google browser location was undetermined, so strictly geolocated US rankings NOT asserted.
+- Finalized `docs/research/2026-10-15-en-home-professional-seo-serp.md` with exact main intent ownership, gap implementation/commits and limitation flags: SERP_SNAPSHOT_VERIFIED, GEO_PHYSICAL_UNVERIFIED, GSC_PENDING, PROOF_REQUIRED.
+- Three EN homepage SERP gap implementation commits c21cc128, c3853d95, f19b17a0 passed Hugo strict QA #85/#86/#87 and Pages #26/#27/#28; browser Opera visually confirmed the new blocks, FAQ and About links.
+- New automatic EN 390/1280 Chromium run #38826904019 PASS: HTTP 200, one exact H1, correct production canonical/meta, valid WebSite/BreadcrumbList JSON-LD, all images/URLs functional, no JS or overflow, popup footer intact. Existing preview only. No site content changed in this record/CSV commit.
+- **Unresolved:** authentic case studies/team credentials, target market US physical geolocation and ranking competitiveness, GSC query-to-page overlap with /services/, real CrUX and full WCAG; no claim of guaranteed rankings or READY_FOR_RELEASE.
+- Next: investigate GSC/geo evidence before changing main SEO key, and obtain verified trust proof; user scope remains EN homepage only, RU/ES/production untouched.
+
+
 ### 2026-10-15 — EN home 390/1280 browser QA now runs on future page changes
 - Latest buyer pricing/timing/scope commit f19b17a0 published on GitHub Pages (#28); Hugo strict site QA #87 requires confirmation. Research and gap mapping are in `docs/research/2026-10-15-en-home-professional-seo-serp.md`.
 - Updated only `.github/workflows/en-home-browser-audit.yml` to auto-run existing Playwright Chromium audit at 390 and 1280 px whenever EN home content, shared home template, header/footer or corresponding CSS is changed. No live HTML/CSS site edits in this commit, RU/ES and production untouched.
@@ -749,9 +758,15 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-EN homepage control QA confirmed (GitHub Actions #38823700740 PASS). Exact results and caveats in `docs/research/2026-10-15-en-home-technical-visual-audit.md`. H1/meta/canonical/valid JSON-LD, images, links, responsive 390/1280 and animated footer all verified in built HTML. No blocking P0 rendering issue detected.
+User scope: EN homepage only. No changes to RU, ES, main, or production seoimpuls.com.
 
-Priorities: optional P2 consent overlay height and CTA contrast review; then geo-specific Google SERP top10, GSC, real-world Core Web Vitals, WCAG keyboard/contrast. Do not claim fully optimized until these are checked. Edit EN homepage only. RU/ES and production seoimpuls.com remain untouched.
+**Current EN-home completed:**
+- H1 `Professional SEO Services` owner-approved; content and 390/1280 code QA PASS.
+- Real browser Google Web `professional seo services` top-10 captured 2026-10-15 with `hl=en&gl=us&pws=0&udm=14&num=10`; **physical US geo NOT verified**. Details in `docs/research/2026-10-15-en-home-professional-seo-serp.md`, machine-readable `docs/research/2026-10-15-en-home-professional-seo-competitors.csv`.
+- Three EN homepage SERP gap blocks implemented and published: what SEO specialists provide; choose audit vs keywords vs consultation; buyer expectations on price and time. Hugo strict #85-87 PASS, Pages #26-28 PASS. No fictional proof.
+- Chromium 390/1280 audit run #38826904019 PASS; no broken assets/links, JS errors, overflow or malformed JSON-LD, footer preserved. Preview https://agurkin2021-gif.github.io/seoimpuls/.
+
+**Next evidence work** (not grounds for blind page rewriting): GSC 3–6 months query/URL performance, target buyer country, SERP country-IP replication, organic competitor difficulty, authentic proof of specialists/cases, CrUX field CWV and keyboard/contrast. `SERP_SNAPSHOT_VERIFIED` / `GEO_PHYSICAL_UNVERIFIED` / `GSC_PENDING` / `PROOF_REQUIRED` / `RELEASE_BLOCKED` until external evidence and controlled deployment QA.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 
