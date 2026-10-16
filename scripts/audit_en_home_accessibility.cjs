@@ -45,6 +45,25 @@ function label(el) {
         inapplicable:report.inapplicable.map(v=>v.id)
       };
     });
+    // Also test the existing light theme, while leaving all user settings untouched.
+    await page.evaluate(()=>document.body.setAttribute("theme","light"));
+    await page.waitForTimeout(200);
+    const light=await page.evaluate(async()=>{
+      const r=await window.axe.run(document,{
+        runOnly:{type:"tag",values:["wcag2a","wcag2aa","wcag21a","wcag21aa","wcag22aa"]}
+      });
+      return {
+        violations:r.violations.map(v=>({id:v.id,impact:v.impact,
+          nodes:v.nodes.map(n=>({target:n.target,html:n.html?.slice(0,240),
+            failureSummary:n.failureSummary?.slice(0,470)})).slice(0,30)})),
+        incomplete:r.incomplete.map(v=>({id:v.id,impact:v.impact,nodes:v.nodes.length}))
+      };
+    });
+    console.log("ACCESSIBILITY_LIGHT_SUMMARY "+JSON.stringify({
+      width,violations:light.violations.map(v=>({id:v.id,impact:v.impact,
+        targets:v.nodes.map(n=>n.target),nodes:v.nodes.length})),incomplete:light.incomplete
+    }));
+    await page.evaluate(()=>document.body.setAttribute("theme","dark"));
     // Keyboard navigation is inspected without claiming success from the mere presence of CSS.
     await page.evaluate(()=>{document.activeElement?.blur(); window.scrollTo(0,0);});
     const focus=[];
@@ -65,7 +84,7 @@ function label(el) {
       if(curr)focus.push(curr);
     }
     const widthResults={width,violations:data.violations,incomplete:data.incomplete,
-      passedRules:data.passes.length,inapplicableRules:data.inapplicable.length,
+      lightTheme:light,passedRules:data.passes.length,inapplicableRules:data.inapplicable.length,
       keyboardSample:focus};
     result.viewports.push(widthResults);
     console.log("ACCESSIBILITY_SUMMARY "+JSON.stringify({
@@ -80,7 +99,10 @@ function label(el) {
     viewports:result.viewports.map(x=>x.width),
     totalViolations:result.viewports.reduce((n,x)=>n+x.violations.length,0)
   }));
-  const confirmed=result.viewports.flatMap(v=>v.violations.map(x=>({width:v.width,id:x.id,impact:x.impact})));
+  const confirmed=result.viewports.flatMap(v=>[
+    ...v.violations.map(x=>({theme:"dark",width:v.width,id:x.id,impact:x.impact})),
+    ...v.lightTheme.violations.map(x=>({theme:"light",width:v.width,id:x.id,impact:x.impact}))
+  ]);
   const critical=confirmed.filter(x=>x.impact==="serious" || x.impact==="critical");
   if(critical.length){
     console.error("ACCESSIBILITY_GATE_FAIL "+JSON.stringify(critical));

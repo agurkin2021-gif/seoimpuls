@@ -60,6 +60,12 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — Expand WCAG regression checks to light theme after dark CTA fix
+- Confirmed EN-only bottom CTA color+focus fix eb900c69: Hugo QA #91 PASS, Pages #32 PASS, independent Chromium axe #38829064787 PASS: **zero confirmed WCAG A/AA violations** on dark theme at 390/1280, CTA focus outline 3px (8 keyboard focus samples). Axe `incomplete` items require human review; cannot certify full WCAG.
+- Updated only `scripts/audit_en_home_accessibility.cjs` to run axe-core again in existing light theme at both widths and block confirmed serious/critical violations there too; restores dark before keyboard trace. No visual site content/CSS change, RU/ES/prod untouched.
+- Current light-mode audit run pending; next analyze exact elements and fix scoped EN-home issues if confirmed.
+
+
 ### 2026-10-15 — Correct verified EN-home WCAG CTA contrast and keyboard focus
 - New Chromium axe WCAG diagnostic run #38828758946 (390/1280) confirmed **serious color-contrast 2.24:1** on EN bottom CTA `Discuss Your Website` (text #a9a9b3 on #1f739f, required >=4.5:1); main CTA keyboard focus lacked clear outline. See `docs/research/2026-10-15-en-home-accessibility-and-pagespeed.md`.
 - Applied scoped CSS **only to EN homepage** in `layouts/index.html`: white high-contrast bottom CTA text normal/visited/hover/focus and explicit cyan 3px `:focus-visible` outline on EN CTA buttons. No other EN pages, RU/ES, footer animation, production, H1/meta or link routes altered.
