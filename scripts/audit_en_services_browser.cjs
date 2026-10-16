@@ -109,7 +109,12 @@ let browser;
     !data.verifiedInternalQaLinks.some(x=>x.endsWith("/38851634798"))||
     !data.verifiedInternalQaLinks.some(x=>x.endsWith("/38851849354"))||!data.exampleDisclaimer)fail.push("Verifiable internal QA proof or honesty disclaimer");
   if(data.faqQuestionCount!==5)fail.push("Buyer FAQ coverage");
-  if(data.detailLinks.length!==3||data.detailLinks.some(x=>!x.text.startsWith("Review ")))fail.push("Descriptive workstream links");
+  if(data.detailLinks.length!==23)fail.push("Every workstream must have a contact path");
+  const enquiry=data.detailLinks.filter(x=>x.href.startsWith("mailto:support@seoimpuls.com?subject="));
+  const deep=data.detailLinks.filter(x=>x.href.startsWith(ORIGIN+"/seo/")||x.href.startsWith(ORIGIN+"/services/"));
+  if(enquiry.length!==20||deep.length!==3||!data.detailLinks.every(x=>x.text.startsWith("Review ")||x.text.startsWith("Discuss ")||x.text.startsWith("Check availability for ")))fail.push("Scoped link semantics");
+  const subjectLinks=enquiry.map(x=>({label:x.text,subject:new URL(x.href).searchParams.get("subject")||""}));
+  if(subjectLinks.some(x=>!x.subject.startsWith("SEO work enquiry: ")||!x.subject.includes(x.label.replace(/^(Discuss |Check availability for )/,"").replace(/ scope$/,""))))fail.push("Topic-specific enquiry subject");
   if(data.categoryScrollMargin<100)fail.push("Section scroll margin");
   if(data.gridColumns!==(width===390?1:width===768?2:3))fail.push("Grid columns="+data.gridColumns);
   if(!data.intro.startsWith("Choose the right starting point"))fail.push("Direct answer");
@@ -136,7 +141,7 @@ let browser;
   if(scrollCheck.sectionTop<scrollCheck.headerBottom-2)fail.push("Anchor obscured by header");
   try{await page.screenshot({path:path.join(OUT,width+"-category.png"),timeout:12000,animations:"disabled"});}catch(e){console.log("SERVICES_SCREENSHOT_WARNING "+e.message.slice(0,120));}
   report.viewports.push({width,status:res.status(),...data,scrollCheck,initialConsent,brokenLinks,errors,networkFailures,fail});
-  console.log("SERVICES_BROWSER_SUMMARY "+JSON.stringify({width,status:res.status(),h1:data.h1,gridColumns:data.gridColumns,cards:data.cards.length,workstreams:data.workstreamCount,statuses:data.scopeStatusCounts,groups:data.groupCount,choices:data.choiceCount,jumpLinks:data.jumpLinks.length,returnLinks:data.returnLinks,consent:initialConsent,consultGraphic:data.consultationGraphicCount,scrollCheck,footer:data.footerGeometry,overflow:data.scrollWidth>width,brokenLinks,errors,networkFailures,fail}));
+  console.log("SERVICES_BROWSER_SUMMARY "+JSON.stringify({width,status:res.status(),h1:data.h1,gridColumns:data.gridColumns,cards:data.cards.length,workstreams:data.workstreamCount,enquiryLinks:data.detailLinks.filter(x=>x.href.startsWith("mailto:")).length,statuses:data.scopeStatusCounts,groups:data.groupCount,choices:data.choiceCount,jumpLinks:data.jumpLinks.length,returnLinks:data.returnLinks,consent:initialConsent,consultGraphic:data.consultationGraphicCount,scrollCheck,footer:data.footerGeometry,overflow:data.scrollWidth>width,brokenLinks,errors,networkFailures,fail}));
   await ctx.close();
  }
  await browser.close();

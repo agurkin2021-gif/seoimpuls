@@ -16,6 +16,7 @@ class Page(HTMLParser):
         self.social_nodes=0; self.map_nodes=0
         self.class_counts={}
         self.ids=set(); self.tags={}
+        self.workstream_links=[]
         self.in_json=False; self.jsontext=[]
     def handle_starttag(self,tag,attrs):
         a=dict(attrs)
@@ -28,6 +29,7 @@ class Page(HTMLParser):
         if tag=='h1':self.in_h1=True
         if tag=='title':self.in_title=True
         if tag=='a' and a.get('href'):self.links.add(a['href'])
+        if tag=='a' and 'seo-catalog__detail-link' in (a.get('class') or '').split():self.workstream_links.append(a.get('href',''))
         if tag=='link' and a.get('rel')=='canonical':self.canonical.append(a.get('href',''))
         if tag=='link' and a.get('rel')=='alternate':self.alternate[a.get('hreflang')]=a.get('href','')
         if tag=='meta' and a.get('http-equiv','').lower()=='refresh':self.refresh.append(a.get('content',''))
@@ -60,6 +62,11 @@ hub_markup=Path('public/seo-services/index.html').read_text(encoding='utf-8')
 assert 'Choose the right starting point' in hub_markup,'EN service-choice direct answer missing'
 assert hub.class_counts.get('seo-catalog__group',0) == 4,'Four workstream groups are required'
 assert hub.class_counts.get('seo-catalog__workstream',0) == 23,'All 23 scoped SEO workstreams must render'
+assert len(hub.workstream_links)==23,'Every SEO workstream must have a direct contextual contact or service path'
+assert sum(url.startswith('mailto:support@seoimpuls.com?subject=') for url in hub.workstream_links)==20,'Twenty scoped workstreams require topic-specific inquiry links'
+assert sum(urlsplit(url).path in ('/seo/','/services/keyword-research/','/services/seo-consultation/') for url in hub.workstream_links)==3,'Keep only three published service destinations'
+assert not any(url=='#' or not url for url in hub.workstream_links),'No placeholder links allowed'
+
 for status,expected in [('published',3),('component',14),('conditional',6)]:
     assert hub_markup.count('data-scope-status='+status)==expected or hub_markup.count('data-scope-status="'+status+'"')==expected,(status,'scope classification mismatch')
 assert 'Six specialized areas require an explicit capability' in hub_markup,'Unverified specialties must be disclosed'

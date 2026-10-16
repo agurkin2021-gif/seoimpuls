@@ -102,7 +102,7 @@
 </div>
 </section>
 <h2 class="seo-catalog__heading" id="seo-catalog-title">SEO Work We Can Scope</h2>
-<p class="seo-catalog__lede">Browse the SEO workstreams below by the problem they solve, the checks involved and a typical output. Three services have their own detailed pages. Fourteen related workstreams can be considered within an agreed audit, research or consultation scope. Six specialized areas require an explicit capability and project-fit review before they can be offered. These are not 23 standalone packages, and nothing is automatically included. Execution, access and deliverables are confirmed for each project.</p>
+<p class="seo-catalog__lede">Browse the SEO workstreams below by the problem they solve, the checks involved and a typical output. Three services have their own detailed pages. Fourteen related workstreams can be considered within an agreed audit, research or consultation scope. Six specialized areas require an explicit capability and project-fit review before they can be offered. Every workstream below provides a descriptive link: the three established routes lead to detailed service pages; the others open a topic-specific email inquiry, without implying a fixed package. These are not 23 standalone packages, and nothing is automatically included. Execution, access and deliverables are confirmed for each project.</p>
 <nav class="seo-catalog__toc" aria-label="Jump to an SEO work area">
   <span class="seo-catalog__toc-label">Jump to:</span>
   {{- range .groups }}
@@ -124,7 +124,12 @@
 <p class="seo-catalog__line"><strong>When:</strong> {{ .when }}</p>
 <p class="seo-catalog__line"><strong>Work:</strong> {{ .work }}</p>
 <p class="seo-catalog__line"><strong>Typical output:</strong> {{ .output }}</p>
-{{- with .url }}<a class="seo-catalog__detail-link" href="{{ . | relURL }}">Review {{ $work.name }}</a>{{ end }}
+{{- if $work.url }}
+<a class="seo-catalog__detail-link" href="{{ $work.url | relURL }}">Review {{ $work.name }}</a>
+{{- else }}
+{{- $subject := printf "SEO work enquiry: %s" $work.name }}
+<a class="seo-catalog__detail-link" href="{{ printf "mailto:support@seoimpuls.com?subject=%s" (urlquery $subject) | safeURL }}">{{ if eq $status "conditional" }}Check availability for {{ $work.name }}{{ else }}Discuss {{ $work.name }} scope{{ end }}</a>
+{{- end }}
 </article>
 {{- end }}
 </div>
