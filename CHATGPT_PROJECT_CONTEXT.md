@@ -60,6 +60,14 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — Correct verified EN-home WCAG CTA contrast and keyboard focus
+- New Chromium axe WCAG diagnostic run #38828758946 (390/1280) confirmed **serious color-contrast 2.24:1** on EN bottom CTA `Discuss Your Website` (text #a9a9b3 on #1f739f, required >=4.5:1); main CTA keyboard focus lacked clear outline. See `docs/research/2026-10-15-en-home-accessibility-and-pagespeed.md`.
+- Applied scoped CSS **only to EN homepage** in `layouts/index.html`: white high-contrast bottom CTA text normal/visited/hover/focus and explicit cyan 3px `:focus-visible` outline on EN CTA buttons. No other EN pages, RU/ES, footer animation, production, H1/meta or link routes altered.
+- Strengthened `scripts/audit_en_home_accessibility.cjs` to fail serious/critical axe violations and invisible keyboard focus on named EN CTAs. GitHub Actions Playwright axe rerun and Page preview still to verify. No invented credential/case evidence.
+- PSI mobile on public **noindex preview**: 98 Performance, 95 Accessibility, 100 Best Practices, 66 SEO (preview intentionally noindex), FCP 0.9s, LCP 0.9s, TBT 0ms, CLS 0, Speed Index 3.8s. No field CrUX data for preview.
+- GSC direct URL in Opera redirected to login/about; hence GSC_PENDING and cannibalization not quantified. Next verify Axe/Preview, then evaluate light mode and if necessary fix distinct issues with evidence.
+
+
 ### 2026-10-15 — EN homepage next QA: WCAG and real PageSpeed evidence
 - Owner asked to continue beyond completed SERP/on-page and 390/1280 browser QA. Examined next evidence needs before editing content.
 - Connected Opera cannot read SEOImpuls Google Search Console: direct property URL redirects to publicly available Search Console about/sign-in page. Treat GSC_PENDING; no invented impressions, click trends or cannibalization metrics.

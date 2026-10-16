@@ -425,6 +425,21 @@
 .seo-central--en .seo-en-home-scope p {max-width:890px;margin:0 0 17px;color:rgba(214,224,240,.9);font-size:15px;line-height:1.65;}
 .seo-central--en .seo-en-home-scope-actions {display:flex;flex-wrap:wrap;gap:12px;}
 .seo-central--en .seo-en-home-scope-actions .seo-cta {min-height:46px;font-size:15px;padding:0 20px;}
+/* WCAG: preserve readable labels on EN enquiry CTA, including visited and hover states. */
+.seo-central--en .seo-en-home-scope-actions a.seo-cta--primary,
+.seo-central--en .seo-en-home-scope-actions a.seo-cta--primary:visited,
+.seo-central--en .seo-en-home-scope-actions a.seo-cta--primary:hover,
+.seo-central--en .seo-en-home-scope-actions a.seo-cta--primary:focus-visible {
+  color:#fff!important;
+  font-weight:700;
+}
+/* Visible keyboard focus on EN home CTAs independent of hover styles. */
+.seo-central--en a.seo-cta:focus-visible {
+  outline:3px solid #8dd3ff!important;
+  outline-offset:3px!important;
+  box-shadow:0 0 0 4px rgba(2,10,31,.96),0 0 0 7px rgba(141,211,255,.46)!important;
+}
+
 .custom-footer--en-home .footer-wrap {grid-template-columns:1fr;gap:0;padding:10px 32px;}
 .custom-footer--en-home .footer-contacts {transform:none;margin:0;justify-content:flex-start;}
 @media (max-width:1020px) {

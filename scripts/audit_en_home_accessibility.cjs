@@ -80,4 +80,20 @@ function label(el) {
     viewports:result.viewports.map(x=>x.width),
     totalViolations:result.viewports.reduce((n,x)=>n+x.violations.length,0)
   }));
+  const confirmed=result.viewports.flatMap(v=>v.violations.map(x=>({width:v.width,id:x.id,impact:x.impact})));
+  const critical=confirmed.filter(x=>x.impact==="serious" || x.impact==="critical");
+  if(critical.length){
+    console.error("ACCESSIBILITY_GATE_FAIL "+JSON.stringify(critical));
+    process.exitCode=1;
+  } else {
+    console.log("ACCESSIBILITY_GATE_PASS no serious/critical automated violations");
+  }
+  const focus=result.viewports.flatMap(v=>v.keyboardSample.filter(x=>["Explore SEO Services","How We Work","Discuss Your Website"].includes(x.name))
+    .map(x=>({width:v.width,name:x.name,style:x.outlineStyle,widthOutline:x.outlineWidth})));
+  const missingFocus=focus.filter(x=>x.style==="none" || parseFloat(x.widthOutline||0)<2);
+  if(missingFocus.length){
+    console.error("EN_CTA_FOCUS_GATE_FAIL "+JSON.stringify(missingFocus.slice(0,10)));
+    process.exitCode=1;
+  }else console.log("EN_CTA_FOCUS_GATE_PASS "+focus.length+" focus states");
+
 })().catch(e=>{console.error("ACCESSIBILITY_FATAL",e.stack||e);process.exitCode=1;});
