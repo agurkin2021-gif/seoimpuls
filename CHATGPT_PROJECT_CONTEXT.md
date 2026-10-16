@@ -1,4 +1,10 @@
 # SEOImpuls — основной контекст проекта (читать первым)
+## 2026-10-16 — EN CSS MARK SIZE CORRECTION (CI PENDING)
+- First new CSS-only service-card iteration `5d5c281`: Hugo strict #38913678211 PASS, Pages preview #38913678395 PASS, general homepage visual browser #38913678362 PASS, axe WCAG automated #38913678269 PASS, context #38913678442 PASS. Dedicated 390/768/1280 service browser #38913678415 FAIL due to genuine **new mark aspect ratio** defect: marker rectangles were 20.8×38 at 390, 18.4×38 at 768, 22.3×46 at 1280. Images in cards = 0 and original routes/no-overlap checks otherwise passed. CSS grid child width:100% resolved to narrow intrinsic track.
+- Targeted fix explicitly sizes the CSS mark itself to `clamp(38px,4vw,46px)` in both dimensions; parent stays responsive. No page copy, image files, other service pages or production changes. Browser and strict/preview must re-run to confirm; do not borrow prior PASS.
+- OWNER SCOPE: only EN homepage service-card visual; no automatic move to another page.
+
+
 
 ## 2026-10-16 — НОВОЕ ПОРУЧЕНИЕ: НЕ ИСПОЛЬЗОВАТЬ СТАРЫЕ ИЗОБРАЖЕНИЯ В EN КАРТОЧКАХ, ДЕЛАТЬ СОБСТВЕННЫЙ АДАПТИВ
 Владелец: «картинки пока наши не используем, будем делать свой адаптив». Ограниченная реализация: только три карточки услуг английской главной; прежние SVG-иконки в них заменены на собственные CSS-маркеры 01/02/03, без новых изображений или дополнительных запросов ресурсов.
@@ -234,6 +240,12 @@ IMPORT_STATUS: completed
 7. Перед новым чатом прочитать AGENTS.md и этот файл прямо из репозитория, проверить фактическое состояние GitHub/Actions и продолжить с секции 6 «Следующее действие».
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
+
+### 2026-10-16 — Repair CSS-only icon width from actual 390/768/1280 Chrome measurements
+- On previous source 5d5c281, all major build/preview/visual/accessibility workflows passed, but dedicated CSS mark dimension check failed: 20.8×38, 18.4×38, 22.3×46 respectively.
+- Root cause: grid child width:100% computed against intrinsic grid track rather than intended icon box. EN-only mark now explicitly square with clamp(38px,4vw,46px). No old images reintroduced; no other pages changed.
+- QA PENDING until new strict/preview/browser screenshot review.
+
 
 ### 2026-10-16 — Custom CSS-only responsive marks for three EN home services
 - Owner asked not to reuse legacy service artwork. Replaced exactly the three EN home service icon pictures with lightweight numbered CSS marks. No new image files; no assets deleted; other languages and detail pages are untouched.

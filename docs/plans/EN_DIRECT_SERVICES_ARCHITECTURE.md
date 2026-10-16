@@ -71,3 +71,7 @@ All gates PENDING until this current source is committed and tested. Do not proc
 - EN-only source `layouts/index.html` and focused checks `scripts/verify_en_services_route.py`/`scripts/audit_en_services_browser.cjs`; same-commit documentation. RU/ES icon rendering remains as before.
 - New static and browser checks require exactly three CSS marks, zero `img` inside EN service cards, size and shape checks, no broken links/overflow or contact overlap. QA pending: Hugo strict + preview + Playwright 390/768/1280 screenshots. Old green runs are historical.
 - No automatic work on any other page or production without a separate direct instruction.
+
+## 2026-10-16 — First responsive mark QA failure and correction
+- Source 5d5c281 full Hugo #38913678211, Pages #38913678395, general homepage visual #38913678362, axe #38913678269 and context #38913678442 passed. Dedicated CSS-card Chrome #38913678415 exposed marker width collapse at all widths (390=20.8x38; 768=18.4x38; 1280=22.3x46). All card image requests zero, routes/floating contacts had no failures.
+- Corrected only EN CSS grid child dimensions to fixed responsive `clamp(38px,4vw,46px)` width and height. This new commit requires a fresh dedicated Chrome PASS and screenshot inspection before acceptance.
