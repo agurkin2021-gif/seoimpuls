@@ -744,6 +744,15 @@ jobs:
               if fragment not in visible:raise SystemExit('EN buyer decision Q&A missing '+fragment)
           for url in ('/faq/','/about/'):
               if url not in page.links:raise SystemExit('EN trust/FAQ internal link missing '+url)
+          for fragment in ('illustrative audit finding — not a client case',
+                           'an important page excluded by noindex',
+                           'priority: high only if exclusion is unintended',
+                           'recommended action & owner',
+                           'acceptance check',
+                           'passing the check does not guarantee google indexing or rankings'):
+              if fragment not in visible:raise SystemExit('EN illustrative SEO finding missing '+fragment)
+          if 'seo-en-example-title' not in page.ids:
+              raise SystemExit('EN example heading ID missing')
           if '/go/vdsina/' in page.links:raise SystemExit('Unrelated hosting affiliate remains')
           if 'how-it-works' not in page.ids:raise SystemExit('SEO process anchor missing: '+str(page.ids[:40]))
           if page.canonical!=['https://seoimpuls.com/']:raise SystemExit('Unexpected canonical: '+str(page.canonical))

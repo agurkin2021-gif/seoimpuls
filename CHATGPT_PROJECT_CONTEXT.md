@@ -60,6 +60,13 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — EN homepage illustrative SEO audit finding approved and implemented
+- Owner explicitly authorized placing one example of a verifiable SEO recommendation after `What You Receive`. New EN-only card in `layouts/index.html`: `Illustrative audit finding — not a client case` / `An important page excluded by noindex`. Fields cover issue, HTTP/robots/canonical evidence, approval/implementation responsibility and acceptance check. High priority only if page intended for indexing; technical check does not guarantee Google indexing or rankings.
+- Compact two-column desktop, one-column mobile `<dl>` with dark styling matching current site. Hugo template guard `{{ if eq $lang "en" }}` preserved; RU/ES, other EN pages, original popping footer, URL/H1/meta, production/main untouched.
+- Updated EN generated HTML CI assertions in `.github/workflows/rebuild-qa.yml`, competitor gap document and context same commit. Hugo QA, GitHub Pages and browser/axe validation required after publish; do not claim passed yet.
+- Next: verify Hugo+Preview and actual sample in Opera, run Chromium at 390/1280, WCAG, inspect new section visually. Then continue GSC/proof only with evidence.
+
+
 ### 2026-10-15 — Audited competitive whitespace beyond baseline SERP gaps
 - Compared six directly competing organic landing URLs from owner-approved `professional seo services` Google Web top 10; direct providers coalition SEO + homepage, Netlynx, Blue Media, Thrive and Americaneagle (5 unique brands). Excluded directories Clutch, Semrush, RevenueBase, Bark for like-for-like provider UX comparisons.
 - Observed all providers explain services, several have cases, reports, pricing/timelines, so generic SEO copy does not differentiate SEOImpuls. Six inspected landing pages **did not visibly disclose a worked SEO recommendation record with affected URLs, evidence, implementation owner and acceptance test**; similarly no explicit read-only Search Console access note or "when not to order SEO" decision rule found. These are **page snapshot observations, not proof of competitors' missing internal capabilities/site-wide content**.
@@ -796,13 +803,13 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Only EN homepage `/` in `white-seo-rebuild`; never alter RU/ES, other EN pages, main or `seoimpuls.com` production.
+Work strictly on English homepage only, branch white-seo-rebuild. No RU/ES or other EN page edits, no main or production seoimpuls.com deployments. Project source of truth: this file, research docs and current GitHub branch.
 
-Completed: owner-selected H1 `Professional SEO Services`; organic Google Web SERP top10 and buyer intent gap closure (SERP snapshot `hl=en&gl=us&pws=0&udm=14`, physical geo not independently verified); visual, Hugo, Pages and automatic WCAG dark+light 390/1280 QA PASS. See `docs/research/2026-10-15-en-home-professional-seo-serp.md`.
+Owner approved exactly one compact, **clearly hypothetical** SEO audit finding in `What You Receive`. Implemented EN-only in `layouts/index.html`: important page with unintended `noindex`, conditional priority, concrete HTTP/robots/canonical evidence, owner approval, responsible implementer and acceptance verification. It is NOT a client case and does NOT promise indexation. CI assertions added in rebuild-qa.yml.
 
-**Most recent research:** `docs/research/2026-10-15-en-home-competitor-white-space.md`. Inspected six direct-provider top-10 landing URL samples. Competitive whitespace lies in **publicly demonstrating issue-level SEO recommendation format and acceptance criteria**, a precise implementation/approval handoff, read-only GSC access policy, and honest no-upsell eligibility. These observations DO NOT prove competitors lack the services privately or site-wide. Do not invent sample client cases.
+**Immediate next:** confirm the latest commit in Hugo strict QA, GitHub Pages Preview, Chromium 390/1280 (responsive, links, no overflow, footer), axe WCAG in dark/light; inspect exact sample layout in Opera. Fix any verified issues. Keep H1 `Professional SEO Services`, Title/meta and existing CTA URLs intact.
 
-Next: user confirms real service/output practice for publishing a sample format; alternatively keep research only. If adding one compact **illustrative, not real-client** SEO finding below `What You Receive`, check Hugo strict, Pages Preview, Opera 390/1280, axe and update context same commit. Later authenticated GSC `/` vs `/services/` and genuine proof of specialists/cases remain blockers; GSC_PENDING/PROOF_REQUIRED/GEO_PHYSICAL_UNVERIFIED.
+After QA: GSC authenticated URL/query evidence for `/` vs `/services/`, geo-target, real expertise/cases, CrUX. Status GSC_PENDING / GEO_PHYSICAL_UNVERIFIED / PROOF_REQUIRED until proof is supplied. Do not fabricate customer evidence or rankings.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 

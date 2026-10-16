@@ -400,6 +400,20 @@
 .seo-central--en .seo-en-home-deliverable h3 {margin:0 0 8px;color:#e5edfb;font-size:17px;line-height:1.35;}
 .seo-central--en .seo-en-home-deliverable p {margin:0;color:rgba(214,224,240,.86);font-size:14px;line-height:1.6;}
 
+/* EN homepage only: illustrative audit deliverable, never a real client case. */
+.seo-central--en .seo-en-home-example {margin:18px 0 0;padding:20px 22px 18px;border:1px solid rgba(141,211,255,.32);border-radius:12px;background:linear-gradient(140deg,rgba(18,39,63,.84),rgba(9,24,42,.91));}
+.seo-central--en .seo-en-home-example__header {display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;justify-content:space-between;margin:0 0 16px;}
+.seo-central--en .seo-en-home-example__eyebrow {display:block;margin:0 0 7px;color:#a6dfff;font-size:12px;font-weight:700;line-height:1.35;}
+.seo-central--en .seo-en-home-example h3 {margin:0;color:#f1f6fd;font-size:18px;line-height:1.35;}
+.seo-central--en .seo-en-home-example__priority {display:inline-block;padding:7px 10px;border:1px solid rgba(141,211,255,.33);border-radius:6px;color:#e4f2fe;font-size:12px;font-weight:600;line-height:1.5;}
+.seo-central--en .seo-en-home-example__details {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:0;}
+.seo-central--en .seo-en-home-example__details > div {min-width:0;padding:12px 14px;border:1px solid rgba(146,174,206,.19);border-radius:8px;background:rgba(4,14,29,.48);}
+.seo-central--en .seo-en-home-example dt {margin:0 0 6px;color:#a6dfff;font-size:12px;font-weight:700;letter-spacing:.02em;}
+.seo-central--en .seo-en-home-example dd {margin:0;color:#dbe7f6;font-size:14px;line-height:1.55;}
+.seo-central--en .seo-en-home-example code {color:#e6f3ff;font-size:.94em;overflow-wrap:anywhere;}
+.seo-central--en .seo-en-home-example__note {margin:13px 0 0;color:#bbcede;font-size:12px;line-height:1.55;}
+
+
 /* Three honest entry paths to services already offered on EN support pages. */
 .seo-central--en .seo-en-choose {max-width:1280px;margin:0 auto;padding:24px 32px 27px;border-top:1px solid rgba(146,174,206,.25);}
 .seo-central--en .seo-en-choose h2 {margin:0 0 8px;color:#dfe6f6;font-size:22px;line-height:1.35;}
@@ -462,6 +476,10 @@
   .seo-central--en .seo-static-offer__list li {padding:15px 16px;}
   .seo-central--en .seo-en-home-deliverables {padding:20px 18px;}
   .seo-central--en .seo-en-home-deliverables__grid {grid-template-columns:1fr;}
+  .seo-central--en .seo-en-home-example {padding:17px 15px;}
+  .seo-central--en .seo-en-home-example__details {grid-template-columns:1fr;}
+  .seo-central--en .seo-en-home-example__header {align-items:flex-start;}
+
   .seo-central--en .seo-en-choose {padding:20px 18px;}
   .seo-central--en .seo-en-choose__grid {grid-template-columns:1fr;}
   .seo-central--en .seo-en-buyer-faq {padding:20px 18px;}
@@ -651,6 +669,34 @@
           <p>Agreed implementation responsibilities, acceptance checks and suitable Search Console or analytics baselines.</p>
         </article>
       </div>
+      <article class="seo-en-home-example" aria-labelledby="seo-en-example-title">
+        <div class="seo-en-home-example__header">
+          <div>
+            <span class="seo-en-home-example__eyebrow">Illustrative audit finding — not a client case</span>
+            <h3 id="seo-en-example-title">An important page excluded by <code>noindex</code></h3>
+          </div>
+          <span class="seo-en-home-example__priority">Priority: High only if exclusion is unintended</span>
+        </div>
+        <dl class="seo-en-home-example__details">
+          <div>
+            <dt>Problem</dt>
+            <dd>A page intended to appear in search has an unintended <code>noindex</code> directive.</dd>
+          </div>
+          <div>
+            <dt>Evidence</dt>
+            <dd>Review its HTTP status, rendered robots directive and canonical target; consult Search Console when access is available.</dd>
+          </div>
+          <div>
+            <dt>Recommended action &amp; owner</dt>
+            <dd>Confirm the page's intended indexability. The site owner approves the change; the agreed implementer removes the directive if appropriate.</dd>
+          </div>
+          <div>
+            <dt>Acceptance check</dt>
+            <dd>Re-fetch the URL and record whether the HTTP response, robots directive and canonical match the approved intent.</dd>
+          </div>
+        </dl>
+        <p class="seo-en-home-example__note">This hypothetical example shows a recommendation format, not work for a real customer. Passing the check does not guarantee Google indexing or rankings.</p>
+      </article>
     </section>
     {{ end }}
     {{ if eq $lang "en" }}

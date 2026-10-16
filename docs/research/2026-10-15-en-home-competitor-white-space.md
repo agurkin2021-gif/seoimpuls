@@ -65,3 +65,10 @@ A simple specialist-written "When we would first fix site access or implement ap
 `COMPETITOR_LANDING_WHITE_SPACE_REVIEWED`, `COMPETITOR_SITE_WIDE_ABSENCE_UNPROVEN`, `GSC_PENDING`, `PROOF_REQUIRED`, `GEO_PHYSICAL_UNVERIFIED`.
 
 Immediate safe candidate for future on-page enhancement: **one labeled specimen under What You Receive** plus a one-line read-only-access rule; conditional upon owner confirming the actual service handoff format. The rest are research tasks. This document/commit changes no website content or visibility.
+
+## Implementation: illustrative recommendation specimen (2026-10-15)
+- User explicitly approved the site addition after reviewing a hypothetical `noindex` audit example. Added **one** EN-only `<article>` directly under `What You Receive`, not another broad service or FAQ section.
+- Label `Illustrative audit finding — not a client case` and closing disclaimer explicitly prevent interpreting the example as a customer case or historical outcome.
+- The single scenario shows: unintended `noindex` on an important page, conditionally high priority; specific evidence (HTTP/robots/canonical and GSC if available); approval/implementation ownership; objective post-change acceptance test; no Google indexing/ranking guarantee.
+- Visually scoped two-column `<dl>` at desktop and one-column at mobile, light footprint, no JavaScript. Source: `layouts/index.html`.
+- The demo is not an actual service-deliverable contract or customer proof. Maintain the agreed-scope caveat and avoid real/client-specific URLs or metrics. CI and live preview validation pending for this commit.
