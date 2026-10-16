@@ -60,6 +60,14 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — EN-home WCAG contrast and light/dark keyboard QA accepted
+- EN bottom CTA contrast correction (eb900c69) had Hugo #91 PASS and Pages #32 PASS; visible Preview checked with Opera. Dark axe #38829064787 PASS: zero confirmed WCAG A/AA violations at 390/1280 and eight EN CTA keyboard focus states with 3px outlines.
+- Light-theme follow-up audit commit da5d2b31: axe #38829420871 PASS. Both **light and dark theme**, 390 & 1280px: 0 confirmed WCAG A/AA violations, CTA focus gate PASS. `incomplete` axe flags persist (aria-prohibited-attr 2, color-contrast 77) and still require manual review.
+- PSI preview report obtained in Opera: mobile Performance 98, Accessibility 95 BEFORE fix, Best Practices 100, SEO 66 due intentional preview noindex. No CrUX field data. Do not treat SEO 66 as live production audit, or infer post-fix PSI score from axe.
+- GSC property inaccessible through present Opera session (public about/login). Query-to-URL cannibalization remains GSC_PENDING. Windsor.ai was surfaced as possible user-authorized GSC connector, not connected. No direct access/metrics claimed.
+- Final evidence + caveats recorded `docs/research/2026-10-15-en-home-accessibility-and-pagespeed.md`. User instruction: EN home only, RU/ES/production/main untouched. Next: authenticated GSC 3–6 months report and verified specialist proof; otherwise avoid speculative SEO rewriting.
+
+
 ### 2026-10-15 — Expand WCAG regression checks to light theme after dark CTA fix
 - Confirmed EN-only bottom CTA color+focus fix eb900c69: Hugo QA #91 PASS, Pages #32 PASS, independent Chromium axe #38829064787 PASS: **zero confirmed WCAG A/AA violations** on dark theme at 390/1280, CTA focus outline 3px (8 keyboard focus samples). Axe `incomplete` items require human review; cannot certify full WCAG.
 - Updated only `scripts/audit_en_home_accessibility.cjs` to run axe-core again in existing light theme at both widths and block confirmed serious/critical violations there too; restores dark before keyboard trace. No visual site content/CSS change, RU/ES/prod untouched.
@@ -780,15 +788,11 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-User scope: EN homepage only. No changes to RU, ES, main, or production seoimpuls.com.
+Current branch white-seo-rebuild; only English homepage edits allowed, main/RU/ES/production seoimpuls.com untouched. Existing Google Web SERP top 10 `professional seo services` US gl=en-locale snapshot and intent closure documented in `docs/research/2026-10-15-en-home-professional-seo-serp.md` and competitors CSV. Hugo/Pages + 390/1280 responsive browser checks PASS. Latest EN CTA WCAG contrast fix eb900c69 published; light + dark 390/1280 axe run #38829420871 PASS with no **confirmed** automated WCAG A/AA violations and CTA keyboard focus visible. Manual incomplete nodes remain.
 
-**Current EN-home completed:**
-- H1 `Professional SEO Services` owner-approved; content and 390/1280 code QA PASS.
-- Real browser Google Web `professional seo services` top-10 captured 2026-10-15 with `hl=en&gl=us&pws=0&udm=14&num=10`; **physical US geo NOT verified**. Details in `docs/research/2026-10-15-en-home-professional-seo-serp.md`, machine-readable `docs/research/2026-10-15-en-home-professional-seo-competitors.csv`.
-- Three EN homepage SERP gap blocks implemented and published: what SEO specialists provide; choose audit vs keywords vs consultation; buyer expectations on price and time. Hugo strict #85-87 PASS, Pages #26-28 PASS. No fictional proof.
-- Chromium 390/1280 audit run #38826904019 PASS; no broken assets/links, JS errors, overflow or malformed JSON-LD, footer preserved. Preview https://agurkin2021-gif.github.io/seoimpuls/.
+Next priority: obtain **actual GSC property data** (queries/pages last 3–6 months, page impressions/clicks/CTR/ranking, cannibalization `/` vs `/services/`) after user-authorized connection. Current Opera session is not logged into Search Console. Windsor.ai plugin suggested but not connected. Do not infer SEO keyword difficulty/actual country impressions from global Keyword Planner volume or SERP. Also obtain real proof of case studies, specialist identities, testimonials from authorized owner materials; do not invent. Field CrUX unavailable on preview. Only after verified evidence adjust EN content/architecture, preserving approved H1 unless justified.
 
-**Next evidence work** (not grounds for blind page rewriting): GSC 3–6 months query/URL performance, target buyer country, SERP country-IP replication, organic competitor difficulty, authentic proof of specialists/cases, CrUX field CWV and keyboard/contrast. `SERP_SNAPSHOT_VERIFIED` / `GEO_PHYSICAL_UNVERIFIED` / `GSC_PENDING` / `PROOF_REQUIRED` / `RELEASE_BLOCKED` until external evidence and controlled deployment QA.
+Status: technical/visual/automated accessibility QA PASS with manual caveats; GSC_PENDING / GEO_PHYSICAL_UNVERIFIED / PROOF_REQUIRED / RELEASE_BLOCKED.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 

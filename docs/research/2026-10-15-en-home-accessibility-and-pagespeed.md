@@ -26,3 +26,11 @@ GitHub Actions run: https://github.com/agurkin2021-gif/seoimpuls/actions/runs/38
 - Verify dark/light theme focus & contrast (automated test currently starts default dark).
 - Some persistent first-screen cookie overlay height remains a P2 UX note; dismissible, not a blocking failure.
 - CrUX field performance, human keyboard/screenreader audit and full reciprocal hreflang equivalence are not certified.
+
+## Verified post-fix regression (2026-10-15)
+- Commit `eb900c69c82b541ad43203520024050c82c92394`: Hugo QA #91 PASS, GitHub Pages #32 PASS. Opera loaded current Preview with correct CTA text.
+- Axe WCAG after fixing contrast: [GitHub Actions #38829064787](https://github.com/agurkin2021-gif/seoimpuls/actions/runs/38829064787) **PASS**. At 390 and 1280 in **dark theme**, **0 confirmed axe violations** and **8 EN CTA keyboard focus states showing >=3px outline**.
+- Extended audit to light theme via commit `da5d2b318977f59bf4b253be6bf02e20fbe90ce2`; [GitHub Actions #38829420871](https://github.com/agurkin2021-gif/seoimpuls/actions/runs/38829420871) **PASS**. At 390/1280, **both light and dark themes report 0 confirmed axe WCAG A/AA violations**; CTA focus gate PASS.
+- Axe returned `incomplete` for `aria-prohibited-attr` (2 nodes) and color-contrast (77 nodes) under automated WCAG rules; these are **manual review flags**, not confirmed violations. Neither the automated passing state nor Lighthouse score is a full WCAG 2.2 certification.
+- Earlier Google PageSpeed Insights score 95 for Accessibility was taken **before** the contrast fix; a new PSI score has not been independently retrieved after the fix. The post-fix objective axe results above, not an assumed new Lighthouse score, support closing the documented CTA issue.
+- **GSC blocker:** connected Opera loads Google Search Console public about/login screen rather than authenticated property. For further SEO overlap analysis, actual GSC access via connected marketing data source (e.g. Windsor.ai after user explicitly connects GSC) or owner-authorized report is required. Neither property performance nor query overlap is available yet.
