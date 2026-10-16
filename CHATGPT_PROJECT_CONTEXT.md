@@ -1,5 +1,12 @@
 # SEOImpuls — основной контекст проекта (читать первым)
 
+## 2026-10-16 — EN homepage alignment correction after failing pixel QA (RUNS PENDING)
+- First grid attempt `84606b73` did NOT pass: Playwright #38969816491 confirmed residual 16px from theme `.main .container` padding at all 390/768/1280/1600px sizes; second real regression was floating social shortcuts over readable text at 768 and 1280 after removing the old 120px rail. Do not describe initial candidate as aligned.
+- Corrective EN-only CSS explicitly removes the theme container's 1rem inline padding; header/breadcrumb/content/footer use shared 32/24/18px gutters. EN homepage footer changes to standard document flow, and shared footer floating-interaction code exits early only for `custom-footer--en-home`. WhatsApp, Telegram and email links remain; RU/ES and other EN pages retain original floating behavior.
+- Automated browser audit now checks both left and right rail coordinates ±2.1 px, static footer and absence of fixed social shortcuts at 390/768/1280/1600. This is second candidate awaiting actual results.
+- STATUS **SOURCE_COMMITTED / STRICT_PENDING / FOUR-WIDTH_PIXEL_QA_PENDING / PREVIEW_PENDING / PRODUCTION_UNTOUCHED**. Next inspect CI and Opera before claiming correction.
+
+
 ## 2026-10-16 — EN HOME UNIFIED CONTENT RAIL (PENDING QA)
 - Browser baseline confirmed actual horizontal mismatch: width 1280px: header logo x18, Home breadcrumb x34, hero/services x120, footer contacts x32; width 768px: x16/x32/x120/x32; width 390px: x12/x28/x34/x18. This is the precise defect reported by owner and not a subjective styling dispute.
 - EN-only HTML style in `layouts/index.html` now establishes centered 1280px frame, shared gutters 32/24/18px, removes conflicting `-1rem` width/margins and 120px content indent; aligns header/breadcrumb/content/footer rails. Contact panel borders share the service-card rail; heading inside panel remains intentionally inset. RU/ES templates, texts and other URLs untouched.

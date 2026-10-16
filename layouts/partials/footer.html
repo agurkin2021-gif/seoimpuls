@@ -244,6 +244,12 @@
     var whatsapp = document.querySelector(".footer-shortcut--whatsapp");
     var telegram = document.querySelector(".footer-shortcut--telegram");
     if (!footer || !whatsapp || !telegram) return;
+    /* In-flow contacts only on the English homepage; other pages keep
+       their existing floating shortcuts and footer behavior. */
+    if (footer.classList.contains("custom-footer--en-home")) {
+      document.body.classList.remove("footer-floating","footer-popup-visible","footer-out-of-view","social-transitioning","is-scrolling");
+      return;
+    }
 
     var desktopMedia = window.matchMedia("(min-width: 768px)");
     var shakeTimer = 0;

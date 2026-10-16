@@ -144,7 +144,20 @@ let browser;
        Math.abs(alignment.headerShell?.right-alignment.container?.right)>1)
       alignErrors.push("Header and content container outer widths differ");
     console.log("EN_HOME_RAIL_QA "+JSON.stringify({width,targetLeft:alignReference,targetRight,alignErrors}));
+    const footerDisplay=await page.evaluate(()=>{
+      const el=document.querySelector(".custom-footer--en-home");
+      const items=Array.from(document.querySelectorAll(".custom-footer--en-home .footer-shortcut"));
+      return {position:el?getComputedStyle(el).position:null,
+        shortcuts:items.map(x=>({href:x.getAttribute("href"),position:getComputedStyle(x).position})),
+        reserveHeight:document.querySelector(".footer-reserve")?.getBoundingClientRect().height||0};
+    });
+    console.log("EN_HOME_FOOTER_QA "+JSON.stringify({width,footerDisplay}));
     const fail=[];
+    if(!footerDisplay||footerDisplay.position==="fixed"||
+       footerDisplay.shortcuts.length!==2||
+       footerDisplay.shortcuts.some(x=>x.position==="fixed")||
+       footerDisplay.reserveHeight>1)
+      fail.push("EN-only footer must be in normal document flow, with two intact links and no floating reserve");
     if(alignErrors.length)fail.push("EN homepage unified left/right rail: "+alignErrors.join(" | "));
     if(response.status()!==200)fail.push("Home HTTP "+response.status());
     if(main.title!=="Professional SEO Services | SeoImpuls")fail.push("Home title "+main.title);
