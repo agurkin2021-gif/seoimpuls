@@ -1,193 +1,126 @@
-/* Playwright acceptance test: English SEO service selector page, mobile + desktop. */
-const fs=require("node:fs"),path=require("node:path");
-const {chromium}=require("playwright");
-const ORIGIN="http://127.0.0.1:8765", PAGE_URL=ORIGIN+"/seo-services/";
-const OUT="audit-artifacts/en-services";
+/* EN homepage services selection and three exact commercial service routes. */
+const fs = require("node:fs"), path = require("node:path");
+const {chromium} = require("playwright");
+const ROOT = "http://127.0.0.1:8765";
+const OUT = "audit-artifacts/en-services";
+const TARGETS = [
+  ["/technical-seo-audit/", "Technical SEO Audit"],
+  ["/keyword-research/", "Keyword Research"],
+  ["/seo-consultation/", "SEO Consultation"],
+];
 fs.mkdirSync(OUT,{recursive:true});
 let browser;
 (async()=>{
- browser=await chromium.launch({headless:true,args:["--no-sandbox"]});
- const report={url:PAGE_URL,viewports:[]};
- for(const width of [390,768,1280]){
-  const ctx=await browser.newContext({viewport:{width,height:width===390?844:800},deviceScaleFactor:1,isMobile:width===390,hasTouch:width===390});
-  const page=await ctx.newPage(),errors=[],networkFailures=[];
-  page.on("pageerror",e=>errors.push(e.message));
-  page.on("requestfailed",r=>networkFailures.push({url:r.url(),error:r.failure()?.errorText}));
-  console.log("SERVICES_STAGE "+width+" opening page");
-  const res=await page.goto(PAGE_URL,{waitUntil:"domcontentloaded",timeout:30000});
-  await page.waitForTimeout(550);
-  console.log("SERVICES_STAGE "+width+" DOM ready");
-  try{await page.screenshot({path:path.join(OUT,width+"-first.png"),timeout:12000,animations:"disabled"});}catch(e){console.log("SERVICES_SCREENSHOT_WARNING "+e.message.slice(0,120));}
-
-  const initialConsent=await page.evaluate(()=>{
-    const banner=document.querySelector(".gdpr-consent-banner");
-    const actions=banner?.querySelector(".gdpr-consent-actions");
-    const style=actions?getComputedStyle(actions):null;
-    return {shown:!!banner&&!banner.hidden,layout:style?.display||"",columns:style?.gridTemplateColumns.split(" ").filter(Boolean).length||0,
-      buttons:actions?.querySelectorAll("button").length||0,accept:!!actions?.querySelector("#gdprAcceptAll"),reject:!!actions?.querySelector("#gdprReject")};
-  });
-  const reject=page.getByRole("button",{name:/Reject Non-Essential/i});
-  if(await reject.count())await reject.first().click({timeout:6000});
-  await page.evaluate(()=>document.querySelectorAll("img[loading=lazy]").forEach(x=>x.loading="eager"));
-  await page.waitForTimeout(500);
-  console.log("SERVICES_STAGE "+width+" cookies handled");
-  const data=await page.evaluate(()=>{
-   const grid=document.querySelector(".services-hub");
-   const images=Array.from(document.images).map(x=>({src:x.currentSrc,ok:x.complete&&x.naturalWidth>0}));
-   const links=Array.from(document.querySelectorAll("a[href]")).map(x=>x.href);
-   const jsonld=Array.from(document.querySelectorAll('script[type="application/ld+json"]')).map(x=>{try{return {valid:true,type:JSON.parse(x.textContent)["@type"]||"graph"};}catch(e){return {valid:false,error:String(e)}}});
-   return {
-    title:document.title,h1:Array.from(document.querySelectorAll("h1")).map(x=>x.textContent.trim()),
-    seoHead:(()=>{
-      const meta=(name)=>document.querySelector('meta[name="'+name+'"]')?.content||document.querySelector('meta[property="'+name+'"]')?.content||"";
-      return {lang:document.documentElement.lang,
-        description:document.querySelector('meta[name="description" i]')?.content||"",
-        robots:Array.from(document.querySelectorAll('meta[name="robots" i]')).map(x=>x.content),
-        ogTitle:meta("og:title"),ogDescription:meta("og:description"),ogUrl:meta("og:url"),
-        twitterCard:meta("twitter:card"),
-        hreflang:Object.fromEntries(Array.from(document.querySelectorAll('link[rel="alternate"][hreflang]')).map(x=>[x.hreflang.toLowerCase(),x.href]))
+  browser = await chromium.launch({headless:true,args:["--no-sandbox"]});
+  const report = {root:ROOT,viewports:[]};
+  for(const width of [390,768,1280]){
+    const context=await browser.newContext({
+      viewport:{width,height:width===390?844:800},deviceScaleFactor:1,
+      isMobile:width===390,hasTouch:width===390,locale:"en-US",reducedMotion:"reduce"
+    });
+    const page=await context.newPage(),errors=[],networkFailures=[];
+    page.on("pageerror",e=>errors.push(e.message));
+    page.on("requestfailed",r=>networkFailures.push({url:r.url(),reason:r.failure()?.errorText}));
+    const response=await page.goto(ROOT+"/",{waitUntil:"domcontentloaded",timeout:25000});
+    await page.waitForTimeout(500);
+    try{await page.screenshot({path:path.join(OUT,width+"-initial.png"),animations:"disabled",timeout:12000});}catch(e){console.log("SERVICES_SCREENSHOT_WARNING "+e.message);}
+    const reject=page.getByRole("button",{name:/Reject Non-Essential/i});
+    if(await reject.count())await reject.first().click({timeout:5000});
+    await page.evaluate(()=>document.querySelectorAll("img[loading=lazy]").forEach(x=>x.loading="eager"));
+    await page.waitForTimeout(300);
+    const main=await page.evaluate(()=>{
+      const cards=Array.from(document.querySelectorAll("#services a.seo-card"));
+      const layout=document.getElementById("services");
+      const meta=(name)=>document.querySelector('meta[name="'+name+'"]')?.content || "";
+      const canonical=document.querySelector('link[rel="canonical"]')?.href||"";
+      const images=Array.from(document.images).map(x=>({src:x.currentSrc,ok:x.complete&&x.naturalWidth>0}));
+      return {
+        title:document.title,h1:Array.from(document.querySelectorAll("h1")).map(x=>x.textContent.trim()),
+        canonical,robots:meta("robots"),description:meta("description"),
+        cards:cards.map(x=>({href:new URL(x.href).pathname,label:x.textContent.trim()})),
+        columns:layout?getComputedStyle(layout).gridTemplateColumns.split(" ").filter(Boolean).length:0,
+        selectorCount:document.querySelectorAll("#seo-en-choose-title").length,
+        heroTarget:document.querySelector('[data-home-link-field="heroBuilderUrl"]')?.getAttribute("href")||"",
+        serviceNav:Array.from(document.querySelectorAll("nav.custom-header__nav a")).find(x=>x.textContent.trim()==="Services")?.getAttribute("href")||"",
+        hasAnchor:!!layout,faq:!!document.getElementById("seo-en-buyer-faq-title"),
+        schema:Array.from(document.querySelectorAll('script[type="application/ld+json"]')).map(x=>{try{return JSON.parse(x.textContent)["@type"]}catch(e){return "INVALID"}}),
+        links:Array.from(document.querySelectorAll("a[href]")).map(x=>x.href),
+        images,overflow:document.documentElement.scrollWidth>innerWidth+2,
       };
-    })(),
-    canonical:document.querySelector('link[rel="canonical"]')?.href||"",
-    gridColumns:grid?getComputedStyle(grid).gridTemplateColumns.split(" ").filter(Boolean).length:0,
-    workstreamCount:document.querySelectorAll(".seo-catalog__workstream").length,
-    areaCount:document.querySelectorAll(".seo-catalog__area").length,
-    topicCount:document.querySelectorAll(".seo-catalog__topic").length,
-    scopeDisclaimer:(document.querySelector(".seo-catalog__scope-disclaimer")?.textContent||"").includes("These are not separate packages"),
-    specialistQualifier:(document.querySelector(".seo-catalog__scope-disclaimer")?.textContent||"").includes("Additional work such as competitor research or page improvements"),
-    choiceCount:document.querySelectorAll(".seo-catalog__choice").length,
-    duplicateChoiceSelector:!!document.querySelector(".seo-catalog__matching"),
-    sampleLink:document.querySelector(".seo-catalog__sample-link")?.getAttribute("href")||"",
-    catalogueScrollMargin:parseFloat(getComputedStyle(document.querySelector("#seo-catalog-title")).scrollMarginTop)||0,
-    consultationGraphicCount:document.querySelectorAll(".services-hub-card__consult-visual").length,
-    consultMediaImageCount:document.querySelectorAll('.services-hub-card[href$="/services/seo-consultation/"] img').length,
-    reportExampleCount:document.querySelectorAll(".seo-catalog__evidence-item").length,
-    verifiedInternalQaCount:document.querySelectorAll("[data-internal-qa-proof]").length,
-    verifiedInternalQaLinks:Array.from(document.querySelectorAll('[data-internal-qa-proof] a[href]')).map(a=>a.href),
-    exampleDisclaimer:(document.querySelector(".seo-catalog__example-note")?.textContent||"").includes("not a real client case"),
-    faqQuestionCount:document.querySelectorAll(".seo-catalog__faq details").length,
-    benefits:Array.from(document.querySelectorAll(".services-hub-card__benefit")).map(x=>x.textContent.trim()),
-    keywordImagePresent:!!document.querySelector('img[src*="semantika-1788907052-q46-1788907068324.webp"]'),
-    competitorExplained:(document.querySelector(".seo-catalog__areas")?.textContent||"").includes("SEO Competitor Analysis"),
-    plainProcess:(document.querySelector(".seo-catalog__scope")?.textContent||"").includes("Tell us about your business"),
-    detailLinks:Array.from(document.querySelectorAll(".seo-catalog__detail-link")).map(a=>({text:a.textContent.trim(),href:a.href})),
-    legacyGranularEnquiries:document.querySelectorAll(".seo-catalog a[href^='mailto:'][href*='subject=']").length,
-    cards:Array.from(document.querySelectorAll(".services-hub-card")).map(x=>({label:x.textContent.trim(),href:x.href})),
-    intro:document.querySelector(".services-hub__intro")?.textContent.trim()||"",
-    footerClass:document.querySelector(".custom-footer")?.className||"",
-    footerGeometry:(()=>{
-      const footer=document.querySelector(".custom-footer");
-      const header=document.querySelector(".custom-header");
-      const f=footer?.getBoundingClientRect(),h=header?.getBoundingClientRect();
-      return {position:footer?getComputedStyle(footer).position:"",top:Math.round(f?.top??0),bottom:Math.round(f?.bottom??0),headerBottom:Math.round(h?.bottom??0)};
-    })(),
-    socialCount:document.querySelectorAll(".footer-social-icons a").length,
-    mapCount:document.querySelectorAll(".footer-map").length,
-    contacts:{whatsapp:!!document.querySelector(".footer-shortcut--whatsapp"),telegram:!!document.querySelector(".footer-shortcut--telegram"),email:!!document.querySelector(".js-footer-mail")},
-    menu:Array.from(document.querySelectorAll("nav a")).find(x=>x.textContent.trim()==="Services")?.href||"",
-    innerWidth,scrollWidth:document.documentElement.scrollWidth,
-    images,links,jsonld
-   };
-  });
-  try{await page.screenshot({path:path.join(OUT,width+"-full.png"),fullPage:true,timeout:14000,animations:"disabled"});}catch(e){console.log("SERVICES_SCREENSHOT_WARNING "+e.message.slice(0,120));}
-  // Link QA is deterministic against the Hugo output; do not stall on request loops.
-  console.log("SERVICES_STAGE "+width+" DOM diagnostics collected");
-  const brokenLinks=[];
-  const paths=Array.from(new Set(data.links.filter(u=>u.startsWith(ORIGIN)||u.startsWith("https://seoimpuls.com/")).map(u=>new URL(u).pathname)));
-  for(const p of paths){
-    const decoded=decodeURIComponent(p);
-    const relative=decoded.replace(/^\/+/, "");
-    const local=path.join("public",relative,decoded.endsWith("/")?"index.html":"");
-    if(!fs.existsSync(local))brokenLinks.push({url:p,file:local});
-  }
-  console.log("SERVICES_STAGE "+width+" checked "+paths.length+" local routes");
-  const fail=[];
-  if(res.status()!==200)fail.push("HTTP");
-  if(data.h1.length!==1||data.h1[0]!=="Find the Right SEO Service for Your Business")fail.push("H1");
-  if(data.title!=="SEO Audits, Keyword Research & Consulting | SeoImpuls")fail.push("Title");
-  if(!/^(en-us|en)$/i.test(data.seoHead.lang)||data.seoHead.robots.length!==1||!data.seoHead.robots[0].startsWith("index,follow")||
-     !data.seoHead.description.includes("Compare SEO audits")||!data.seoHead.ogTitle||!data.seoHead.ogDescription||
-     !data.seoHead.ogUrl.endsWith("/seo-services/")||!data.seoHead.twitterCard)fail.push("SEO head metadata");
-  for(const code of ["en-us","ru-ru","es-es","x-default"]){
-     if(!data.seoHead.hreflang[code])fail.push("Missing hreflang "+code);
-  }
-  if(data.canonical!=="https://seoimpuls.com/seo-services/")fail.push("Canonical");
-  if(data.cards.length!==3)fail.push("Cards");
-  if(data.benefits.length!==3||!data.benefits.some(x=>x.includes("No website needed"))||!data.keywordImagePresent||!data.competitorExplained||!data.plainProcess)fail.push("Plain-language benefits or original keyword image missing");
-  if(data.workstreamCount!==0||data.areaCount!==2||data.topicCount!==6||data.choiceCount!==0)fail.push("Two optional work areas, no duplicate service choices");
-  if(!data.scopeDisclaimer||!data.specialistQualifier||data.legacyGranularEnquiries!==0||data.detailLinks.length)fail.push("Work components must not look like standalone offers");
-  if(data.duplicateChoiceSelector)fail.push("Repeated three-choice selector should be removed");
-  if(data.sampleLink!=="#seo-catalog-example"||data.catalogueScrollMargin<100)fail.push("Useful report anchor");
-  if(width===390 && initialConsent.shown && (initialConsent.layout!=="grid"||initialConsent.columns!==2||initialConsent.buttons!==3||!initialConsent.accept||!initialConsent.reject))fail.push("Mobile consent action layout");
-  if(data.consultationGraphicCount!==1||data.consultMediaImageCount!==0)fail.push("Repeated consultation image");
-  if(data.reportExampleCount!==4)fail.push("Evidence example");
-  if(data.verifiedInternalQaCount!==1||data.verifiedInternalQaLinks.length!==2||
-    !data.verifiedInternalQaLinks.some(x=>x.endsWith("/38851634798"))||
-    !data.verifiedInternalQaLinks.some(x=>x.endsWith("/38851849354"))||!data.exampleDisclaimer)fail.push("Verifiable internal QA proof or honesty disclaimer");
-  if(data.faqQuestionCount!==5)fail.push("Buyer FAQ coverage");
-  if(!data.intro.startsWith("Choose the right starting point"))fail.push("Direct answer");
-  for(const u of ["/seo/","/services/keyword-research/","/services/seo-consultation/"]){
-    if(!data.cards.some(x=>new URL(x.href).pathname===u))fail.push("Missing card "+u);
-  }
-  if(!data.footerClass.includes("custom-footer--en-services")||data.socialCount||data.mapCount)fail.push("Footer unverifiable links");
-  if(width===768&&(data.footerGeometry.position!=="fixed"||data.footerGeometry.top<data.footerGeometry.headerBottom))fail.push("768px footer overlaps header and logo");
-  if(!data.contacts.whatsapp||!data.contacts.telegram||!data.contacts.email)fail.push("Contact links");
-  if(!data.menu.endsWith("/seo-services/"))fail.push("Nav");
-  if(data.scrollWidth>width+2)fail.push("Overflow");
-  if(data.images.some(x=>!x.ok))fail.push("Images");
-  if(data.jsonld.some(x=>!x.valid)||!data.jsonld.some(x=>x.type==="BreadcrumbList")||data.jsonld.some(x=>x.type==="BlogPosting"))fail.push("JSON-LD");
-  if(errors.length||networkFailures.length)fail.push("JavaScript/network");
-  if(brokenLinks.length)fail.push("Internal links");
-
-  // Keyboard navigation smoke checks; not a complete WCAG certification.
-  const focusLink=page.locator(".seo-catalog__sample-link").first();
-  await focusLink.focus();
-  await page.keyboard.press("Enter");
-  await page.waitForTimeout(180);
-  const tocKeyboardHash=await page.evaluate(()=>location.hash);
-  if(tocKeyboardHash!=="#seo-catalog-example")fail.push("Keyboard sample-report navigation");
-  const faqSummary=page.locator(".seo-catalog__faq details summary").first();
-  await faqSummary.focus();
-  await page.keyboard.press("Enter");
-  const faqOpened=await page.locator(".seo-catalog__faq details").first().evaluate(x=>x.open);
-  if(!faqOpened)fail.push("Keyboard FAQ interaction");
-  // A real hash jump must not place its section heading underneath the fixed header.
-  await page.evaluate(()=>document.getElementById("seo-catalog-title").scrollIntoView({block:"start",behavior:"instant"}));
-  await page.waitForTimeout(200);
-  const scrollCheck=await page.evaluate(()=>({
-    sectionTop:Math.round(document.getElementById("seo-catalog-title").getBoundingClientRect().top),
-    headerBottom:Math.round(document.querySelector(".custom-header")?.getBoundingClientRect().bottom||0)
-  }));
-  // Visual regression: fixed social shortcuts must not cover readable catalogue text.
-  const floatingContactOverlap=await page.evaluate(()=>{
-    const isIntersect=(a,b)=>a.left<b.right&&a.right>b.left&&a.top<b.bottom&&a.bottom>b.top;
-    const floated=[...document.querySelectorAll(".footer-shortcut--whatsapp,.footer-shortcut--telegram")]
-      .filter(el=>getComputedStyle(el).position==="fixed" && el.getBoundingClientRect().width>0);
-    const texts=[...document.querySelectorAll(".seo-catalog h2,.seo-catalog h3,.seo-catalog h4,.seo-catalog p,.seo-catalog li,.seo-catalog a")];
-    const collisions=[];
-    for(const button of floated){
-      const b=button.getBoundingClientRect();
-      for(const el of texts){
-        const rect=el.getBoundingClientRect();
-        if(rect.bottom<=0||rect.top>=innerHeight||rect.width===0||rect.height===0)continue;
-        if(isIntersect(b,rect))collisions.push({button:button.className,text:el.textContent.trim().slice(0,65),buttonRight:Math.round(b.right),textLeft:Math.round(rect.left)});
-      }
+    });
+    const fail=[];
+    if(response.status()!==200)fail.push("Home HTTP "+response.status());
+    if(main.title!=="Professional SEO Services | SeoImpuls")fail.push("Home title "+main.title);
+    if(main.h1.length!==1||main.h1[0]!=="Professional SEO Services")fail.push("Home H1");
+    if(main.canonical!=="https://seoimpuls.com/")fail.push("Home canonical");
+    if(main.cards.length!==3||main.selectorCount||!main.hasAnchor)fail.push("Three primary direct services without duplicate selection");
+    for(const [url] of TARGETS)if(main.cards.filter(x=>x.href===url).length!==1)fail.push("Missing one direct service "+url);
+    if(main.serviceNav!=="/#services"||main.heroTarget!=="/#services")fail.push("Top services navigation/CTA not anchored");
+    if(!main.faq)fail.push("Retained buyer FAQ missing");
+    if(main.overflow)fail.push("Horizontal overflow");
+    if(main.images.some(x=>!x.ok))fail.push("Broken home images");
+    if(main.schema.includes("INVALID")||!main.schema.includes("WebSite")||!main.schema.includes("Organization"))fail.push("Home structured data");
+    const paths=Array.from(new Set(main.links.filter(x=>x.startsWith(ROOT)).map(x=>new URL(x).pathname).filter(x=>x!=="/")));
+    const broken=[];
+    for(const p of paths) {
+      const candidate=path.join("public",decodeURIComponent(p).replace(/^\/+/,""),p.endsWith("/")?"index.html":"");
+      if(!fs.existsSync(candidate))broken.push({path:p,file:candidate});
     }
-    return {floatingIcons:floated.length,collisions};
-  });
-  if(width>=768&&floatingContactOverlap.collisions.length)fail.push("Floating contacts overlap catalogue text");
-  if(scrollCheck.sectionTop<scrollCheck.headerBottom-2)fail.push("Anchor obscured by header");
-  try{await page.screenshot({path:path.join(OUT,width+"-category.png"),timeout:12000,animations:"disabled"});}catch(e){console.log("SERVICES_SCREENSHOT_WARNING "+e.message.slice(0,120));}
-  report.viewports.push({width,status:res.status(),...data,scrollCheck,initialConsent,brokenLinks,errors,networkFailures,fail});
-  console.log("SERVICES_BROWSER_SUMMARY "+JSON.stringify({width,status:res.status(),h1:data.h1,seoHead:data.seoHead,faqOpened,keyboardTOC:tocKeyboardHash,gridColumns:data.gridColumns,cards:data.cards.length,oldWorkstreams:data.workstreamCount,areas:data.areaCount,topics:data.topicCount,granularEnquiries:data.legacyGranularEnquiries,choices:data.choiceCount,sampleLink:data.sampleLink,consent:initialConsent,consultGraphic:data.consultationGraphicCount,scrollCheck,footer:data.footerGeometry,floatingContactOverlap,overflow:data.scrollWidth>width,brokenLinks,errors,networkFailures,fail}));
-  await ctx.close();
- }
- await browser.close();
- fs.writeFileSync(path.join(OUT,"audit.json"),JSON.stringify(report,null,2));
- if(report.viewports.some(x=>x.fail.length))throw Error("EN services QA failed");
- console.log("SERVICES_BROWSER_PASS 390/768/1280 viewports, no broken links, no fake footer");
+    if(broken.length)fail.push("Broken internal links");
+    const children=[];
+    for(const [url,name] of TARGETS){
+      const detail=await page.request.get(ROOT+url,{timeout:15000});
+      if(detail.status()!==200){fail.push("Service HTTP "+url+" "+detail.status());continue;}
+      const html=await detail.text();
+      const doc=await page.evaluate((source)=>{
+        const p=new DOMParser().parseFromString(source,"text/html");
+        const schemas=Array.from(p.querySelectorAll('script[type="application/ld+json"]')).map(x=>{try{return JSON.parse(x.textContent)["@type"]}catch(e){return "INVALID"}});
+        return {h1:Array.from(p.querySelectorAll("h1")).map(x=>x.textContent.trim()),title:p.title,
+          canonical:p.querySelector('link[rel="canonical"]')?.href||"",schemas,
+          bodyWords:p.body.textContent.length};
+      },html);
+      children.push({url,name,...doc});
+      if(doc.h1.length!==1||doc.h1[0]!==name||doc.title!==name+" | SeoImpuls"||
+         doc.canonical!=="https://seoimpuls.com"+url||!doc.schemas.includes("WebPage")||
+         !doc.schemas.includes("BreadcrumbList")||doc.schemas.includes("BlogPosting"))fail.push("Bad service SEO "+url);
+    }
+    for(const old of ["/seo/","/seo-services/","/services/","/services/keyword-research/","/services/seo-consultation/"]){
+      if(fs.existsSync(path.join("public",old.slice(1),"index.html")))fail.push("Retired EN URL still generated "+old);
+    }
+    await page.evaluate(()=>document.getElementById("services").scrollIntoView({block:"start",behavior:"instant"}));
+    await page.waitForTimeout(150);
+    const focus=await page.evaluate(()=>{
+      const section=document.getElementById("services"),header=document.querySelector(".custom-header");
+      const r=section.getBoundingClientRect(),h=header?.getBoundingClientRect();
+      const bounds=Array.from(section.querySelectorAll(".seo-card h3,.seo-card li")).map(x=>x.getBoundingClientRect());
+      const floaters=Array.from(document.querySelectorAll(".footer-shortcut--whatsapp,.footer-shortcut--telegram"))
+        .filter(x=>getComputedStyle(x).position==="fixed"&&x.getBoundingClientRect().width>0);
+      const overlaps=[];
+      for(const el of floaters)for(const b of bounds){const a=el.getBoundingClientRect();
+        if(b.bottom>0&&b.top<innerHeight&&a.left<b.right&&a.right>b.left&&a.top<b.bottom&&a.bottom>b.top)overlaps.push(el.className);}
+      return {sectionTop:Math.round(r.top),headerBottom:Math.round(h?.bottom||0),floatingCount:floaters.length,overlaps};
+    });
+    if(focus.sectionTop<focus.headerBottom-2)fail.push("Services anchor hidden by fixed header");
+    if(focus.overlaps.length)fail.push("Floating contacts cover readable service cards");
+    await page.locator('a[data-home-link-field="heroBuilderUrl"]').focus();
+    await page.keyboard.press("Enter");
+    await page.waitForTimeout(130);
+    const hash=await page.evaluate(()=>location.hash);
+    if(hash!=="#services")fail.push("Keyboard Services CTA");
+    if(errors.length||networkFailures.length)fail.push("JS or network failures");
+    try{await page.screenshot({path:path.join(OUT,width+"-services.png"),animations:"disabled",timeout:12000});}catch(e){console.log("SERVICES_SCREENSHOT_WARNING "+e.message);}
+    try{await page.screenshot({path:path.join(OUT,width+"-full.png"),fullPage:true,animations:"disabled",timeout:15000});}catch(e){console.log("SERVICES_SCREENSHOT_WARNING "+e.message);}
+    report.viewports.push({width,main,children,focus,broken,errors,networkFailures,fail});
+    console.log("SERVICES_BROWSER_SUMMARY "+JSON.stringify({width,status:response.status(),cardCount:main.cards.length,
+      serviceRoutes:main.cards.map(x=>x.href),columns:main.columns,focus,errors,networkFailures,broken,fail}));
+    await context.close();
+  }
+  await browser.close();
+  fs.writeFileSync(path.join(OUT,"audit.json"),JSON.stringify(report,null,2));
+  if(report.viewports.some(x=>x.fail.length))throw Error("Direct EN services homepage QA failed");
+  console.log("SERVICES_BROWSER_PASS: homepage 3 direct exact-intent services at 390/768/1280, no obsolete catalog");
 })().catch(async e=>{
- console.error("SERVICES_BROWSER_FATAL "+(e.stack||e));
- try{if(browser)await browser.close();}catch(closeError){console.error("SERVICES_BROWSER_CLOSE_WARNING "+closeError.message);}
- process.exitCode=1;
+  console.error("SERVICES_BROWSER_FATAL "+(e.stack||e));
+  try{if(browser)await browser.close()}catch(e){}
+  process.exitCode=1;
 });

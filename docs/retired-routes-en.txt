@@ -1,5 +1,11 @@
 # URLs removed from candidate Hugo/static output (EN initially; language-specific routes are added after individual review).
 # This is a test manifest, NOT an instruction to implement 410 or 301 on production.
+# EN service-selection hub retired; main EN homepage owns direct service choice.
+/seo-services/
+/seo/
+/services/keyword-research/
+/services/seo-consultation/
+/services/
 /link-building-services/backlinks/
 /link-building-services/link-building/
 /link-building-services/domain-rating/

@@ -1,4 +1,6 @@
 # SEOImpuls — customer-first EN /seo-services/ simplification
+
+> HISTORICAL/SUPERSEDED: English intermediate services hub removed from new architecture. Active owner plan: EN_DIRECT_SERVICES_ARCHITECTURE.md. Do not recreate hub automatically.
 Date: 2026-10-16. Status: **CODE_QA_PASS / RESPONSIVE_VISUAL_QA_PASS / OWNER_REVIEW_PENDING — owner approval still required**. Authorized scope: **ONLY /seo-services/**. Owner explicitly prohibits any assistant-initiated transition to another page.
 
 ## Problem (verified in source, not presumed Google traffic data)

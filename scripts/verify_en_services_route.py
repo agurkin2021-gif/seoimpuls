@@ -1,150 +1,164 @@
 #!/usr/bin/env python3
-"""Verify the English SEO hub uses one distinct canonical and retains child URLs."""
+"""EN SEO selection now lives on the homepage; verify three distinct service routes."""
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import urlsplit
 import json
-import re
+import xml.etree.ElementTree as ET
 
-class Page(HTMLParser):
+ROOT = Path("public")
+SITE = "https://seoimpuls.com"
+SERVICES = {
+    "/technical-seo-audit/": ("Technical SEO Audit", "seo", "/ru/seo/", "/es/seo/"),
+    "/keyword-research/": ("Keyword Research", "keyword", "/ru/uslugi/semanticheskoe-yadro/", "/es/servicios/investigacion-palabras-clave/"),
+    "/seo-consultation/": ("SEO Consultation", "consultation", "/ru/uslugi/seo-konsultaciya/", "/es/servicios/consultoria-seo/"),
+}
+RETIRED_EN = (
+    "/seo/", "/seo-services/", "/services/",
+    "/services/keyword-research/", "/services/seo-consultation/",
+)
+
+class Markup(HTMLParser):
     def __init__(self):
         super().__init__(convert_charrefs=True)
-        self.h1=[]; self.in_h1=False
-        self.title=[]; self.in_title=False
-        self.links=set(); self.canonical=[]
-        self.alternate={}; self.refresh=[]; self.jsonld=[]
-        self.social_nodes=0; self.map_nodes=0
-        self.class_counts={}
-        self.ids=set(); self.tags={}
-        self.meta={}; self.html_lang=''
-        self.workstream_links=[]
-        self.in_json=False; self.jsontext=[]
-    def handle_starttag(self,tag,attrs):
-        a=dict(attrs)
-        self.tags[tag]=self.tags.get(tag,0)+1
-        if a.get('id'):self.ids.add(a['id'])
-        if tag=='html':self.html_lang=a.get('lang','')
-        if tag=='meta':
-            field=(a.get('name') or a.get('property') or '').lower()
-            if field:self.meta.setdefault(field,[]).append(a.get('content',''))
-        for cls in (a.get('class') or '').split():
-            self.class_counts[cls]=self.class_counts.get(cls,0)+1
-        if tag=='div' and 'footer-social-icons' in a.get('class',''):self.social_nodes+=1
-        if tag=='div' and 'footer-map' in a.get('class','').split():self.map_nodes+=1
-        if tag=='h1':self.in_h1=True
-        if tag=='title':self.in_title=True
-        if tag=='a' and a.get('href'):self.links.add(a['href'])
-        if tag=='a' and 'seo-catalog__detail-link' in (a.get('class') or '').split():self.workstream_links.append(a.get('href',''))
-        if tag=='link' and a.get('rel')=='canonical':self.canonical.append(a.get('href',''))
-        if tag=='link' and a.get('rel')=='alternate':self.alternate[a.get('hreflang')]=a.get('href','')
-        if tag=='meta' and a.get('http-equiv','').lower()=='refresh':self.refresh.append(a.get('content',''))
-        if tag=='script' and a.get('type')=='application/ld+json':self.in_json=True;self.jsontext=[]
-    def handle_endtag(self,tag):
-        if tag=='h1':self.in_h1=False
-        if tag=='title':self.in_title=False
-        if tag=='script' and self.in_json:
-            self.jsonld.append(json.loads(''.join(self.jsontext)))
-            self.in_json=False
-    def handle_data(self,s):
-        if self.in_h1:self.h1.append(s)
-        if self.in_title:self.title.append(s)
-        if self.in_json:self.jsontext.append(s)
+        self.h1 = []
+        self.in_h1 = False
+        self.title = []
+        self.in_title = False
+        self.links = []
+        self.canonical = []
+        self.alternate = {}
+        self.schema = []
+        self.in_schema = False
+        self.json_text = []
+        self.meta = {}
+        self.ids = set()
+        self.language = ""
+        self.service_cards = []
+        self.service_region = 0
 
-def parse(path):
-    f=Path('public')/path
-    assert f.is_file(),f
-    obj=Page();obj.feed(f.read_text(encoding='utf-8'));return obj
+    def handle_starttag(self, tag, attrs):
+        a = dict(attrs)
+        if a.get("id"):
+            self.ids.add(a["id"])
+        if tag == "html":
+            self.language = a.get("lang", "")
+        if tag == "aside" and a.get("id") == "services":
+            self.service_region += 1
+        if tag == "h1":
+            self.in_h1 = True
+        if tag == "title":
+            self.in_title = True
+        if tag == "a":
+            href = a.get("href", "")
+            self.links.append(href)
+            if self.service_region and "seo-card" in a.get("class", "").split():
+                self.service_cards.append(href)
+        if tag == "link":
+            if a.get("rel") == "canonical":
+                self.canonical.append(a.get("href", ""))
+            if a.get("rel") == "alternate" and a.get("hreflang"):
+                self.alternate[a["hreflang"].lower()] = a.get("href", "")
+        if tag == "meta":
+            key = (a.get("name") or a.get("property") or "").lower()
+            if key:
+                self.meta.setdefault(key, []).append(a.get("content", ""))
+        if tag == "script" and a.get("type") == "application/ld+json":
+            self.in_schema = True
+            self.json_text = []
 
-def contains_path(links,path):
-    return any(urlsplit(link).path.endswith(path) for link in links)
+    def handle_endtag(self, tag):
+        if tag == "h1":
+            self.in_h1 = False
+        if tag == "title":
+            self.in_title = False
+        if tag == "aside" and self.service_region:
+            self.service_region -= 1
+        if tag == "script" and self.in_schema:
+            self.schema.append(json.loads("".join(self.json_text)))
+            self.in_schema = False
 
-hub=parse('seo-services/index.html')
-assert ''.join(hub.h1).strip()=='Find the Right SEO Service for Your Business',hub.h1
-assert len(hub.canonical)==1 and hub.canonical[0].endswith('/seo-services/'),hub.canonical
-assert ''.join(hub.title).strip()=='SEO Audits, Keyword Research & Consulting | SeoImpuls',hub.title
-assert hub.html_lang.lower() in ('en-us','en'),hub.html_lang
-assert len(hub.meta.get('robots',[]))==1 and hub.meta['robots'][0].startswith('index,follow'),hub.meta.get('robots')
-assert len(hub.meta.get('description',[]))==1 and 'Compare SEO audits' in hub.meta['description'][0],hub.meta.get('description')
-for key in ('og:title','og:description','og:url','twitter:card'):
-    assert hub.meta.get(key),(key,'SEO social metadata absent')
-print('SERVICES_HEAD_REPORT',json.dumps({key:hub.meta.get(key,[]) for key in ('robots','description','og:title','og:description','og:url','twitter:card','twitter:title','twitter:description')},ensure_ascii=False))
+    def handle_data(self, data):
+        if self.in_h1:
+            self.h1.append(data)
+        if self.in_title:
+            self.title.append(data)
+        if self.in_schema:
+            self.json_text.append(data)
 
-assert hub.social_nodes==0 and hub.map_nodes==0,'EN hub still contains non-branded social links or unverified location map'
-hub_markup=Path('public/seo-services/index.html').read_text(encoding='utf-8')
-assert 'Choose the right starting point' in hub_markup,'EN service-choice direct answer missing'
-assert hub.class_counts.get('seo-catalog__area',0)==2,'Two optional explanatory areas required'
-assert hub.class_counts.get('seo-catalog__topic',0)==6,'Three examples for each optional area required'
-assert hub.class_counts.get('seo-catalog__workstream',0)==0,'Old 23 workstream tiles must not render'
-assert not hub.workstream_links,'Workstream-specific contact links must not render'
-assert 'The three services above are the main ways to start' in hub_markup,'Clear buyer offer distinction missing'
-assert 'These are not separate packages' in hub_markup,'Not fixed packages caveat missing'
-assert 'Additional work such as competitor research or page improvements' in hub_markup,'Additional work must be qualified'
-catalog_data=json.loads(Path('data/en_seo_catalog.json').read_text(encoding='utf-8'))
-assert len(catalog_data.get('scope_areas',[]))==2,'Exactly two additional work areas in source'
-assert all(len(x['examples'])==3 for x in catalog_data['scope_areas']),'Keep scope concise'
-assert 'groups' not in catalog_data,'Old misleading 23 workstreams must not remain as source data'
-assert hub.class_counts.get('seo-catalog__choice',0)==0,'Repeated three-choice selector must not render'
-assert hub.class_counts.get('seo-catalog__matching',0)==0,'Do not render a second set of the same three services'
-assert 'Other SEO Work, Explained Simply' in hub_markup,'Additional work area heading missing'
-assert 'choices' not in catalog_data,'Removed choice selector must not linger as inactive data'
+def load(path):
+    f = ROOT / path
+    assert f.is_file(), f"Missing generated HTML: {path}"
+    obj = Markup()
+    obj.feed(f.read_text(encoding="utf-8"))
+    return obj
 
-assert hub.class_counts.get('seo-catalog__toc',0)==0,'Overloaded categories navigation should be removed'
-assert hub.class_counts.get('seo-catalog__back',0)==0,'No repetitive return links'
-assert '#seo-catalog-example' in hub.links,'Useful sample link missing'
-assert 'seo-catalog-title' in hub.ids,'Main scope heading missing'
-assert hub.class_counts.get('services-hub-card__consult-visual',0)==1,'Consultation graphic should not duplicate technical artwork'
-assert hub.class_counts.get('seo-catalog__example',0)==1,'Demonstrable output example missing'
-assert hub.class_counts.get('seo-catalog__evidence-item',0)==4,'Four evidence-to-action fields required'
-assert hub.tags.get('details',0)>=5,'SEO buyer FAQ needs at least five answers'
-for target in ('seo-area-specialized','seo-area-strategy','seo-catalog-example'):
-    assert target in hub.ids,(target,'Missing concise work area or example')
-assert 'Illustrative reporting format only' in hub_markup,'Do not present an example as an actual client case'
-assert 'Example: What an SEO Audit Report Can Show' in hub_markup,'Concrete audit output example missing'
-assert hub.class_counts.get('seo-catalog__real-qa',0)==1,'One verified internal QA evidence record required'
-assert '<strong>not</strong> customer results' in hub_markup,'Internal report must expressly deny customer result claims'
-for marker in ('Verified Internal QA Record', '38851634798', '38851849354', 'customer results', 'section at 192px'):
-    assert marker in hub_markup,('Missing or untraceable internal QA proof',marker)
+def title(p):
+    return " ".join("".join(p.title).split())
 
+def h1(p):
+    return " ".join("".join(p.h1).split())
 
-for required in ('Other SEO Work, Explained Simply','How We Work With Your Business','Questions About SEO Work'):
-    assert required in hub_markup,(required,'Missing useful buyer guidance')
-assert '23 standalone packages' not in hub_markup,'Old 23-card FAQ language remains'
-assert 'SEO work enquiry:' not in hub_markup,'Granular mailto CTAs not removed'
-assert hub.class_counts.get('services-hub-card__benefit',0)==3,'Each real service should explain its buyer outcome'
-assert '/uploads/semantika-1788907052-q46-1788907068324.webp' in hub_markup,'Original keyword-research illustration missing'
-for phrase in ('SEO Audit','Keyword Research','SEO Consultation','SEO Competitor Analysis','On-Page SEO','spreadsheet','No website needed'):
-    assert phrase in hub_markup,('Search term or plain benefit missing',phrase)
-assert hub.class_counts.get('seo-catalog__real-qa',0)==1,'Verifiable QA record must remain available'
-for path in ('/seo/','/services/keyword-research/','/services/seo-consultation/'):
-    assert contains_path(hub.links,path),(path,hub.links)
-crumb=[doc for doc in hub.jsonld if doc.get('@type')=='BreadcrumbList']
-assert len(crumb)==1,crumb
-assert not any(doc.get('@type')=='BlogPosting' for doc in hub.jsonld),'Service catalogue must not be mislabeled as a blog post'
-assert len(crumb[0]['itemListElement'])>=2,crumb
-assert crumb[0]['itemListElement'][-1]['item'].endswith('/seo-services/'),crumb
-for lang,path in [('ru','ru/uslugi/index.html'),('es','es/servicios/index.html')]:
-    page=parse(path)
-    assert page.alternate.get('en-us','').endswith('/seo-services/'),(lang,page.alternate)
-    assert hub.alternate.get({'ru':'ru-ru','es':'es-es'}[lang],'').endswith('/'+{'ru':'ru/uslugi','es':'es/servicios'}[lang]+'/'),(lang,hub.alternate)
-for path in ('index.html','about/index.html','faq/index.html'):
-    pg=parse(path)
-    assert contains_path(pg.links,'/seo-services/'),(path,pg.links)
-for child in ('keyword-research','seo-consultation'):
-    pg=parse(f'services/{child}/index.html')
-    assert len(pg.canonical)==1 and pg.canonical[0].endswith('/services/'+child+'/'),(child,pg.canonical)
-old=parse('services/index.html')
-oldtext=(Path('public')/'services/index.html').read_text(encoding='utf-8')
-assert old.refresh or re.search(r'window\.location|location\.href',oldtext,re.I),'Old URL must redirect'
-assert 'seo-services/' in oldtext,'Old alias misses new hub'
-assert 'Find the Right SEO Service for Your Business' not in ''.join(old.h1),'Duplicate old catalog'
-# Multilingual Hugo outputs a root sitemapindex and language-specific sitemaps.
-import xml.etree.ElementTree as ET
-root_sitemap=ET.parse('public/sitemap.xml').getroot()
-root_locations=[(el.text or '').strip() for el in root_sitemap.iter() if el.tag.endswith('}loc') or el.tag=='loc']
-assert any(x.endswith('/en/sitemap.xml') for x in root_locations),root_locations
-english=ET.parse('public/en/sitemap.xml').getroot()
-english_locations=[(el.text or '').strip() for el in english.iter() if el.tag.endswith('}loc') or el.tag=='loc']
-assert any(urlsplit(loc).path.endswith('/seo-services/') for loc in english_locations),'Canonical hub absent from English sitemap'
-assert not any(urlsplit(loc).path.endswith('/services/') for loc in english_locations),'Old alias listed in English sitemap'
-print('PASS: EN SEO services hub canonical, H1, 3 services, breadcrumb and sitemap')
-print('PASS: old alias redirects, EN links, hreflang reciprocal, child URLs unchanged')
+def schema_types(p):
+    return [q.get("@type") for q in p.schema]
+
+home = load("index.html")
+assert h1(home) == "Professional SEO Services", h1(home)
+assert home.canonical == [SITE + "/"], home.canonical
+assert "services" in home.ids, "Homepage service cards must have #services anchor"
+assert set(home.service_cards) == set(SERVICES), home.service_cards
+assert len(home.service_cards) == 3, f"Expected exactly 3 genuine service cards, got {home.service_cards}"
+assert "/#services" in home.links, "Services navigation / hero must jump to homepage selector"
+assert "seo-en-choose-title" not in home.ids, "Redundant lower 3-choice selector still on homepage"
+assert not any(urlsplit(href).path in RETIRED_EN for href in home.links), "Homepage links to retired EN URLs"
+assert set(schema_types(home)) == {"WebSite", "Organization"}, schema_types(home)
+
+for url, (name, _, ru, es) in SERVICES.items():
+    page = load(url.lstrip("/") + "index.html")
+    assert h1(page) == name, (url, h1(page))
+    assert title(page) == f"{name} | SeoImpuls", (url, title(page))
+    assert page.canonical == [SITE + url], (url, page.canonical)
+    assert page.language.lower() in ("en", "en-us"), (url, page.language)
+    assert page.meta.get("description", [""])[0], (url, "Missing description")
+    assert len(page.meta.get("robots", [])) == 1 and page.meta["robots"][0].startswith("index,follow"), (url, page.meta.get("robots"))
+    for key in ("og:title", "og:description", "og:url", "twitter:card"):
+        assert page.meta.get(key), (url, key)
+    assert page.alternate.get("en-us") == SITE + url, (url, "EN hreflang", page.alternate)
+    assert page.alternate.get("ru-ru") == SITE + ru, (url, "RU hreflang", page.alternate)
+    assert page.alternate.get("es-es") == SITE + es, (url, "ES hreflang", page.alternate)
+    assert page.alternate.get("x-default") == SITE + url, (url, "x-default", page.alternate)
+    assert schema_types(page).count("WebPage") == 1, (url, schema_types(page))
+    assert "BlogPosting" not in schema_types(page), (url, "Service falsely marked as blog post")
+    assert schema_types(page).count("BreadcrumbList") == 1, (url, schema_types(page))
+    for locale_path, code in ((ru, "ru-ru"), (es, "es-es")):
+        local = load(locale_path.lstrip("/") + "index.html")
+        assert local.alternate.get("en-us") == SITE + url, (url, code, local.alternate)
+    print("PASS: exact URL, Title, H1, metadata, schema, hreflang and direct links", url)
+
+kw = load("keyword-research/index.html")
+assert "keyword-research" in " ".join(kw.ids), "Keyword page content anchors missing"
+technical = load("technical-seo-audit/index.html")
+assert "technical-seo" in technical.ids, "Technical audit anchor missing"
+consult = load("seo-consultation/index.html")
+assert "who-it-is-for" in consult.ids, "Consultation anchor missing"
+
+for old in RETIRED_EN:
+    assert not (ROOT / old.lstrip("/") / "index.html").exists(), f"Old EN URL was still generated: {old}"
+
+root_map = ET.parse(ROOT / "sitemap.xml").getroot()
+maps = [((x.text or "").strip()) for x in root_map.iter() if x.tag.rsplit("}", 1)[-1] == "loc"]
+assert SITE + "/en/sitemap.xml" in maps, maps
+en_map = ET.parse(ROOT / "en/sitemap.xml").getroot()
+urls = {((x.text or "").strip()) for x in en_map.iter() if x.tag.rsplit("}", 1)[-1] == "loc"}
+for new in SERVICES:
+    assert SITE + new in urls, (new, "Missing indexed destination")
+for old in RETIRED_EN:
+    assert SITE + old not in urls, (old, "Retired route appears in sitemap")
+
+for path in ("about/index.html", "faq/index.html"):
+    obj = load(path)
+    assert "/#services" in obj.links, (path, "Services should lead to home selector")
+    assert not any(urlsplit(x).path in RETIRED_EN for x in obj.links), (path, "Retired link")
+
+print("PASS: three service landing pages use exact search phrase in URL, Title and H1")
+print("PASS: homepage owns direct service selection; intermediate hub retired, RU/ES sources preserved")

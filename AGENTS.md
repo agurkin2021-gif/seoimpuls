@@ -1,3 +1,20 @@
+## CURRENT OWNER DIRECTIVE — 2026-10-16: EN homepage direct SEO services
+The owner explicitly superseded the earlier "ONLY EN /seo-services/" lock: the EN homepage must present all actual services directly, without an extra EN services catalogue. They also instructed removing the generic /services/ prefix and naming the old /seo/ technical-audit page by its actual primary query, consistent across URL, HTML Title and H1.
+
+Authorized: EN homepage and header, three existing EN commercial service pages, EN About/FAQ link dependencies, retiring EN-only intermediate URLs, required exact-page schema and QA checks, context and plan. Not authorized: modifying RU/ES source copy, unrelated EN pages, main, actual production, DNS, CDN or Search Console. No automatic next-page progression after this architecture task.
+
+New EN route map:
+- Homepage / -> Professional SEO Services
+- /technical-seo-audit/ -> Technical SEO Audit | SeoImpuls -> H1 Technical SEO Audit
+- /keyword-research/ -> Keyword Research | SeoImpuls -> H1 Keyword Research
+- /seo-consultation/ -> SEO Consultation | SeoImpuls -> H1 SEO Consultation
+
+Primary keyword for the former /seo/ is technical seo audit: narrower than technical seo services and matches the actual diagnostic product (technical crawl/index issues, prioritized report). Prior Google SERP snapshot and fresh 2026 service examples support terminology, but search volumes and precise physical-US rankings are UNVERIFIED. Mere keyword placement in URL does not guarantee Google rankings.
+
+The old EN hub is a draft in the rebuilt source; avoid broken cross-language hreflang to it. Keep RU/ES native routes unchanged, keep direct EN hreflang links working. Production redirects remain a separate explicit permission. Mandatory same-commit update of CHATGPT_PROJECT_CONTEXT.md persists.
+
+Current plan is docs/plans/EN_DIRECT_SERVICES_ARCHITECTURE.md. Former EN SEO Services plans are HISTORY only.
+
 ## OWNER PAGE LOCK — 2026-10-16 (HIGHEST PRIORITY)
 The owner explicitly reopened the **second EN page `/seo-services/`** due to an overloaded 23-workstream service directory and ordered: **NEVER switch to any other page without a new explicit owner command**. This applies even if the page passes all tests, all checklist items are DONE, or the earlier greenfield roadmap names `/seo/` as "next". Do not edit the homepage, `/seo/`, other EN pages, RU/ES or production without separate permission. Only `/seo-services/`, its EN-specific partial/data, directly relevant QA and context/plan documentation are authorized. Read `docs/plans/EN_SEO_SERVICES_SIMPLIFICATION_PLAN.md` as active plan; the older FINISH_PLAN is historical QA evidence. Every repo write must update `CHATGPT_PROJECT_CONTEXT.md` in the same commit. Status: REOPENED / UX_REDESIGN_IN_PROGRESS.
 

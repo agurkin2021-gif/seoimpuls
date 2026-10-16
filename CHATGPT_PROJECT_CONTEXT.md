@@ -1,4 +1,16 @@
 # SEOImpuls — основной контекст проекта (читать первым)
+## ACTIVE OWNER ORDER (2026-10-16): HOMEPAGE DIRECT EN SERVICES, EXACT PHRASE IN URL+TITLE+H1
+Supersedes earlier page lock ONLY /seo-services/: user showed homepage existing service cards, ordered no extra /seo-services/ page, questioned /services/ prefix and then insisted /seo/ must become a real target-keyword URL with matching title.
+- EN homepage owns Professional SEO Services, direct 3 service cards at /#services; menu and primary CTA also go to /#services. Keep existing illustrations and customer-friendly wording. Remove lower duplicate service selector.
+- EN technical old /seo/ -> /technical-seo-audit/: Title Technical SEO Audit | SeoImpuls; H1 Technical SEO Audit. Main phrase technical seo audit; secondary phrase technical seo services only in supporting text. Existing SERP observations and fresh market examples corroborate buyer intent, not demand/position statistics.
+- EN keyword old /services/keyword-research/ -> /keyword-research/: Title Keyword Research | SeoImpuls; H1 Keyword Research; clustering remains included and can be ordered for a business without a website.
+- EN consulting old /services/seo-consultation/ -> /seo-consultation/: Title SEO Consultation | SeoImpuls; H1 SEO Consultation.
+- EN /seo-services/ made a draft, old /services/ alias removed, all 5 old EN URLs removed from candidate generation/linking. No current production URL or redirect changes.
+- RU/ES content sources and native URL patterns remain unchanged; bilingual hreflang must point to live new EN routes. EN service schema corrected from BlogPosting to WebPage only for these three services. About/FAQ/menu are necessary EN link dependents.
+- Update only this assigned architecture and its tests; no unrelated pages, main or production changes. Context written in same commit. New plan: docs/plans/EN_DIRECT_SERVICES_ARCHITECTURE.md.
+**EDITED_QA_PENDING:** strict Hugo/Pages/Chrome not yet run on these staged edits; do not claim passing or release. Do not automatically start next pages.
+
+
 ## 2026-10-16 — ПОСЛЕДНЯЯ ПРИНЯТАЯ ТЕХНИЧЕСКАЯ ВЕРСИЯ EN /seo-services/ (OWNER REVIEW PENDING)
 - **ONLY /seo-services/** — вторую страницу не считать закрытой до решения владельца; запрет самовольного перехода на любые другие страницы остаётся в силе.
 - Рабочий исходник `9266336`: три реальных коммерческих предложения **SEO Audit / Keyword Research / SEO Consultation** с понятными предпринимателю результатами и исходными изображениями (включая semantic illustration `semantika-1788907052-q46-1788907068324.webp`); нет повторных 3 карточек выбора. Дополнительно только 2 информационные карточки SEO Competitor Analysis / On-Page SEO, без новых коммерческих URL/тарифов. Сбор ключевых слов возможен до готового сайта; результат — таблица с группами запросов.
@@ -166,6 +178,13 @@ IMPORT_STATUS: completed
 7. Перед новым чатом прочитать AGENTS.md и этот файл прямо из репозитория, проверить фактическое состояние GitHub/Actions и продолжить с секции 6 «Следующее действие».
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
+
+### 2026-10-16 — EN direct homepage links / keyword-aligned service URLs: source plan before CI
+- User orders no EN services intermediary, removing /services/ prefix and changing vague /seo/ to the technical seo audit query. Implement direct homepage 3 cards /#services and name/title/URL alignments.
+- EN service leaf URLs are /technical-seo-audit/, /keyword-research/, /seo-consultation/, matching H1 and Title; only EN link dependencies and tests updated. EN catalog drafted, old 5 EN URLs retired from new build.
+- RU/ES raw pages retained; intended reciprocal hreflang, accurate WebPage schema for EN service pages. No live/prod/GSC edits or invented ranking-volume claims.
+- Current status EDITED_QA_PENDING; exact Hugo/strict/preview/Chrome results required. No automatic work on next page.
+
 
 ### 2026-10-16 — 3 main cards + 2 supporting areas: final QA and screenshot evidence
 - Source `9266336` simplified buyer journey by removing repeated three-way chooser, leaving 3 linked service cards and 2 informational potential work types. No other page affected.
@@ -1257,6 +1276,9 @@ IMPORT_STATUS: completed
 - Следующий этап: загрузка ZIP и успешный импорт GitHub Actions.
 
 ## 6. Следующее действие
+
+**LATEST 2026-10-16:** finish direct 3 services on EN homepage and exact URL↔Title↔H1 alignment; validate strict Hugo, preview, browser, sitemap/hreflang and record actual run results. Older NEXT entries superseded.
+
 
 **ACTIVE 2026-10-16:** EN /seo-services/ has passed code/visual QA but remains owner-review-pending. Do not start another page automatically. Historical NEXT lines below are superseded.
 

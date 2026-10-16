@@ -185,7 +185,7 @@ jobs:
           x=Page(); x.feed(page.read_text(encoding='utf-8'))
           assert ''.join(x.h1).strip()=='Сбор семантического ядра и кластеризация запросов',x.h1
           assert x.canonicals==['https://seoimpuls.com/ru/uslugi/semanticheskoe-yadro/'],x.canonicals
-          assert x.hreflang.get('en-us')=='https://seoimpuls.com/services/keyword-research/',x.hreflang
+          assert x.hreflang.get('en-us')=='https://seoimpuls.com/keyword-research/',x.hreflang
           assert '/ru/seo/' in x.links,'RU technical SEO related link missing'
           assert not Path('public/uslugi-linkbildinga/sbor-semanticheskogo-yadra/index.html').exists()
           assert not Path('public/ru/uslugi-linkbildinga/sbor-semanticheskogo-yadra/index.html').exists()
@@ -215,7 +215,7 @@ jobs:
           x=Head();x.feed(p.read_text(encoding='utf-8'))
           assert ''.join(x.h1).strip()=='SEO-консультация по сайту и стратегии',x.h1
           assert x.canonical==['https://seoimpuls.com/ru/uslugi/seo-konsultaciya/'],x.canonical
-          assert x.alt.get('en-us')=='https://seoimpuls.com/services/seo-consultation/',x.alt
+          assert x.alt.get('en-us')=='https://seoimpuls.com/seo-consultation/',x.alt
           assert '/ru/uslugi/semanticheskoe-yadro/' in x.links,'RU keyword link missing'
           assert not Path('public/uslugi-linkbildinga/seo-konsultaciya/index.html').exists()
           assert not Path('public/ru/uslugi-linkbildinga/seo-konsultaciya/index.html').exists()
@@ -247,7 +247,7 @@ jobs:
           h=Page();h.feed(hub.read_text(encoding='utf-8'))
           assert ''.join(h.h1).strip()=='SEO-услуги для сайта',h.h1
           assert h.canon==['https://seoimpuls.com/ru/uslugi/'],h.canon
-          assert h.lang.get('en-us')=='https://seoimpuls.com/seo-services/',h.lang
+          assert not h.lang.get('en-us'),('EN hub retired; no invented equivalent',h.lang)
           valid={'/ru/seo/','/ru/uslugi/semanticheskoe-yadro/','/ru/uslugi/seo-konsultaciya/','/ru/uslugi/razrabotka-saitov/'}
           assert len(h.cards)==4 and set(h.cards)==valid,h.cards
           for path in valid:
@@ -282,7 +282,7 @@ jobs:
           p=Audit();p.feed(path.read_text(encoding='utf-8'))
           assert ''.join(p.h1).strip()=='Investigación de palabras clave para SEO',p.h1
           assert p.canon==['https://seoimpuls.com/es/servicios/investigacion-palabras-clave/'],p.canon
-          assert p.alts.get('en-us')=='https://seoimpuls.com/services/keyword-research/',p.alts
+          assert p.alts.get('en-us')=='https://seoimpuls.com/keyword-research/',p.alts
           assert p.alts.get('ru-ru')=='https://seoimpuls.com/ru/uslugi/semanticheskoe-yadro/',p.alts
           assert '/es/seo/' in p.links,'ES technical SEO link missing'
           assert not Path('public/servicios-de-link-building/palabras-clave/index.html').exists()
@@ -313,7 +313,7 @@ jobs:
           p=A();p.feed(path.read_text(encoding='utf-8'))
           assert ''.join(p.h).strip()=='Consultoría SEO para sitios web',p.h
           assert p.canon==['https://seoimpuls.com/es/servicios/consultoria-seo/'],p.canon
-          assert p.alts.get('en-us')=='https://seoimpuls.com/services/seo-consultation/',p.alts
+          assert p.alts.get('en-us')=='https://seoimpuls.com/seo-consultation/',p.alts
           assert p.alts.get('ru-ru')=='https://seoimpuls.com/ru/uslugi/seo-konsultaciya/',p.alts
           assert '/es/servicios/investigacion-palabras-clave/' in p.hrefs,'Related ES keywords page missing'
           assert not Path('public/servicios-de-link-building/consultoria-seo/index.html').exists()
@@ -342,9 +342,9 @@ jobs:
               def handle_data(self,s):
                   if self.h1:self.h.append(s)
           items=[
-            ('seo-services/', 'ru/uslugi/', 'es/servicios/'),
-            ('services/keyword-research/','ru/uslugi/semanticheskoe-yadro/','es/servicios/investigacion-palabras-clave/'),
-            ('services/seo-consultation/','ru/uslugi/seo-konsultaciya/','es/servicios/consultoria-seo/')]
+            ('technical-seo-audit/','ru/seo/','es/seo/'),
+            ('keyword-research/','ru/uslugi/semanticheskoe-yadro/','es/servicios/investigacion-palabras-clave/'),
+            ('seo-consultation/','ru/uslugi/seo-konsultaciya/','es/servicios/consultoria-seo/')]
           for triple in items:
               expect={'en-us':'https://seoimpuls.com/'+triple[0],
                       'ru-ru':'https://seoimpuls.com/'+triple[1],
@@ -562,7 +562,7 @@ jobs:
           visible=' '.join(' '.join(p.visible).split()).casefold()
           assert ''.join(p.h).strip()=='Технический SEO-аудит и оптимизация сайта',p.h
           assert p.canon==['https://seoimpuls.com/ru/seo/'],p.canon
-          assert p.alts.get('en-us')=='https://seoimpuls.com/seo/',p.alts
+          assert p.alts.get('en-us')=='https://seoimpuls.com/technical-seo-audit/',p.alts
           assert p.alts.get('es-es')=='https://seoimpuls.com/es/seo/',p.alts
           for section in ('technical-seo','on-page-seo','content-strategy','international-seo'):
               assert section in p.ids,('Missing technical section',section)
@@ -597,7 +597,7 @@ jobs:
           body=' '.join(' '.join(p.text).split()).casefold()
           assert ''.join(p.h).strip()=='Auditoría SEO técnica y optimización web',p.h
           assert p.canon==['https://seoimpuls.com/es/seo/'],p.canon
-          assert p.alts.get('en-us')=='https://seoimpuls.com/seo/',p.alts
+          assert p.alts.get('en-us')=='https://seoimpuls.com/technical-seo-audit/',p.alts
           assert p.alts.get('ru-ru')=='https://seoimpuls.com/ru/seo/',p.alts
           for section in ('technical-seo','on-page-seo','content-strategy','international-seo'):
               assert section in p.ids,section
@@ -710,8 +710,10 @@ jobs:
           if legacy:raise SystemExit('Legacy grey copy on EN homepage: '+str(legacy))
           if ''.join(page.h1).strip()!='Professional SEO Services':
               raise SystemExit('Incorrect EN homepage H1: '+str(page.h1))
-          if '/seo/' not in page.links or '/seo-services/' not in page.links or '/services/keyword-research/' not in page.links:
-              raise SystemExit('Required EN service routes missing')
+          for service in ('/technical-seo-audit/','/keyword-research/','/seo-consultation/','/#services'):
+              if service not in page.links:raise SystemExit('Missing EN homepage service or anchor '+service)
+          if any(old in page.links for old in ('/seo/','/seo-services/','/services/keyword-research/','/services/seo-consultation/')):
+              raise SystemExit('Deprecated EN service link remains on homepage')
           if 'technical seo audits, on-page optimization, keyword research, content strategy and international seo — with clear priorities and defined deliverables.' not in visible:raise SystemExit('EN homepage subtitle mismatch')
           for fragment in ('what our seo services cover','technical seo & indexing','on-page seo:',
                            'keyword research:','content strategy:','site architecture:',
@@ -730,16 +732,13 @@ jobs:
                            'not a general marketing agency package',
                            'implementation responsibilities are agreed'):
               if fragment not in visible:raise SystemExit('EN buyer-intent definition missing '+fragment)
-          for fragment in ('which seo service fits your website?',
-                           'start with the issue you need',
-                           'technical seo assessment',
-                           'keyword & intent mapping',
-                           'view seo consultation'):
-              if fragment not in visible:raise SystemExit('EN service choice missing '+fragment)
-          if 'seo-en-choose-title' not in page.ids:
-              raise SystemExit('EN service choice anchor missing')
-          if '/services/seo-consultation/' not in page.links:
-              raise SystemExit('EN consultation route missing')
+          for fragment in ('from your goal to a clear result','get a clear report of recommended fixes',
+                           'keyword research & clustering','no website needed','seo consultation',
+                           'seo services help businesses'):
+              if fragment not in visible:raise SystemExit('EN business-friendly service content missing '+fragment)
+          if 'seo-en-choose-title' in page.ids:raise SystemExit('Redundant lower 3-choice selector remains')
+          if 'services' not in page.ids:raise SystemExit('Homepage #services anchor missing')
+          if '/seo-consultation/' not in page.links:raise SystemExit('EN consultation route missing')
           for fragment in ('pricing, timing & seo scope',
                            'how is seo service pricing determined?',
                            'how long does seo take?',
@@ -760,9 +759,9 @@ jobs:
           if 'how-it-works' not in page.ids:raise SystemExit('SEO process anchor missing: '+str(page.ids[:40]))
           if page.canonical!=['https://seoimpuls.com/']:raise SystemExit('Unexpected canonical: '+str(page.canonical))
           service=Page()
-          service_html=Path('public/seo/index.html').read_text(encoding='utf-8')
+          service_html=Path('public/technical-seo-audit/index.html').read_text(encoding='utf-8')
           service.feed(service_html)
-          if ''.join(service.h1).strip()!='Technical SEO Services & Audits':
+          if ''.join(service.h1).strip()!='Technical SEO Audit':
               raise SystemExit('Incorrect /seo/ H1: '+str(service.h1))
           service_txt=' '.join(' '.join(service.visible).split()).lower()
           for fragment in ('llink building services','backlink strategies','domain rating increase','tier 1-2-3','xrumer','xevil'):
@@ -773,11 +772,11 @@ jobs:
               if fragment not in service.ids:raise SystemExit('Missing /seo/ anchor: '+fragment)
           print('PASS: EN /seo/ H1, content, anchors, no legacy service link.')
           kw=Page()
-          kw_html=Path('public/services/keyword-research/index.html').read_text(encoding='utf-8')
+          kw_html=Path('public/keyword-research/index.html').read_text(encoding='utf-8')
           kw.feed(kw_html)
-          if ''.join(kw.h1).strip()!='Keyword Research & Search Intent Mapping':
+          if ''.join(kw.h1).strip()!='Keyword Research':
               raise SystemExit('Incorrect keyword research H1: '+str(kw.h1))
-          if kw.canonical!=['https://seoimpuls.com/services/keyword-research/']:
+          if kw.canonical!=['https://seoimpuls.com/keyword-research/']:
               raise SystemExit('Unexpected keyword research canonical: '+str(kw.canonical))
           for fragment in ('what-is-included','formats','methodology','deliverables','pricing','faq','contact'):
               if fragment not in kw.ids:raise SystemExit('Missing keyword research section: '+fragment)
@@ -785,25 +784,15 @@ jobs:
           for forbidden in ('tier 1-2-3','link building services','mass backlinks','domain rating increase','xrumer'):
               if forbidden in kw_txt:raise SystemExit('Legacy keyword research term: '+forbidden)
           print('PASS: EN keyword research new URL, H1, canonical, sections and clean copy.')
-          hub=Page()
-          hub.feed(Path('public/seo-services/index.html').read_text(encoding='utf-8'))
-          if ''.join(hub.h1).strip()!='Find the Right SEO Service for Your Business':
-              raise SystemExit('Unexpected /seo-services/ H1: '+str(hub.h1))
-          if hub.canonical!=['https://seoimpuls.com/seo-services/']:
-              raise SystemExit('Unexpected /seo-services/ canonical: '+str(hub.canonical))
-          hub_text=' '.join(' '.join(hub.visible).split()).lower()
-          for old in ('link building services','domain rating','mass backlinks','tier 1-2-3','microsite development'):
-              if old in hub_text:raise SystemExit('Old service catalog term visible: '+old)
-          if '/seo/' not in hub.links or '/services/keyword-research/' not in hub.links:
-              raise SystemExit('Missing current SEO services in catalog')
-          if 'link building services' in kw_txt:
-              raise SystemExit('Outdated breadcrumb remains on keyword research page')
-          print('PASS: /seo-services/ catalog, canonical, H1, valid service links, keyword breadcrumb.')
+          for retired in ('seo-services/','services/','seo/','services/keyword-research/','services/seo-consultation/'):
+              if Path('public/'+retired+'index.html').exists():raise SystemExit('Retired EN service route still generated: '+retired)
+          if 'link building services' in kw_txt:raise SystemExit('Outdated breadcrumb on keyword page')
+          print('PASS: retired EN hub and legacy EN service URLs are not generated.')
           consult=Page()
-          consult.feed(Path('public/services/seo-consultation/index.html').read_text(encoding='utf-8'))
-          if ''.join(consult.h1).strip()!='SEO Consultation & Strategy Review':
+          consult.feed(Path('public/seo-consultation/index.html').read_text(encoding='utf-8'))
+          if ''.join(consult.h1).strip()!='SEO Consultation':
               raise SystemExit('Unexpected consultation H1: '+str(consult.h1))
-          if consult.canonical!=['https://seoimpuls.com/services/seo-consultation/']:
+          if consult.canonical!=['https://seoimpuls.com/seo-consultation/']:
               raise SystemExit('Incorrect consultation canonical: '+str(consult.canonical))
           for section in ('who-it-is-for','topics','prepare','format','results','faq','contact'):
               if section not in consult.ids:raise SystemExit('Missing consultation anchor: '+section)
@@ -811,8 +800,8 @@ jobs:
           for forbidden in ('link building services','indefinite ongoing support','unlimited long-term support',
                             'guaranteed google rankings','xrumer','tier 1-2-3','domain rating increase'):
               if forbidden in consult_text:raise SystemExit('Old consultation term: '+forbidden)
-          if '/services/seo-consultation/' not in hub.links:
-              raise SystemExit('SEO consultation is missing from clean services catalog')
+          if '/seo-consultation/' not in page.links:
+              raise SystemExit('SEO consultation must be linked directly from homepage')
           print('PASS: /services/seo-consultation/ H1/canonical, content, anchors and catalog link.')
           about=Page()
           about.feed(Path('public/about/index.html').read_text(encoding='utf-8'))
@@ -824,7 +813,7 @@ jobs:
           for legacy in ('link building services','years of practical experience in seo, link building',
                          '2,900+','1,690+','100% of orders delivered successfully','pbn','tier 1-2-3'):
               if legacy in about_txt:raise SystemExit('Unverified/legacy claims on About: '+legacy)
-          if '/seo-services/' not in about.links or '/seo/' not in about.links:
+          if '/#services' not in about.links or '/technical-seo-audit/' not in about.links:
               raise SystemExit('Missing approved service links on About')
           for anchor in ('approach','services','accountability','trust','contact'):
               if anchor not in about.ids:raise SystemExit('Missing About section: '+anchor)
@@ -840,7 +829,7 @@ jobs:
               if essential not in faq_txt:raise SystemExit('Missing FAQ coverage: '+essential)
           for forbidden in ('link building services','domain rating increase','xrumer','gsa ser','rankings in a guaranteed timeframe'):
               if forbidden in faq_txt:raise SystemExit('Legacy or unsupported FAQ claim: '+forbidden)
-          for service_url in ('/seo/','/seo-services/','/services/keyword-research/','/services/seo-consultation/'):
+          for service_url in ('/technical-seo-audit/','/#services','/keyword-research/','/seo-consultation/'):
               if service_url not in faq.links:raise SystemExit('Missing FAQ service link: '+service_url)
           print('PASS: EN FAQ H1, canonical, helpful answers and internal service links.')
           class PrimaryNav(HTMLParser):
@@ -855,7 +844,7 @@ jobs:
           for lang in ('ru','es'):
               menu=PrimaryNav()
               menu.feed(Path('public/'+lang+'/index.html').read_text(encoding='utf-8'))
-              if '/'+lang+'/seo/' not in menu.hrefs:
+              if '/'+lang+'/technical-seo-audit/' not in menu.hrefs:
                   raise SystemExit('Missing localized SEO menu link for '+lang+': '+str(menu.hrefs))
               if any(('link-building' in u or 'uslugi-linkbildinga' in u or '/soft/' in u) for u in menu.hrefs):
                   raise SystemExit('Legacy or broken menu link for '+lang+': '+str(menu.hrefs))

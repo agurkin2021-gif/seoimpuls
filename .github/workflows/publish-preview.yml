@@ -59,7 +59,7 @@ jobs:
               s=re.sub(r'url\((["\x27]?)/(?!/|seoimpuls/)',r'url(\1/seoimpuls/',s)
               f.write_text(s,encoding='utf-8')
           assert (root/'index.html').exists()
-          for htmlfile in (root/'index.html',root/'seo-services'/'index.html',root/'ru'/'uslugi'/'index.html',root/'es'/'servicios'/'index.html'):
+          for htmlfile in (root/'index.html',root/'technical-seo-audit'/'index.html',root/'keyword-research'/'index.html',root/'seo-consultation'/'index.html',root/'ru'/'uslugi'/'index.html',root/'es'/'servicios'/'index.html'):
               txt=htmlfile.read_text(encoding='utf-8')
               matches=re.findall(r'''(?is)<meta\b(?=[^>]*\bname\s*=\s*["']?robots\b)[^>]*>''',txt)
               assert len(matches)==1 and 'noindex,nofollow' in matches[0].lower(),(htmlfile,matches)
@@ -75,14 +75,17 @@ jobs:
                       self.urls.append(dict(attrs).get('href',''))
           links=AnchorLinks()
           links.feed((root/'index.html').read_text(encoding='utf-8'))
-          for expected in ('/seoimpuls/seo-services/','/seoimpuls/seo/',
-                           '/seoimpuls/services/keyword-research/','/seoimpuls/#how-it-works'):
+          for expected in ('/seoimpuls/#services','/seoimpuls/technical-seo-audit/',
+                           '/seoimpuls/keyword-research/','/seoimpuls/seo-consultation/',
+                           '/seoimpuls/#how-it-works'):
               assert expected in links.urls, 'Missing preview path '+expected
           invalid=[url for url in links.urls
                    if url.startswith('/') and not url.startswith('//')
                    and not url.startswith('/seoimpuls/')]
           assert not invalid, 'EN home links escaped preview base path: '+str(invalid[:12])
-          print('PASS: EN home internal links resolve under /seoimpuls/')
+          for retired in ('/seoimpuls/seo-services/','/seoimpuls/seo/','/seoimpuls/services/keyword-research/','/seoimpuls/services/seo-consultation/'):
+              assert retired not in links.urls, 'Retired EN internal link in homepage: '+retired
+          print('PASS: EN home three direct services and anchors resolve under /seoimpuls/')
           PY
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3

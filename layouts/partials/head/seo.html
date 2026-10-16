@@ -65,6 +65,21 @@
 <script type="application/ld+json">{{ $homeSchema | jsonify | safeJS }}</script>
 {{- end -}}
 {{- else if .IsPage -}}
+  {{- $commercialEN := and (eq .Site.Language.Lang "en") (in (slice "seo-overview" "services-keyword-research" "services-seo-consultation") (.Params.translationKey | default "")) -}}
+  {{- if $commercialEN -}}
+    {{- /* Commercial pages are WebPage, never BlogPosting. */ -}}
+    {{- $servicePage := dict
+      "@context" "https://schema.org"
+      "@type" "WebPage"
+      "@id" .Permalink
+      "url" .Permalink
+      "name" .Title
+      "description" (.Description | default .Site.Params.description)
+      "inLanguage" .Site.LanguageCode
+      "publisher" (dict "@type" "Organization" "name" .Site.Title)
+    -}}
+<script type="application/ld+json">{{ $servicePage | jsonify | safeJS }}</script>
+  {{- else -}}
   {{- /* Generic page schema */ -}}
   {{- $description := .Description | default $params.description | default .Site.Params.description -}}
   {{- $authorName := .Params.author | default .Site.Params.Author.name | default "SeoImpuls" -}}
@@ -117,6 +132,7 @@
     {{- $pageSchema = merge $pageSchema (dict "image" (. | absURL)) -}}
   {{- end -}}
 <script type="application/ld+json">{{ $pageSchema | jsonify | safeJS }}</script>
+  {{- end -}}
 {{- end -}}
 
 {{- /* BreadcrumbList schema */ -}}

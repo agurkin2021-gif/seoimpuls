@@ -8,7 +8,7 @@ showOnHome: false
 
 ## Which SEO services does SEOImpuls provide?
 
-The current service scope includes [technical SEO audits](/seo/), [keyword research and search-intent mapping](/services/keyword-research/) and [one-to-one SEO consultation](/services/seo-consultation/). The [services directory](/seo-services/) explains what each type of work is intended to deliver.
+The current service scope includes [technical SEO audits](/technical-seo-audit/), [keyword research and search-intent mapping](/keyword-research/) and [one-to-one SEO consultation](/seo-consultation/). The [service cards on our homepage](/#services) link directly to the details of each service.
 
 ## What information is needed to start?
 

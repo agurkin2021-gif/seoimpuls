@@ -2,10 +2,10 @@
 {{- $lang := .Site.Language.Lang -}}
 {{- $isRU := eq $lang "ru" -}}
 {{- $isES := eq $lang "es" -}}
-{{- $builderURL := cond $isRU "/ru/seo/" (cond $isES "/es/seo/" "/seo/") -}}
+{{- $builderURL := cond $isRU "/ru/seo/" (cond $isES "/es/seo/" "/technical-seo-audit/") -}}
 {{- $newsListURL := cond $isRU "/ru/news/" (cond $isES "/es/news/" "/news/") -}}
-{{- $servicesURL := cond $isRU "/ru/uslugi/" (cond $isES "/es/servicios/" "/seo-services/") -}}
-{{- $seoURL := cond $isRU "/ru/seo/" (cond $isES "/es/seo/" "/seo/") -}}
+{{- $servicesURL := cond $isRU "/ru/uslugi/" (cond $isES "/es/servicios/" "/#services") -}}
+{{- $seoURL := cond $isRU "/ru/seo/" (cond $isES "/es/seo/" "/technical-seo-audit/") -}}
 {{- $casesURL := $seoURL -}}
 {{/* Disabled legacy Software path: render card 2 only when an explicit URL is set in homeJson. */}}
 {{- $builderBlocks := slice -}}
@@ -368,7 +368,11 @@
 .seo-central--en .seo-news-strip {margin:0 auto;padding:0 32px;}
 .seo-central--en .seo-news-strip__layout {grid-template-columns:minmax(0,1.55fr) minmax(290px,0.85fr);gap:18px;align-items:stretch;}
 .seo-central--en .seo-news-strip__single {height:auto;min-height:0;overflow:visible;}
-.seo-central--en .seo-news-strip__side {height:auto;gap:16px;grid-template-rows:repeat(2,minmax(0,1fr));}
+.seo-central--en .seo-news-strip__side {height:auto;gap:12px;grid-template-rows:repeat(3,minmax(0,1fr));scroll-margin-top:115px;}
+.seo-central--en .seo-news-strip__side .seo-card {padding:14px 18px;min-height:0;}
+.seo-central--en .seo-news-strip__side .seo-card-list li {font-size:13px;line-height:1.4;margin-bottom:4px;}
+.seo-central--en .seo-news-strip__side .seo-card-head {margin-bottom:6px;}
+@media (min-width:768px) and (max-width:1020px){.seo-central--en #services{scroll-margin-top:192px;}}
 .seo-central--en .seo-news-article--compact {padding:23px 24px;}
 .seo-central--en .seo-news-article__title {font-size:22px;}
 .seo-central--en .seo-news-article__body {margin-top:10px;font-size:15px;line-height:1.58;}
@@ -400,16 +404,6 @@
 .seo-central--en .seo-en-home-deliverable h3 {margin:0 0 8px;color:#e5edfb;font-size:17px;line-height:1.35;}
 .seo-central--en .seo-en-home-deliverable p {margin:0;color:rgba(214,224,240,.86);font-size:14px;line-height:1.6;}
 
-/* Three honest entry paths to services already offered on EN support pages. */
-.seo-central--en .seo-en-choose {max-width:1280px;margin:0 auto;padding:24px 32px 27px;border-top:1px solid rgba(146,174,206,.25);}
-.seo-central--en .seo-en-choose h2 {margin:0 0 8px;color:#dfe6f6;font-size:22px;line-height:1.35;}
-.seo-central--en .seo-en-choose__intro {margin:0 0 17px;color:rgba(214,224,240,.88);font-size:15px;line-height:1.63;}
-.seo-central--en .seo-en-choose__grid {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;}
-.seo-central--en .seo-en-choose__item {display:flex;flex-direction:column;min-width:0;padding:19px 18px;border:1px solid rgba(146,174,206,.28);border-radius:10px;background:rgba(12,28,48,.73);}
-.seo-central--en .seo-en-choose__item h3 {color:#e4eefb;font-size:17px;line-height:1.35;margin:0 0 9px;}
-.seo-central--en .seo-en-choose__item p {color:rgba(214,224,240,.86);font-size:14px;line-height:1.63;margin:0 0 15px;}
-.seo-central--en .seo-en-choose__item a {color:#8dd3ff;font-size:14px;font-weight:700;text-underline-offset:3px;margin-top:auto;width:fit-content;}
-.seo-central--en .seo-en-choose__item a:focus-visible {outline:2px solid #8dd3ff;outline-offset:4px;border-radius:2px;}
 /* Buyer objections answered briefly; full detailed FAQ belongs at /faq/. */
 .seo-central--en .seo-en-buyer-faq {max-width:1280px;margin:0 auto;padding:24px 32px 28px;border-top:1px solid rgba(146,174,206,.25);}
 .seo-central--en .seo-en-buyer-faq h2 {margin:0 0 17px;color:#dfe6f6;font-size:22px;line-height:1.35;}
@@ -446,6 +440,7 @@
   .seo-central--en .seo-en-home-deliverables__grid {grid-template-columns:repeat(2,minmax(0,1fr));}
   .seo-central--en .seo-news-strip__layout {grid-template-columns:1fr;}
   .seo-central--en .seo-news-strip__side {grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:none;}
+  .seo-central--en .seo-news-strip__side .seo-card:last-child:nth-child(3){grid-column:1/-1;}
 }
 @media (max-width:767px) {
   .seo-central--en .seo-hero-content {padding:28px 18px 26px;}
@@ -463,8 +458,6 @@
   .seo-central--en .seo-en-home-deliverables {padding:20px 18px;}
   .seo-central--en .seo-en-home-deliverables__grid {grid-template-columns:1fr;}
 
-  .seo-central--en .seo-en-choose {padding:20px 18px;}
-  .seo-central--en .seo-en-choose__grid {grid-template-columns:1fr;}
   .seo-central--en .seo-en-buyer-faq {padding:20px 18px;}
   .seo-central--en .seo-en-buyer-faq__grid {grid-template-columns:1fr;}
   .seo-central--en .seo-en-home-scope {padding:20px 18px;}
@@ -500,13 +493,13 @@
         <div class="seo-news-strip__single js-news-strip-single">
           {{ if eq $lang "en" }}
           <article class="seo-news-article seo-news-article--compact" id="how-it-works">
-            <h2 class="seo-news-article__title">From diagnosis to implementation</h2>
+            <h2 class="seo-news-article__title">From your goal to a clear result</h2>
             <div class="seo-news-article__body">
-              <p>Begin with your actual website, target audience and search data. The work should lead to documented fixes, not vague ranking promises.</p>
+              <p>Tell us about your business, customers and target market. You can start with a website, an idea or an existing list of search terms.</p>
               <ol>
-                <li><strong>Diagnose:</strong> assess Search Console, crawl data, indexation, content and templates.</li>
-                <li><strong>Prioritize:</strong> map search intent, identify missing information and order fixes by impact and effort.</li>
-                <li><strong>Validate:</strong> apply approved changes, test affected URLs and measure outcomes against a baseline.</li>
+                <li><strong>Understand:</strong> define your goal, target customers and what information is available.</li>
+                <li><strong>Choose:</strong> agree on keyword research, a website audit or an SEO consultation.</li>
+                <li><strong>Deliver:</strong> receive the agreed keyword spreadsheet, audit report or practical plan.</li>
               </ol>
             </div>
           </article>
@@ -579,7 +572,7 @@
           {{ end }}
         </div>
 
-        <aside class="seo-news-strip__side" aria-label="{{ if $isRU }}Рекомендуемые блоки услуг{{ else if $isES }}Bloques de servicio destacados{{ else }}Featured service blocks{{ end }}">
+        <aside class="seo-news-strip__side"{{ if eq $lang "en" }} id="services"{{ end }} aria-label="{{ if $isRU }}Рекомендуемые блоки услуг{{ else if $isES }}Bloques de servicio destacados{{ else }}Featured service blocks{{ end }}">
           <a class="seo-card" href="{{ $homeCard1Link.href | safeURL }}"{{ with $homeCard1Link.cloaked }} data-seo-cloaked-href="{{ . }}"{{ end }}{{ with $homeCard1Link.rel }} rel="{{ . }}"{{ end }} data-home-link-field="card1Url" data-home-link-value="{{ $homeCard1UrlRaw }}">
             <div class="seo-card-head">
               <span class="seo-card-icon" aria-hidden="true">
@@ -608,13 +601,27 @@
             </ul>
           </a>
           {{- end -}}
+          {{- if eq $lang "en" -}}
+          <a class="seo-card" href="{{ "seo-consultation/" | relURL }}" data-home-service="seo-consultation">
+            <div class="seo-card-head">
+              <span class="seo-card-icon" aria-hidden="true">
+                <img src="{{ "uploads/seo-icon-seo-marketing.svg" | relURL }}" alt="" width="64" height="64" decoding="async" />
+              </span>
+              <h3 class="seo-card-title">SEO Consultation</h3>
+            </div>
+            <ul class="seo-card-list">
+              <li>Get advice on where to start</li>
+              <li>Receive a practical plan of next steps</li>
+            </ul>
+          </a>
+          {{- end -}}
         </aside>
       </div>
     </section>
     {{ if eq $lang "en" }}
     <section class="seo-en-home-definition" aria-labelledby="seo-en-professional-definition">
       <h2 id="seo-en-professional-definition">What Are Professional SEO Services?</h2>
-      <p>Professional SEO services help businesses make important pages easier to crawl, understand and match with relevant searches. SEOImpuls provides specialist SEO work, not a general marketing agency package. Depending on the website, this can involve technical audits, on-page recommendations, keyword and search-intent mapping, content planning and validation. Specific tasks and implementation responsibilities are agreed before work begins; rankings are not guaranteed.</p>
+      <p>SEO services help businesses understand what customers search for and improve their visibility in Google. Keyword research can start before a website exists; a technical SEO audit identifies problems on an existing website; and a consultation helps set priorities. Each service has a clear agreed result, whether a spreadsheet, report or plan. Website changes are separately agreed, and search rankings are not guaranteed.</p>
     </section>
     {{ end }}
     <section class="seo-static-offer" aria-label="{{ if $isRU }}Статическое предложение{{ else if $isES }}Oferta estática{{ else }}Static offer{{ end }}">
@@ -655,29 +662,6 @@
     </section>
     {{ end }}
     {{ if eq $lang "en" }}
-    <section class="seo-en-choose" aria-labelledby="seo-en-choose-title">
-      <h2 id="seo-en-choose-title">Which SEO Service Fits Your Website?</h2>
-      <p class="seo-en-choose__intro">Start with the issue you need to understand or resolve. Each option has its own scope; you do not need to order every SEO service.</p>
-      <div class="seo-en-choose__grid">
-        <article class="seo-en-choose__item">
-          <h3>Technical SEO Assessment</h3>
-          <p>For crawl and indexing problems, redirect or canonical errors, site architecture and important on-page issues.</p>
-          <a href="{{ "seo/" | relURL }}">Review Technical SEO Audits</a>
-        </article>
-        <article class="seo-en-choose__item">
-          <h3>Keyword &amp; Intent Mapping</h3>
-          <p>For unclear target queries, competing pages, search-intent clusters and gaps in existing website content.</p>
-          <a href="{{ "services/keyword-research/" | relURL }}">Explore Keyword Research</a>
-        </article>
-        <article class="seo-en-choose__item">
-          <h3>SEO Consultation</h3>
-          <p>For a focused second opinion, an SEO strategy review or help deciding which fixes should come first.</p>
-          <a href="{{ "services/seo-consultation/" | relURL }}">View SEO Consultation</a>
-        </article>
-      </div>
-    </section>
-    {{ end }}
-    {{ if eq $lang "en" }}
     <section class="seo-en-buyer-faq" aria-labelledby="seo-en-buyer-faq-title">
       <h2 id="seo-en-buyer-faq-title">Pricing, Timing &amp; SEO Scope</h2>
       <div class="seo-en-buyer-faq__grid">
@@ -703,7 +687,7 @@
       <p>Share your website, target market and the SEO problems you want to solve. We review the request, explain relevant work and agree the scope and deliverables before starting. Search rankings cannot be guaranteed.</p>
       <div class="seo-en-home-scope-actions">
         <a class="seo-cta seo-cta--primary" href="https://t.me/Seoimpuls" target="_blank" rel="noopener noreferrer">Discuss Your Website</a>
-        <a class="seo-cta seo-cta--secondary" href="{{ "services/seo-consultation/" | relURL }}">SEO Consultation Details</a>
+        <a class="seo-cta seo-cta--secondary" href="{{ "seo-consultation/" | relURL }}">SEO Consultation Details</a>
       </div>
     </section>
     {{ end }}

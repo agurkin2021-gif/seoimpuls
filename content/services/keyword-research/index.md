@@ -1,11 +1,11 @@
 ---
-title: "Keyword Research & Search Intent Mapping"
-description: "Professional SEO keyword research, intent clustering and keyword-to-page mapping. Get structured query groups, content gaps and a practical URL plan."
+title: "Keyword Research"
+description: "Keyword research and clustering for your business: find searches customers use and get a spreadsheet of related keywords, even without a website."
 slug: "keyword-research"
 translationKey: "services-keyword-research"
 draft: false
 showOnHome: false
-url: "/services/keyword-research/"
+url: "/keyword-research/"
 image: "/uploads/semantika-1788907052-q46-1788907068324.webp"
 images:
   - "/uploads/semantika-1788907052-q46-1788907068324.webp"
