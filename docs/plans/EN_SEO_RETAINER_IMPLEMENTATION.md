@@ -8,4 +8,5 @@ Authorized scope: new EN `/seo-retainer/` and direct featured SEO Retainer block
 [ ] Recheck Hugo build, strict whitehat, canonical/Title/H1/meta/JSON-LD/sitemap, no broken URLs. Initial build compiled but revealed new page incorrectly marked BlogPosting; whitelist fix committed.
 [ ] Verify Github Pages preview noindex, 390/768/1280 browser screenshots and floating shortcut collisions.
 [ ] Owner review, no production deployment without explicit authorization.
+Note from preview: verified an incorrect draft-parent breadcrumb and homepage-directed CTA fragments. Relocated content to root and used page-scoped anchors; browser route checks updated.
 STATUS EDITED_QA_PENDING. Research: docs/research/2026-10-16-en-seo-retainer-serp.md

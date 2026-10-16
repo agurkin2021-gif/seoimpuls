@@ -1,5 +1,12 @@
 # SEOImpuls — основной контекст проекта (читать первым)
 
+## QA NAVIGATION FIX — 2026-10-16
+- Read the newly published noindex GitHub Pages preview of `/seo-retainer/` using connected Opera; Title/H1/content and desktop layout rendered. Found two real navigation defects: the content page inherited a draft `SEO Services` breadcrumb from the `content/services/` source directory, and builder buttons `#start`/`#first-month` became homepage `/#...` because `relURL` resolved them against the site root.
+- Relocated the source to `content/seo-retainer/index.md` (same public canonical `/seo-retainer/`; deletes old source path) to make breadcrumb Home > SEO Retainer. Changed button URLs explicitly to `/seo-retainer/#start` and `/seo-retainer/#first-month`; preview path prefix should then be applied correctly.
+- Extended 390/768/1280 Playwright checks to load retainer page and verify breadcrumbs, rendered sections, navigation targets, no page images/overflow and capture full-page screenshots. Updated workflow path filter. Old QA result cannot prove this new source passes.
+- STATUS: EDITED_QA_PENDING / PREVIEW_RECHECK_PENDING / PRODUCTION_UNTOUCHED. Next verify branch actions + actual preview and mobile screenshots.
+
+
 ## QA FOLLOW-UP — 2026-10-16: SEO Retainer correctly marked WebPage
 - Initial source commit `8fa09a41`: Hugo compiled; existing EN home schema and three legacy service page SEO routes passed. Strict and Pages actions stopped at `scripts/verify_en_services_route.py` because new `/seo-retainer/` was marked BlogPosting by an explicit commercial-page whitelist in `layouts/partials/head/seo.html`. This is a REAL schema misclassification, not a test-only failure.
 - Corrected whitelist to include `services-seo-retainer` so the page is WebPage + BreadcrumbList, without changing generic article BlogPosting or RU/ES schema. No production changes.

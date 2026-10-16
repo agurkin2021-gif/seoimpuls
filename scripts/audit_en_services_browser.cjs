@@ -144,9 +144,40 @@ let browser;
     if(errors.length||networkFailures.length)fail.push("JS or network failures");
     try{await page.screenshot({path:path.join(OUT,width+"-services.png"),animations:"disabled",timeout:12000});}catch(e){console.log("SERVICES_SCREENSHOT_WARNING "+e.message);}
     try{await page.screenshot({path:path.join(OUT,width+"-full.png"),fullPage:true,animations:"disabled",timeout:15000});}catch(e){console.log("SERVICES_SCREENSHOT_WARNING "+e.message);}
-    report.viewports.push({width,main,children,focus,broken,errors,networkFailures,fail});
+
+    // Check the actual new commercial page at each viewport; a correct homepage card is not enough.
+    const retainerPage=await context.newPage();
+    const retainerResponse=await retainerPage.goto(ROOT+"/seo-retainer/",{waitUntil:"domcontentloaded",timeout:25000});
+    await retainerPage.waitForTimeout(150);
+    const retainerVisual=await retainerPage.evaluate(()=>{
+      const buttons=Array.from(document.querySelectorAll(".seo-builder-buttons a.seo-cta"))
+        .map(a=>({label:a.textContent.trim(),href:a.getAttribute("href")}));
+      return {
+        title:document.title,
+        h1:Array.from(document.querySelectorAll("h1")).map(x=>x.textContent.trim()),
+        crumbs:Array.from(document.querySelectorAll(".breadcrumbs__item")).map(x=>x.textContent.trim()),
+        buttons,
+        sections:Array.from(document.querySelectorAll(".seo-builder-block[id]")).map(x=>x.id),
+        missingTargets:buttons.filter(x=>x.href.includes("#")&&!document.getElementById(x.href.split("#")[1])),
+        pageImages:document.querySelectorAll(".seo-builder img").length,
+        overflow:document.documentElement.scrollWidth>innerWidth+2
+      };
+    });
+    if(retainerResponse.status()!==200||retainerVisual.h1.length!==1||retainerVisual.h1[0]!=="SEO Retainer"||
+       retainerVisual.title!=="SEO Retainer | SeoImpuls"||retainerVisual.crumbs.length!==2||
+       retainerVisual.crumbs[1]!=="SEO Retainer"||retainerVisual.overflow||retainerVisual.pageImages)
+      fail.push("Retainer page visual/H1/breadcrumb/overflow error");
+    for(const id of ["overview","included","first-month","monthly-cycle","deliverables","scope","pricing","comparison","faq","start"])
+      if(!retainerVisual.sections.includes(id))fail.push("Retainer missing section "+id);
+    if(retainerVisual.missingTargets.length||!retainerVisual.buttons.some(x=>x.href==="/seo-retainer/#start")||
+       !retainerVisual.buttons.some(x=>x.href==="/seo-retainer/#first-month"))
+      fail.push("Retainer CTA routes or anchors invalid");
+    try{await retainerPage.screenshot({path:path.join(OUT,width+"-retainer.png"),fullPage:true,animations:"disabled",timeout:16000});}
+    catch(e){console.log("RETAINER_SCREENSHOT_WARNING "+e.message);}
+    await retainerPage.close();
+    report.viewports.push({width,main,children,focus,retainerVisual,broken,errors,networkFailures,fail});
     console.log("SERVICES_BROWSER_SUMMARY "+JSON.stringify({width,status:response.status(),cardCount:main.cards.length,
-      serviceRoutes:main.cards.map(x=>x.href),cardVisuals:main.cards.map(x=>({mark:x.mark,imageCount:x.imageCount,rect:x.markRect})),columns:main.columns,focus,errors,networkFailures,broken,fail}));
+      serviceRoutes:main.cards.map(x=>x.href),cardVisuals:main.cards.map(x=>({mark:x.mark,imageCount:x.imageCount,rect:x.markRect})),columns:main.columns,focus,errors,networkFailures,broken,retainerVisual,fail}));
     await context.close();
   }
   await browser.close();

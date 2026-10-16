@@ -10,7 +10,7 @@ on:
       - 'content/seo/index.md'
       - 'content/services/keyword-research/index.md'
       - 'content/services/seo-consultation/index.md'
-      - 'content/services/seo-retainer/index.md'
+      - 'content/seo-retainer/index.md'
       - 'data/en_home_services.json'
       - 'layouts/partials/head/seo.html'
       - 'hugo.toml'
