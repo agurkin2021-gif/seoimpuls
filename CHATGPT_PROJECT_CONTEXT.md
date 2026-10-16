@@ -60,6 +60,12 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — EN home 390/1280 browser QA now runs on future page changes
+- Latest buyer pricing/timing/scope commit f19b17a0 published on GitHub Pages (#28); Hugo strict site QA #87 requires confirmation. Research and gap mapping are in `docs/research/2026-10-15-en-home-professional-seo-serp.md`.
+- Updated only `.github/workflows/en-home-browser-audit.yml` to auto-run existing Playwright Chromium audit at 390 and 1280 px whenever EN home content, shared home template, header/footer or corresponding CSS is changed. No live HTML/CSS site edits in this commit, RU/ES and production untouched.
+- Test triggers on this workflow commit to verify current EN page after all 3 intent-gap additions. Expected screenshots + JSON artifact. Next: inspect run and confirm all visuals, links, canonical, schema, no broken images/JS, no horizontal overflow.
+
+
 ### 2026-10-15 — EN homepage SERP gap 3: transparent pricing/timing/scope answers
 - Following service-choice commit c3853d95 (Pages #27 and Hugo QA #86 PASS; Opera confirmed three existing service routes and EN heading), added EN-only "Pricing, Timing & SEO Scope" with 3 buyer questions: how SEO price is scoped, difference between deliverables and Google ranking timelines, and choosing only necessary services.
 - No made-up prices, fixed retainer plans, guaranteed rankings, deliverable timing, staff numbers or invented credentials. Linked to existing /faq/ and /about/ for detailed policies/trust. Content addresses top10 SEO buyer SERP features (commercial comparison, pricing, timetable).

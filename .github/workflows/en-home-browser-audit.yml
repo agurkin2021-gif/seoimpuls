@@ -5,6 +5,12 @@ on:
     paths:
       - 'scripts/audit_en_home_browser.cjs'
       - '.github/workflows/en-home-browser-audit.yml'
+      - 'content/_index.md'
+      - 'layouts/index.html'
+      - 'layouts/partials/header.html'
+      - 'layouts/partials/footer.html'
+      - 'assets/css/_home_inline.scss'
+      - 'assets/css/_override.scss'
   workflow_dispatch:
 permissions:
   contents: read
