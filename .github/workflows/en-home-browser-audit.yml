@@ -8,6 +8,7 @@ on:
       - 'content/_index.md'
       - 'layouts/index.html'
       - 'layouts/partials/en-home-hero-diagram.html'
+      - 'layouts/partials/en-home-service-glyph.html'
       - 'layouts/partials/head/seo.html'
       - 'layouts/partials/header.html'
       - 'layouts/partials/footer.html'

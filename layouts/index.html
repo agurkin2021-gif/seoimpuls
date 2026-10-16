@@ -634,6 +634,102 @@
 </style>
 {{ end }}
 
+{{ if eq $lang "en" }}
+<style id="seo-en-home-design-pass-02">
+/* Stage 02: a coherent service index. Strictly EN homepage via art-directed root. */
+.seo-central--art-directed .seo-en-primary-services{
+  padding-top:clamp(40px,5vw,66px);padding-bottom:clamp(36px,4vw,56px);
+}
+.seo-central--art-directed .seo-en-primary-services__intro{margin-bottom:25px}
+.seo-central--art-directed .seo-en-primary-services__eyebrow{
+  margin:0 0 11px;color:#86b5c7;font-size:11px;line-height:1.3;
+  letter-spacing:.13em;font-weight:740;
+}
+.seo-central--art-directed .seo-en-primary-services__eyebrow span{color:#5bc1d1;margin:0 6px}
+.seo-central--art-directed .seo-en-primary-services__intro h2{
+  font-size:clamp(25px,2.55vw,34px);line-height:1.18;letter-spacing:-.025em;margin:0 0 12px;
+}
+.seo-central--art-directed .seo-en-primary-services__intro>p:not(.seo-en-primary-services__eyebrow){
+  color:#b8cbdc;font-size:16px;line-height:1.62;max-width:770px;
+}
+.seo-central--art-directed .seo-en-primary-services__grid{gap:17px}
+.seo-central--art-directed .seo-en-service-card{
+  position:relative;min-width:0;gap:13px;padding:22px 22px 20px;border-radius:7px;
+  border:1px solid #304a5e;background:#0a1b2e;box-shadow:none;
+  transition:border-color .18s ease,background-color .18s ease;
+}
+.seo-central--art-directed .seo-en-service-card:hover,
+.seo-central--art-directed .seo-en-service-card:focus-within{
+  border-color:#68b9c9;background:#0e2235;
+}
+.seo-central--art-directed .seo-en-service-card__head{
+  display:flex;align-items:center;gap:12px;min-height:50px;margin-bottom:1px;
+}
+.seo-central--art-directed .seo-en-service-glyph{
+  display:grid;place-items:center;flex:0 0 50px;width:50px;height:50px;
+  box-sizing:border-box;border:1px solid #3f7482;border-radius:6px;
+  background:#102b3b;color:#88cfda;
+}
+.seo-central--art-directed .seo-en-service-glyph svg{display:block;width:32px;height:32px}
+.seo-central--art-directed .seo-en-service-card h3{
+  flex:1;min-width:0;font-size:clamp(18px,1.4vw,21px);
+  line-height:1.26;letter-spacing:-.018em;font-weight:720;color:#f0f5fa;
+}
+.seo-central--art-directed .seo-en-service-card .seo-en-service-mark,
+.seo-central--art-directed .seo-en-service-card:nth-child(n) .seo-en-service-mark{
+  order:3;flex:0 0 auto;min-width:18px;width:auto;height:auto;
+  padding:0;margin:0;display:inline-block;border:0!important;border-radius:0;
+  background:transparent!important;box-shadow:none!important;
+  font-size:11px;font-weight:700;line-height:1.3;letter-spacing:.06em;color:#91aec0;
+}
+.seo-central--art-directed .seo-en-service-card>p:not(.seo-en-service-card__outcome){
+  font-size:14px;line-height:1.65;color:#bed0de;
+}
+.seo-central--art-directed .seo-en-service-card .seo-en-service-card__outcome{
+  margin-top:auto;padding:12px 13px;border:0;border-left:2px solid #63b7c6;
+  border-radius:0 3px 3px 0;background:#10293a;
+  color:#c4d6e1;font-size:13px;line-height:1.6;
+}
+.seo-central--art-directed .seo-en-service-card__outcome strong{color:#f0f7fa}
+.seo-central--art-directed .seo-en-service-card__link{
+  margin-top:1px;padding:4px 0;min-height:30px;
+  color:#83d5e2!important;text-decoration:none;border-bottom:1px solid transparent;
+  font-size:13px;letter-spacing:.012em;
+}
+.seo-central--art-directed .seo-en-service-card__link:hover,
+.seo-central--art-directed .seo-en-service-card__link:focus-visible{
+  color:#d4f6f8!important;text-decoration:underline;text-underline-offset:4px;
+}
+.seo-central--art-directed .seo-en-service-card--featured{
+  column-gap:clamp(20px,4vw,58px);row-gap:12px;border-color:#45717f;
+  background:linear-gradient(105deg,#112d3d,#0b2032);
+  padding:26px 30px;
+}
+.seo-central--art-directed .seo-en-service-card--featured .seo-en-service-glyph{
+  border-color:#5b9fa7;background:#173a42;
+}
+.seo-central--art-directed .seo-en-service-card--featured .seo-en-service-card__outcome{
+  margin:0;align-self:end;
+}
+.seo-central--art-directed .seo-en-primary-services__note{
+  padding-top:15px;border-top:1px solid #2b4355;
+  color:#9fb8cb;font-size:13px;line-height:1.55;max-width:none;
+}
+@media(max-width:767px){
+  .seo-central--art-directed .seo-en-primary-services{padding-top:35px;padding-bottom:38px}
+  .seo-central--art-directed .seo-en-primary-services__grid{gap:12px}
+  .seo-central--art-directed .seo-en-service-card{padding:19px;gap:11px}
+  .seo-central--art-directed .seo-en-service-card__head{min-height:46px}
+  .seo-central--art-directed .seo-en-service-glyph{flex-basis:46px;width:46px;height:46px}
+  .seo-central--art-directed .seo-en-service-glyph svg{width:29px;height:29px}
+  .seo-central--art-directed .seo-en-service-card--featured{padding:21px}
+}
+@media(prefers-reduced-motion:reduce){
+  .seo-central--art-directed .seo-en-service-card{transition:none}
+}
+</style>
+{{ end }}
+
 {{ if $isRU }}
 {{ partial "ru-home-content.html" . }}
 {{ else }}
@@ -669,6 +765,7 @@
     {{ if eq $lang "en" }}
     <section class="seo-en-primary-services" id="services" aria-labelledby="seo-en-services-title">
       <div class="seo-en-primary-services__intro">
+        <p class="seo-en-primary-services__eyebrow">THE SERVICE INDEX <span aria-hidden="true">/</span> 07 FOCUSED OPTIONS</p>
         <h2 id="seo-en-services-title">SEO Services for Your Business</h2>
         <p>Choose individual SEO work or an ongoing SEO Retainer. Each option solves a different problem, from finding customer searches to managing agreed website improvements. You do not need to buy everything.</p>
       </div>
@@ -676,8 +773,9 @@
         {{ range $index, $service := site.Data.en_home_services }}
         <article class="seo-en-service-card{{ if $service.featured }} seo-en-service-card--featured{{ end }}" data-home-service="{{ $service.id }}">
           <div class="seo-en-service-card__head">
-            <span class="seo-en-service-mark" aria-hidden="true">{{ printf "%02d" (add $index 1) }}</span>
+            <span class="seo-en-service-glyph" aria-hidden="true">{{ partial "en-home-service-glyph.html" $service.id }}</span>
             <h3>{{ $service.title }}</h3>
+            <span class="seo-en-service-mark" aria-hidden="true">{{ printf "%02d" (add $index 1) }}</span>
           </div>
           <p>{{ $service.summary }}</p>
           <p class="seo-en-service-card__outcome"><strong>Result:</strong> {{ $service.outcome }}</p>

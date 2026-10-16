@@ -60,7 +60,10 @@ let browser;
           outcome:x.querySelector(".seo-en-service-card__outcome")?.textContent.trim()||"",
           imageCount:x.querySelectorAll("img").length,
           mark:x.querySelector(".seo-en-service-mark")?.textContent.trim()||"",
-          markRect:(()=>{const r=x.querySelector(".seo-en-service-mark")?.getBoundingClientRect();return r?{width:r.width,height:r.height}:null;})()
+          markRect:(()=>{const r=x.querySelector(".seo-en-service-mark")?.getBoundingClientRect();return r?{width:r.width,height:r.height}:null;})(),
+          glyphCount:x.querySelectorAll(".seo-en-service-glyph svg").length,
+          glyphId:x.querySelector(".seo-en-service-glyph svg")?.getAttribute("data-en-service-icon")||"",
+          glyphRect:(()=>{const r=x.querySelector(".seo-en-service-glyph")?.getBoundingClientRect();return r?{width:r.width,height:r.height}:null;})()
         })),
         columns:(()=>{const g=document.querySelector("#services .seo-en-primary-services__grid");return g?getComputedStyle(g).gridTemplateColumns.split(" ").filter(Boolean).length:0;})(),
         selectorCount:document.querySelectorAll("#seo-en-choose-title").length,
@@ -111,8 +114,10 @@ let browser;
        !["compet","topic","keyword"].every(w=>mergedEN["keyword-research"]?.includes(w))||
        !["content","heading","recommend"].every(w=>mergedEN["on-page-seo"]?.includes(w)))
       fail.push("Consolidated EN cards lost technical, competitor or page/content scope");
-    if(main.cards.map(x=>x.mark).join("/")!=="01/02/03/04/05/06/07"||main.cards.some(x=>x.imageCount!==0||!x.markRect||x.markRect.width<36||Math.abs(x.markRect.width-x.markRect.height)>3))
-      fail.push("Service design: seven lightweight CSS-only markers, no old image elements");
+    if(main.cards.map(x=>x.mark).join("/")!=="01/02/03/04/05/06/07"||
+       main.cards.some(x=>x.imageCount!==0||x.glyphCount!==1||x.glyphId!==x.id||
+         !x.glyphRect||x.glyphRect.width<44||Math.abs(x.glyphRect.width-x.glyphRect.height)>3))
+      fail.push("Service design: seven unique EN-only inline SVG symbols, no image elements");
     if(main.cards.filter(x=>x.featured).length!==1||main.cards.at(-1).id!=="seo-retainer"||!main.cards.at(-1).featured)fail.push("Featured retainer must be the final service");
     for(const [url] of TARGETS)if(main.cards.filter(x=>x.href===url&&x.kind==="details").length!==1)fail.push("Missing one direct service detail link "+url);
     if(main.cards.filter(x=>x.kind==="contact"&&x.href==="#contact-project").length!==3)fail.push("Three scoped service enquiries do not reach contact anchor");

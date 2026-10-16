@@ -7,6 +7,7 @@ on:
       - 'scripts/audit_en_home_accessibility.cjs'
       - 'layouts/index.html'
       - 'layouts/partials/en-home-hero-diagram.html'
+      - 'layouts/partials/en-home-service-glyph.html'
       - 'content/_index.md'
       - 'assets/css/_override.scss'
       - 'assets/css/_home_inline.scss'
