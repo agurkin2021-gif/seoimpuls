@@ -14,9 +14,12 @@ class Page(HTMLParser):
         self.links=set(); self.canonical=[]
         self.alternate={}; self.refresh=[]; self.jsonld=[]
         self.social_nodes=0; self.map_nodes=0
+        self.class_counts={}
         self.in_json=False; self.jsontext=[]
     def handle_starttag(self,tag,attrs):
         a=dict(attrs)
+        for cls in (a.get('class') or '').split():
+            self.class_counts[cls]=self.class_counts.get(cls,0)+1
         if tag=='div' and 'footer-social-icons' in a.get('class',''):self.social_nodes+=1
         if tag=='div' and 'footer-map' in a.get('class','').split():self.map_nodes+=1
         if tag=='h1':self.in_h1=True
@@ -52,9 +55,9 @@ assert 'Choose the Right SEO Work for Your Website' in ''.join(hub.title),hub.ti
 assert hub.social_nodes==0 and hub.map_nodes==0,'EN hub still contains non-branded social links or unverified location map'
 hub_markup=Path('public/seo-services/index.html').read_text(encoding='utf-8')
 assert 'Choose the right starting point' in hub_markup,'EN service-choice direct answer missing'
-assert hub_markup.count('class="seo-catalog__group"') == 4,'Four workstream groups are required'
-assert hub_markup.count('class="seo-catalog__workstream"') == 23,'All 23 scoped SEO workstreams must render'
-assert hub_markup.count('class="seo-catalog__choice"') == 3,'Three direct buyer entry paths are required'
+assert hub.class_counts.get('seo-catalog__group',0) == 4,'Four workstream groups are required'
+assert hub.class_counts.get('seo-catalog__workstream',0) == 23,'All 23 scoped SEO workstreams must render'
+assert hub.class_counts.get('seo-catalog__choice',0) == 3,'Three direct buyer entry paths are required'
 for label in ('E-commerce SEO','Local SEO & Business Profile Review','AI Search Content Readiness','International & Multilingual SEO','Earned Editorial Visibility Planning'):
     assert label in hub_markup,(label,'catalogued scope missing')
 for required in ('23 standalone packages','How Scope and Deliverables Are Defined','Questions About SEO Work'):
