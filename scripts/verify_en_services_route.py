@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""EN SEO selection now lives on the homepage; verify three distinct service routes."""
+"""Verify nine customer-facing SEO areas and three existing detail routes."""
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import urlsplit
@@ -38,6 +38,7 @@ class Markup(HTMLParser):
         self.service_images = []
         self.service_marks = []
         self.service_region = 0
+        self.service_ids = []
         self.offer_items = []
 
     def handle_starttag(self, tag, attrs):
@@ -46,8 +47,10 @@ class Markup(HTMLParser):
             self.ids.add(a["id"])
         if tag == "html":
             self.language = a.get("lang", "")
-        if tag == "aside" and a.get("id") == "services":
+        if tag == "section" and a.get("id") == "services":
             self.service_region += 1
+        if self.service_region and tag == "article" and a.get("data-home-service"):
+            self.service_ids.append(a["data-home-service"])
         if self.service_region and tag == "img":
             self.service_images.append(a.get("src", ""))
         if self.service_region and tag == "span" and "seo-en-service-mark" in a.get("class", "").split():
@@ -61,8 +64,8 @@ class Markup(HTMLParser):
         if tag == "a":
             href = a.get("href", "")
             self.links.append(href)
-            if self.service_region and "seo-card" in a.get("class", "").split():
-                self.service_cards.append(href)
+            if self.service_region and a.get("data-home-service-link"):
+                self.service_cards.append((a["data-home-service-link"], href))
         if tag == "link":
             if a.get("rel") == "canonical":
                 self.canonical.append(a.get("href", ""))
@@ -81,7 +84,7 @@ class Markup(HTMLParser):
             self.in_h1 = False
         if tag == "title":
             self.in_title = False
-        if tag == "aside" and self.service_region:
+        if tag == "section" and self.service_region:
             self.service_region -= 1
         if tag == "script" and self.in_schema:
             self.schema.append(json.loads("".join(self.json_text)))
@@ -126,9 +129,15 @@ def local_target(href):
 
 assert home.canonical == [BASE_URL + "/"], home.canonical
 assert "services" in home.ids, "Homepage service cards must have #services anchor"
-assert {local_target(href) for href in home.service_cards} == set(SERVICES), home.service_cards
-assert len(home.service_cards) == 3, f"Expected exactly 3 genuine service cards, got {home.service_cards}"
-assert len(home.service_marks) == 3, f"Expected exactly 3 CSS-only service marks, got {home.service_marks}"
+EXPECTED_AREAS = ["seo-audit", "keyword-research", "on-page-seo", "technical-seo",
+    "seo-competitor-analysis", "seo-content-optimization", "local-seo", "international-seo",
+    "seo-consultation"]
+assert home.service_ids == EXPECTED_AREAS, ("Nine distinct service area IDs required", home.service_ids)
+assert len(home.service_cards) == 9, home.service_cards
+assert len(home.service_marks) == 9, home.service_marks
+assert {local_target(href) for kind, href in home.service_cards if kind == "details"} == set(SERVICES), home.service_cards
+assert sum(kind == "contact" and local_target(href) == "#contact-project" for kind, href in home.service_cards) == 6, home.service_cards
+assert "contact-project" in home.ids, "Project enquiry anchor missing"
 assert not home.service_images, f"Old service icon images remain visible: {home.service_images}"
 assert all((Path("static")/path).is_file() for path in (
     "uploads/seo-icon-search-optimization.svg",
@@ -140,16 +149,14 @@ assert "seo-en-choose-title" not in home.ids, "Redundant lower 3-choice selector
 assert not any(local_target(href).split("#")[0] in RETIRED_EN for href in home.links), "Homepage links to retired EN URLs"
 assert set(schema_types(home)) == {"WebSite", "Organization"}, schema_types(home)
 source_html = (ROOT / "index.html").read_text(encoding="utf-8")
-assert 'seo-static-offer__list--en-compact' in source_html, "Missing compact EN scope styling"
-assert home.offer_items == ["offerItem1", "offerItem2", "offerItem3"], (
-    "EN should have exactly 3 supporting-work entries, not 8", home.offer_items
-)
+assert not home.offer_items, ("Old EN supporting-work list must be absent", home.offer_items)
 assert 'seo-icon-google.svg' not in source_html, "Old decorative SEO scope image still present"
 assert all(term in source_html.lower() for term in (
-  "other seo work we can discuss", "competitor research:", "page and content improvements:",
-  "fixes and follow-up:", "keyword research spreadsheet", "no website is needed",
+  "seo services for your business", "seo competitor analysis", "seo content optimization",
+  "international seo", "local seo", "on-page seo", "technical seo",
+  "keyword research spreadsheet", "for keyword research, no website is needed",
   "tell us about your seo project"
-)), "Business-friendly scope or deliverable is missing"
+)), "Buyer-friendly service taxonomy or deliverable missing"
 assert all(term not in source_html.lower() for term in (
   "discuss your website’s seo priorities", "share your website, target market",
   "performance & usability:"

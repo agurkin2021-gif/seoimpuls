@@ -747,8 +747,8 @@ jobs:
                            'how is seo service pricing determined?',
                            'how long does seo take?',
                            'do i need every seo service?',
-                           'we agree on the work, price and deliverables',
-                           'no specific ranking or date can be guaranteed'):
+                           'we agree on the price, responsibilities and deliverables',
+                           'no specific position or date can be guaranteed'):
               if fragment not in visible:raise SystemExit('EN buyer decision Q&A missing '+fragment)
           for url in ('/faq/','/about/'):
               if url not in page.links:raise SystemExit('EN trust/FAQ internal link missing '+url)

@@ -1,5 +1,11 @@
 # SEOImpuls — основной контекст проекта (читать первым)
 
+## 2026-10-16 — EN nine-area QA gate repair, site source unchanged
+- Prior feature commit bb9b418 Hugo --minify + homepage schema PASS, but strict/Pages build intentionally stopped at stale `scripts/verify_en_services_route.py` expecting old three EN cards; traceback showed empty old-aside selectors because new nine articles use a section. Corrected parser to collect the nine EN service IDs/marks and 3 detail + 6 scoped enquiry links; rejected legacy scope duplication. EN page HTML, CSS, site links and RU/ES not modified.
+- Updated embedded strict sitewide expected text to match the already-changed scope pricing wording and SEO delivery-time disclaimer, not lower requirements. All checks must be rerun on this commit. Context guard on prior bb9b418 PASSED, WCAG automation PASSED; prior strict+Pages failed due old test and cannot count as pass.
+- STATUS CODE_QA_PENDING / VISUAL_QA_PENDING / PRODUCTION_NOT_DEPLOYED. Next: observe full CI and browser logs, correct real issues only.
+
+
 ## 2026-10-16 — EN HOME OWNER OVERRIDE: BROAD CUSTOMER-FACING SEO SERVICES (QA PENDING)
 - Owner states current three visible cards are NOT all SEOImpuls services. Changed **EN homepage only** to nine clear SEO work areas: SEO Audit; Keyword Research; On-Page SEO; Technical SEO; SEO Competitor Analysis; SEO Content Optimization; Local SEO; International SEO; SEO Consultation. Data file `data/en_home_services.json` defines simple customer problems, scoped examples of results, three existing direct detail routes and six contact-anchor enquiries. No new URLs or fixed-package promises.
 - Layout `layouts/index.html` renders nine balanced lightweight CSS-only service cards above a compact process, removes the redundant EN supplementary-services list, fixes the unnecessary large empty process panel, differentiates hero CTA to an enquiry, retains one H1 and existing schema. SEO definition/deliverables/FAQ/contact updated to avoid implying only three kinds of work or unconditional written plans/edits. EN front matter `content/_index.md` and EN nav in `hugo.toml` aligned; no old service image reuse. CSS scoped to EN only.
