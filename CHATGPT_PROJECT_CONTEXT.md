@@ -2,13 +2,13 @@
 
 КРИТИЧЕСКОЕ ПРАВИЛО ПОЛЬЗОВАТЕЛЯ: ПОСЛЕ КАЖДОГО ИЗМЕНЕНИЯ ПРОЕКТА обновлять ЭТОТ ФАЙЛ в том же Git-коммите, что и изменение. Никаких коммитов с правкой сайта без обновления контекста. Если изменения внесены через несколько технических коммитов, каждый такой коммит обязан содержать актуализацию этого файла. Журнал должен позволять начать работу в другом чате без восстановления истории переписки.
 
-## ТЕКУЩИЙ ПРИОРИТЕТ — решение владельца 2026-10-15
+## ТЕКУЩИЙ ПРИОРИТЕТ — EN services hub после завершения главной (решение владельца 2026-10-15)
 
-- Работать **только над английской главной страницей `/`** до отдельного указания владельца. EN supporting pages — только после отдельного разрешения или завершения главной и явного следующего задания.
-- **Никаких изменений контента, переводов или SEO-структуры RU `/ru/` и ES `/es/`**. К ним вернуться позднее, переводить с утверждённой EN версии с учётом локального интента.
-- Не продолжать отложенный аудит `services-hub.html` или sitewide правки, если они не являются необходимой точечной зависимостью английской главной; не изменять другие языковые выходы намеренно.
-- Для каждой EN-home правки: основной запрос и интент, подтверждённые SERP-данные или SERP_UNVERIFIED, отсутствие каннибализации, контроль HTML/H1/meta/CTA/images, Hugo QA, preview, обновление контекста в том же коммите.
-- `main` не менять; работа только в `white-seo-rebuild`, предпросмотр GitHub Pages допустим; production `seoimpuls.com` не изменять без отдельного разрешения.
+- Владелец завершил работу над английской главной `/` и **отдельно разрешил** перейти к английскому каталогу услуг. Главная заморожена по контенту; разрешены только точечные зависимости ссылок при изменении адреса каталога.
+- Рабочая версия каталога: **`/seo-services/`** на ветке `white-seo-rebuild`; прежний `/services/` — только HTML alias, **не серверный HTTP 301**. Интент каталога: выбор между тремя реально предлагаемыми направлениями и результатами; главная владеет `professional seo services` / общим выбором SEO-исполнителя.
+- Английские дочерние `/seo/`, `/services/keyword-research/`, `/services/seo-consultation/` — отдельные целевые страницы, в этой фазе не переименовывать. **Не изменять RU `/ru/` и ES `/es/`** до отдельной команды. `main` и производственный сервер `seoimpuls.com` не затрагивать.
+- SERP top-10 и map см. `docs/research/2026-10-15-en-services-serp-and-architecture.md`. Приоритет: изолировать интент каталога от главной, не выдавать `seo services list` за ключ каталога без оснований, не придумывать услуги/кейсы/цены.
+- EN catalog lab QA: Hugo, Pages Preview и Playwright 390/1280 успешно проверены на `6099121` (ссылки на Actions ниже). Это **не означает** завершённую миграцию, GSC-проверку, производственную публикацию или полную готовность всех EN/RU/ES страниц.
 
 ## 1. Проект, доступ и границы
 
@@ -59,6 +59,14 @@ IMPORT_STATUS: completed
 7. Перед новым чатом прочитать AGENTS.md и этот файл прямо из репозитория, проверить фактическое состояние GitHub/Actions и продолжить с секции 6 «Следующее действие».
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
+
+### 2026-10-15 — EN services hub: first successful 390/1280 visual QA and context-priority correction
+- Scope: only `CHATGPT_PROJECT_CONTEXT.md` on `white-seo-rebuild`; preceding script-fix commit `6099121730ab`. Corrected outdated top-of-file priority (it still said EN homepage only) to match explicit owner authorization for `/seo-services/` confirmed in AGENTS.md and section 6. **No site file/content/styles/URL/RU/ES/production edits in this commit.**
+- Verified GitHub Actions for `6099121`: content context guard run **#38840975820 PASS**; Hugo rebuild QA **#38840975931 PASS**; GitHub Pages Preview **#38840975836 PASS**; dedicated EN SEO catalog browser audit **#38840975773 PASS**, job #116780728234.
+- Browser logs: 390px HTTP 200, 1 H1, grid 1 column, 3 service cards, 13 local routes checked, no broken links, no overflow, no JS/network faults, `fail:[]`. 1280px HTTP 200, grid 3 columns with same validation, `fail:[]`. Checked valid JSON-LD parse, loaded images, canonical, nav, footer without unverified social/map claims, contact links. Screenshots 390/1280 first/full and `audit.json` stored in artifact **#12020632894**: https://github.com/agurkin2021-gif/seoimpuls/actions/runs/38840975773/artifacts/12020632894 . Inspected full screenshots at both sizes: no observed cut-off or grid breakage; first/third images are visually similar/near-duplicate, optional targeted visual polish, not a broken asset.
+- Status: **CODE_QA_PASS + RESPONSIVE_VISUAL_QA_PASS for EN catalog**, NOT READY_FOR_RELEASE. Search-volume/ranking/physical-US SERP location not validated; GSC and live HTTP 301 migration untouched. Sitewide RU/ES and legacy route audit block production approval.
+- Next: if further EN hub content edits are requested, revisit distinct buyer-choice gaps and small visual duplication, keeping broad `Professional SEO Services` on homepage; otherwise continue next permitted EN page under the same workflow. Full release requires separate owner approval.
+
 
 ### 2026-10-15 — Fix EN SEO catalog browser audit crash without changing page content
 - Scope: branch `white-seo-rebuild`; only `scripts/audit_en_services_browser.cjs` and this context file. Parent commit `3ee217e24cae`.
@@ -902,7 +910,7 @@ Current stage: English `SEO Services` hub, URL changed from `/services/` to `/se
 
 SERP-first competitor top10 and intent map: `docs/research/2026-10-15-en-services-serp-and-architecture.md`. Homepage owns `professional seo services` and provider-selection; catalog owns selecting actual services and comparing deliverables. Don't target `seo services list` 20-category informative SERP on 3-offer catalog.
 
-Old `/services/` has Hugo HTML alias (not production server 301), only `/seo-services/` should be full canonical indexed hub; child `/services/keyword-research/`, `/services/seo-consultation/` unchanged. New `scripts/verify_en_services_route.py` and updated CI check aliases, site map, canonical, hreflang and links. **Latest:** route/Hugo/Pages Preview checks passed for 3ee217e (runs #38839370929 and #38839371005). Dedicated browser audit #38839371024 was cancelled because the QA script shadowed native `URL` and left Chromium alive; this commit fixes that test-only issue. **Next:** read the new browser QA result for 390px and 1280px; if it passes, complete catalog on-page/intent QA and record remaining release gates. If it fails, resolve confirmed defects only. Do not call VISUAL_QA_PASS before an actual successful run. No production migration without approval/GSC. Release still gated.
+Old `/services/` has Hugo HTML alias (not production server 301), only `/seo-services/` should be full canonical indexed hub; child `/services/keyword-research/`, `/services/seo-consultation/` unchanged. New `scripts/verify_en_services_route.py` and updated CI check aliases, site map, canonical, hreflang and links. **Latest verified:** script fix `6099121` passed context guard #38840975820, Hugo #38840975931, Pages Preview #38840975836, browser QA #38840975773 (390/1280: HTTP 200, 3 cards, 1/3-column layouts, 13 local routes, no JS/network errors, no overflow or broken links). Artifact #12020632894 contains mobile and desktop first/full screenshots, inspected. **Status: CODE_QA_PASS and RESPONSIVE_VISUAL_QA_PASS for the EN hub only.** Remaining: optional differentiation of visually similar first/third illustrations; verify actual GSC performance, production URL history and HTTP 301 if publishing the changed route; full sitewide strict gate and user approval before deployment. No production migration without approval/GSC. Release still gated.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 
