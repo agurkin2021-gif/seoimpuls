@@ -1,5 +1,5 @@
 # SEOImpuls: English direct service architecture
-Date: 2026-10-16. STATUS: EDITED_QA_PENDING / OWNER_REVIEW_PENDING — new owner CSS-only service card directive; no production deployment. Branch: white-seo-rebuild.
+Date: 2026-10-16. STATUS: CODE_QA_PASS / RESPONSIVE_VISUAL_QA_PASS / OWNER_REVIEW_PENDING; no production deployment. Branch: white-seo-rebuild.
 
 ## Decision
 - Remove English intermediary service catalogue /seo-services/ from the new generated site. The English homepage owns choosing an SEO service.
@@ -75,3 +75,9 @@ All gates PENDING until this current source is committed and tested. Do not proc
 ## 2026-10-16 — First responsive mark QA failure and correction
 - Source 5d5c281 full Hugo #38913678211, Pages #38913678395, general homepage visual #38913678362, axe #38913678269 and context #38913678442 passed. Dedicated CSS-card Chrome #38913678415 exposed marker width collapse at all widths (390=20.8x38; 768=18.4x38; 1280=22.3x46). All card image requests zero, routes/floating contacts had no failures.
 - Corrected only EN CSS grid child dimensions to fixed responsive `clamp(38px,4vw,46px)` width and height. This new commit requires a fresh dedicated Chrome PASS and screenshot inspection before acceptance.
+
+## 2026-10-16 — Acceptance of final image-free EN homepage service cards
+- Source `00881d5`; strict #38914027341 PASS, preview #38914027471 PASS, context #38914027698 PASS, general home visual #38914027575 PASS, automated axe WCAG check #38914027393 PASS, dedicated Chrome three widths #38914027320 PASS.
+- Measured 390/768/1280 CSS-only markers exactly 38×38, 38×38, 46×46px. Card images zero; original icon files remain in Git unchanged. No broken service URLs, fixed contact overlap, scripts/network errors, overflow or hidden anchor.
+- Screenshots from artifact #12052215561 manually inspected for all three widths; visual acceptance limited to these screenshots and browser automation, not formal accessibility certification.
+- Owner still needs to approve page and future image use. Do not deploy production or pivot to another page automatically.

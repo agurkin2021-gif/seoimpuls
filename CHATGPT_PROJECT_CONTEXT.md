@@ -1,4 +1,13 @@
 # SEOImpuls — основной контекст проекта (читать первым)
+## 2026-10-16 — EN RESPONSIVE CSS SERVICE MARKS: CODE + VISUAL QA PASS, OWNER REVIEW PENDING
+- Accepted immutable source: commit `00881d5`. EN homepage `/#services` now uses three **original CSS-only** numerical markers (01 / 02 / 03); zero old graphic `img` elements in the three service cards. Original SVG files are retained in Git; the brand logo, unrelated images, RU/ES and existing service detail pages remain unchanged.
+- Strict Hugo/sitewide whitehat **PASS**: [#38914027341](https://github.com/agurkin2021-gif/seoimpuls/actions/runs/38914027341). GitHub Pages preview/noindex **PASS**: [#38914027471](https://github.com/agurkin2021-gif/seoimpuls/actions/runs/38914027471). Context guard **PASS**: [#38914027698](https://github.com/agurkin2021-gif/seoimpuls/actions/runs/38914027698). EN homepage visual Chrome **PASS**: [#38914027575](https://github.com/agurkin2021-gif/seoimpuls/actions/runs/38914027575). Automated axe WCAG diagnostic **PASS**: [#38914027393](https://github.com/agurkin2021-gif/seoimpuls/actions/runs/38914027393) (not full WCAG certification).
+- Dedicated direct-services browser Chrome [#38914027320](https://github.com/agurkin2021-gif/seoimpuls/actions/runs/38914027320) **PASS** at all 390 / 768 / 1280 px. Exact measured CSS marks: 38×38 / 38×38 / 46×46 px. Each service-card `imageCount=0` and labels 01/02/03; service route paths unchanged. All `fail:[]`, no broken internal links, JS/network faults, horizontal overflow, or text overlap with floating WhatsApp/Telegram shortcuts. Header/anchor clearance: 390 115/81, 768 192/171, 1280 115/79.
+- Downloaded screenshots [#12052215561](https://github.com/agurkin2021-gif/seoimpuls/actions/runs/38914027320/artifacts/12052215561) and **manually inspected** `390-services.png`, `768-services.png`, `1280-services.png`: no visible clipping or overlap; 390 one card per row, 768 two plus one full width, desktop right column with three stacked cards.
+- Prior revision `5d5c281` had a genuine CSS grid mark-width defect, now corrected and re-tested on `00881d5`. Previous failed run cannot count as pass for earlier source.
+- **CURRENT STATUS: CODE_QA_PASS / RESPONSIVE_VISUAL_QA_PASS / OWNER_REVIEW_PENDING / PRODUCTION_NOT_DEPLOYED.** This latest documentation-only commit does not alter site visuals. Do not restore legacy artwork to EN service cards or work on another page without the owner's explicit instruction.
+
+
 ## 2026-10-16 — EN CSS MARK SIZE CORRECTION (CI PENDING)
 - First new CSS-only service-card iteration `5d5c281`: Hugo strict #38913678211 PASS, Pages preview #38913678395 PASS, general homepage visual browser #38913678362 PASS, axe WCAG automated #38913678269 PASS, context #38913678442 PASS. Dedicated 390/768/1280 service browser #38913678415 FAIL due to genuine **new mark aspect ratio** defect: marker rectangles were 20.8×38 at 390, 18.4×38 at 768, 22.3×46 at 1280. Images in cards = 0 and original routes/no-overlap checks otherwise passed. CSS grid child width:100% resolved to narrow intrinsic track.
 - Targeted fix explicitly sizes the CSS mark itself to `clamp(38px,4vw,46px)` in both dimensions; parent stays responsive. No page copy, image files, other service pages or production changes. Browser and strict/preview must re-run to confirm; do not borrow prior PASS.
@@ -240,6 +249,14 @@ IMPORT_STATUS: completed
 7. Перед новым чатом прочитать AGENTS.md и этот файл прямо из репозитория, проверить фактическое состояние GitHub/Actions и продолжить с секции 6 «Следующее действие».
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
+
+### 2026-10-16 — Custom responsive EN service cards: final QA accepted for source 00881d5
+- All 6 Actions PASS: strict #38914027341, Pages/noindex #38914027471, context #38914027698, direct Chrome 390/768/1280 #38914027320, home visual #38914027575 and axe WCAG automation #38914027393.
+- Browser verified 3 exact direct routes, 01/02/03 square CSS marks at 38/38/46px and ZERO previous card img requests, 0 broken routes or overlaps with fixed WA/TG, 0 console/network errors or horizontal overflow.
+- Screenshot artifact #12052215561 downloaded and manually viewed at 390, 768 and 1280: cards remain legible and stacked/grid-aligned, no visible clipping. No claim of real-user CWV or certified WCAG.
+- This acceptance documentation updates context, active plan and AGENTS guard only; site source unchanged from 00881d5, production untouched.
+- **OWNER_REVIEW_PENDING**: only user may authorize next page or reuse of any old image assets.
+
 
 ### 2026-10-16 — Repair CSS-only icon width from actual 390/768/1280 Chrome measurements
 - On previous source 5d5c281, all major build/preview/visual/accessibility workflows passed, but dedicated CSS mark dimension check failed: 20.8×38, 18.4×38, 22.3×46 respectively.

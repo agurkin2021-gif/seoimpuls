@@ -1,3 +1,6 @@
+## NEW OWNER ASSET LOCK — 2026-10-16
+Do NOT reuse old service pictures/icons in the three EN homepage service cards until the owner issues a new explicit directive. The current owner-approved direction is a custom lightweight responsive design using CSS-only 01/02/03 marks. Do not delete existing image assets; leave brand logo, RU/ES and unrelated images unchanged. Source `00881d5` passed strict+preview+390/768/1280 browser, screenshots checked, status OWNER_REVIEW_PENDING. Never switch to another page without an explicit owner command; never deploy production automatically.
+
 ## CURRENT OWNER DIRECTIVE — 2026-10-16: EN homepage direct SEO services
 The owner explicitly superseded the earlier "ONLY EN /seo-services/" lock: the EN homepage must present all actual services directly, without an extra EN services catalogue. They also instructed removing the generic /services/ prefix and naming the old /seo/ technical-audit page by its actual primary query, consistent across URL, HTML Title and H1.
 
