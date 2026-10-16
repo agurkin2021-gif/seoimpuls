@@ -1,5 +1,8 @@
 # SEOImpuls — missed competitor landing-page opportunities
 
+> **DECISION 2026-10-15:** The owner rejected publishing the hypothetical `noindex` technical-issue specimen on the commercial homepage because it can be misinterpreted as a real issue. The specimen is fully removed from `layouts/index.html`. Earlier proposals and implementation logs below are historical research only, **NOT tasks to restore**. Continue no-risk, evidence-based EN-home changes only; do not recreate this section without explicit new approval.
+
+
 Date: 2026-10-15 (Argentina local); requested by owner: "ищи ещё гэпы, чего нет у конкурентов". Primary EN homepage keyword: `professional seo services`.
 
 ## Evidence and measurement boundary
@@ -64,7 +67,7 @@ A simple specialist-written "When we would first fix site access or implement ap
 ## Evidence statuses and next actions
 `COMPETITOR_LANDING_WHITE_SPACE_REVIEWED`, `COMPETITOR_SITE_WIDE_ABSENCE_UNPROVEN`, `GSC_PENDING`, `PROOF_REQUIRED`, `GEO_PHYSICAL_UNVERIFIED`.
 
-Immediate safe candidate for future on-page enhancement: **one labeled specimen under What You Receive** plus a one-line read-only-access rule; conditional upon owner confirming the actual service handoff format. The rest are research tasks. This document/commit changes no website content or visibility.
+Earlier suggested illustrative specimen below What You Receive has been **REJECTED for the homepage by the owner** and removed. Do not reinstate; any future concrete proof requires approved real materials and explicit owner consent. Research otherwise remains historical.
 
 ## Implementation: illustrative recommendation specimen (2026-10-15)
 - User explicitly approved the site addition after reviewing a hypothetical `noindex` audit example. Added **one** EN-only `<article>` directly under `What You Receive`, not another broad service or FAQ section.
@@ -78,3 +81,7 @@ Immediate safe candidate for future on-page enhancement: **one labeled specimen 
 - No customer, company, URL, case-study figure or outcome was fabricated. A conditional priority and no-ranking-guarantee disclaimer are visible in published copy.
 - Final CI: Hugo strict #96 PASS; Pages Preview #37 PASS; Chromium 390/1280 #8 PASS; axe dark/light #5 PASS (automated zero confirmed violations; `incomplete` still needs manual review). Opera verified direct heading link and published structure. RU/ES, other EN and production unaffected.
 - Further buyer differentiation requires actual output samples or approved case data. Avoid growing homepage with duplicated keyword maps or lengthy agency copy.
+
+## Owner reversal — retire hypothetical SEO failure from homepage (2026-10-15)
+- Owner requested to eliminate any risk of a visitor interpreting `noindex` as a problem on SEOImpuls itself. All EN-home `seo-en-home-example` HTML/CSS is removed, and generated-HTML QA now prevents its return.
+- The illustrative specimen was a research hypothesis, not a proven ranking factor and not necessary to close the broad commercial buyer intent. The three actual scoped deliverables and service links remain intact. Do **not** reintroduce this speculative section without a new explicit request.

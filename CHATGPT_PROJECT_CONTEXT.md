@@ -60,6 +60,14 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — Owner risk reversal: remove hypothetical noindex problem from EN homepage
+- Owner says avoid risks and maximize clarity. The illustrative `noindex` SEO audit scenario was misleading on the commercial main page despite disclosure and not required for search intent. **Fully retired that visual block**, without replacing it or expanding page copy.
+- In `layouts/index.html`: removed exactly the `seo-en-home-example` markup and all its EN-only CSS, including mobile rules and sticky-header scroll margin. Kept `What You Receive` three real service-output descriptions, `Which SEO Service Fits Your Website?`, pricing/time FAQ, SEO CTA, H1/meta/canonical and footer animation unchanged.
+- In `.github/workflows/rebuild-qa.yml`: replaced assertions demanding example presence with negative regression guard forbidding its heading/text and anchor from rendered EN homepage. RU/ES and all other EN pages left intact; branch `white-seo-rebuild` only, main/production untouched.
+- `docs/research/2026-10-15-en-home-competitor-white-space.md` updated to mark the suggested specimen **rejected for homepage**; remains background research only. CI Hugo/Pages/Chromium/axe required after commit; no premature PASS claim.
+- Next: confirm strict Hugo and Pages, reopen current Preview, independently run Chromium 390/1280 and axe light/dark; confirm example absent and homepage structure stable. GSC/proof/physical geo remain unverified.
+
+
 ### 2026-10-15 — EN illustrative SEO finding live and validated, handoff checkpoint
 - Owner-approved sample in `What You Receive` added in b646dbe8; small anchor-offset CSS fix in 443f5e87 to prevent sticky header obscuring `#seo-en-example-title`. Direct stable link: https://agurkin2021-gif.github.io/seoimpuls/#seo-en-example-title .
 - **Verified after final CSS fix:** Hugo strict rebuild QA #96 PASS, GitHub Pages Preview #37 PASS, automatic Playwright 390/1280 browser audit #8 PASS, axe WCAG dark/light audit #5 PASS. In Opera, direct example link displays title, label, four finding cells and footer. Last full-page Chrome audit confirms no horizontal overflow, broken images/links, JS failures, H1/canonical/JSON-LD regressions, desktop floating footer / mobile ordinary footer intact.
@@ -817,13 +825,13 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Continue project ONLY on English homepage `/`, branch `white-seo-rebuild`. RU/ES and remaining EN pages do not change; main and production seoimpuls.com stay untouched.
+Work **ONLY** on English homepage `/` in `white-seo-rebuild`. Do not edit RU/ES/other EN pages, `main`, or deploy to production `seoimpuls.com`.
 
-Latest approved improvement: **one illustrative SEO audit finding** directly below `What You Receive`, explicitly hypothetical and NOT a customer case. Main implementation b646dbe862476a0c697bafce3012c5f4a93e595b; anchor visibility fix 443f5e87776b66bc2773c4e666fe3902d779ea48. Example URL https://agurkin2021-gif.github.io/seoimpuls/#seo-en-example-title .
+**New user priority 2026-10-15:** zero unnecessary buyer-facing risk. User explicitly rejected the hypothetical `noindex` issue card as potentially misleading and requested its entire removal. Removed in this commit: EN-only example markup and all associated styles; negative Hugo QA guard added. The rest of owner-approved commercial homepage remains unchanged. The research note must not be treated as authority to put the technical scenario back without renewed user instruction.
 
-Verification of latest page: Hugo #96 PASS; Pages Preview #37 PASS; 390px/1280px Chromium #8 PASS; axe WCAG light/dark #5 PASS (no confirmed automated violations, manual incomplete remains). Opera visually confirmed actual sample and footer. No change to approved H1/Title/meta/canonical. Full SERP snapshot, competitor gaps and limitations: `docs/research/2026-10-15-en-home-competitor-white-space.md` and `docs/research/2026-10-15-en-home-professional-seo-serp.md`.
+Immediately verify CI rebuild and public Pages Preview and run Chromium responsive (390/1280), axe WCAG light/dark, and Opera visual. Confirm that `What You Receive` (3 conditional outputs) flows directly to `Which SEO Service Fits Your Website?`; no technical-problem specimen, no extra explanation or fake customer case, approved H1 `Professional SEO Services` and footer remain as before.
 
-**Next step depends on evidence:** obtain authenticated GSC query-URL data for homepage vs `/services/`, validate target countries and real provider trust proof. `GSC_PENDING`, `PROOF_REQUIRED`, `GEO_PHYSICAL_UNVERIFIED`, `RELEASE_BLOCKED`. Avoid additional speculative sections and guarantee claims.
+**Open evidence gates:** authenticated GSC query-to-URL overlap `/` vs `/services/`, verified provider credentials and actual customer cases, physical target geo, CrUX/production metrics, human WCAG. Status `GSC_PENDING` / `PROOF_REQUIRED` / `GEO_PHYSICAL_UNVERIFIED` / `RELEASE_BLOCKED`. Never assert completely perfect or search-results guaranteed.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 
