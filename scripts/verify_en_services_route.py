@@ -62,6 +62,9 @@ assert hub.class_counts.get('seo-catalog__group',0) == 4,'Four workstream groups
 assert hub.class_counts.get('seo-catalog__workstream',0) == 23,'All 23 scoped SEO workstreams must render'
 assert hub.class_counts.get('seo-catalog__choice',0) == 3,'Three direct buyer entry paths are required'
 assert hub.class_counts.get('seo-catalog__toc',0)==1,'Category navigation missing'
+assert hub.class_counts.get('seo-catalog__back',0)==4,'Each category needs a return-to-navigation link'
+assert 'seo-catalog-title' in hub.ids and '#seo-catalog-title' in hub.links,'Catalogue heading anchor missing'
+
 assert hub.class_counts.get('services-hub-card__consult-visual',0)==1,'Consultation graphic should not duplicate technical artwork'
 assert hub.class_counts.get('seo-catalog__example',0)==1,'Demonstrable output example missing'
 assert hub.class_counts.get('seo-catalog__evidence-item',0)==4,'Four evidence-to-action fields required'

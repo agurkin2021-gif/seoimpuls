@@ -38,3 +38,8 @@ These links are **reference observations, not a new certified Google top-10 rank
 - Live preview Playwright 390/1280: HTTP 200, unique H1, exact title and canonical, no overflow or failed media, no broken local links/JS/network errors, responsive 1/3-column top grid, 23 workstreams + 4 groups + three entry routes, 5 TOC anchors and actual fixed-header scroll geometry.
 - Independently inspect preview screen layout and query examples after Pages deployment. Green CI is not evidence of real production 301, indexing or commercial performance.
 - GSC and production HTTP redirects are unavailable/not authorized; status `RELEASE_BLOCKED` regardless of lab QA results.
+
+## Mobile 390px follow-up (after previous QA)
+- Playwright screenshot at 390×844 showed all three initial cookie buttons in full-width rows. On this single EN catalogue, display Accept/Reject side-by-side with unchanged labels, equivalent priority and at least 44px height; Manage Preferences stays visible and accessible below. All consent functionality remains unchanged.
+- Each six-workstream group now ends with a descriptive `Back to categories` link. `#seo-catalog-title` gets 120px scroll-margin for the sticky header.
+- Added regression checks: 5 TOC links, four return links, corresponding anchor, two-column mobile consent actions with all three original buttons. New CI and screenshot evidence required before acceptance.

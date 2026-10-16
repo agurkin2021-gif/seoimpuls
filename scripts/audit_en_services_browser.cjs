@@ -18,6 +18,14 @@ let browser;
   await page.waitForTimeout(550);
   console.log("SERVICES_STAGE "+width+" DOM ready");
   try{await page.screenshot({path:path.join(OUT,width+"-first.png"),timeout:12000,animations:"disabled"});}catch(e){console.log("SERVICES_SCREENSHOT_WARNING "+e.message.slice(0,120));}
+
+  const initialConsent=await page.evaluate(()=>{
+    const banner=document.querySelector(".gdpr-consent-banner");
+    const actions=banner?.querySelector(".gdpr-consent-actions");
+    const style=actions?getComputedStyle(actions):null;
+    return {shown:!!banner&&!banner.hidden,layout:style?.display||"",columns:style?.gridTemplateColumns.split(" ").filter(Boolean).length||0,
+      buttons:actions?.querySelectorAll("button").length||0,accept:!!actions?.querySelector("#gdprAcceptAll"),reject:!!actions?.querySelector("#gdprReject")};
+  });
   const reject=page.getByRole("button",{name:/Reject Non-Essential/i});
   if(await reject.count())await reject.first().click({timeout:6000});
   await page.evaluate(()=>document.querySelectorAll("img[loading=lazy]").forEach(x=>x.loading="eager"));
@@ -36,6 +44,8 @@ let browser;
     groupCount:document.querySelectorAll(".seo-catalog__group").length,
     choiceCount:document.querySelectorAll(".seo-catalog__choice").length,
     jumpLinks:Array.from(document.querySelectorAll(".seo-catalog__toc a[href^='#']")).map(a=>({target:a.getAttribute("href").slice(1),label:a.textContent.trim(),targetExists:!!document.getElementById(a.getAttribute("href").slice(1))})),
+    returnLinks:document.querySelectorAll(".seo-catalog__back[href='#seo-catalog-title']").length,
+    catalogueScrollMargin:parseFloat(getComputedStyle(document.querySelector("#seo-catalog-title")).scrollMarginTop)||0,
     consultationGraphicCount:document.querySelectorAll(".services-hub-card__consult-visual").length,
     consultMediaImageCount:document.querySelectorAll('.services-hub-card[href$="/services/seo-consultation/"] img').length,
     reportExampleCount:document.querySelectorAll(".seo-catalog__evidence-item").length,
@@ -73,6 +83,8 @@ let browser;
   if(data.cards.length!==3)fail.push("Cards");
   if(data.workstreamCount!==23||data.groupCount!==4||data.choiceCount!==3)fail.push("Workstream scope");
   if(data.jumpLinks.length!==5||data.jumpLinks.some(x=>!x.targetExists))fail.push("Category navigation");
+  if(data.returnLinks!==4||data.catalogueScrollMargin<100)fail.push("Return navigation");
+  if(width===390 && initialConsent.shown && (initialConsent.layout!=="grid"||initialConsent.columns!==2||initialConsent.buttons!==3||!initialConsent.accept||!initialConsent.reject))fail.push("Mobile consent action layout");
   if(data.consultationGraphicCount!==1||data.consultMediaImageCount!==0)fail.push("Repeated consultation image");
   if(data.reportExampleCount!==4)fail.push("Evidence example");
   if(data.faqQuestionCount!==5)fail.push("Buyer FAQ coverage");
@@ -101,8 +113,8 @@ let browser;
   }));
   if(scrollCheck.sectionTop<scrollCheck.headerBottom-2)fail.push("Anchor obscured by header");
   try{await page.screenshot({path:path.join(OUT,width+"-category.png"),timeout:12000,animations:"disabled"});}catch(e){console.log("SERVICES_SCREENSHOT_WARNING "+e.message.slice(0,120));}
-  report.viewports.push({width,status:res.status(),...data,scrollCheck,brokenLinks,errors,networkFailures,fail});
-  console.log("SERVICES_BROWSER_SUMMARY "+JSON.stringify({width,status:res.status(),h1:data.h1,gridColumns:data.gridColumns,cards:data.cards.length,workstreams:data.workstreamCount,groups:data.groupCount,choices:data.choiceCount,jumpLinks:data.jumpLinks.length,consultGraphic:data.consultationGraphicCount,scrollCheck,overflow:data.scrollWidth>width,brokenLinks,errors,networkFailures,fail}));
+  report.viewports.push({width,status:res.status(),...data,scrollCheck,initialConsent,brokenLinks,errors,networkFailures,fail});
+  console.log("SERVICES_BROWSER_SUMMARY "+JSON.stringify({width,status:res.status(),h1:data.h1,gridColumns:data.gridColumns,cards:data.cards.length,workstreams:data.workstreamCount,groups:data.groupCount,choices:data.choiceCount,jumpLinks:data.jumpLinks.length,returnLinks:data.returnLinks,consent:initialConsent,consultGraphic:data.consultationGraphicCount,scrollCheck,overflow:data.scrollWidth>width,brokenLinks,errors,networkFailures,fail}));
   await ctx.close();
  }
  await browser.close();

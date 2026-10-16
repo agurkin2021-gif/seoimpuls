@@ -3,6 +3,7 @@
 <style>
 .seo-central--services .seo-catalog{margin:42px 0 0;color:#dbe7f5}
 .seo-central--services .seo-catalog__heading{margin:0 0 10px;font-size:clamp(25px,2.1vw,32px);line-height:1.2;color:#f2f7ff}
+.seo-central--services .seo-catalog__heading[id]{scroll-margin-top:120px}
 .seo-central--services .seo-catalog__lede{margin:0 0 27px;max-width:920px;font-size:16px;line-height:1.6;color:#c5d8e9}
 .seo-central--services .seo-catalog__group,.seo-central--services .seo-catalog__matching,.seo-central--services .seo-catalog__scope,.seo-central--services .seo-catalog__example,.seo-central--services .seo-catalog__faq {scroll-margin-top:120px}
 .seo-central--services .seo-catalog__toc {display:flex;align-items:center;flex-wrap:wrap;gap:9px;margin:0 0 26px}
@@ -19,6 +20,8 @@
 .seo-central--services .seo-catalog__group{margin:0 0 30px}
 .seo-central--services .seo-catalog__group-title{margin:0 0 5px;color:#f0f7ff;font-size:clamp(20px,1.75vw,25px);line-height:1.3}
 .seo-central--services .seo-catalog__group-note{margin:0 0 15px;color:#b9cce0;font-size:15px;line-height:1.5}
+.seo-central--services .seo-catalog__back{display:block;text-align:right;margin:12px 1px 0;color:#98ddfa;font-size:13px;font-weight:700;text-underline-offset:3px}
+.seo-central--services .seo-catalog__back:focus-visible{outline:2px solid #9ce2fd;outline-offset:3px}
 .seo-central--services .seo-catalog__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;align-items:stretch}
 .seo-central--services .seo-catalog__workstream{min-width:0;border:1px solid rgba(103,173,211,.30);border-radius:10px;padding:18px 18px 15px;background:linear-gradient(170deg,rgba(11,29,50,.96),rgba(5,16,32,.97));box-shadow:0 9px 23px rgba(0,0,0,.13)}
 .seo-central--services .seo-catalog__workstream h4{margin:0 0 12px;color:#eaf6ff;font-size:17px;line-height:1.32}
@@ -48,7 +51,12 @@
 .seo-central--services .seo-catalog__cta-links{display:flex;flex-wrap:wrap;gap:13px 20px}
 .seo-central--services .seo-catalog__cta-links a{color:#8cddfb;font-weight:700;text-underline-offset:3px}
 @media(max-width:1020px){.seo-central--services .seo-catalog__grid{grid-template-columns:repeat(2,minmax(0,1fr))}.seo-central--services .seo-catalog__choice-grid{grid-template-columns:1fr}}
-@media(max-width:640px){.seo-central--services .seo-catalog__evidence-grid{grid-template-columns:1fr}.seo-central--services .seo-catalog__example{padding:17px 15px}.seo-central--services .seo-catalog__toc a{padding:7px 9px}.seo-central--services .seo-catalog{margin-top:32px}.seo-central--services .seo-catalog__grid{grid-template-columns:1fr;gap:11px}.seo-central--services .seo-catalog__workstream{padding:15px 15px 12px}.seo-central--services .seo-catalog__choice{padding:15px}.seo-central--services .seo-catalog__cta{padding:17px 16px}.seo-central--services .seo-catalog__lede{font-size:15px}}
+@media(max-width:640px){
+/* This partial is EN-catalogue only: preserve explicit accept/reject, but avoid a 3-row mobile consent wall. */
+.gdpr-consent-banner .gdpr-consent-actions{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px}
+.gdpr-consent-banner .gdpr-consent-actions .gdpr-consent-btn{width:100%;min-height:44px;padding:0 6px;font-size:12px;line-height:1.25}
+.gdpr-consent-banner .gdpr-consent-actions #gdprManage{grid-column:1/-1;min-height:36px}
+.seo-central--services .seo-catalog__evidence-grid{grid-template-columns:1fr}.seo-central--services .seo-catalog__example{padding:17px 15px}.seo-central--services .seo-catalog__toc a{padding:7px 9px}.seo-central--services .seo-catalog{margin-top:32px}.seo-central--services .seo-catalog__grid{grid-template-columns:1fr;gap:11px}.seo-central--services .seo-catalog__workstream{padding:15px 15px 12px}.seo-central--services .seo-catalog__choice{padding:15px}.seo-central--services .seo-catalog__cta{padding:17px 16px}.seo-central--services .seo-catalog__lede{font-size:15px}}
 </style>
 <section class="seo-catalog" aria-labelledby="seo-catalog-title" data-en-catalog="1">
 <h2 class="seo-catalog__heading" id="seo-catalog-title">SEO Work We Can Scope</h2>
@@ -76,6 +84,7 @@
 </article>
 {{- end }}
 </div>
+<a class="seo-catalog__back" href="#seo-catalog-title">↑ Back to categories</a>
 </section>
 {{- end }}
 <section class="seo-catalog__matching" aria-labelledby="seo-catalog-match">
