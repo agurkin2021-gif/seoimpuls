@@ -1,5 +1,12 @@
 # SEOImpuls — основной контекст проекта (читать первым)
 
+## 2026-10-16 — EN homepage header/breadcrumb/content/footer left-edge audit (measurement phase)
+- Owner reports header/footer and the “Home” breadcrumb not sharing one left baseline with page content; asks to correct specifically this geometry, not reopen content/SEO or redesign another page.
+- Source inspection verifies incompatible gutters: English homepage sections inherit desktop `padding-left:120px` (old floating-contact clearance), header/breadcrumb use `18px`, footer uses `32px` on wide desktop; mobile uses mixed `12px/16px/18px`. This accounts for visible x-offsets but pixel baseline requires browser measurement.
+- Added **read-only** Playwright DOM-rectangle logging to the existing EN/RU homepage audit at 390, 768 and 1280px. No site markup, CSS or content changed in this measurement commit.
+- STATUS: MEASUREMENTS_PENDING, next inspect exact logged `HOME_LEFT_EDGE_BASELINE`, choose a unified EN-home-only content rail and fix; assert actual browser pixels and verify unchanged RU/ES and production.
+
+
 ## DESIGN STAGES 02 AND 03 — 2026-10-16 (STAGE 03 QA PENDING)
 - **Stage 02 VERIFIED:** commit `db1f4dd890814428c0a6cb48323a45b262be0a41`, only EN homepage visuals, seven distinct inline semantic SVGs and rebalanced result/service-action hierarchy; RU/ES unaffected in rendered EN-only branch. GitHub Actions strict #38964863183 PASS; preview #38964863211 PASS; EN/RU 390/768/1280 Chrome #38964863069 PASS; general 390/768/1280 Chrome #38964863300 PASS; a11y #38964863130 PASS; context #38964863073 PASS. Manually opened live GitHub Pages noindex preview via Opera with `?design=db1f4dd#services`: icons rendered, headings and outcome panels visibly aligned. These are browser/CI checks, not field CWV or owner's final visual signoff.
 - Stage 03 targets continuing EN-home-only flatness, confirmed by opening `#how-it-works` in connected Opera: a box of three boxes, standalone wall of definition text, three generic deliverable tiles, then three FAQ cards. Change exclusively EN-home stylesheet in `layouts/index.html`: process becomes 3-step connected timeline (mobile vertical); service definition becomes editorial 2-column explanation at ≥1080px; deliverables become a structured 3-row document ledger; FAQ entries become unobstructed questions with vertical rules; enquiry CTA becomes a distinct concluding panel. No copy, commercial claims, links, service choices or other pages changed.

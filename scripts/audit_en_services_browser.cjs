@@ -84,6 +84,29 @@ let browser;
         images,overflow:document.documentElement.scrollWidth>innerWidth+2,
       };
     });
+    // Read-only measurements for left-edge grid; screenshots alone cannot establish pixel alignment.
+    const alignment = await page.evaluate(()=>{
+      const box=(selector)=>{const e=document.querySelector(selector);if(!e)return null;
+        const r=e.getBoundingClientRect(),cs=getComputedStyle(e);
+        return {left:+r.left.toFixed(2),right:+r.right.toFixed(2),
+          width:+r.width.toFixed(2),padLeft:parseFloat(cs.paddingLeft)||0,
+          padRight:parseFloat(cs.paddingRight)||0,marginLeft:cs.marginLeft};};
+      return {
+        headerShell:box(".custom-header__inner"),headerBrand:box(".custom-header__brand"),
+        breadcrumb:box(".breadcrumbs"),breadcrumbHome:box(".breadcrumbs__item--current"),
+        heroShell:box(".seo-hero-content"),heroTitle:box(".seo-hero-title"),
+        servicesShell:box(".seo-en-primary-services"),servicesHeading:box(".seo-en-primary-services__intro h2"),
+        processShell:box(".seo-news-strip"),processPanel:box("#how-it-works"),
+        definitionShell:box(".seo-en-home-definition"),definitionTitle:box(".seo-en-home-definition h2"),
+        deliverablesShell:box(".seo-en-home-deliverables"),deliverablesTitle:box(".seo-en-home-deliverables h2"),
+        faqShell:box(".seo-en-buyer-faq"),faqTitle:box(".seo-en-buyer-faq h2"),
+        contactShell:box(".seo-en-home-scope"),contactTitle:box(".seo-en-home-scope h2"),
+        footerShell:box(".footer-wrap"),footerContacts:box(".custom-footer .footer-contacts"),
+        container:box("main .container"),central:box(".seo-central"),
+        viewport:innerWidth
+      };
+    });
+    console.log("HOME_LEFT_EDGE_BASELINE "+JSON.stringify({width,alignment}));
     const fail=[];
     if(response.status()!==200)fail.push("Home HTTP "+response.status());
     if(main.title!=="Professional SEO Services | SeoImpuls")fail.push("Home title "+main.title);
