@@ -23,6 +23,17 @@ Date 2026-10-15. Scope: **English homepage only**, Hugo `white-seo-rebuild`; pro
 - Google documentation: https://developers.google.com/search/docs/appearance/structured-data/organization and https://developers.google.com/search/docs/appearance/structured-data/breadcrumb .
 - Pages Preview is **intentionally noindex** and canonical points to production; its rich-result testing is not proof of eligibility in Google Search. Verify generated markup independently and do not promise knowledge panel/logo display.
 
+
+## Validation results — 2026-10-15 (confirmed)
+1. GitHub Actions [rebuild #99](https://github.com/agurkin2021-gif/seoimpuls/actions/runs/38834500751) — **PASS**. Hugo generated all languages and `Verify EN homepage schema and preserve RU/ES` step passed; log confirmed exactly `Organization` + `WebSite`, correct schema.org context, shared production canonical, verified existing logo file, approved page-level description and linked publisher. No EN `Person`, `BreadcrumbList`, `FAQPage`, `Service`, `Review` or `AggregateRating`. RU/ES homepage legacy types unchanged.
+2. GitHub Actions [Pages Preview #40](https://github.com/agurkin2021-gif/seoimpuls/actions/runs/38834500755) — **PASS**. The same schema guard also passed after the subdirectory `/seoimpuls/` baseURL build.
+3. GitHub Actions [Chromium browser #10](https://github.com/agurkin2021-gif/seoimpuls/actions/runs/38834500854) — **PASS** at 390/1280 CSS px: HTTP 200, one H1 `Professional SEO Services`, valid and parseable JSON-LD, self canonical for production-base build, images/links loaded, zero JS failures/overflow, desktop floating footer preserved and cookie consent actionable.
+4. Live Pages Preview image `https://agurkin2021-gif.github.io/seoimpuls/SEOIMPULS_logo.webp` opens directly in connected Opera (image title 487×229); no broken schema logo asset path.
+5. External **Google Rich Results Test** at `https://search.google.com/test/rich-results?url=https%3A%2F%2Fagurkin2021-gif.github.io%2Fseoimpuls%2F` returned `URL недоступен Google` / crawling failed. **Not passed and not a JSON-LD invalidity finding**. Pages Preview is purposefully `noindex`, and that URL is not representative of production; Google eligibility and actual crawling must be checked only after authorized production rollout.
+6. Google Search Central confirms `Organization` can be used on the homepage for disambiguation and that logo should be crawlable and at least 112px each dimension; source `https://developers.google.com/search/docs/appearance/structured-data/organization`. Breadcrumb rich results require at least two `ListItem` values; `https://developers.google.com/search/docs/appearance/structured-data/breadcrumb`.
+
+**Status:** `EN_SCHEMA_GENERATED_VALIDATED`, `PREVIEW_QA_PASS`, `GOOGLE_RICH_RESULT_EXTERNAL_UNVERIFIED`, `PRODUCTION_NOT_DEPLOYED`, `GSC_PENDING`. Valid JSON-LD and supported Organization fields do not promise a brand Knowledge Panel or ranking improvement. No further content or schema changes required in current scope.
+
 ## Open evidence limitations
 - Google Search Console `/` vs `/services/` query overlap unavailable, GSC_PENDING.
 - No proven legal registration or specialist biography supplied, so no additional Organization/Person claims.

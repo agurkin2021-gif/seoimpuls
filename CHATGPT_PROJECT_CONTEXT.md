@@ -60,6 +60,13 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — EN homepage Organization/WebSite schema verified; external Google test unavailable
+- Schema implementation commit dd09eff9 passed Hugo QA #99, Pages Preview #40 and Chromium 390/1280 #10. Strict Python generated-HTML guard confirmed two valid EN-home JSON-LD nodes (`WebSite`, `Organization`), correct homepage description/canonical/logo/publisher @ids, no collective `Person` or one-item BreadcrumbList; RU/ES home schema unchanged.
+- Actual Google Pages logo asset 487×229 loaded in connected Opera. External Google Rich Results Test on GitHub Preview returned `URL unavailable to Google` / crawl failed; therefore **external Google validation was not completed**, do not claim it passed. Preview intentionally noindex and production domain untouched.
+- Full evidence and future test limits recorded in `docs/research/2026-10-15-en-home-schema-audit.md`. EN homepage H1/content/visual/footer unchanged. Other EN pages still defer nonarticle BlogPosting semantic issue until separately authorized.
+- Next priority: user-confirmed EN homepage schema accepted in Preview; GSC/proof/target-geo/production deployment remains outstanding. No speculative markup additions.
+
+
 ### 2026-10-15 — EN homepage Schema.org correction isolated from RU/ES
 - Owner requested immediate microdata improvements without waiting for other pages. Inspected current schema partial and official Google Organization/Breadcrumb guidelines. Before: EN homepage emits WebSite with false collective `Person: SeoImpuls Team`, lacks Organization, and one-item BreadcrumbList; generic description not page-specific. Original 487×229 `static/SEOIMPULS_logo.webp` exists.
 - Scoped only EN-home path in `layouts/partials/head/seo.html`: two linked JSON-LD entities `Organization` (SeoImpuls name, home URL, real 487×229 logo) and `WebSite` (name, home URL, EN language, owner-approved meta description, publisher @id link). No Person or homepage BreadcrumbList. Avoids addresses, legal/review/agency claims.
@@ -833,13 +840,11 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Scope EN homepage only in `white-seo-rebuild`. No production `seoimpuls.com`, main, RU/ES or other EN pages changes.
+Only EN homepage in `white-seo-rebuild`. RU/ES and all other EN pages remain unchanged. `main` and production `seoimpuls.com` untouched.
 
-Current task: implement English homepage **schema correction** immediately (no need to await supporting pages). Shared partial `layouts/partials/head/seo.html` gated for `.IsHome && .Site.Language.Lang==en`, emits linked Organization + WebSite, no collective Person and no one-item BreadcrumbList. Real logo 487×229 in static. Detailed before/after `docs/research/2026-10-15-en-home-schema-audit.md`. Legacy RU/ES explicitly preserved.
+**Completed:** EN homepage structured data corrected in commit dd09eff9: linked schema.org `Organization` + `WebSite`, SeoImpuls brand/logo (actual 487x229 WebP), correct EN page description, no fake collective Person and no one-item breadcrumb. Hugo #99 PASS, Pages Preview #40 PASS, Chromium 390/1280 #10 PASS. Full audit report `docs/research/2026-10-15-en-home-schema-audit.md`. External Google Rich Results Test of Pages URL could **not** crawl (`URL unavailable to Google`), so eligibility not asserted; preview intentionally noindex.
 
-**Next:** verify Hugo rebuild QA and Pages Preview new schema tests; Chromium 390/1280 and actual browser JSON-LD, Google Rich Results Test where accessible. Fix ONLY confirmed EN-home schema issues. Maintain approved H1 `Professional SEO Services` and existing footer. All unverified claims excluded.
-
-Other open evidence: authenticated GSC query/URL for `/` vs `/services/`, actual provider trust proof, target geo, field CrUX, WCAG manual. `GSC_PENDING` / `PROOF_REQUIRED` / `GEO_PHYSICAL_UNVERIFIED` / `RELEASE_BLOCKED`.
+**Next user decision:** English homepage is content/schema/technical/automated accessibility QA-validated in Preview with caveats. Further work requires actual authenticated GSC data to test `/` versus `/services/`, genuine verified brand expertise/cases, target geo and separate approval for supporting EN pages or production rollout. Do not add fake LocalBusiness/address/reviews/rating, Service or FAQPage spam to homepage. EN pages' generic BlogPosting schema to be corrected later under owner permission. Status `GSC_PENDING`, `PROOF_REQUIRED`, `GEO_PHYSICAL_UNVERIFIED`, `RELEASE_BLOCKED`.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 
