@@ -148,16 +148,18 @@ let browser;
       const el=document.querySelector(".custom-footer--en-home");
       const items=Array.from(document.querySelectorAll(".custom-footer--en-home .footer-shortcut"));
       return {position:el?getComputedStyle(el).position:null,
-        shortcuts:items.map(x=>({href:x.getAttribute("href"),position:getComputedStyle(x).position})),
+        shortcuts:items.map(x=>({href:x.getAttribute("href"),
+          position:getComputedStyle(x).position,
+          visibility:getComputedStyle(x).visibility})),
         reserveHeight:document.querySelector(".footer-reserve")?.getBoundingClientRect().height||0};
     });
     console.log("EN_HOME_FOOTER_QA "+JSON.stringify({width,footerDisplay}));
     const fail=[];
-    if(!footerDisplay||footerDisplay.position==="fixed"||
-       footerDisplay.shortcuts.length!==2||
-       footerDisplay.shortcuts.some(x=>x.position==="fixed")||
-       footerDisplay.reserveHeight>1)
-      fail.push("EN-only footer must be in normal document flow, with two intact links and no floating reserve");
+    if(!footerDisplay||footerDisplay.shortcuts.length!==2||
+       !footerDisplay.shortcuts.some(x=>x.href?.includes("wa.me/"))||
+       !footerDisplay.shortcuts.some(x=>x.href?.includes("t.me/"))||
+       (width>=768&&footerDisplay.reserveHeight<30))
+      fail.push("EN popup footer or contacts removed; preserve the existing animated footer and reserve");
     if(alignErrors.length)fail.push("EN homepage unified left/right rail: "+alignErrors.join(" | "));
     if(response.status()!==200)fail.push("Home HTTP "+response.status());
     if(main.title!=="Professional SEO Services | SeoImpuls")fail.push("Home title "+main.title);
@@ -238,7 +240,7 @@ let browser;
         .filter(x=>x.textContent.trim()&&getComputedStyle(x).display!=="none")
         .map(x=>({rect:x.getBoundingClientRect(),text:x.textContent.trim().slice(0,50)}));
       const floaters=Array.from(document.querySelectorAll(".footer-shortcut--whatsapp,.footer-shortcut--telegram"))
-        .filter(x=>getComputedStyle(x).position==="fixed"&&x.getBoundingClientRect().width>0);
+        .filter(x=>{const s=getComputedStyle(x);return s.position==="fixed"&&s.visibility!=="hidden"&&s.opacity!=="0"&&x.getBoundingClientRect().width>0;});
       const overlaps=[];
       for(const el of floaters)for(const item of bounds){const a=el.getBoundingClientRect(),b=item.rect;
         if(b.bottom>0&&b.top<innerHeight&&a.left<b.right&&a.right>b.left&&a.top<b.bottom&&a.bottom>b.top)

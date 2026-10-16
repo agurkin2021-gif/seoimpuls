@@ -949,19 +949,17 @@
   transform:none;
   margin:0;
 }
-/* The former 120px content rail protected fixed side controls.
-   The EN homepage instead keeps contacts inside its normal footer. */
-.custom-footer--en-home {
-  position:static!important;
-  bottom:auto!important;
-  left:auto!important;
-  right:auto!important;
-  transform:none!important;
-  transition:none!important;
-  will-change:auto!important;
+/* Keep the existing animated footer. When its shortcuts move to the
+   side on narrow desktop/tablet layouts, they would cover the now-aligned
+   text rail. Hide only those detached shortcuts, not the popup itself. */
+@media (min-width:768px) and (max-width:1400px) {
+  body.footer-out-of-view .custom-footer--en-home .footer-shortcut--whatsapp,
+  body.footer-out-of-view .custom-footer--en-home .footer-shortcut--telegram {
+    visibility:hidden!important;
+    opacity:0!important;
+    pointer-events:none!important;
+  }
 }
-.footer-reserve{height:0!important}
-.seo-central--art-directed{padding-bottom:0!important}
 @media(max-width:767px) {
   .seo-central--art-directed .seo-en-home-scope {
     margin:10px auto 30px;

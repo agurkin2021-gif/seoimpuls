@@ -1,5 +1,12 @@
 # SEOImpuls — основной контекст проекта (читать первым)
 
+## 2026-10-16 — Keep required EN floating footer; hide detached shortcuts only (QA PENDING)
+- Strict/preview QA for `629c574` failed `scripts/verify_en_footer_popup.py`: the EN homepage is required to preserve its animated floating footer. Static-footer CSS and shared-footer JS short-circuit were an incorrect change and have now been REVERTED to previous behavior.
+- The 16px theme-container override remains, retaining the same EN-home 1280px rail across logo, breadcrumb, section borders and contacts. At ≤1400px desktop/tablet, EN-home-only CSS hides WhatsApp/Telegram links while they are detached and would overlap the now-expanded text rail; the links remain available in the animated footer popup (and on page bottom). Other pages and RU/ES unchanged.
+- Browser overlap detection now correctly ignores shortcuts with `visibility:hidden` while preserving the popup-and-reserve contract; same automated x-coordinate checks at 390/768/1280/1600. Verify actual run results; no completion claim yet.
+- STATUS **REVISION_COMMITTED / STRICT_PENDING / FOUR-WIDTH_COORDINATE_PENDING / PREVIEW_PENDING / PRODUCTION_UNTOUCHED**.
+
+
 ## 2026-10-16 — EN homepage alignment correction after failing pixel QA (RUNS PENDING)
 - First grid attempt `84606b73` did NOT pass: Playwright #38969816491 confirmed residual 16px from theme `.main .container` padding at all 390/768/1280/1600px sizes; second real regression was floating social shortcuts over readable text at 768 and 1280 after removing the old 120px rail. Do not describe initial candidate as aligned.
 - Corrective EN-only CSS explicitly removes the theme container's 1rem inline padding; header/breadcrumb/content/footer use shared 32/24/18px gutters. EN homepage footer changes to standard document flow, and shared footer floating-interaction code exits early only for `custom-footer--en-home`. WhatsApp, Telegram and email links remain; RU/ES and other EN pages retain original floating behavior.
