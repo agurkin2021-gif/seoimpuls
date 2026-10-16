@@ -1,5 +1,11 @@
 # SEOImpuls — основной контекст проекта (читать первым)
 
+## 2026-10-16 — Link owner-confirmed Kwork contact from EN About (QA pending)
+- Owner confirmed that the Kwork account "advencher" is theirs and explicitly suggested "you can contact us on Kwork" as website copy. Public profile URL inspected: https://kwork.com/user/advencher (registered since 2020).
+- Add exactly one clear contact-channel link inside the existing English About "Contact and Project Scope" text: "You can also message us on Kwork (advencher)." No claims of third-party ownership verification or current-service results; an outbound link alone is not conclusive proof of Kwork account ownership.
+- Historical profile reviews and order counts are not used to prove the outcomes of the current SEO services. No changes to footer, legal pages, RU/ES, main, production, DNS, navigation, or other pages.
+- Source: content/about/index.md; same-commit context updated. QA STATUS: source edited; Hugo/preview/browser verification pending. Next inspect actual checks and Kwork link on preview before claiming completion.
+
 ## 2026-10-16 — EN homepage palette QA after live Opera regression check (CONFIRMED)
 - Tested CSS source `bef6c46801` on fixed working preview in Opera; screenshot after cache-busting URL `?colorfix=bef6c468#contact-project` confirmed the bottom primary CTA is teal with DARK readable lettering and without prior neon halo. Hero primary uses the same teal/dark text; secondary actions remain outlined. Existing service card palette and footer platform icon colors unchanged.
 - Success on source `bef6c46801`: strict Hugo #38982596135, Pages preview #38982596153, per-commit context #38982596136, EN home visual browser #38982596134, English home WCAG #38982596220. Contrast of actual intended text/background #071321/#59c1d0 = 8.86:1, confirmed no automatic WCAG gate failure.
