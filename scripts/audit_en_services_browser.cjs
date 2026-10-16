@@ -94,7 +94,7 @@ let browser;
       return {
         headerShell:box(".custom-header__inner"),headerBrand:box(".custom-header__brand"),
         breadcrumb:box(".breadcrumbs"),breadcrumbHome:box(".breadcrumbs__item--current"),
-        heroShell:box(".seo-hero-content"),heroTitle:box(".seo-hero-title"),
+        heroPanel:box(".seo-hero-panel"),heroShell:box(".seo-hero-content"),heroTitle:box(".seo-hero-title"),
         servicesShell:box(".seo-en-primary-services"),servicesHeading:box(".seo-en-primary-services__intro h2"),
         processShell:box(".seo-news-strip"),processPanel:box("#how-it-works"),
         definitionShell:box(".seo-en-home-definition"),definitionTitle:box(".seo-en-home-definition h2"),
@@ -110,6 +110,7 @@ let browser;
     const alignReference=alignment.headerBrand?.left;
     const compareLeft=[
       ["Home breadcrumb",alignment.breadcrumbHome],
+      ["Hero panel border",alignment.heroPanel],
       ["Hero heading",alignment.heroTitle],
       ["Services heading",alignment.servicesHeading],
       ["Process border",alignment.processPanel],
@@ -121,7 +122,8 @@ let browser;
     ];
     const compareRight=[
       ["Breadcrumb",alignment.breadcrumb?.right-alignment.breadcrumb?.padRight],
-      ["Hero",alignment.heroShell?.right-alignment.heroShell?.padRight],
+      ["Hero panel border",alignment.heroPanel?.right],
+      ["Hero content",alignment.heroShell?.right-alignment.heroShell?.padRight],
       ["Services",alignment.servicesShell?.right-alignment.servicesShell?.padRight],
       ["Process border",alignment.processPanel?.right],
       ["Deliverables",alignment.deliverablesShell?.right-alignment.deliverablesShell?.padRight],

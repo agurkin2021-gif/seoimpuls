@@ -1,5 +1,11 @@
 # SEOImpuls — основной контекст проекта (читать первым)
 
+## 2026-10-16 — EN homepage decorative surface alignment (FINAL VISUAL QA PENDING)
+- Prior source `49777d9a` **PASSED** strict #38970477096, preview #38970477079, EN/RU four-width browser #38970477201, homepage visual #38970477101, accessibility #38970477112 and context #38970477067. Measured exact left/right rail at 390px (18/372), 768px (24/736), 1280px (32/1240), 1600px (188/1404), **0 coordinate errors**. EN floating-footer animation preserved, detached icons hidden at narrow desktop/tablet while reading. Seven EN/RU services unchanged, production untouched.
+- Extra manual full-width Opera screenshots showed that although all *content* x-coordinates matched, the colored upper HERO background/border visibly extended one gutter beyond the seven service cards and lower enquiry border. As owner explicitly complained about block widths, a final EN-only CSS adjustment now constrains the hero **surface**, including border rules, to the same inset rail while leaving hero text and inline diagram coordinates unchanged.
+- Added direct Playwright assertions for hero panel's border left/right at 390/768/1280/1600. This source revision needs a fresh strict/preview/browser/visual check and manual Opera first-screen review before claiming final completion. Do not change RU/ES/inner pages/main/production.
+
+
 ## 2026-10-16 — Keep required EN floating footer; hide detached shortcuts only (QA PENDING)
 - Strict/preview QA for `629c574` failed `scripts/verify_en_footer_popup.py`: the EN homepage is required to preserve its animated floating footer. Static-footer CSS and shared-footer JS short-circuit were an incorrect change and have now been REVERTED to previous behavior.
 - The 16px theme-container override remains, retaining the same EN-home 1280px rail across logo, breadcrumb, section borders and contacts. At ≤1400px desktop/tablet, EN-home-only CSS hides WhatsApp/Telegram links while they are detached and would overlap the now-expanded text rail; the links remain available in the animated footer popup (and on page bottom). Other pages and RU/ES unchanged.

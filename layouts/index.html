@@ -904,6 +904,20 @@
   width:100%;
   max-width:1280px;
   margin-inline:auto;
+  border-top:0;
+}
+/* Align the first-screen surface itself, not just the words inside it.
+   Previously the hero background and its horizontal rules protruded
+   one whole gutter on each side of the services/contact surfaces. */
+.seo-central--art-directed .seo-hero-panel {
+  box-sizing:border-box;
+  width:calc(100% - (2 * var(--seo-en-home-rail-gutter)));
+  margin-inline:auto;
+  border-top:1px solid rgba(138,177,199,.20);
+}
+.seo-central--art-directed .seo-hero-content {
+  padding-left:0;
+  padding-right:0;
 }
 .seo-central--art-directed .seo-hero-content,
 .seo-central--art-directed .seo-en-primary-services,
