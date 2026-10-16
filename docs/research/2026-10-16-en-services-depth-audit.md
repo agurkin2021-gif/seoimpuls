@@ -43,3 +43,10 @@ These links are **reference observations, not a new certified Google top-10 rank
 - Playwright screenshot at 390×844 showed all three initial cookie buttons in full-width rows. On this single EN catalogue, display Accept/Reject side-by-side with unchanged labels, equivalent priority and at least 44px height; Manage Preferences stays visible and accessible below. All consent functionality remains unchanged.
 - Each six-workstream group now ends with a descriptive `Back to categories` link. `#seo-catalog-title` gets 120px scroll-margin for the sticky header.
 - Added regression checks: 5 TOC links, four return links, corresponding anchor, two-column mobile consent actions with all three original buttons. New CI and screenshot evidence required before acceptance.
+
+## Final acceptance evidence — 2026-10-16
+Last actual site code commit: `3878934` (`white-seo-rebuild`). Working preview URL unchanged. Hugo strict QA run 38846778912 PASS; GitHub Pages preview 38846778882 PASS; context guard 38846779134 PASS; Chromium 390/1280 38846778800 PASS. Browser screenshots and audit JSON artifact 12023079816.
+
+Playwright logs at 390: 23 workstreams, 4 groups, 3 primary links, 5 working anchors, 4 return links, 3 decision paths, consent banner 3 buttons in equal accept/reject grid columns, one unique consultation visual, `sectionTop=120`, `headerBottom=81`, no overflow/broken paths/JS or network failures. At 1280: same counts, 3-column hero, `sectionTop=120`, `headerBottom=79`, no errors. HTML structured data valid and BreadcrumbList rather than BlogPosting. Reviewed mobile screenshots and published desktop Opera page. This completes the current page-specific code/content/visual QA cycle.
+
+**Remaining limitations:** physical target-market SERP verification, current Search Console data, actual indexing/rankings/conversions, claimed capabilities for future individually scoped specialist engagements, real production redirect history and release approval are NOT verified. No claims of absolute perfection, future search performance or readiness to deploy. Keep scope on this catalogue until user changes it.
