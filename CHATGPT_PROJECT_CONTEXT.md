@@ -1,4 +1,12 @@
 # SEOImpuls — основной контекст проекта (читать первым)
+## 2026-10-16 — ПОСЛЕДНЯЯ ПРИНЯТАЯ ТЕХНИЧЕСКАЯ ВЕРСИЯ EN /seo-services/ (OWNER REVIEW PENDING)
+- **ONLY /seo-services/** — вторую страницу не считать закрытой до решения владельца; запрет самовольного перехода на любые другие страницы остаётся в силе.
+- Рабочий исходник `9266336`: три реальных коммерческих предложения **SEO Audit / Keyword Research / SEO Consultation** с понятными предпринимателю результатами и исходными изображениями (включая semantic illustration `semantika-1788907052-q46-1788907068324.webp`); нет повторных 3 карточек выбора. Дополнительно только 2 информационные карточки SEO Competitor Analysis / On-Page SEO, без новых коммерческих URL/тарифов. Сбор ключевых слов возможен до готового сайта; результат — таблица с группами запросов.
+- Проверка **PASS**: Hugo + strict white-hat #38905365028, Pages preview/noindex #38905365102, context #38905364899, Chrome 390/768/1280 #38905365160. Логи Chrome на всех ширинах `fail:[]`, HTTP 200, 3 основные карточки, 0 вторичных дублированных selector-карточек, 2 дополнительные группы / 6 примеров, 0 old 23-card workstreams, 0 битых внутренних ссылок, JS/network ошибок, horizontal overflow. Telegram/WhatsApp fixed icons (768/1280) не пересекают текст.
+- Скриншоты артефакта #12048086527 скачаны и изучены вручную (390,768,1280 first/category + 1280 full). Нет замеченного обрезания текста, перекрытия и критических визуальных дефектов. Это не гарантия полного WCAG или коммерческой конверсии.
+- **STATUS: CODE_QA_PASS / RESPONSIVE_VISUAL_QA_PASS / OWNER_REVIEW_PENDING**, не "идеально", не production release. Текущий документационный коммит только фиксирует результаты проверки неизменного кода `9266336`. Только отдельная команда владельца позволяет переходить к другой странице.
+
+
 ## 2026-10-16 — MORE PRECISE EN /seo-services/ UX: NO REPEATED SERVICES (QA PENDING)
 OWNER SCOPE LOCK: work ONLY EN /seo-services/. DO NOT switch to any other page without a new explicit user instruction; do not touch main, production, homepage, RU, ES or specialist pages.
 - Latest buyer-friendly source e7f9188 PASSED strict Hugo #38904642890, Pages Preview #38904642446, Chromium 390/768/1280 #38904642723 and context #38904642597. Screenshot artifact #12048005196 manually examined. Found non-critical but real UX issue: the same 3 linked services were visible twice (hero image cards + a duplicate 3-choice selector); two of them were reiterated in a 4-area scope matrix. This overcomplicated selection for a non-SEO business owner.
@@ -158,6 +166,13 @@ IMPORT_STATUS: completed
 7. Перед новым чатом прочитать AGENTS.md и этот файл прямо из репозитория, проверить фактическое состояние GitHub/Actions и продолжить с секции 6 «Следующее действие».
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
+
+### 2026-10-16 — 3 main cards + 2 supporting areas: final QA and screenshot evidence
+- Source `9266336` simplified buyer journey by removing repeated three-way chooser, leaving 3 linked service cards and 2 informational potential work types. No other page affected.
+- FULL CI PASSED on exact source: #38905365028 strict build, #38905365102 preview, #38905364899 context and #38905365160 Chrome all 390/768/1280. All browser fail arrays empty; no contact shortcut overlap, overflow, broken links or JS/network issues.
+- Artifacts #12048086527 inspected manually at mobile, tablet and desktop; no visual blocker observed. SEO Title, H1, canonical, metadata, images, direct routes and preview noindex unchanged from passing code.
+- This new commit changes ONLY `CHATGPT_PROJECT_CONTEXT.md` and `docs/plans/EN_SEO_SERVICES_SIMPLIFICATION_PLAN.md` to record QA, does not edit site sources. Current page **CODE_QA_PASS / RESPONSIVE_VISUAL_QA_PASS / OWNER_REVIEW_PENDING**; no auto-transition or production publication.
+
 
 ### 2026-10-16 — Remove redundant service-choice duplication after screenshot review (CI PENDING)
 - Reviewed fresh screenshots #12048005196 of passing e7f9188. Found 3 primary linked services repeated in separate chooser and again in informational matrix; navigation unnecessarily confusing.
@@ -1242,6 +1257,9 @@ IMPORT_STATUS: completed
 - Следующий этап: загрузка ZIP и успешный импорт GitHub Actions.
 
 ## 6. Следующее действие
+
+**ACTIVE 2026-10-16:** EN /seo-services/ has passed code/visual QA but remains owner-review-pending. Do not start another page automatically. Historical NEXT lines below are superseded.
+
 
 **2026-10-16 CURRENT OVERRIDE:** EN /seo-services/ only; test new simplified 3 primary + 2 supplemental + zero duplicate selector source. Do not start or modify any other page automatically.
 
