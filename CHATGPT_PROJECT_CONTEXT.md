@@ -1,5 +1,12 @@
 # SEOImpuls — основной контекст проекта (читать первым)
 
+## EN /seo-services/ TARGETED QA SCRIPT FIX — 2026-10-16
+- Initial source change `46bc35e` compiled successfully under Hugo but full rebuild and Pages preview checks #38899499369/#38899499275 FAIL at EN-only `scripts/verify_en_services_route.py`: script still searched retired heading `SEO Work We Can Scope`, so selector ordering assertion failed.
+- Corrected ONLY this stale expected heading to rendered `What SEO Work May Include` in the EN page validation script. No source/site content change in this fix; full strict/Pages/Chrome QA must rerun. Browser #38899499592 remained in progress at diagnosis.
+- Status EDITED_QA_PENDING. Owner page lock /seo-services/ unchanged; never pivot automatically.
+
+
+
 ## /seo-services/ UX REDESIGN SOURCE — 2026-10-16 (QA PENDING)
 OWNER LOCK: only EN `/seo-services/`, do not move to any other page without explicit new owner command.
 - Previously shown 23 separate workstream-style tiles (with 20 granular mailto requests) now replaced by 4 concise descriptive scope areas, each 3 task examples (12 total), NOT independent packages.
@@ -122,6 +129,12 @@ IMPORT_STATUS: completed
 7. Перед новым чатом прочитать AGENTS.md и этот файл прямо из репозитория, проверить фактическое состояние GitHub/Actions и продолжить с секции 6 «Следующее действие».
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
+
+### 2026-10-16 — Correct obsolete EN catalogue test heading (CI PENDING)
+- Rebuild #38899499369 and preview #38899499275 failed because scripts/verify_en_services_route.py retained old catalogue title in selector-order assertion. Hugo build passed.
+- One EN test string updated to the verified new heading; no HTML, CSS, other page or production edit. Resubmit CI, inspect browser test #38899499592 separately.
+- All new UX QA remains PENDING and only /seo-services/ is authorized.
+
 
 ### 2026-10-16 — Simplified EN catalogue source and acceptance checks (pending CI)
 - Replaced 23 equal-weight scope cards and 20 mailto CTAs with four clear non-commercial work areas (12 brief examples), preserving 3 actual linked service options and buyer problem selector.

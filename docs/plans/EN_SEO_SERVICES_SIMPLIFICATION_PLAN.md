@@ -40,3 +40,7 @@ Date: 2026-10-16. Status: **EDITED_QA_PENDING**. Authorized scope: **ONLY /seo-s
 - Specialist scope and fixed-package caveats preserved; 5 FAQ entries retained. Exact H1/Title/url and case-example proof unchanged.
 - Updated static and browser tests require new work-area DOM with 0 workstream tiles; previous CI PASS no longer applies to this edited version.
 - Status EDITED_QA_PENDING. Next: inspect strict Hugo, preview noindex and Chrome 390/768/1280 evidence. Remain on this page regardless of result.
+
+## 2026-10-16 — First full gate feedback
+- Source commit 46bc35e builds under Hugo but strict/Pages jobs #38899499369 and #38899499275 stopped at stale assertion expecting previous heading "SEO Work We Can Scope". EN static assertion corrected with this documentation/context commit; no page source changed.
+- Browser run #38899499592 was still in progress when correction was prepared; no claim of browser PASS. S3 remains PENDING.

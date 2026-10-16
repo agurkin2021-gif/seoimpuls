@@ -85,7 +85,7 @@ assert all(len(x['examples'])==3 for x in catalog_data['scope_areas']),'Keep sco
 assert 'groups' not in catalog_data,'Old misleading 23 workstreams must not remain as source data'
 assert hub.class_counts.get('seo-catalog__choice',0) == 3,'Three direct buyer entry paths are required'
 pos_selector=hub_markup.find('<section class=seo-catalog__matching')
-pos_directory=hub_markup.find('SEO Work We Can Scope')
+pos_directory=hub_markup.find('What SEO Work May Include')
 if pos_selector < 0: pos_selector=hub_markup.find('<section class="seo-catalog__matching')
 assert pos_selector>=0 and pos_directory>pos_selector, 'Three-way buyer selector must appear before the concise scope overview'
 assert hub_markup.count('Which SEO Service Should You Start With?')==1,'Duplicate service decision selector'
