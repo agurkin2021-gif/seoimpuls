@@ -60,6 +60,12 @@ let browser;
     cards:Array.from(document.querySelectorAll(".services-hub-card")).map(x=>({label:x.textContent.trim(),href:x.href})),
     intro:document.querySelector(".services-hub__intro")?.textContent.trim()||"",
     footerClass:document.querySelector(".custom-footer")?.className||"",
+    footerGeometry:(()=>{
+      const footer=document.querySelector(".custom-footer");
+      const header=document.querySelector(".custom-header");
+      const f=footer?.getBoundingClientRect(),h=header?.getBoundingClientRect();
+      return {position:footer?getComputedStyle(footer).position:"",top:Math.round(f?.top??0),bottom:Math.round(f?.bottom??0),headerBottom:Math.round(h?.bottom??0)};
+    })(),
     socialCount:document.querySelectorAll(".footer-social-icons a").length,
     mapCount:document.querySelectorAll(".footer-map").length,
     contacts:{whatsapp:!!document.querySelector(".footer-shortcut--whatsapp"),telegram:!!document.querySelector(".footer-shortcut--telegram"),email:!!document.querySelector(".js-footer-mail")},
@@ -102,6 +108,7 @@ let browser;
     if(!data.cards.some(x=>new URL(x.href).pathname===u))fail.push("Missing card "+u);
   }
   if(!data.footerClass.includes("custom-footer--en-services")||data.socialCount||data.mapCount)fail.push("Footer unverifiable links");
+  if(width===768&&(data.footerGeometry.position!=="fixed"||data.footerGeometry.top<data.footerGeometry.headerBottom))fail.push("768px footer overlaps header and logo");
   if(!data.contacts.whatsapp||!data.contacts.telegram||!data.contacts.email)fail.push("Contact links");
   if(!data.menu.endsWith("/seo-services/"))fail.push("Nav");
   if(data.scrollWidth>width+2)fail.push("Overflow");
@@ -120,7 +127,7 @@ let browser;
   if(scrollCheck.sectionTop<scrollCheck.headerBottom-2)fail.push("Anchor obscured by header");
   try{await page.screenshot({path:path.join(OUT,width+"-category.png"),timeout:12000,animations:"disabled"});}catch(e){console.log("SERVICES_SCREENSHOT_WARNING "+e.message.slice(0,120));}
   report.viewports.push({width,status:res.status(),...data,scrollCheck,initialConsent,brokenLinks,errors,networkFailures,fail});
-  console.log("SERVICES_BROWSER_SUMMARY "+JSON.stringify({width,status:res.status(),h1:data.h1,gridColumns:data.gridColumns,cards:data.cards.length,workstreams:data.workstreamCount,groups:data.groupCount,choices:data.choiceCount,jumpLinks:data.jumpLinks.length,returnLinks:data.returnLinks,consent:initialConsent,consultGraphic:data.consultationGraphicCount,scrollCheck,overflow:data.scrollWidth>width,brokenLinks,errors,networkFailures,fail}));
+  console.log("SERVICES_BROWSER_SUMMARY "+JSON.stringify({width,status:res.status(),h1:data.h1,gridColumns:data.gridColumns,cards:data.cards.length,workstreams:data.workstreamCount,groups:data.groupCount,choices:data.choiceCount,jumpLinks:data.jumpLinks.length,returnLinks:data.returnLinks,consent:initialConsent,consultGraphic:data.consultationGraphicCount,scrollCheck,footer:data.footerGeometry,overflow:data.scrollWidth>width,brokenLinks,errors,networkFailures,fail}));
   await ctx.close();
  }
  await browser.close();

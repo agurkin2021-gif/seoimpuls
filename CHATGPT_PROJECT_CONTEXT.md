@@ -62,6 +62,12 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-16 — Step 1 visual QA: 768px floating footer overlaps header
+- Prior tablet hash-offset fix `e3d8dee` passed Hugo strict build #38851849386, preview #38851849373, context guard #38851849394 and browser #38851849354 at 390/768/1280. Anchor 768 top 192 > header bottom 171, and no overflow/JS/broken-link failures.
+- **Manual 768 screenshots** from artifact #12025467020 exposed an untested real visual issue: Contacts/footer appeared across the top viewport and obscured/covered the header logo. Root cause in shared old CSS: `@media (min-width:768px)` fixes footer, later `@media(max-width:768px)` sets footer `bottom:auto` but doesn't override the more specific fixed position; exact 768 suffers bottom:auto fixed placement.
+- Changed only EN catalogue-specific `layouts/partials/en-services-catalog.html`: at exactly 768px restore explicit fixed-footer bottom -96px / visible 0px, no changes to shared header/footer/RU/ES or homepage. Updated Playwright `scripts/audit_en_services_browser.cjs` to detect footer overlapping header on 768. Plan Step 1 remains IN_PROGRESS until new 390/768/1280 screenshots and CI are green and visually inspected.
+
+
 ### 2026-10-16 — Step 1 tablet hash-offset regression, source fix
 - Initial Step 1 commit `f9bc7bb`: Hugo strict QA #38851634622 PASS, Pages #38851634633 PASS, context #38851634739 PASS. Browser #38851634798 FAIL: 390px PASS and 1280px PASS, but 768px `sectionTop 120` is behind sticky header bottom `171`; first 768 QA exposes a real breakpoint issue.
 - Adjusted **only scoped EN catalogue partial CSS** at tablet widths 641–1020px to `scroll-margin-top:192px` on group/matching/scope/example/FAQ sections and catalog heading target. 390 and 1280 retain 120px. Plan status stays **STEP 1 IN_PROGRESS**, full 390/768/1280 browser rerun pending. No homepage/RU/ES/sibling page/production changes.
