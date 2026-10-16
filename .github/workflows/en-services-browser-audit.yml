@@ -1,0 +1,54 @@
+name: English SEO services responsive browser audit
+on:
+  push:
+    branches: [white-seo-rebuild]
+    paths:
+      - 'scripts/audit_en_services_browser.cjs'
+      - '.github/workflows/en-services-browser-audit.yml'
+      - 'content/services/_index.md'
+      - 'layouts/services/list.html'
+      - 'layouts/partials/services-hub.html'
+      - 'layouts/partials/footer.html'
+      - 'hugo.toml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  catalog-browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.25.5'
+      - uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: '0.154.5'
+          extended: true
+      - name: Build Hugo production-base output
+        run: hugo --minify --noBuildLock
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Chromium
+        run: |
+          npm install --no-save --prefix /tmp/seo-hub-browser playwright@1.56.1
+          node /tmp/seo-hub-browser/node_modules/playwright/cli.js install --with-deps chromium
+      - name: Serve generated site
+        run: |
+          nohup python3 -m http.server 8765 --directory public >/tmp/seo-hub-server.log 2>&1 &
+          sleep 2
+          curl -fsSI http://127.0.0.1:8765/seo-services/
+      - name: Run responsive Chrome diagnostics
+        env:
+          NODE_PATH: /tmp/seo-hub-browser/node_modules
+        run: node scripts/audit_en_services_browser.cjs
+      - name: Save full-page screenshots and JSON
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: seoimpuls-en-services-390-1280
+          path: audit-artifacts/en-services/
+          if-no-files-found: warn
+          retention-days: 14

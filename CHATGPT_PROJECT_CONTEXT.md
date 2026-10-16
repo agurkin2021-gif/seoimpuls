@@ -60,6 +60,12 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — EN catalog dedicated visual QA at 390 and 1280px
+- Last scoped catalog selection+footer commit 7a5da8d9 verified in Hugo QA #106 and Pages Preview #47 PASS; Opera observed the EN-only direct choice paragraph, three valid service cards and zero generic social links. RU/ES and other EN source left unchanged.
+- Added dedicated Chromium script `scripts/audit_en_services_browser.cjs` and triggered workflow `.github/workflows/en-services-browser-audit.yml`. At 390x844 and 1280x800 it checks SEO title/H1/canonical, intro, exactly 3 service card URLs, CSS responsive columns 1/3, image loading, footer real contacts and no unverified map/social, sitemap-relevant links, JSON-LD syntax, JS/network/broken link errors and horizontal overflow; produces screenshots and JSON.
+- No website content edits in this commit. New QA run must pass before claiming page visually accepted.
+
+
 ### 2026-10-15 — EN SEO services catalog buyer-intent and visual gap fixes
 - URL change completed in commits 44b2da53, 8447c02d, 3da878cb, 8c47e968: Hugo QA #105 PASS, Pages Preview #46 PASS. Opera verified `https://agurkin2021-gif.github.io/seoimpuls/seo-services/` Title `SEO Services & Practical Deliverables | SeoImpuls`, 3 legitimate service links and header new URL. Alias /services redirects (Hugo HTML, not HTTP301); children unchanged.
 - Discovered live EN catalog partial laid out four desktop columns for three cards, leaving empty cell. Updated `layouts/partials/services-hub.html` EN-only three-column grid (two tablet, one mobile) and a short direct choice-answer paragraph before cards, clarifying audit/keyword/consultation service selection (no invented offerings or guarantees).
