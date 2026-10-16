@@ -1,3 +1,4 @@
+{{ define "title" }}{{ if eq .Site.Language.Lang "en" }}{{ .Title }} | {{ .Site.Title }}{{ else }}{{ .Site.Title }}{{ end }}{{ end }}
 {{ define "content" }}
 {{- partial "seo-single-page.html" . -}}
 {{ end }}

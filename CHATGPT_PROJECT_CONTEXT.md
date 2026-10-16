@@ -60,6 +60,12 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — Fix confirmed missing EN services catalog Title during route migration
+- New `/seo-services/` canonical migration commit 44b2da53 triggered Hugo QA #102 and Pages #43, both FAIL at targeted check: HTML `<title>` was only `SeoImpuls` rather than scoped `SEO Services & Practical Deliverables | SeoImpuls`. This is an actual on-page defect in section template, not false keyword gap.
+- Fixed **only the EN service hub title** in `layouts/services/list.html` via Hugo named `title` block. RU/ES section title behavior remains prior `SeoImpuls`, all other page templates and EN homepage unaffected. New URL, alias, reciprocal hreflang and all link changes from previous commit remain.
+- Re-run Hugo QA/Pages and targeted service route script; later errors may need separate evidence-based fixes. Do not claim deployment until both pass.
+
+
 ### 2026-10-15 — Rename English service catalog to /seo-services/
 - From user-suggested descriptive keyword path, renamed EN section hub canonical to `/seo-services/`, leaving EN child pages `/services/keyword-research/` and `/services/seo-consultation/` intact. Selected intent: **compare genuine offered services and deliverables**, unlike homepage `professional seo services` hire-provider intent. URL is not ranking guarantee.
 - Existing old Preview `/services/` gets Hugo static redirect alias (NOT HTTP 301). Updated EN home CTA / service variable, EN navigation, About and FAQ links only as dependencies; RU/ES source untouched and hreflang auto-points at new EN URL. Production currently 404 on both and unchanged.
