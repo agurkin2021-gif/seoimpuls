@@ -42,7 +42,13 @@
     <nav id="site-main-nav" class="custom-header__nav" aria-label="{{ $navLabel }}">
       {{ with .Site.Menus.main }}
         {{ range . }}
-          {{- $menuURL := .URL | relLangURL -}}
+          {{- $menuRaw := .URL -}}
+          {{- /* Hugo can pre-prefix RU menu entries with /seoimpuls/ for the GitHub Pages subpath.
+                  Remove only that known preview prefix before relLangURL, otherwise it is duplicated. */ -}}
+          {{- if and (eq $.Site.Language.Lang "ru") (hasPrefix $menuRaw "/seoimpuls/") -}}
+            {{- $menuRaw = strings.TrimPrefix "/seoimpuls" $menuRaw -}}
+          {{- end -}}
+          {{- $menuURL := $menuRaw | relLangURL -}}
           <a class="custom-header__link" href="{{ $menuURL }}">{{ .Name }}</a>
         {{ end }}
       {{ end }}

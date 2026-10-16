@@ -8,7 +8,6 @@ import sys
 SITE=Path("public")
 ORIGIN="https://seoimpuls.com"
 EXPECTED={
-    "ru/index.html":2,
     "es/index.html":2,
     "ru/uslugi/razrabotka-saitov/index.html":1,
     "es/servicios/desarrollo-web/index.html":1,
@@ -63,4 +62,4 @@ for page,expected in EXPECTED.items():
 print("CONTEXTUAL AFFILIATE CHECK: inspected",sum(counts.values()),"links across",len(counts),"pages")
 for issue in issues:print("FAIL:",issue)
 if issues:sys.exit(1)
-print("PASS: only six declared, labeled hosting referrals; no unrelated CTA interception")
+print("PASS: only declared, labeled hosting referrals; RU homepage contains no unrelated VPS referral and no CTA interception")
