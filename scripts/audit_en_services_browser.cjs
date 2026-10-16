@@ -61,7 +61,7 @@ let browser;
   const fail=[];
   if(res.status()!==200)fail.push("HTTP");
   if(data.h1.length!==1||data.h1[0]!=="Choose the Right SEO Work for Your Website")fail.push("H1");
-  if(!data.title.startsWith("Choose the Right SEO Work for Your Website | SeoImpuls"))fail.push("Title");
+  if(data.title!=="SEO Audits, Keyword Research & Consulting | SeoImpuls")fail.push("Title");
   if(data.canonical!=="https://seoimpuls.com/seo-services/")fail.push("Canonical");
   if(data.cards.length!==3)fail.push("Cards");
   if(data.workstreamCount!==23||data.groupCount!==4||data.choiceCount!==3)fail.push("Workstream scope");

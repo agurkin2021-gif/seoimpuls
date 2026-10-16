@@ -1,5 +1,6 @@
 ---
 title: "Choose the Right SEO Work for Your Website"
+seo_title: "SEO Audits, Keyword Research & Consulting"
 description: "Compare SEO audits, keyword research, on-page optimization, content planning and specialized SEO work. Find the right starting point and typical deliverables."
 slug: "seo-services"
 translationKey: "services"

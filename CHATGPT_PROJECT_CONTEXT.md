@@ -60,6 +60,13 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 AR — Decouple EN catalog HTML Title from H1, retain commercial intent ownership
+- After `4caa5cd`, GitHub Actions context #38844530073 PASS and full Hugo rebuild QA #38844530063 PASS, including strict anti-spam gate and unchanged RU/ES routes; prior published preview #38844411228 PASS. Responsive browser audit #38844041118 PASS 390/1280 for the full 23-workstream catalogue. Connected Opera reopened live preview and verified key headings, category labels and content in the accessibility tree.
+- Final on-page check found that `layouts/services/list.html` used the page H1 front-matter `.Title` as HTML `<title>`. The approved SEO architecture deliberately requires a **different** title: `SEO Audits, Keyword Research & Consulting | SeoImpuls` (commercial and specific) versus H1 `Choose the Right SEO Work for Your Website` (navigational comparison). Implemented `seo_title` parameter in **only** English `content/services/_index.md`; EN service-list template reads it with fallback to prior `.Title`. RU/ES same template branch unchanged.
+- Updated both `scripts/verify_en_services_route.py` and `scripts/audit_en_services_browser.cjs` to strictly assert the exact approved HTML Title separately from H1. Canonical, meta description, 23 scopes, cards, homepage text, noindex/301 plan, partner links and production untouched.
+- **EDITED_QA_PENDING** until new Hugo/Pages/390/1280 checks for the exact Title pass. Then record final QA and stop page editing, leaving only separate GSC/production migration and sitewide release decisions.
+
+
 ### 2026-10-15 AR — Synchronize final rebuild QA gate with approved EN catalogue H1
 - EN expanded catalogue `/seo-services/` is built and published to **GitHub Pages preview**, run #38844411228 PASS, after strict white-hat gate was satisfied. Rebuild run #38844411236 validated all preceding HTML/source checks, RU/ES integrations, migrations, affiliates and the strict anti-spam gate; it then failed **only in the final embedded EN-H1 assertion** inside `.github/workflows/rebuild-qa.yml`, which still expected the old catalogue `SEO Services & Practical Deliverables`. New rendered H1 is the owner-approved `Choose the Right SEO Work for Your Website`.
 - Updated one assertion in `.github/workflows/rebuild-qa.yml` to the approved H1; no weakening of checks. The dedicated route QA `scripts/verify_en_services_route.py` and 390/1280 browser QA had already tested this new H1 accurately (browser run #38844041118 PASS).

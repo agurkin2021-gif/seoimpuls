@@ -51,7 +51,7 @@ def contains_path(links,path):
 hub=parse('seo-services/index.html')
 assert ''.join(hub.h1).strip()=='Choose the Right SEO Work for Your Website',hub.h1
 assert len(hub.canonical)==1 and hub.canonical[0].endswith('/seo-services/'),hub.canonical
-assert 'Choose the Right SEO Work for Your Website' in ''.join(hub.title),hub.title
+assert ''.join(hub.title).strip()=='SEO Audits, Keyword Research & Consulting | SeoImpuls',hub.title
 assert hub.social_nodes==0 and hub.map_nodes==0,'EN hub still contains non-branded social links or unverified location map'
 hub_markup=Path('public/seo-services/index.html').read_text(encoding='utf-8')
 assert 'Choose the right starting point' in hub_markup,'EN service-choice direct answer missing'
