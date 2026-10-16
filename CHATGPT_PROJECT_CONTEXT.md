@@ -62,6 +62,11 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-16 — Step 3 source QA corrected for emphasized non-client disclaimer
+- Source `d98a5e3` built under Hugo but route QA failed because it searched unbroken literal `not customer results`. Actual HTML correctly emphasizes the negation as `<strong>not</strong> customer results`, so the generated markup is truthful; string test was brittle. Fixed only `scripts/verify_en_services_route.py` to assert the actual HTML disclaimer and two traceability links. No site content changes.
+- Step 3 IN_PROGRESS: repeat full strict/Pages/Chrome 390/768/1280; verified internal QA remains a first-party test, never a customer result or rankings case.
+
+
 ### 2026-10-16 — Step 3: documented internal QA evidence without fabricated client results
 - Added one directly reproducible evidence→fix→acceptance item to `layouts/partials/en-services-catalog.html`: a real internal 768px sticky-header overlap discovered by Playwright #38851634798 (section top 120 vs header bottom 171), corrected to tablet scroll-margin 192 and verified by passing #38851849354 (section192/header171). Links point to actual public GitHub Actions run records; proof explicitly says **internal site QA, NOT a customer case, client result or Google ranking outcome**.
 - Preserved existing hypothetical `noindex` example with its illustrative disclaimer. Added narrow static + browser checks for exact real proof block, two traceability links and disclaimer. No new service/price/credential/URL promises or changes to homepage/RU/ES/production.
