@@ -60,6 +60,14 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — Fix EN SEO catalog browser audit crash without changing page content
+- Scope: branch `white-seo-rebuild`; only `scripts/audit_en_services_browser.cjs` and this context file. Parent commit `3ee217e24cae`.
+- Verified GitHub Actions job #116775668421 (run #38839371024) crashed at 390px after DOM checks with `TypeError: URL is not a constructor` at line 49, then Chromium remained open and the job timed out/cancelled after 12 minutes. Previous run #38838692026 had the same defect. This was **a QA script failure**, not established page content/visual failure.
+- Fix: rename the conflicting Node `URL` constant to `PAGE_URL` so the native `new URL(...)` parser works; explicitly close Chromium in the fatal exception handler so test errors terminate instead of timing out. No URL, title, design, CTA, service content, RU/ES source, `main` or live server changes.
+- Evidence before fix: Hugo production-base QA #38839370929 PASS; GitHub Pages Preview #38839371005 PASS. After this fix: **VISUAL_QA_PENDING** until a new EN catalog Playwright workflow run reaches both 390px and 1280px and its evidence is reviewed. Do not call page visually approved yet.
+- Next: inspect the triggered EN catalog workflow, fix any concrete page or test faults with a separate context-logged commit; then finish catalog on-page/intents audit, keeping homepage distinct. Release remains blocked pending full sitewide gate and actual production migration/GSC review.
+
+
 ### 2026-10-15 — Make EN services browser QA deterministic; avoid per-link HTTP delays
 - First dedicated Playwright workflow #38838692026 remained in `Run responsive Chrome diagnostics` longer than expected without granular stage logs. Hugo QA #107 and Pages #48 passed; Opera independently confirmed public EN hub renders all 3 images after lazy loading, correct 3-column desktop layout, direct service selection text and removal of generic footer links/map.
 - Updated **only the audit script** `scripts/audit_en_services_browser.cjs`: replace repeated HTTP subrequests with direct existence checks for generated local Hugo HTML/static targets; add stage logging at page/DOM/cookie/diagnostic steps. This is a QA reliability change, not a content or site layout change. Keep screenshot and responsive metadata tests.
@@ -894,7 +902,7 @@ Current stage: English `SEO Services` hub, URL changed from `/services/` to `/se
 
 SERP-first competitor top10 and intent map: `docs/research/2026-10-15-en-services-serp-and-architecture.md`. Homepage owns `professional seo services` and provider-selection; catalog owns selecting actual services and comparing deliverables. Don't target `seo services list` 20-category informative SERP on 3-offer catalog.
 
-Old `/services/` has Hugo HTML alias (not production server 301), only `/seo-services/` should be full canonical indexed hub; child `/services/keyword-research/`, `/services/seo-consultation/` unchanged. New `scripts/verify_en_services_route.py` and updated CI check aliases, site map, canonical, hreflang and links. **Next:** run Hugo QA / Pages Preview, verify actual old alias and new hub in Opera, then fix any regressions; continue focused on-page audit of catalog. No production migration without approval/GSC. Release still gated.
+Old `/services/` has Hugo HTML alias (not production server 301), only `/seo-services/` should be full canonical indexed hub; child `/services/keyword-research/`, `/services/seo-consultation/` unchanged. New `scripts/verify_en_services_route.py` and updated CI check aliases, site map, canonical, hreflang and links. **Latest:** route/Hugo/Pages Preview checks passed for 3ee217e (runs #38839370929 and #38839371005). Dedicated browser audit #38839371024 was cancelled because the QA script shadowed native `URL` and left Chromium alive; this commit fixes that test-only issue. **Next:** read the new browser QA result for 390px and 1280px; if it passes, complete catalog on-page/intent QA and record remaining release gates. If it fails, resolve confirmed defects only. Do not call VISUAL_QA_PASS before an actual successful run. No production migration without approval/GSC. Release still gated.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 

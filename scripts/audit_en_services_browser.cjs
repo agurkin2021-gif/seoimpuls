@@ -1,19 +1,20 @@
 /* Playwright acceptance test: English SEO service selector page, mobile + desktop. */
 const fs=require("node:fs"),path=require("node:path");
 const {chromium}=require("playwright");
-const ORIGIN="http://127.0.0.1:8765", URL=ORIGIN+"/seo-services/";
+const ORIGIN="http://127.0.0.1:8765", PAGE_URL=ORIGIN+"/seo-services/";
 const OUT="audit-artifacts/en-services";
 fs.mkdirSync(OUT,{recursive:true});
+let browser;
 (async()=>{
- const browser=await chromium.launch({headless:true,args:["--no-sandbox"]});
- const report={url:URL,viewports:[]};
+ browser=await chromium.launch({headless:true,args:["--no-sandbox"]});
+ const report={url:PAGE_URL,viewports:[]};
  for(const width of [390,1280]){
   const ctx=await browser.newContext({viewport:{width,height:width===390?844:800},deviceScaleFactor:1,isMobile:width===390,hasTouch:width===390});
   const page=await ctx.newPage(),errors=[],networkFailures=[];
   page.on("pageerror",e=>errors.push(e.message));
   page.on("requestfailed",r=>networkFailures.push({url:r.url(),error:r.failure()?.errorText}));
   console.log("SERVICES_STAGE "+width+" opening page");
-  const res=await page.goto(URL,{waitUntil:"domcontentloaded",timeout:30000});
+  const res=await page.goto(PAGE_URL,{waitUntil:"domcontentloaded",timeout:30000});
   await page.waitForTimeout(550);
   console.log("SERVICES_STAGE "+width+" DOM ready");
   try{await page.screenshot({path:path.join(OUT,width+"-first.png"),timeout:12000,animations:"disabled"});}catch(e){console.log("SERVICES_SCREENSHOT_WARNING "+e.message.slice(0,120));}
@@ -81,4 +82,8 @@ fs.mkdirSync(OUT,{recursive:true});
  fs.writeFileSync(path.join(OUT,"audit.json"),JSON.stringify(report,null,2));
  if(report.viewports.some(x=>x.fail.length))throw Error("EN services QA failed");
  console.log("SERVICES_BROWSER_PASS two viewports, no broken links, no fake footer");
-})().catch(e=>{console.error("SERVICES_BROWSER_FATAL "+(e.stack||e));process.exitCode=1;});
+})().catch(async e=>{
+ console.error("SERVICES_BROWSER_FATAL "+(e.stack||e));
+ try{if(browser)await browser.close();}catch(closeError){console.error("SERVICES_BROWSER_CLOSE_WARNING "+closeError.message);}
+ process.exitCode=1;
+});
