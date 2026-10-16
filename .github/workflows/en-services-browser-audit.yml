@@ -7,6 +7,7 @@ on:
       - '.github/workflows/en-services-browser-audit.yml'
       - 'content/_index.md'
       - 'layouts/index.html'
+      - 'layouts/partials/en-home-hero-diagram.html'
       - 'content/seo/index.md'
       - 'content/services/keyword-research/index.md'
       - 'content/services/seo-consultation/index.md'
