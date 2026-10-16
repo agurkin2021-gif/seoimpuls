@@ -1,4 +1,14 @@
 # SEOImpuls — основной контекст проекта (читать первым)
+## 2026-10-16 — Read-only post-change audit of EN homepage
+- Report written to `docs/research/2026-10-16-en-home-post-css-audit.md` using source `00881d5`, current docs-only head `98763ec`, actual Pages preview, Actions #38914027341/#38914027471/#38914027320/#38914027575/#38914027393 and screenshots #12052215561.
+- Technical build and three SEO routes are GREEN. Three CSS-only service marks intact, 0 old image tags within main cards, 0 broken internal routes or measured social icon overlaps.
+- **P1 CONTENT GAP:** 8 additional scope tiles recreate service-choice confusion beyond 3 actual offers; website-only pricing/CTA phrasing contradicts keyword research without a website.
+- **P2:** Old `/uploads/seo-icon-google.svg` remains in EN supplementary section; desktop process/card height imbalance and duplicate 01/02/03; tablet 768 header wraps; mobile 390 consent covers substantial viewport; heavy SEO jargon / unclear standalone keyword deliverable.
+- **P2 VERIFY:** full-width floating Contacts bar intersection not measured beyond social icons; screenshot stitched bar alone is insufficient to confirm permanent obstruction.
+- **P3:** axe has zero confirmed violations but 72 contrast/2 ARIA incomplete nodes; manual confirmation pending. No Lighthouse/CrUX/SERP validation.
+- **STATE: CODE_QA_PASS / CONTENT_UX_CHANGES_REQUIRED / OWNER_REVIEW_PENDING / PRODUCTION_NOT_DEPLOYED**. This task changed only audit documentation and root context, not site code or other pages. No fixes or automatic next page.
+
+
 ## 2026-10-16 — EN RESPONSIVE CSS SERVICE MARKS: CODE + VISUAL QA PASS, OWNER REVIEW PENDING
 - Accepted immutable source: commit `00881d5`. EN homepage `/#services` now uses three **original CSS-only** numerical markers (01 / 02 / 03); zero old graphic `img` elements in the three service cards. Original SVG files are retained in Git; the brand logo, unrelated images, RU/ES and existing service detail pages remain unchanged.
 - Strict Hugo/sitewide whitehat **PASS**: [#38914027341](https://github.com/agurkin2021-gif/seoimpuls/actions/runs/38914027341). GitHub Pages preview/noindex **PASS**: [#38914027471](https://github.com/agurkin2021-gif/seoimpuls/actions/runs/38914027471). Context guard **PASS**: [#38914027698](https://github.com/agurkin2021-gif/seoimpuls/actions/runs/38914027698). EN homepage visual Chrome **PASS**: [#38914027575](https://github.com/agurkin2021-gif/seoimpuls/actions/runs/38914027575). Automated axe WCAG diagnostic **PASS**: [#38914027393](https://github.com/agurkin2021-gif/seoimpuls/actions/runs/38914027393) (not full WCAG certification).
@@ -249,6 +259,10 @@ IMPORT_STATUS: completed
 7. Перед новым чатом прочитать AGENTS.md и этот файл прямо из репозитория, проверить фактическое состояние GitHub/Actions и продолжить с секции 6 «Следующее действие».
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
+
+### 2026-10-16 — Completed read-only EN home post-change audit
+- Inspected preview, source, exact CI and all three responsive screenshots. New report `docs/research/2026-10-16-en-home-post-css-audit.md` records verified passes, P1/P2/P3 issues, risk limits and prioritized fixes.
+- No source HTML/CSS/JS, SEO URLs, page contents, RU/ES, main or production edit in this commit. Home stays awaiting owner content/UX acceptance; do not advance automatically.
 
 ### 2026-10-16 — Custom responsive EN service cards: final QA accepted for source 00881d5
 - All 6 Actions PASS: strict #38914027341, Pages/noindex #38914027471, context #38914027698, direct Chrome 390/768/1280 #38914027320, home visual #38914027575 and axe WCAG automation #38914027393.
