@@ -1,4 +1,4 @@
-name: English homepage direct SEO services browser audit
+name: EN/RU homepage consolidated services browser audit
 on:
   push:
     branches: [white-seo-rebuild]
@@ -12,6 +12,10 @@ on:
       - 'content/services/seo-consultation/index.md'
       - 'content/seo-retainer/index.md'
       - 'data/en_home_services.json'
+      - 'data/ru_home_services.json'
+      - 'data/ru_home_copy.json'
+      - 'content/_index.ru.md'
+      - 'layouts/partials/ru-home-content.html'
       - 'layouts/partials/head/seo.html'
       - 'hugo.toml'
       - 'layouts/partials/footer.html'
@@ -54,7 +58,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: seoimpuls-en-home-direct-services-390-768-1280
+          name: seoimpuls-en-ru-home-seven-services-390-768-1280
           path: audit-artifacts/en-services/
           if-no-files-found: warn
           retention-days: 14

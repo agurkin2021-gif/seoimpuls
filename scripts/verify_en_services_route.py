@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verify nine established SEO areas, the retainer and four direct detail routes."""
+"""Verify six distinct SEO choices plus a retainer and four detail routes."""
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import urlsplit
@@ -130,15 +130,24 @@ def local_target(href):
 
 assert home.canonical == [BASE_URL + "/"], home.canonical
 assert "services" in home.ids, "Homepage service cards must have #services anchor"
-EXPECTED_AREAS = ["seo-audit", "keyword-research", "on-page-seo", "technical-seo",
-    "seo-competitor-analysis", "seo-content-optimization", "local-seo", "international-seo",
-    "seo-consultation", "seo-retainer"]
-assert home.service_ids == EXPECTED_AREAS, ("Ten distinct service area IDs required", home.service_ids)
-assert len(home.service_cards) == 10, home.service_cards
-assert len(home.service_marks) == 10, home.service_marks
+EXPECTED_AREAS = ["seo-audit", "keyword-research", "on-page-seo",
+    "local-seo", "international-seo", "seo-consultation", "seo-retainer"]
+assert home.service_ids == EXPECTED_AREAS, ("Seven consolidated service area IDs required", home.service_ids)
+assert len(home.service_cards) == 7, home.service_cards
+assert len(home.service_marks) == 7, home.service_marks
 assert {local_target(href) for kind, href in home.service_cards if kind == "details"} == set(SERVICES) | {RETAINER}, home.service_cards
-assert sum(kind == "contact" and local_target(href) == "#contact-project" for kind, href in home.service_cards) == 6, home.service_cards
+assert sum(kind == "contact" and local_target(href) == "#contact-project" for kind, href in home.service_cards) == 3, home.service_cards
 assert "contact-project" in home.ids, "Project enquiry anchor missing"
+# Merging cards must preserve the distinct diagnosis, competitor and content work.
+source_services = json.loads(Path("data/en_home_services.json").read_text(encoding="utf-8"))
+assert [x["id"] for x in source_services] == EXPECTED_AREAS
+merged = {x["id"]: (x["summary"] + " " + x["outcome"]).lower() for x in source_services}
+for fragment in ("crawl", "index", "redirect", "technical"):
+    assert fragment in merged["seo-audit"], ("Merged audit lost technical coverage", fragment)
+for fragment in ("search", "compet", "topic"):
+    assert fragment in merged["keyword-research"], ("Merged research lost competitor coverage", fragment)
+for fragment in ("heading", "content", "link", "recommend"):
+    assert fragment in merged["on-page-seo"], ("Merged on-page lost content work", fragment)
 assert not home.service_images, f"Old service icon images remain visible: {home.service_images}"
 assert all((Path("static")/path).is_file() for path in (
     "uploads/seo-icon-search-optimization.svg",
@@ -153,8 +162,8 @@ source_html = (ROOT / "index.html").read_text(encoding="utf-8")
 assert not home.offer_items, ("Old EN supporting-work list must be absent", home.offer_items)
 assert 'seo-icon-google.svg' not in source_html, "Old decorative SEO scope image still present"
 assert all(term in source_html.lower() for term in (
-  "seo services for your business", "seo competitor analysis", "seo content optimization",
-  "international seo", "local seo", "on-page seo", "technical seo", "seo retainer",
+  "seo services for your business", "competing pages", "content", "crawling",
+  "indexing", "redirects", "international seo", "local seo", "on-page seo", "technical seo", "seo retainer",
   "keyword research spreadsheet", "for keyword research, no website is needed",
   "tell us about your seo project"
 )), "Buyer-friendly service taxonomy or deliverable missing"

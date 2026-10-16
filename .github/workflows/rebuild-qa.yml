@@ -49,7 +49,7 @@ jobs:
           PY
       - name: Enforce no published links or output for retired URLs
         run: python3 scripts/verify_retired_routes.py --site public --routes docs/retired-routes-en.txt
-      - name: Verify Russian homepage ten-service content and local routes
+      - name: Verify Russian homepage seven-card content and local routes
         run: python3 scripts/verify_ru_home_review.py
       - name: Verify ES homepage affiliate disclosure and hosting claims
         shell: bash
@@ -416,8 +416,8 @@ jobs:
           es.feed(Path('public/es/index.html').read_text(encoding='utf-8'))
           assert len(es.cards)==1 and es.cards[0] and '/soft/' not in es.cards[0],es.cards
           en=Path('public/index.html').read_text(encoding='utf-8')
-          assert en.count('data-home-service=')==10,'EN homepage must retain ten direct service areas'
-          print('PASS: ES blank software removed; ES fallback intact; EN ten service areas unchanged')
+          assert en.count('data-home-service=')==7,'EN homepage must retain seven consolidated service areas'
+          print('PASS: ES blank software removed; ES fallback intact; EN seven consolidated services present')
           PY
       - name: Check RU About factual scope and localized links
         shell: bash
@@ -636,7 +636,7 @@ jobs:
               raise SystemExit('Deprecated EN service link remains on homepage')
           for fragment in ('seo services for businesses: website audits, keyword research',
                            'seo services for your business',
-                           'seo competitor analysis','seo content optimization','technical seo',
+                           'competitor findings','pages and content','technical seo',
                            'on-page seo','local seo','international seo','seo consultation','seo retainer'):
                if fragment not in visible:raise SystemExit('EN buyer-facing main service missing '+fragment)
           if page.offer_items:raise SystemExit('EN legacy supporting-work tiles must not duplicate the primary service areas')

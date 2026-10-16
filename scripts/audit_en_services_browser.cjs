@@ -1,4 +1,4 @@
-/* EN homepage nine focused SEO areas plus featured retainer and four exact detail routes. */
+/* Audit both EN and RU seven-card homepages plus the four approved EN detail routes. */
 const fs = require("node:fs"), path = require("node:path");
 const {chromium} = require("playwright");
 const ROOT = "http://127.0.0.1:8765";
@@ -42,6 +42,8 @@ let browser;
           href:x.querySelector("[data-home-service-link]")?.getAttribute("href")||"",
           kind:x.querySelector("[data-home-service-link]")?.dataset.homeServiceLink||"",
           id:x.dataset.homeService,title:x.querySelector("h3")?.textContent.trim()||"",featured:x.classList.contains("seo-en-service-card--featured"),
+          summary:x.querySelector(".seo-en-service-card__head + p")?.textContent.trim()||"",
+          outcome:x.querySelector(".seo-en-service-card__outcome")?.textContent.trim()||"",
           imageCount:x.querySelectorAll("img").length,
           mark:x.querySelector(".seo-en-service-mark")?.textContent.trim()||"",
           markRect:(()=>{const r=x.querySelector(".seo-en-service-mark")?.getBoundingClientRect();return r?{width:r.width,height:r.height}:null;})()
@@ -70,24 +72,29 @@ let browser;
     if(main.title!=="Professional SEO Services | SeoImpuls")fail.push("Home title "+main.title);
     if(main.h1.length!==1||main.h1[0]!=="Professional SEO Services")fail.push("Home H1");
     if(main.canonical!=="https://seoimpuls.com/")fail.push("Home canonical");
-    if(main.cards.length!==10||main.selectorCount||!main.hasAnchor||main.serviceHeading!=="SEO Services for Your Business"||!main.projectAnchor)
-      fail.push("Nine SEO work areas plus featured SEO Retainer, section heading or contact anchor missing");
+    if(main.cards.length!==7||main.selectorCount||!main.hasAnchor||main.serviceHeading!=="SEO Services for Your Business"||!main.projectAnchor)
+      fail.push("Six merged SEO work areas plus featured SEO Retainer, heading or contact anchor missing");
     if(main.scopeItems!==0||main.oldScopeIcon||main.scopeHeading)
       fail.push("Legacy extra-work tiles still duplicate new primary services");
-    const ids=["seo-audit","keyword-research","on-page-seo","technical-seo","seo-competitor-analysis","seo-content-optimization","local-seo","international-seo","seo-consultation","seo-retainer"];
-    if(main.cards.map(x=>x.id).join("|")!==ids.join("|")||new Set(main.cards.map(x=>x.title)).size!==10)
+    const ids=["seo-audit","keyword-research","on-page-seo","local-seo","international-seo","seo-consultation","seo-retainer"];
+    if(main.cards.map(x=>x.id).join("|")!==ids.join("|")||new Set(main.cards.map(x=>x.title)).size!==7)
       fail.push("Missing or duplicate commercial SEO service headings");
     if(!main.keywordDeliverable||!main.independentKeyword||main.contactCTA!=="Discuss Your SEO Project")
       fail.push("Buyer-facing keyword deliverable or business project CTA missing");
-    if(main.cards.map(x=>x.mark).join("/")!=="01/02/03/04/05/06/07/08/09/10"||main.cards.some(x=>x.imageCount!==0||!x.markRect||x.markRect.width<36||Math.abs(x.markRect.width-x.markRect.height)>3))
-      fail.push("Service design: ten lightweight CSS-only markers, no old image elements");
+    const mergedEN=Object.fromEntries(main.cards.map(x=>[x.id,(x.summary+" "+x.outcome).toLowerCase()]));
+    if(!["crawl","index","redirect","technical"].every(w=>mergedEN["seo-audit"]?.includes(w))||
+       !["compet","topic","keyword"].every(w=>mergedEN["keyword-research"]?.includes(w))||
+       !["content","heading","recommend"].every(w=>mergedEN["on-page-seo"]?.includes(w)))
+      fail.push("Consolidated EN cards lost technical, competitor or page/content scope");
+    if(main.cards.map(x=>x.mark).join("/")!=="01/02/03/04/05/06/07"||main.cards.some(x=>x.imageCount!==0||!x.markRect||x.markRect.width<36||Math.abs(x.markRect.width-x.markRect.height)>3))
+      fail.push("Service design: seven lightweight CSS-only markers, no old image elements");
     if(main.cards.filter(x=>x.featured).length!==1||main.cards.at(-1).id!=="seo-retainer"||!main.cards.at(-1).featured)fail.push("Featured retainer must be the final service");
     for(const [url] of TARGETS)if(main.cards.filter(x=>x.href===url&&x.kind==="details").length!==1)fail.push("Missing one direct service detail link "+url);
-    if(main.cards.filter(x=>x.kind==="contact"&&x.href==="#contact-project").length!==6)fail.push("Six scoped service enquiries do not reach contact anchor");
+    if(main.cards.filter(x=>x.kind==="contact"&&x.href==="#contact-project").length!==3)fail.push("Three scoped service enquiries do not reach contact anchor");
     if(main.serviceNav!=="/#services"||main.heroTarget!=="/#services")fail.push("Top services navigation/CTA not anchored");
     if(!main.faq)fail.push("Retained buyer FAQ missing");
     if(!main.processBelow)fail.push("Service cards should be visually above compact process");
-    if(main.columns!==(width===390?1:width===768?2:3))fail.push("Responsive nine-card grid column count");
+    if(main.columns!==(width===390?1:width===768?2:3))fail.push("Responsive seven-card grid column count");
     if(main.overflow)fail.push("Horizontal overflow");
     if(main.images.some(x=>!x.ok))fail.push("Broken home images");
     if(main.schema.includes("INVALID")||!main.schema.includes("WebSite")||!main.schema.includes("Organization"))fail.push("Home structured data");
@@ -175,15 +182,74 @@ let browser;
     try{await retainerPage.screenshot({path:path.join(OUT,width+"-retainer.png"),fullPage:true,animations:"disabled",timeout:16000});}
     catch(e){console.log("RETAINER_SCREENSHOT_WARNING "+e.message);}
     await retainerPage.close();
-    report.viewports.push({width,main,children,focus,retainerVisual,broken,errors,networkFailures,fail});
+    // Same seven commercial choices must be visible and functional in RU working copy.
+    const ruPage=await context.newPage(),ruErrors=[],ruNetworkFailures=[];
+    ruPage.on("pageerror",e=>ruErrors.push(e.message));
+    ruPage.on("requestfailed",r=>ruNetworkFailures.push({url:r.url(),reason:r.failure()?.errorText}));
+    const ruResponse=await ruPage.goto(ROOT+"/ru/",{waitUntil:"domcontentloaded",timeout:25000});
+    await ruPage.waitForTimeout(250);
+    const ru=await ruPage.evaluate(()=>{
+      const cards=Array.from(document.querySelectorAll("#services article.seo-en-service-card"));
+      const grid=document.querySelector("#services .seo-en-primary-services__grid");
+      return {
+        lang:document.documentElement.lang,
+        h1:Array.from(document.querySelectorAll("h1")).map(x=>x.textContent.trim()),
+        ids:cards.map(x=>x.dataset.homeService),
+        cards:cards.map(x=>({id:x.dataset.homeService,title:x.querySelector("h3")?.textContent.trim()||"",
+          summary:x.querySelector(".seo-en-service-card__head + p")?.textContent.trim()||"",
+          outcome:x.querySelector(".seo-en-service-card__outcome")?.textContent.trim()||"",
+          route:x.querySelector("[data-home-service-link]")?.getAttribute("href")||"",
+          kind:x.querySelector("[data-home-service-link]")?.dataset.homeServiceLink||"",
+          mark:x.querySelector(".seo-en-service-mark")?.textContent.trim()||"",
+          imageCount:x.querySelectorAll("img").length,featured:x.classList.contains("seo-en-service-card--featured")})),
+        columns:grid?getComputedStyle(grid).gridTemplateColumns.split(" ").filter(Boolean).length:0,
+        intro:document.querySelector(".seo-en-primary-services__intro")?.textContent.trim()||"",
+        hasContact:!!document.getElementById("contact-project"),
+        hasProcess:!!document.getElementById("how-it-works"),
+        overflow:document.documentElement.scrollWidth>innerWidth+2,
+        links:Array.from(document.querySelectorAll("a[href]")).map(x=>x.href)
+      };
+    });
+    if(ruResponse.status()!==200||!ru.lang.toLowerCase().startsWith("ru")||
+       ru.h1.length!==1||ru.h1[0]!=="Профессиональные SEO-услуги"||
+       ru.ids.join("|")!==ids.join("|")||ru.cards.length!==7)
+      fail.push("RU homepage seven-card H1, language or matching IDs");
+    if(ru.cards.map(x=>x.mark).join("/")!=="01/02/03/04/05/06/07"||
+       ru.cards.some(x=>x.imageCount)||ru.cards.filter(x=>x.featured).length!==1||
+       !ru.cards.at(-1).featured||ru.columns!==(width===390?1:width===768?2:3))
+      fail.push("RU numbered responsive card grid or featured retainer");
+    for(const route of ["/ru/seo/","/ru/uslugi/semanticheskoe-yadro/","/ru/uslugi/seo-konsultaciya/"])
+      if(ru.cards.filter(x=>x.kind==="details"&&x.route===route).length!==1)
+        fail.push("Missing native RU service route "+route);
+    if(ru.cards.filter(x=>x.kind==="contact"&&x.route==="/ru/#contact-project").length!==4)
+      fail.push("Four RU enquiry cards must target RU contact anchor");
+    const ruMerged=Object.fromEntries(ru.cards.map(x=>[x.id,(x.summary+" "+x.outcome).toLowerCase()]));
+    if(!["индексац","перенаправлен"].every(x=>ruMerged["seo-audit"]?.includes(x))||
+       !ruMerged["keyword-research"]?.includes("конкурент")||
+       !["текст","заголовк"].every(x=>ruMerged["on-page-seo"]?.includes(x)))
+      fail.push("RU audit/competitor/page-content merged coverage missing");
+    if(!ru.hasContact||!ru.hasProcess||!ru.intro.includes("SEO-услуги для вашего бизнеса")||
+       ru.overflow||ruErrors.length||ruNetworkFailures.length)
+      fail.push("RU content/process/overflow or runtime issue");
+    const ruPaths=Array.from(new Set(ru.links.filter(x=>x.startsWith(ROOT)).map(x=>new URL(x).pathname).filter(x=>x!=="/")));
+    const ruBroken=[];
+    for(const u of ruPaths){
+      const file=path.join("public",decodeURIComponent(u).replace(/^[/]+/,""),u.endsWith("/")?"index.html":"");
+      if(!fs.existsSync(file))ruBroken.push(u);
+    }
+    if(ruBroken.length)fail.push("Broken RU internal paths: "+ruBroken.join(", "));
+    try{await ruPage.screenshot({path:path.join(OUT,width+"-ru-full.png"),fullPage:true,animations:"disabled",timeout:15000});}
+    catch(e){console.log("RU_SCREENSHOT_WARNING "+e.message);}
+    await ruPage.close();
+    report.viewports.push({width,main,ru,ruBroken,ruErrors,ruNetworkFailures,children,focus,retainerVisual,broken,errors,networkFailures,fail});
     console.log("SERVICES_BROWSER_SUMMARY "+JSON.stringify({width,status:response.status(),cardCount:main.cards.length,
-      serviceRoutes:main.cards.map(x=>x.href),cardVisuals:main.cards.map(x=>({mark:x.mark,imageCount:x.imageCount,rect:x.markRect})),columns:main.columns,focus,errors,networkFailures,broken,retainerVisual,fail}));
+      serviceRoutes:main.cards.map(x=>x.href),ruCardCount:ru.cards.length,ruColumns:ru.columns,ruBroken,cardVisuals:main.cards.map(x=>({mark:x.mark,imageCount:x.imageCount,rect:x.markRect})),columns:main.columns,focus,errors,networkFailures,broken,retainerVisual,fail}));
     await context.close();
   }
   await browser.close();
   fs.writeFileSync(path.join(OUT,"audit.json"),JSON.stringify(report,null,2));
   if(report.viewports.some(x=>x.fail.length))throw Error("Direct EN services homepage QA failed");
-  console.log("SERVICES_BROWSER_PASS: homepage nine SEO areas plus a featured retainer, four direct detail routes and six enquiry paths at 390/768/1280");
+  console.log("SERVICES_BROWSER_PASS: EN and RU both have 7 cards (six choices plus retainer), 3/2/1 responsive grid, four EN and three RU native detail routes at 390/768/1280");
 })().catch(async e=>{
   console.error("SERVICES_BROWSER_FATAL "+(e.stack||e));
   try{if(browser)await browser.close()}catch(e){}
