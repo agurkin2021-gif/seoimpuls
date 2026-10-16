@@ -62,6 +62,12 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-16 — STEP 1 DONE; three-viewport verified handoff to commercial truth audit
+- Completed ordered finish-plan step 1, source `63f39bb`: selector appears before 23-group directory; 3 exact deep-service paths kept, no duplicate. Full strict multilingual Hugo #38852257807 PASS; Pages #38852257602 PASS; context #38852257833 PASS; Playwright #38852257739 PASS at 390, 768, 1280 with no errors/overflow/broken routes.
+- At 768 px header bottom 171, category anchor top 192; footer fixed to bottom y=741–800 (formerly overlapped header). 390 mobile and 768 tablet first viewport screenshots personally inspected from artifact #12025618382; mobile cookie consent retains parallel accept/reject and visible manage action.
+- Plan Step 1 DONE, Step 2 NEXT: reconcile 23 scopes against real linked EN service pages/About/FAQ, without inventing specialist capabilities. Current source remains preview-only, production unchanged.
+
+
 ### 2026-10-16 — Step 1 visual QA: 768px floating footer overlaps header
 - Prior tablet hash-offset fix `e3d8dee` passed Hugo strict build #38851849386, preview #38851849373, context guard #38851849394 and browser #38851849354 at 390/768/1280. Anchor 768 top 192 > header bottom 171, and no overflow/JS/broken-link failures.
 - **Manual 768 screenshots** from artifact #12025467020 exposed an untested real visual issue: Contacts/footer appeared across the top viewport and obscured/covered the header logo. Root cause in shared old CSS: `@media (min-width:768px)` fixes footer, later `@media(max-width:768px)` sets footer `bottom:auto` but doesn't override the more specific fixed position; exact 768 suffers bottom:auto fixed placement.
@@ -999,7 +1005,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-SOURCE OF TRUTH: `docs/plans/EN_SEO_SERVICES_FINISH_PLAN.md` and this context in `white-seo-rebuild`. Owner instructed finish EN `/seo-services/` only, **work sequentially and update both documents in each commit**. Current plan: STEP 0 DONE; STEP 1 IN_PROGRESS (selector moved into the first section before the directory); Hugo/Pages and Playwright 390/768/1280 are pending. Do not mark DONE until actual CI and preview evidence. Do not touch main, EN homepage or sibling service pages, RU/ES content or live server.
+SOURCE OF TRUTH: `docs/plans/EN_SEO_SERVICES_FINISH_PLAN.md` and this context in `white-seo-rebuild`. Owner instructed finish EN `/seo-services/` only, **work sequentially and update both documents in each commit**. Current plan: STEP 0 DONE, STEP 1 DONE (63f39bb, strict/Pages/Playwright 390/768/1280 all PASS). STEP 2 NEXT — reconcile all 23 workstreams against three published EN detail pages, About and FAQ, distinguish verified listed offers from conditional project-scoped work. Do not claim proof without evidence. Do not touch main, EN homepage or sibling service pages, RU/ES content or live server.
 
 Current last-proven site: `3878934` plus record `1791892`, strict/Pages/390-1280 PASS, 23 workstreams/4 groups/3 deep links; title `SEO Audits, Keyword Research & Consulting | SeoImpuls`, H1 `Choose the Right SEO Work for Your Website`, canonical `/seo-services/`. Preview noindex; live site not changed. Plan Step 1 code changes, once committed, are **EDITED_QA_PENDING** until CI finishes. External release blocks: GSC and incoming link history, production 301/410 decisions, real proof/customer permission and owner production approval.
 
