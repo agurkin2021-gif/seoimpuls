@@ -1,5 +1,5 @@
 # SEOImpuls — customer-first EN /seo-services/ simplification
-Date: 2026-10-16. Status: **EDITED_QA_PENDING**. Authorized scope: **ONLY /seo-services/**. Owner explicitly prohibits any assistant-initiated transition to another page.
+Date: 2026-10-16. Status: **CODE_QA_PASS / RESPONSIVE_VISUAL_QA_PASS / OWNER_REVIEW_PENDING**. Authorized scope: **ONLY /seo-services/**. Owner explicitly prohibits any assistant-initiated transition to another page.
 
 ## Problem (verified in source, not presumed Google traffic data)
 - 23 equal-weight workstream cards: 3 established commercial pages, 14 constituent tasks, 6 specialist areas without confirmed standalone offer.
@@ -19,10 +19,10 @@ Date: 2026-10-16. Status: **EDITED_QA_PENDING**. Authorized scope: **ONLY /seo-s
 | Gate | Scope | Acceptance | Status |
 |---|---|---|---|
 | S0 | Inspect source + accessibility page | 23-card overload and overlap documented; freeze other pages | DONE |
-| S1 | EN-only UX/content simplification | Four concise groups, no 23 workstream tiles or 20 mailto CTAs, three service pathways preserved | SOURCE DONE, QA PENDING |
-| S2 | Tighten EN-only static/browser tests | Assert new block counts/semantics without weakening strict SEO, navigation, page proof, 390/768/1280 overlap checks | SOURCE DONE, QA PENDING |
-| S3 | Full automated/browser evidence | Hugo + strict whitehat + Pages preview + Playwright 390/768/1280 all green, screenshots actually reviewed | PENDING |
-| S4 | Owner-facing acceptance/status | Document completed test IDs and known limitations; remain on /seo-services/ even if approved | PENDING |
+| S1 | EN-only UX/content simplification | Four concise groups, no 23 workstream tiles or 20 mailto CTAs, three service pathways preserved | DONE — code + browser checked |
+| S2 | Tighten EN-only static/browser tests | Assert new block counts/semantics without weakening strict SEO, navigation, page proof, 390/768/1280 overlap checks | DONE — accepted checks pass |
+| S3 | Full automated/browser evidence | Hugo + strict whitehat + Pages preview + Playwright 390/768/1280 all green, screenshots actually reviewed | DONE — runs #38899685820/#38899685817/#38899499592; screenshots inspected |
+| S4 | Owner-facing acceptance/status | Document completed test IDs and known limitations; remain on /seo-services/ even if approved | OWNER_REVIEW_PENDING; do not switch automatically |
 
 ## Exact working paths
 - Source data: `data/en_seo_catalog.json` (23 legacy entries may be retained as research; do not render as 23 equal services).
@@ -44,3 +44,9 @@ Date: 2026-10-16. Status: **EDITED_QA_PENDING**. Authorized scope: **ONLY /seo-s
 ## 2026-10-16 — First full gate feedback
 - Source commit 46bc35e builds under Hugo but strict/Pages jobs #38899499369 and #38899499275 stopped at stale assertion expecting previous heading "SEO Work We Can Scope". EN static assertion corrected with this documentation/context commit; no page source changed.
 - Browser run #38899499592 was still in progress when correction was prepared; no claim of browser PASS. S3 remains PENDING.
+
+## 2026-10-16 — Recorded QA evidence after fix
+- Updated EN-only static assertion (same source HTML) in commit `462aa03`; full strict Hugo gate #38899685820 PASS, Pages Preview #38899685817 PASS, context guard #38899685925 PASS.
+- Responsive Chromium #38899499592 PASS for source `46bc35e` which is unchanged by later test-only fix. 390/768/1280 browser `fail:[]`; 3 service cards, 3 buyer decisions, 4 informative scope cards/12 examples, 0 old 23 tiles, 0 per-task email CTAs; broken links, overflow and runtime/network failures zero. Tablet and desktop floating shortcuts 2, overlapping category text 0.
+- Screenshot artifact #12044858940 downloaded and inspected: desktop full page, mobile full page, tablet category and viewport captures. Four area grid is 2 columns on desktop/tablet and one on mobile; no observed clipping or contact overlap. This is manual screenshot review, not formal WCAG certification.
+- Page status **CODE_QA_PASS / RESPONSIVE_VISUAL_QA_PASS / OWNER_REVIEW_PENDING**. Do not mark the second page closed or begin any other page without an explicit user instruction.

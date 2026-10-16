@@ -1,5 +1,14 @@
 # SEOImpuls — основной контекст проекта (читать первым)
 
+## /seo-services/ ACCEPTANCE EVIDENCE — 2026-10-16 (OWNER REVIEW PENDING)
+- Current page source `46bc35e` and EN-only assertion fix `462aa03`. New page is accessible in **GitHub Pages preview**; original production server untouched.
+- Latest strict Hugo + EN page assertion + sitewide whitehat gate **PASS**: [Actions #38899685820](https://github.com/agurkin2021-gif/seoimpuls/actions/runs/38899685820). Pages preview / noindex deployment **PASS**: [#38899685817](https://github.com/agurkin2021-gif/seoimpuls/actions/runs/38899685817). Context guard **PASS**: [#38899685925](https://github.com/agurkin2021-gif/seoimpuls/actions/runs/38899685925).
+- EN responsive browser checks **PASS** on exactly unchanged page HTML/CSS/JS source `46bc35e`: [#38899499592](https://github.com/agurkin2021-gif/seoimpuls/actions/runs/38899499592) at 390,768,1280; each `fail:[]`, exactly 3 main services, 3 buyer choice paths, 4 informational scope areas, 12 examples, 0 old 23 workstream tiles, 0 granular email CTAs; links, meta, breadcrumb JSON-LD, canonical, keyboard FAQ, interactive sample link and layout validations passed. 768px floating contact icons 2, text collisions 0; 1280 icons 2, collisions 0; no horizontal overflow, JS/failed networks/broken URLs.
+- Screenshots from artifact [#12044858940](https://github.com/agurkin2021-gif/seoimpuls/actions/runs/38899499592/artifacts/12044858940) downloaded and MANUALLY inspected: 1280-full, 390-full, 768-category and viewport-first screenshots. Observed four areas laid out 2×2 desktop/tablet and single column mobile; no obvious clipping or overlap in examined views. Screenshot evidence is not a complete accessibility or usability certification.
+- **STATUS: CODE_QA_PASS / RESPONSIVE_VISUAL_QA_PASS / OWNER_REVIEW_PENDING**. Never call page "closed" unless owner approves. Next owner-facing action: evaluate the simplified second page. **Absolutely do not switch to any other page without explicit new owner command.** Historical GSC/migration blockers are irrelevant to this greenfield rebuild.
+
+
+
 ## EN /seo-services/ TARGETED QA SCRIPT FIX — 2026-10-16
 - Initial source change `46bc35e` compiled successfully under Hugo but full rebuild and Pages preview checks #38899499369/#38899499275 FAIL at EN-only `scripts/verify_en_services_route.py`: script still searched retired heading `SEO Work We Can Scope`, so selector ordering assertion failed.
 - Corrected ONLY this stale expected heading to rendered `What SEO Work May Include` in the EN page validation script. No source/site content change in this fix; full strict/Pages/Chrome QA must rerun. Browser #38899499592 remained in progress at diagnosis.
@@ -129,6 +138,14 @@ IMPORT_STATUS: completed
 7. Перед новым чатом прочитать AGENTS.md и этот файл прямо из репозитория, проверить фактическое состояние GitHub/Actions и продолжить с секции 6 «Следующее действие».
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
+
+### 2026-10-16 — EN /seo-services/ simplification: all automated + manual screenshot QA passed
+- New source 46bc35e (four work areas / 12 examples / 3 services); targeted static test heading correction 462aa03 (no HTML change).
+- Hugo/strict #38899685820 PASS; GitHub Pages preview #38899685817 PASS; context guard #38899685925 PASS; browser on identical rendered code 46bc35e #38899499592 PASS at 390/768/1280.
+- Browser fail arrays empty; category anchor/header visibility pass; floating WA/TG icon overlaps at 768/1280 = 0, no broken links, overflow, runtime/network errors. Manually inspected screenshots from #12044858940: 390 full, 768 category, 1280 full and first viewports; no obvious layout defect observed.
+- Changed files in this QA acceptance record ONLY `CHATGPT_PROJECT_CONTEXT.md` and `docs/plans/EN_SEO_SERVICES_SIMPLIFICATION_PLAN.md`. All page source, tests, other pages, main/production unchanged from latest passing runs.
+- STATUS: CODE_QA_PASS / RESPONSIVE_VISUAL_QA_PASS / OWNER_REVIEW_PENDING. Page remains open pending explicit owner acceptance; DO NOT auto-advance to any other URL.
+
 
 ### 2026-10-16 — Correct obsolete EN catalogue test heading (CI PENDING)
 - Rebuild #38899499369 and preview #38899499275 failed because scripts/verify_en_services_route.py retained old catalogue title in selector-order assertion. Hugo build passed.
