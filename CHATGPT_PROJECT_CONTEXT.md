@@ -60,6 +60,14 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — EN /services/ stage authorized; research keyword-rich URL and independent SERPs
+- Owner explicitly moved to English `/services/` after EN homepage completed, then suggested replacing generic path with a descriptive keyword. Scoped stage now covers EN services hub and EN-only navigation/link dependencies, not broad rewrites of main or RU/ES.
+- Connected Opera inspected Preview `/services/`, production `/services/` and `/seo-services/` both currently 404. Took Google Web desktop `seo services`, `seo services list`, `types of seo services` snapshots with `hl=en&gl=us&pws=0&udm=14`; followed and recorded **exact top10 organic URLs for seo services list**. Competitor intent split: `seo services` generally provider-hire (home owns), `seo services list` mostly 10–20 types and agency comparisons, while our hub is **only 3 genuine services**.
+- Research and intent map in `docs/research/2026-10-15-en-services-serp-and-architecture.md`: homepage = provider-selection, catalog = choose service and deliverable, child audit/keyword/consultation = specifics. Candidate clean hub URL `/seo-services/` descriptive, **not a ranking guarantee**. Current URLs are preview; no GSC demand for candidate query known.
+- Updated `AGENTS.md` user-approved phase scope to permit EN hub and necessary EN-only crosslinks. This research-only commit does not yet rename URL, change production, or touch EN main page content.
+- Next: one carefully scoped URL migration/refactor with content/canonical/menu/FAQ/About/QA and old URL fallback; prevent service keyword cannibalization. Strict Hugo, Pages and browser checks before calling complete.
+
+
 ### 2026-10-15 — EN homepage Organization/WebSite schema verified; external Google test unavailable
 - Schema implementation commit dd09eff9 passed Hugo QA #99, Pages Preview #40 and Chromium 390/1280 #10. Strict Python generated-HTML guard confirmed two valid EN-home JSON-LD nodes (`WebSite`, `Organization`), correct homepage description/canonical/logo/publisher @ids, no collective `Person` or one-item BreadcrumbList; RU/ES home schema unchanged.
 - Actual Google Pages logo asset 487×229 loaded in connected Opera. External Google Rich Results Test on GitHub Preview returned `URL unavailable to Google` / crawl failed; therefore **external Google validation was not completed**, do not claim it passed. Preview intentionally noindex and production domain untouched.
@@ -840,11 +848,13 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Only EN homepage in `white-seo-rebuild`. RU/ES and all other EN pages remain unchanged. `main` and production `seoimpuls.com` untouched.
+Owner authorized move from EN homepage to **EN services hub** and proposed descriptive keyword slug. Current old preview hub `/services/`; proposed `/seo-services/`. Both `seoimpuls.com/services/` and `seoimpuls.com/seo-services/` were 404 when inspected; no GSC data or external links available.
 
-**Completed:** EN homepage structured data corrected in commit dd09eff9: linked schema.org `Organization` + `WebSite`, SeoImpuls brand/logo (actual 487x229 WebP), correct EN page description, no fake collective Person and no one-item breadcrumb. Hugo #99 PASS, Pages Preview #40 PASS, Chromium 390/1280 #10 PASS. Full audit report `docs/research/2026-10-15-en-home-schema-audit.md`. External Google Rich Results Test of Pages URL could **not** crawl (`URL unavailable to Google`), so eligibility not asserted; preview intentionally noindex.
+Fresh real Google Web SERP and exact top10 for `seo services list`, plus `seo services` and `types of seo services` snapshots, intent split, limitations, and proposed migration in `docs/research/2026-10-15-en-services-serp-and-architecture.md`. Home `/` owns `professional seo services` (commercial provider-hire), hub `/seo-services/` chooses among 3 **actually offered** services and deliverables; do not turn hub into provider-home clone or pretend 20 services available.
 
-**Next user decision:** English homepage is content/schema/technical/automated accessibility QA-validated in Preview with caveats. Further work requires actual authenticated GSC data to test `/` versus `/services/`, genuine verified brand expertise/cases, target geo and separate approval for supporting EN pages or production rollout. Do not add fake LocalBusiness/address/reviews/rating, Service or FAQPage spam to homepage. EN pages' generic BlogPosting schema to be corrected later under owner permission. Status `GSC_PENDING`, `PROOF_REQUIRED`, `GEO_PHYSICAL_UNVERIFIED`, `RELEASE_BLOCKED`.
+**Next implementation:** safely set EN hub URL `/seo-services/` (do not change EN child URLs), provide explicit old-path fallback if needed, update EN navigation and necessary links in homepage/About/FAQ, produced hreflang, sitemap, canonical, and CI checks; verify strict Hugo, Pages, browser 390/1280, and no Google indexed duplicate. Only EN hub and minimal navigation dependencies, no RU/ES source edits, no main branch or production. Do not claim actual server 301 from Hugo alias. Keep CHATGPT_PROJECT_CONTEXT.md in every commit.
+
+After: refine EN hub for user selecting service based on SERP and compare against homepage to prevent duplicate intent; then carry out audits. GSC_PENDING, PROOF_REQUIRED, GEO_PHYSICAL_UNVERIFIED, RELEASE_BLOCKED.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 
