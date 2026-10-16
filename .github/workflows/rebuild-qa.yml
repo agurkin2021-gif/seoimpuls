@@ -24,6 +24,8 @@ jobs:
         run: hugo --minify --noBuildLock
       - name: Verify EN homepage schema and preserve RU/ES
         run: python3 scripts/verify_en_home_schema.py
+      - name: Verify EN SEO hub canonical and redirects
+        run: python3 scripts/verify_en_services_route.py
       - name: Verify English homepage floating footer
         run: python3 scripts/verify_en_footer_popup.py
       - name: Prevent unrelated affiliate link substitution
@@ -245,7 +247,7 @@ jobs:
           h=Page();h.feed(hub.read_text(encoding='utf-8'))
           assert ''.join(h.h1).strip()=='SEO-услуги для сайта',h.h1
           assert h.canon==['https://seoimpuls.com/ru/uslugi/'],h.canon
-          assert h.lang.get('en-us')=='https://seoimpuls.com/services/',h.lang
+          assert h.lang.get('en-us')=='https://seoimpuls.com/seo-services/',h.lang
           valid={'/ru/seo/','/ru/uslugi/semanticheskoe-yadro/','/ru/uslugi/seo-konsultaciya/','/ru/uslugi/razrabotka-saitov/'}
           assert len(h.cards)==4 and set(h.cards)==valid,h.cards
           for path in valid:
@@ -340,7 +342,7 @@ jobs:
               def handle_data(self,s):
                   if self.h1:self.h.append(s)
           items=[
-            ('services/', 'ru/uslugi/', 'es/servicios/'),
+            ('seo-services/', 'ru/uslugi/', 'es/servicios/'),
             ('services/keyword-research/','ru/uslugi/semanticheskoe-yadro/','es/servicios/investigacion-palabras-clave/'),
             ('services/seo-consultation/','ru/uslugi/seo-konsultaciya/','es/servicios/consultoria-seo/')]
           for triple in items:
@@ -708,7 +710,7 @@ jobs:
           if legacy:raise SystemExit('Legacy grey copy on EN homepage: '+str(legacy))
           if ''.join(page.h1).strip()!='Professional SEO Services':
               raise SystemExit('Incorrect EN homepage H1: '+str(page.h1))
-          if '/seo/' not in page.links or '/services/' not in page.links or '/services/keyword-research/' not in page.links:
+          if '/seo/' not in page.links or '/seo-services/' not in page.links or '/services/keyword-research/' not in page.links:
               raise SystemExit('Required EN service routes missing')
           if 'technical seo audits, on-page optimization, keyword research, content strategy and international seo — with clear priorities and defined deliverables.' not in visible:raise SystemExit('EN homepage subtitle mismatch')
           for fragment in ('what our seo services cover','technical seo & indexing','on-page seo:',
@@ -784,11 +786,11 @@ jobs:
               if forbidden in kw_txt:raise SystemExit('Legacy keyword research term: '+forbidden)
           print('PASS: EN keyword research new URL, H1, canonical, sections and clean copy.')
           hub=Page()
-          hub.feed(Path('public/services/index.html').read_text(encoding='utf-8'))
+          hub.feed(Path('public/seo-services/index.html').read_text(encoding='utf-8'))
           if ''.join(hub.h1).strip()!='SEO Services & Practical Deliverables':
-              raise SystemExit('Unexpected /services/ H1: '+str(hub.h1))
-          if hub.canonical!=['https://seoimpuls.com/services/']:
-              raise SystemExit('Unexpected /services/ canonical: '+str(hub.canonical))
+              raise SystemExit('Unexpected /seo-services/ H1: '+str(hub.h1))
+          if hub.canonical!=['https://seoimpuls.com/seo-services/']:
+              raise SystemExit('Unexpected /seo-services/ canonical: '+str(hub.canonical))
           hub_text=' '.join(' '.join(hub.visible).split()).lower()
           for old in ('link building services','domain rating','mass backlinks','tier 1-2-3','microsite development'):
               if old in hub_text:raise SystemExit('Old service catalog term visible: '+old)
@@ -796,7 +798,7 @@ jobs:
               raise SystemExit('Missing current SEO services in catalog')
           if 'link building services' in kw_txt:
               raise SystemExit('Outdated breadcrumb remains on keyword research page')
-          print('PASS: /services/ catalog, canonical, H1, valid service links, keyword breadcrumb.')
+          print('PASS: /seo-services/ catalog, canonical, H1, valid service links, keyword breadcrumb.')
           consult=Page()
           consult.feed(Path('public/services/seo-consultation/index.html').read_text(encoding='utf-8'))
           if ''.join(consult.h1).strip()!='SEO Consultation & Strategy Review':
@@ -822,7 +824,7 @@ jobs:
           for legacy in ('link building services','years of practical experience in seo, link building',
                          '2,900+','1,690+','100% of orders delivered successfully','pbn','tier 1-2-3'):
               if legacy in about_txt:raise SystemExit('Unverified/legacy claims on About: '+legacy)
-          if '/services/' not in about.links or '/seo/' not in about.links:
+          if '/seo-services/' not in about.links or '/seo/' not in about.links:
               raise SystemExit('Missing approved service links on About')
           for anchor in ('approach','services','accountability','trust','contact'):
               if anchor not in about.ids:raise SystemExit('Missing About section: '+anchor)
@@ -838,7 +840,7 @@ jobs:
               if essential not in faq_txt:raise SystemExit('Missing FAQ coverage: '+essential)
           for forbidden in ('link building services','domain rating increase','xrumer','gsa ser','rankings in a guaranteed timeframe'):
               if forbidden in faq_txt:raise SystemExit('Legacy or unsupported FAQ claim: '+forbidden)
-          for service_url in ('/seo/','/services/','/services/keyword-research/','/services/seo-consultation/'):
+          for service_url in ('/seo/','/seo-services/','/services/keyword-research/','/services/seo-consultation/'):
               if service_url not in faq.links:raise SystemExit('Missing FAQ service link: '+service_url)
           print('PASS: EN FAQ H1, canonical, helpful answers and internal service links.')
           class PrimaryNav(HTMLParser):

@@ -157,7 +157,7 @@ defaultContentLanguageInSubdir = false
 
     [[languages.en.menu.main]]
       name = "Services"
-      url = "/services/"
+      url = "/seo-services/"
       weight = 3
 
     [[languages.en.menu.main]]

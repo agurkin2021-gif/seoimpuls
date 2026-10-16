@@ -60,6 +60,12 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — Rename English service catalog to /seo-services/
+- From user-suggested descriptive keyword path, renamed EN section hub canonical to `/seo-services/`, leaving EN child pages `/services/keyword-research/` and `/services/seo-consultation/` intact. Selected intent: **compare genuine offered services and deliverables**, unlike homepage `professional seo services` hire-provider intent. URL is not ranking guarantee.
+- Existing old Preview `/services/` gets Hugo static redirect alias (NOT HTTP 301). Updated EN home CTA / service variable, EN navigation, About and FAQ links only as dependencies; RU/ES source untouched and hreflang auto-points at new EN URL. Production currently 404 on both and unchanged.
+- Updated strict Hugo QA expectations and Pages workflow; new generated-HTML script `scripts/verify_en_services_route.py` enforces canonical and breadcrumb, service link integrity, reciprocal hreflang, homepage/About/FAQ routes, old alias not duplicate, sitemap and unchanged child URLs. Migration recorded in `docs/seo-url-migration-register.csv`.
+- GitHub Actions must be checked before claiming success; current step is URL architecture only, separate future on-page page-level content audit. No live server 301 applied; GSC_PENDING.
+
 ### 2026-10-15 — EN /services/ stage authorized; research keyword-rich URL and independent SERPs
 - Owner explicitly moved to English `/services/` after EN homepage completed, then suggested replacing generic path with a descriptive keyword. Scoped stage now covers EN services hub and EN-only navigation/link dependencies, not broad rewrites of main or RU/ES.
 - Connected Opera inspected Preview `/services/`, production `/services/` and `/seo-services/` both currently 404. Took Google Web desktop `seo services`, `seo services list`, `types of seo services` snapshots with `hl=en&gl=us&pws=0&udm=14`; followed and recorded **exact top10 organic URLs for seo services list**. Competitor intent split: `seo services` generally provider-hire (home owns), `seo services list` mostly 10–20 types and agency comparisons, while our hub is **only 3 genuine services**.
@@ -848,13 +854,11 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Owner authorized move from EN homepage to **EN services hub** and proposed descriptive keyword slug. Current old preview hub `/services/`; proposed `/seo-services/`. Both `seoimpuls.com/services/` and `seoimpuls.com/seo-services/` were 404 when inspected; no GSC data or external links available.
+Current stage: English `SEO Services` hub, URL changed from `/services/` to `/seo-services/` on `white-seo-rebuild` at user's request. EN homepage `/` title/content/H1 remain frozen; only necessary hero/nav/link dependencies changed. RU/ES source, English child page URLs, repo main, and live seoimpuls.com are untouched.
 
-Fresh real Google Web SERP and exact top10 for `seo services list`, plus `seo services` and `types of seo services` snapshots, intent split, limitations, and proposed migration in `docs/research/2026-10-15-en-services-serp-and-architecture.md`. Home `/` owns `professional seo services` (commercial provider-hire), hub `/seo-services/` chooses among 3 **actually offered** services and deliverables; do not turn hub into provider-home clone or pretend 20 services available.
+SERP-first competitor top10 and intent map: `docs/research/2026-10-15-en-services-serp-and-architecture.md`. Homepage owns `professional seo services` and provider-selection; catalog owns selecting actual services and comparing deliverables. Don't target `seo services list` 20-category informative SERP on 3-offer catalog.
 
-**Next implementation:** safely set EN hub URL `/seo-services/` (do not change EN child URLs), provide explicit old-path fallback if needed, update EN navigation and necessary links in homepage/About/FAQ, produced hreflang, sitemap, canonical, and CI checks; verify strict Hugo, Pages, browser 390/1280, and no Google indexed duplicate. Only EN hub and minimal navigation dependencies, no RU/ES source edits, no main branch or production. Do not claim actual server 301 from Hugo alias. Keep CHATGPT_PROJECT_CONTEXT.md in every commit.
-
-After: refine EN hub for user selecting service based on SERP and compare against homepage to prevent duplicate intent; then carry out audits. GSC_PENDING, PROOF_REQUIRED, GEO_PHYSICAL_UNVERIFIED, RELEASE_BLOCKED.
+Old `/services/` has Hugo HTML alias (not production server 301), only `/seo-services/` should be full canonical indexed hub; child `/services/keyword-research/`, `/services/seo-consultation/` unchanged. New `scripts/verify_en_services_route.py` and updated CI check aliases, site map, canonical, hreflang and links. **Next:** run Hugo QA / Pages Preview, verify actual old alias and new hub in Opera, then fix any regressions; continue focused on-page audit of catalog. No production migration without approval/GSC. Release still gated.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 

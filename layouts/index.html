@@ -4,7 +4,7 @@
 {{- $isES := eq $lang "es" -}}
 {{- $builderURL := cond $isRU "/ru/seo/" (cond $isES "/es/seo/" "/seo/") -}}
 {{- $newsListURL := cond $isRU "/ru/news/" (cond $isES "/es/news/" "/news/") -}}
-{{- $servicesURL := cond $isRU "/ru/uslugi/" (cond $isES "/es/servicios/" "/services/") -}}
+{{- $servicesURL := cond $isRU "/ru/uslugi/" (cond $isES "/es/servicios/" "/seo-services/") -}}
 {{- $seoURL := cond $isRU "/ru/seo/" (cond $isES "/es/seo/" "/seo/") -}}
 {{- $casesURL := $seoURL -}}
 {{/* Disabled legacy Software path: render card 2 only when an explicit URL is set in homeJson. */}}
