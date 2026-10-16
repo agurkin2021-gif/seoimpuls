@@ -60,6 +60,12 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 AR — Synchronize final rebuild QA gate with approved EN catalogue H1
+- EN expanded catalogue `/seo-services/` is built and published to **GitHub Pages preview**, run #38844411228 PASS, after strict white-hat gate was satisfied. Rebuild run #38844411236 validated all preceding HTML/source checks, RU/ES integrations, migrations, affiliates and the strict anti-spam gate; it then failed **only in the final embedded EN-H1 assertion** inside `.github/workflows/rebuild-qa.yml`, which still expected the old catalogue `SEO Services & Practical Deliverables`. New rendered H1 is the owner-approved `Choose the Right SEO Work for Your Website`.
+- Updated one assertion in `.github/workflows/rebuild-qa.yml` to the approved H1; no weakening of checks. The dedicated route QA `scripts/verify_en_services_route.py` and 390/1280 browser QA had already tested this new H1 accurately (browser run #38844041118 PASS).
+- No content/site source, URL, titles, production, EN homepage, RU/ES or main edits in this QA-only commit. **Pending:** re-run Hugo rebuild/context/Pages and verify final green CI status before considering code QA complete. Full production release still requires GSC migration and owner approval.
+
+
 ### 2026-10-16 UTC / 2026-10-15 AR — Clarify no-manipulative-links FAQ and pass strict release check
 - New full catalogue browser QA **PASS** run #38844041118 for both 390px and 1280px (23 workstreams, four groups, 3 entry cards, no overflow, broken local links, browser errors or failed image loads). Context guard passed, targeted Hugo route assertions fixed in `ea92b35`.
 - Rebuild QA #38844200291 and Pages Preview #38844200353 then failed **strict whitehat content gate**, despite previous steps passing: new FAQ negatively mentioned `backlinks`, which the gate flags as legacy visible copy even in a denial. No prohibited product was actually offered, but current published copy made the machine gate fail. Exact finding `/seo-services/index.html | legacy_visible_copy | backlink`.
