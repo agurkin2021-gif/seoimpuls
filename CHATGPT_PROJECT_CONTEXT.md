@@ -60,6 +60,11 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — Update Pages preview EN hub link assertion after canonical URL rename
+- Hugo QA #104 PASS, including dedicated service URL assertions: new `/seo-services/` canonical/H1/Title, three child links, RU/ES reciprocal hreflang, old `/services/` HTML alias, EN language sitemap without duplicate.
+- Pages #45 failed solely in preview post-build hardcoded link assertion expecting `/seoimpuls/services/` in homepage instead of updated `/seoimpuls/seo-services/`. Corrected this assertion in publish-preview.yml; no website HTML, CSS, RU/ES or production changes.
+- Next re-run Pages and verify new hub, old alias and actual link routing in Opera.
+
 ### 2026-10-15 — Correct English service hub sitemap QA for multilingual Hugo sitemapindex
 - After HTML Title fix 8447c02d, Hugo #103 and Pages #44 still failed **only** on service QA sitemap assertion: script searched `public/sitemap.xml` for the hub, but this multilingual Hugo site generates root `sitemapindex` with linked `public/en/sitemap.xml`, `public/es/sitemap.xml`, `public/ru/sitemap.xml`.
 - Independently opened published GitHub Pages sitemap index and English sitemap in Opera; old `/services/` is in `/en/sitemap.xml` in prior stable build. QA false positive confirmed; actual new page output/canonical/H1/links/hreflang and alias tests already passed earlier in script.

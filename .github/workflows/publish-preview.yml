@@ -67,7 +67,7 @@ jobs:
                       self.urls.append(dict(attrs).get('href',''))
           links=AnchorLinks()
           links.feed((root/'index.html').read_text(encoding='utf-8'))
-          for expected in ('/seoimpuls/services/','/seoimpuls/seo/',
+          for expected in ('/seoimpuls/seo-services/','/seoimpuls/seo/',
                            '/seoimpuls/services/keyword-research/','/seoimpuls/#how-it-works'):
               assert expected in links.urls, 'Missing preview path '+expected
           invalid=[url for url in links.urls
