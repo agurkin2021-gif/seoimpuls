@@ -1,5 +1,11 @@
 # SEOImpuls — основной контекст проекта (читать первым)
 
+## 2026-10-16 — EN homepage palette QA after live Opera regression check (CONFIRMED)
+- Tested CSS source `bef6c46801` on fixed working preview in Opera; screenshot after cache-busting URL `?colorfix=bef6c468#contact-project` confirmed the bottom primary CTA is teal with DARK readable lettering and without prior neon halo. Hero primary uses the same teal/dark text; secondary actions remain outlined. Existing service card palette and footer platform icon colors unchanged.
+- Success on source `bef6c46801`: strict Hugo #38982596135, Pages preview #38982596153, per-commit context #38982596136, EN home visual browser #38982596134, English home WCAG #38982596220. Contrast of actual intended text/background #071321/#59c1d0 = 8.86:1, confirmed no automatic WCAG gate failure.
+- Independently, EN/RU services browser #38982596165 FAILED on the *pre-existing* rail-alignment condition: hero inner heading x=36 vs header-brand x=18 at 390px; x=64 vs x=32 at 1280px. The outside hero panel aligns with the header rail. This is a separate alignment decision/test contract, not a color regression; do not assert full project-wide QA green.
+- Palette conclusion: no evidence-based reason to recolor major surfaces, normal text and cards. EN-only CTA colors unified, no production deployment; RU/ES/source main unchanged. This is a CSS-color scope acceptance; further work only with owner direction, including separate alignment issue.
+
 ## 2026-10-16 — Fix EN contact CTA white-text contrast conflict after live Opera review (QA PENDING)
 - Post-preview Opera screenshot of `/#contact-project` on candidate `61a6cfef10` showed bottom CTA had new teal #59c1d0 background but inherited white text from an earlier more-specific `.seo-central--en .seo-en-home-scope-actions a.seo-cta--primary` rule (including visited/hover/focus). White on teal contrast = **2.11:1**: unacceptable for normal text despite compilation PASS. Previous source-only intended ratio was not what Opera rendered.
 - Correct that exact legacy EN-only high-specificity rule to inherit dark #071321 via the established EN palette custom property (8.86:1 on #59c1d0). Disable unrelated global glow ::after pseudo-element only on EN contact CTAs so hero and contact styles match; leave keyboard focus treatment visible.

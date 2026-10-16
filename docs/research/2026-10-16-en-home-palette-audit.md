@@ -26,3 +26,9 @@ Design decision and CSS edit prepared, not yet QA accepted. Await strict Hugo/pr
 - Opera test of initial normalization candidate `61a6cfef10` showed the contact CTA's real text was WHITE, not the proposed dark color, due to a stronger legacy EN-only visited/hover/focus rule declaring `color:#fff!important`.
 - That rendered combination #ffffff on #59c1d0 = **2.11:1**, below 4.5:1 for normal text. Corrective patch changes the old rule to `var(--seo-en-action-fg,#071321)!important`, maintaining 8.86:1 across link states, and disables a global ::after neon halo for the closing panel buttons.
 - New candidate requires Pages and Opera recheck; previous contrast 8.86:1 was an *intended* CSS combination, not the initial candidate's effective rendering.
+
+## Verification after corrective patch
+- Corrected source `bef6c46801eb21f354ee2956b24a3bd133e3ad68` visually inspected on the GitHub Pages preview in Opera. Lower CTA now teal background / dark lettering, halo no longer appears; secondary CTA remains a quieter outline. Contrast 8.86:1.
+- PASS: Hugo strict #38982596135; noindex working preview #38982596153; context guard #38982596136; EN home visual browser #38982596134; homepage WCAG #38982596220.
+- Separate FAIL: EN/RU services browser #38982596165 for pre-existing hero **inner text** vs header-rail alignment (18px offset at 390; 32px at 1280). This task changes no geometry and does not resolve or dismiss that mismatch.
+- The design rationale is hierarchy and functional color roles, not an unsupported promise that any color increases conversions. Main and production remain untouched.
