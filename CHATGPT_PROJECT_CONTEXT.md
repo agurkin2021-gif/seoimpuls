@@ -60,6 +60,12 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — EN example deep-link heading is no longer obscured by fixed header
+- Prior commit b646dbe8 published and validated: Hugo QA #95 PASS, Pages Preview #36 PASS, Chrome responsive run #38831630098 PASS (390/1280px: no overflow, image/link/JS errors, correct H1/meta/canonical/footer), axe WCAG run #38831630071 PASS (zero confirmed violations dark/light, CTA keyboard focus preserved). Visually reviewed full-page 390/1280 PNGs from Chromium artifact.
+- Opening the published example via `#seo-en-example-title` in Opera showed its H3 partly hidden behind the sticky top header because the heading is an in-page anchor. Added `scroll-margin-top:126px` to that EN-only example H3 selector in layouts/index.html. No impact on normal page layout, content, mobile vs desktop grid, RU/ES, other EN pages, production or main.
+- Next: verify Hugo/Pages and direct-anchored link in Opera; inspect header offset. Update status in context if finished.
+
+
 ### 2026-10-15 — EN homepage illustrative SEO audit finding approved and implemented
 - Owner explicitly authorized placing one example of a verifiable SEO recommendation after `What You Receive`. New EN-only card in `layouts/index.html`: `Illustrative audit finding — not a client case` / `An important page excluded by noindex`. Fields cover issue, HTTP/robots/canonical evidence, approval/implementation responsibility and acceptance check. High priority only if page intended for indexing; technical check does not guarantee Google indexing or rankings.
 - Compact two-column desktop, one-column mobile `<dl>` with dark styling matching current site. Hugo template guard `{{ if eq $lang "en" }}` preserved; RU/ES, other EN pages, original popping footer, URL/H1/meta, production/main untouched.
