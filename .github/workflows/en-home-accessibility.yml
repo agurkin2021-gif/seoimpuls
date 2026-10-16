@@ -1,0 +1,53 @@
+name: English homepage WCAG diagnostic
+on:
+  push:
+    branches: [white-seo-rebuild]
+    paths:
+      - '.github/workflows/en-home-accessibility.yml'
+      - 'scripts/audit_en_home_accessibility.cjs'
+      - 'layouts/index.html'
+      - 'content/_index.md'
+      - 'assets/css/_override.scss'
+      - 'assets/css/_home_inline.scss'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.25.5'
+      - uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: '0.154.5'
+          extended: true
+      - name: Build Hugo output
+        run: hugo --minify --noBuildLock
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Chromium and axe-core
+        run: |
+          npm install --prefix /tmp/seo-home-a11y --no-save playwright@1.56.1 axe-core@4.10.3
+          node /tmp/seo-home-a11y/node_modules/playwright/cli.js install --with-deps chromium
+      - name: Serve local Hugo output
+        run: |
+          nohup python3 -m http.server 8765 --directory public >/tmp/seo-home-a11y-server.log 2>&1 &
+          sleep 2
+          curl -fsSI http://127.0.0.1:8765/
+      - name: WCAG 2.2 automated rules and keyboard focus trace
+        env:
+          NODE_PATH: /tmp/seo-home-a11y/node_modules
+        run: node scripts/audit_en_home_accessibility.cjs
+      - name: Save accessibility JSON
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: seoimpuls-en-home-wcag-390-1280
+          path: audit-artifacts/en-home-accessibility/
+          if-no-files-found: warn
+          retention-days: 14

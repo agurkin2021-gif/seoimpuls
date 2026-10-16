@@ -60,6 +60,14 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — EN homepage next QA: WCAG and real PageSpeed evidence
+- Owner asked to continue beyond completed SERP/on-page and 390/1280 browser QA. Examined next evidence needs before editing content.
+- Connected Opera cannot read SEOImpuls Google Search Console: direct property URL redirects to publicly available Search Console about/sign-in page. Treat GSC_PENDING; no invented impressions, click trends or cannibalization metrics.
+- Public Google PageSpeed Insights mobile run on Preview `https://agurkin2021-gif.github.io/seoimpuls/`: lab Performance 98, Accessibility 95, Best Practices 100, SEO 66; FCP 0.9s, LCP 0.9s, TBT 0 ms, CLS 0, Speed Index 3.8s. Preview lacks Chrome UX field data ("Нет данных") and is intentionally noindex, accounting for SEO indexing audit failure; these numbers do not represent production seoimpuls.com nor field CWV. Accessibility Lighthouse flags insufficient foreground/background contrast, element unspecified so further axe investigation required.
+- Added `scripts/audit_en_home_accessibility.cjs` and `.github/workflows/en-home-accessibility.yml`: isolated Chromium axe WCAG 2.2 A/AA diagnostic + keyboard tab-focus trace at 390/1280px, outputs JSON artifact. Runs on relevant EN homepage/template/style changes. No content, RU/ES, main or production changes.
+- Current audit run pending; next inspect specific axe nodes before applying scoped CSS changes. User-approved floating footer must remain intact.
+
+
 ### 2026-10-15 — EN-home Google top10 competitor register & intent closure QA finalized
 - Created `docs/research/2026-10-15-en-home-professional-seo-competitors.csv` with all ten final URLs from live Google Web query and source parameters, plus entity/type/gap signals. Duplicate Coalition URL is preserved as two actual result URLs. Direct Google browser location was undetermined, so strictly geolocated US rankings NOT asserted.
 - Finalized `docs/research/2026-10-15-en-home-professional-seo-serp.md` with exact main intent ownership, gap implementation/commits and limitation flags: SERP_SNAPSHOT_VERIFIED, GEO_PHYSICAL_UNVERIFIED, GSC_PENDING, PROOF_REQUIRED.
