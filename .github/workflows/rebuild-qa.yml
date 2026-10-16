@@ -49,25 +49,8 @@ jobs:
           PY
       - name: Enforce no published links or output for retired URLs
         run: python3 scripts/verify_retired_routes.py --site public --routes docs/retired-routes-en.txt
-      - name: Verify RU homepage affiliate labels and grounded hosting copy
-        shell: bash
-        run: |
-          python3 - <<'PY'
-          from html.parser import HTMLParser
-          from pathlib import Path
-          class TextCollector(HTMLParser):
-              def __init__(self):
-                  super().__init__(); self.out=[]
-              def handle_data(self, data): self.out.append(data)
-          html = Path('public/ru/index.html').read_text(encoding='utf-8')
-          collector = TextCollector(); collector.feed(html)
-          text = ' '.join(' '.join(collector.out).split()).casefold()
-          assert 'vps для размещения сайта' in text, 'RU VPS card missing'
-          assert text.count('партнёрская ссылка') >= 2, 'RU VPS card or offer disclosure missing'
-          assert 'хостинг приватных сетей' not in text, 'Gray private-network promise remains'
-          assert 'vps не гарантирует улучшения индексации' in text, 'Required VPS limitation missing'
-          print('PASS: RU homepage VPS CTA is contextual, disclosed and avoids ranking promises.')
-          PY
+      - name: Verify Russian homepage ten-service content and local routes
+        run: python3 scripts/verify_ru_home_review.py
       - name: Verify ES homepage affiliate disclosure and hosting claims
         shell: bash
         run: |
@@ -86,44 +69,6 @@ jobs:
           assert 'hosting de red privada' not in text, 'Misleading private network hosting still shown'
           assert 'no garantiza una mejor indexación' in text, 'VPS ranking limitation missing'
           print('PASS: ES homepage VPS CTA is contextual, disclosed and makes no ranking guarantees.')
-          PY
-      - name: Validate RU strategy-builder retirement and homepage CTA destinations
-        shell: bash
-        run: |
-          python3 - <<'PY'
-          from html.parser import HTMLParser
-          from pathlib import Path
-          targets = {'heroBuilderUrl': ('/ru/uslugi/', 'SEO-услуги'),
-                     'heroCasesUrl': ('/ru/about/', 'О компании')}
-          class HeroLinks(HTMLParser):
-              def __init__(self):
-                  super().__init__()
-                  self.current = None
-                  self.links = {}
-              def handle_starttag(self, tag, attrs):
-                  if tag != 'a': return
-                  data = dict(attrs)
-                  field = data.get('data-home-link-field')
-                  if field in targets:
-                      self.current = (field, data.get('href', ''), [])
-              def handle_data(self, value):
-                  if self.current:
-                      self.current[2].append(value)
-              def handle_endtag(self, tag):
-                  if tag == 'a' and self.current:
-                      field, href, words = self.current
-                      self.links[field] = (href, ' '.join(' '.join(words).split()))
-                      self.current = None
-          html = Path('public/ru/index.html').read_text(encoding='utf-8')
-          parsed = HeroLinks()
-          parsed.feed(html)
-          for field, expected in targets.items():
-              actual = parsed.links.get(field)
-              assert actual == expected, f'{field}: expected {expected}, got {actual}'
-          assert not Path('public/ru/konstruktor-seo-strategii/index.html').exists(), 'Retired RU builder still published'
-          assert Path('public/ru/seo/index.html').is_file(), 'RU SEO destination missing'
-          assert Path('public/ru/about/index.html').is_file(), 'RU About destination missing'
-          print('PASS: RU strategy builder withdrawn; hero CTAs use real, correctly labelled destinations.')
           PY
       - name: Validate ES strategy-builder retirement and homepage CTA destinations
         shell: bash
@@ -450,7 +395,7 @@ jobs:
           assert not Path('public/servicios-de-link-building/creacion-de-sitios-web/index.html').exists()
           print('PASS: ES website development canonical, RU/ES hreflang, links and affiliate disclosure')
           PY
-      - name: Check empty ES software retirement and safe homepage card fallback
+      - name: Check ES software retirement and safe homepage card fallback
         shell: bash
         run: |
           python3 - <<'PY'
@@ -460,22 +405,19 @@ jobs:
           s=Path('layouts/index.html').read_text(encoding='utf-8')
           assert '"/es/soft/"' not in s, 'ES software fallback still in Hugo template'
           assert '"/soft/"' not in s, 'Old EN software fallback still in Hugo template'
-          assert 'if $homeCard2Link.href' in s, 'Explicit card URL guard is missing'
+          assert 'if $homeCard2Link.href' in s, 'ES card URL guard is missing'
           class Cards(HTMLParser):
-              def __init__(self):
-                  super().__init__();self.cards=[]
+              def __init__(self):super().__init__();self.cards=[]
               def handle_starttag(self,t,attrs):
                   a=dict(attrs)
                   if t=='a' and a.get('data-home-link-field')=='card2Url':
                       self.cards.append(a.get('href',''))
-          # EN homepage has nine work areas plus featured SEO Retainer (verified separately).
-          # Preserve original card 2 fallback only on unchanged localized RU/ES homepages.
-          for lang,path in [('ru','public/ru/index.html'),('es','public/es/index.html')]:
-              p=Cards();p.feed(Path(path).read_text(encoding='utf-8'))
-              assert len(p.cards)==1 and p.cards[0] and '/soft/' not in p.cards[0],(lang,p.cards)
+          es=Cards()
+          es.feed(Path('public/es/index.html').read_text(encoding='utf-8'))
+          assert len(es.cards)==1 and es.cards[0] and '/soft/' not in es.cards[0],es.cards
           en=Path('public/index.html').read_text(encoding='utf-8')
-          assert en.count('data-home-service=')==10, 'EN homepage needs ten data-driven service areas'
-          print('PASS: ES blank software removed; localized card fallback intact; EN uses ten primary areas')
+          assert en.count('data-home-service=')==10,'EN homepage must retain ten direct service areas'
+          print('PASS: ES blank software removed; ES fallback intact; EN ten service areas unchanged')
           PY
       - name: Check RU About factual scope and localized links
         shell: bash
@@ -611,36 +553,8 @@ jobs:
               assert legacy not in body,legacy
           print('PASS: ES technical SEO H1/canonical/hreflang, intent sections and local service links')
           PY
-      - name: Verify RU homepage agency intent and clean offer details
-        shell: bash
-        run: |
-          python3 - <<'PY'
-          from pathlib import Path
-          from html.parser import HTMLParser
-          class P(HTMLParser):
-              def __init__(self):
-                  super().__init__();self.onh=False;self.h=[];self.canon=[];self.hrefs=[];self.text=[]
-              def handle_starttag(self,t,attrs):
-                  a=dict(attrs)
-                  if t=='h1':self.onh=True
-                  if t=='a':self.hrefs.append(a.get('href',''))
-                  if t=='link' and a.get('rel')=='canonical':self.canon.append(a.get('href',''))
-              def handle_endtag(self,t):
-                  if t=='h1':self.onh=False
-              def handle_data(self,s):
-                  self.text.append(s)
-                  if self.onh:self.h.append(s)
-          p=P();p.feed(Path('public/ru/index.html').read_text(encoding='utf-8'))
-          txt=' '.join(' '.join(p.text).split()).casefold()
-          assert ''.join(p.h).strip()=='SEOImpuls — SEO-продвижение и техническое SEO',p.h
-          assert p.canon==['https://seoimpuls.com/ru/'],p.canon
-          for url in ('/ru/uslugi/','/ru/seo/','/ru/uslugi/semanticheskoe-yadro/','/ru/uslugi/razrabotka-saitov/'):
-              assert url in p.hrefs,('Missing RU homepage service',url)
-          for forbidden in ('поведенческие факторы','бэклинки','ссылочный профиль','линкбилдинг'):
-              assert forbidden not in txt,('Legacy homepage copy',forbidden)
-          assert 'партнёрская ссылка' in txt,'Visible hosting disclosure missing'
-          print('PASS: RU home H1/canonical, real service links, SEO process and honest VPS disclosure')
-          PY
+      - name: Verify Russian homepage H1, current service structure and promises
+        run: python3 scripts/verify_ru_home_review.py
       - name: Verify ES homepage helpful SEO process and agency intent
         shell: bash
         run: |

@@ -1,0 +1,93 @@
+{{- $copy := site.Data.ru_home_copy -}}
+{{- $services := site.Data.ru_home_services -}}
+<section class="seo-central seo-central--en seo-central--ru" aria-label="Основная информация об SEO-услугах">
+  <section class="seo-hero-panel" aria-labelledby="seo-hero-title">
+    <div class="seo-hero-content">
+      <div class="seo-hero-content__inner">
+        <h1 id="seo-hero-title" class="seo-hero-title">{{ .Title }}</h1>
+        <p class="seo-hero-text">{{ .Params.description }}</p>
+        <div class="seo-hero-actions">
+          <a class="seo-cta seo-cta--primary" href="{{ "/ru/#services" | relURL }}" data-home-link-field="heroBuilderUrl" data-home-link-value="/ru/#services">{{ $copy.heroPrimary }}</a>
+          <a class="seo-cta seo-cta--secondary" href="{{ "/ru/#contact-project" | relURL }}" data-home-link-field="heroCasesUrl" data-home-link-value="/ru/#contact-project">{{ $copy.heroSecondary }}</a>
+        </div>
+        {{ partial "seo-builder-blocks.html" . }}
+      </div>
+    </div>
+  </section>
+  <section class="seo-services-panel">
+    <section class="seo-en-primary-services" id="services" aria-labelledby="ru-services-title">
+      <div class="seo-en-primary-services__intro">
+        <h2 id="ru-services-title">{{ $copy.servicesHeading }}</h2>
+        <p>{{ $copy.servicesLead }}</p>
+      </div>
+      <div class="seo-en-primary-services__grid">
+        {{ range $index, $service := $services }}
+        <article class="seo-en-service-card{{ if $service.featured }} seo-en-service-card--featured{{ end }}" data-home-service="{{ $service.id }}">
+          <div class="seo-en-service-card__head">
+            <span class="seo-en-service-mark" aria-hidden="true">{{ printf "%02d" (add $index 1) }}</span>
+            <h3>{{ $service.title }}</h3>
+          </div>
+          <p>{{ $service.summary }}</p>
+          <p class="seo-en-service-card__outcome"><strong>{{ $copy.outcomeLabel }}</strong> {{ $service.outcome }}</p>
+          {{ with $service.route }}
+          <a class="seo-en-service-card__link" href="{{ . | relURL }}" data-home-service-link="details">{{ $copy.detailLabel }} <span aria-hidden="true">→</span></a>
+          {{ else }}
+          <a class="seo-en-service-card__link" href="{{ "/ru/#contact-project" | relURL }}" data-home-service-link="contact">{{ $copy.contactLabel }} <span aria-hidden="true">→</span></a>
+          {{ end }}
+        </article>
+        {{ end }}
+      </div>
+      <p class="seo-en-primary-services__note">{{ $copy.scopeNote }}</p>
+    </section>
+    <section class="seo-news-strip" aria-label="Как мы выполняем SEO-работу">
+      <div class="seo-news-strip__layout">
+        <div class="seo-news-strip__single">
+          <article class="seo-news-article seo-news-article--compact" id="how-it-works">
+            <h2 class="seo-news-article__title">{{ $copy.processHeading }}</h2>
+            <div class="seo-news-article__body">
+              <p>{{ $copy.processLead }}</p>
+              <ol>
+                {{ range $copy.processSteps }}
+                <li><strong>{{ .label }}:</strong> {{ .text }}</li>
+                {{ end }}
+              </ol>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+    <section class="seo-en-home-definition" aria-labelledby="ru-definition-title">
+      <h2 id="ru-definition-title">{{ $copy.definitionHeading }}</h2>
+      <p>{{ $copy.definitionText }}</p>
+    </section>
+    <section class="seo-en-home-deliverables" aria-labelledby="ru-deliverables-title">
+      <h2 id="ru-deliverables-title">{{ $copy.deliverablesHeading }}</h2>
+      <p class="seo-en-home-deliverables__intro">{{ $copy.deliverablesLead }}</p>
+      <div class="seo-en-home-deliverables__grid">
+        {{ range $copy.deliverables }}
+        <article class="seo-en-home-deliverable">
+          <h3>{{ .title }}</h3>
+          <p>{{ .text }}</p>
+        </article>
+        {{ end }}
+      </div>
+    </section>
+    <section class="seo-en-buyer-faq" aria-labelledby="ru-faq-title">
+      <h2 id="ru-faq-title">{{ $copy.faqHeading }}</h2>
+      <div class="seo-en-buyer-faq__grid">
+        {{ range $copy.faq }}
+        <article><h3>{{ .q }}</h3><p>{{ .a }}</p></article>
+        {{ end }}
+      </div>
+      <p class="seo-en-buyer-faq__more">{{ $copy.moreLabel }} <a href="{{ "/ru/faq/" | relURL }}">{{ $copy.faqLabel }}</a> · <a href="{{ "/ru/about/" | relURL }}">{{ $copy.aboutLabel }}</a></p>
+    </section>
+    <section class="seo-en-home-scope" id="contact-project" aria-labelledby="ru-contact-title">
+      <h2 id="ru-contact-title">{{ $copy.contactHeading }}</h2>
+      <p>{{ $copy.contactText }}</p>
+      <div class="seo-en-home-scope-actions">
+        <a class="seo-cta seo-cta--primary" href="https://t.me/Seoimpuls" target="_blank" rel="noopener noreferrer">{{ $copy.contactPrimary }}</a>
+        <a class="seo-cta seo-cta--secondary" href="{{ "/ru/uslugi/seo-konsultaciya/" | relURL }}">{{ $copy.contactSecondary }}</a>
+      </div>
+    </section>
+  </section>
+</section>

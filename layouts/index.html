@@ -358,9 +358,9 @@
 {{- if $pageTitlePixelWidth -}}{{- $pageTitleStyle = printf "%s width: %vpx; max-width: 100%%;" $pageTitleStyle $pageTitlePixelWidth -}}{{- end -}}
 {{- if or $pageTitleOffsetX $pageTitleOffsetY -}}{{- $pageTitleStyle = printf "%s transform: translate(%vpx, %vpx); transform-origin: left top;" $pageTitleStyle $pageTitleOffsetX $pageTitleOffsetY -}}{{- end -}}
 
-{{ if eq $lang "en" }}
+{{ if in (slice "en" "ru") $lang }}
 <style id="seo-en-home-visual">
-/* EN homepage only. Other locales retain existing design. */
+/* EN and RU matching commercial home layouts; ES retains its existing design. */
 .seo-central--en .seo-hero-content {padding:28px 32px 24px;}
 .seo-central--en .seo-hero-title {max-width:1070px;white-space:normal!important;text-wrap:balance;font-size:clamp(36px,3.8vw,54px)!important;line-height:1.12;letter-spacing:-.025em;margin-bottom:14px;}
 .seo-central--en .seo-hero-text {max-width:920px;font-size:clamp(17px,1.5vw,21px);line-height:1.52;margin-bottom:20px;}
@@ -584,6 +584,9 @@
 </style>
 {{ end }}
 
+{{ if $isRU }}
+{{ partial "ru-home-content.html" . }}
+{{ else }}
 <section class="seo-central{{ if eq $lang "en" }} seo-central--en{{ end }}" aria-label="{{ if $isRU }}Основной SEO контент{{ else if $isES }}Contenido principal SEO{{ else }}SEO consulting main content{{ end }}">
   <section class="seo-hero-panel" aria-labelledby="seo-hero-title">
     <div class="seo-hero-content">
@@ -845,6 +848,7 @@
     {{ end }}
   </section>
 </section>
+{{ end }}
 {{ partial "affiliate-link-script.html" . }}
 {{- end -}}
 
