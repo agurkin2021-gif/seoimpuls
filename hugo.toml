@@ -161,11 +161,6 @@ defaultContentLanguageInSubdir = false
       weight = 3
 
     [[languages.en.menu.main]]
-      name = "Technical SEO Audit"
-      url = "/technical-seo-audit/"
-      weight = 5
-
-    [[languages.en.menu.main]]
       name = "FAQ"
       url = "/faq/"
       weight = 7

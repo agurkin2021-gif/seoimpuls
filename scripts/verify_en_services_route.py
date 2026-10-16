@@ -152,7 +152,7 @@ assert all(term in source_html.lower() for term in (
 )), "Business-friendly scope or deliverable is missing"
 assert all(term not in source_html.lower() for term in (
   "discuss your website’s seo priorities", "share your website, target market",
-  "performance & usability:", "international seo:"
+  "performance & usability:"
 )), "Old site-only CTA or 8-offer list remains"
 
 

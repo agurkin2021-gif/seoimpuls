@@ -545,6 +545,35 @@
   .seo-central--en .seo-news-strip__side {grid-template-columns:1fr;}
   .seo-central--en .seo-news-article--compact {padding:19px 17px;}
 }
+
+/* EN homepage: nine buyer-facing SEO disciplines, not three packages or an eight-item add-on menu. */
+.seo-central--en .seo-en-primary-services{max-width:1280px;margin:0 auto;padding:20px 32px 6px;scroll-margin-top:115px;box-sizing:border-box}
+.seo-central--en .seo-en-primary-services__intro{margin:0 0 18px}
+.seo-central--en .seo-en-primary-services__intro h2{font-size:clamp(22px,2.2vw,28px);line-height:1.25;color:#eaf2ff;margin:0 0 9px}
+.seo-central--en .seo-en-primary-services__intro p{max-width:880px;margin:0;color:rgba(219,230,245,.9);font-size:15px;line-height:1.6}
+.seo-central--en .seo-en-primary-services__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;align-items:stretch}
+.seo-central--en .seo-en-service-card{min-width:0;min-height:0;display:flex;flex-direction:column;gap:11px;padding:18px 18px 16px;border-radius:12px;border:1px solid rgba(117,171,206,.34);background:linear-gradient(145deg,rgba(15,39,65,.96),rgba(7,19,35,.97));box-sizing:border-box}
+.seo-central--en .seo-en-service-card__head{display:flex;align-items:center;gap:12px;min-height:42px}
+.seo-central--en .seo-en-service-card h3{margin:0;font-size:17px;line-height:1.32;color:#ecf3ff}
+.seo-central--en .seo-en-service-card p{margin:0;color:rgba(218,228,242,.92);font-size:14px;line-height:1.55}
+.seo-central--en .seo-en-service-mark{display:grid;place-items:center;width:40px;height:40px;min-width:40px;border-radius:10px;border:1px solid rgba(115,200,241,.55);background:linear-gradient(145deg,#16446d,#091b32);color:#c6edff;font-size:16px;font-weight:800;font-variant-numeric:tabular-nums}
+.seo-central--en .seo-en-service-card:nth-child(3n+2) .seo-en-service-mark{border-color:rgba(120,207,177,.6);background:linear-gradient(145deg,#16483d,#0a1d2b);color:#cdf7e7}
+.seo-central--en .seo-en-service-card:nth-child(3n) .seo-en-service-mark{border-color:rgba(190,173,233,.6);background:linear-gradient(145deg,#343258,#11182e);color:#e9dcff}
+.seo-central--en .seo-en-service-card .seo-en-service-card__outcome{margin-top:auto;padding-top:9px;border-top:1px solid rgba(146,174,206,.22);font-size:13px}
+.seo-central--en .seo-en-service-card__outcome strong{color:#e8f2ff;font-weight:700}
+.seo-central--en .seo-en-service-card__link{display:inline-flex;gap:7px;align-items:center;align-self:flex-start;min-height:34px;margin-top:2px;color:#95d9ff!important;font-size:14px;font-weight:700;text-decoration:underline;text-underline-offset:3px}
+.seo-central--en .seo-en-service-card__link:hover{color:#e9f8ff!important}
+.seo-central--en .seo-en-service-card__link:focus-visible{outline:3px solid #8dd3ff;outline-offset:3px;border-radius:2px}
+.seo-central--en .seo-en-primary-services__note{max-width:970px;margin:14px 0 0;color:rgba(218,228,242,.82);font-size:13px;line-height:1.6}
+.seo-central--en .seo-news-strip__layout{display:block;grid-template-columns:none}
+.seo-central--en .seo-news-strip__single{width:100%;min-height:0;height:auto}
+.seo-central--en .seo-news-article--compact{padding:20px 22px}
+.seo-central--en .seo-en-home-deliverable__number{display:none}
+.seo-central--en #contact-project{scroll-margin-top:115px}
+@media(max-width:1050px){.seo-central--en .seo-en-primary-services__grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(min-width:768px) and (max-width:1020px){.seo-central--en #services{scroll-margin-top:192px}}
+@media(min-width:768px){.seo-central--en .seo-en-primary-services{padding-left:120px}}
+@media(max-width:767px){.seo-central--en .seo-en-primary-services{padding:18px 18px 6px}.seo-central--en .seo-en-primary-services__grid{grid-template-columns:1fr}.seo-central--en .seo-en-service-card{padding:16px}.seo-central--en .seo-en-primary-services__intro{margin-bottom:13px}}
 </style>
 {{ end }}
 
@@ -558,7 +587,7 @@
         </p>
         <div class="seo-hero-actions">
           <a class="seo-cta seo-cta--primary" href="{{ $homeHeroBuilderLink.href | safeURL }}"{{ with $homeHeroBuilderLink.cloaked }} data-seo-cloaked-href="{{ . }}"{{ end }}{{ with $homeHeroBuilderLink.rel }} rel="{{ . }}"{{ end }} data-home-link-field="heroBuilderUrl" data-home-link-value="{{ $homeHeroBuilderUrlRaw }}">{{ if $isRU }}SEO-услуги{{ else if $isES }}Servicios SEO{{ else }}Explore SEO Services{{ end }}</a>
-          <a class="seo-cta seo-cta--secondary" href="{{ $homeHeroCasesLink.href | safeURL }}"{{ with $homeHeroCasesLink.cloaked }} data-seo-cloaked-href="{{ . }}"{{ end }}{{ with $homeHeroCasesLink.rel }} rel="{{ . }}"{{ end }} data-home-link-field="heroCasesUrl" data-home-link-value="{{ $homeHeroCasesUrlRaw }}">{{ if $isRU }}О компании{{ else if $isES }}Sobre nosotros{{ else }}How We Work{{ end }}</a>
+          <a class="seo-cta seo-cta--secondary" href="{{ $homeHeroCasesLink.href | safeURL }}"{{ with $homeHeroCasesLink.cloaked }} data-seo-cloaked-href="{{ . }}"{{ end }}{{ with $homeHeroCasesLink.rel }} rel="{{ . }}"{{ end }} data-home-link-field="heroCasesUrl" data-home-link-value="{{ $homeHeroCasesUrlRaw }}">{{ if $isRU }}О компании{{ else if $isES }}Sobre nosotros{{ else }}Discuss Your Project{{ end }}</a>
         </div>
         {{ partial "seo-builder-blocks.html" . }}
       </div>
@@ -566,6 +595,33 @@
   </section>
 
   <section class="seo-services-panel">
+
+    {{ if eq $lang "en" }}
+    <section class="seo-en-primary-services" id="services" aria-labelledby="seo-en-services-title">
+      <div class="seo-en-primary-services__intro">
+        <h2 id="seo-en-services-title">SEO Services for Your Business</h2>
+        <p>Choose the work your business needs. Each service has a different purpose, from finding customer searches to checking website problems. You do not need to buy everything.</p>
+      </div>
+      <div class="seo-en-primary-services__grid">
+        {{ range $index, $service := site.Data.en_home_services }}
+        <article class="seo-en-service-card" data-home-service="{{ $service.id }}">
+          <div class="seo-en-service-card__head">
+            <span class="seo-en-service-mark" aria-hidden="true">{{ printf "%02d" (add $index 1) }}</span>
+            <h3>{{ $service.title }}</h3>
+          </div>
+          <p>{{ $service.summary }}</p>
+          <p class="seo-en-service-card__outcome"><strong>Result:</strong> {{ $service.outcome }}</p>
+          {{ with $service.route }}
+          <a class="seo-en-service-card__link" href="{{ . | relURL }}" data-home-service-link="details">Service details <span aria-hidden="true">→</span></a>
+          {{ else }}
+          <a class="seo-en-service-card__link" href="#contact-project" data-home-service-link="contact">Discuss this service <span aria-hidden="true">→</span></a>
+          {{ end }}
+        </article>
+        {{ end }}
+      </div>
+      <p class="seo-en-primary-services__note">The work, price and results are agreed before starting. Reports and advice do not include changes to your website unless we agree on that separately. Google rankings cannot be guaranteed.</p>
+    </section>
+    {{ end }}
     <section class="seo-news-strip" aria-label="{{ if $isRU }}Последние обновления{{ else if $isES }}Últimas actualizaciones{{ else }}SEO delivery process{{ end }}">
       <div class="seo-news-strip__layout">
         <div class="seo-news-strip__single js-news-strip-single">
@@ -576,8 +632,8 @@
               <p>Tell us about your business, customers and target market. You can start with a website, an idea or an existing list of search terms.</p>
               <ol>
                 <li><strong>Understand:</strong> define your goal, target customers and what information is available.</li>
-                <li><strong>Choose:</strong> agree on keyword research, a website audit or an SEO consultation.</li>
-                <li><strong>Deliver:</strong> receive the agreed keyword spreadsheet, audit report or practical plan.</li>
+                <li><strong>Choose:</strong> agree on the research, website checks, page improvements or advice your project needs.</li>
+                <li><strong>Deliver:</strong> get the agreed research, report or advice. Website edits are a separate decision.</li>
               </ol>
             </div>
           </article>
@@ -650,6 +706,7 @@
           {{ end }}
         </div>
 
+        {{ if ne $lang "en" }}
         <aside class="seo-news-strip__side"{{ if eq $lang "en" }} id="services"{{ end }} aria-label="{{ if $isRU }}Рекомендуемые блоки услуг{{ else if $isES }}Bloques de servicio destacados{{ else }}Featured service blocks{{ end }}">
           <a class="seo-card{{ if eq $lang "en" }} seo-card--custom-visual{{ end }}" href="{{ $homeCard1Link.href | safeURL }}"{{ with $homeCard1Link.cloaked }} data-seo-cloaked-href="{{ . }}"{{ end }}{{ with $homeCard1Link.rel }} rel="{{ . }}"{{ end }} data-home-link-field="card1Url" data-home-link-value="{{ $homeCard1UrlRaw }}">
             <div class="seo-card-head">
@@ -702,14 +759,16 @@
           </a>
           {{- end -}}
         </aside>
+        {{ end }}
       </div>
     </section>
     {{ if eq $lang "en" }}
     <section class="seo-en-home-definition" aria-labelledby="seo-en-professional-definition">
       <h2 id="seo-en-professional-definition">What Are Professional SEO Services?</h2>
-      <p>SEO services help businesses understand what customers search for and what may hold back their website in Google. You can order keyword research for a business idea before you have a website, request a technical SEO audit for an existing site, or use an SEO consultation to decide what to do next. A report or spreadsheet does not include website changes unless separately agreed. Google rankings are not guaranteed.</p>
+      <p>Professional SEO services help a business find what customers search for, understand competitors, improve website pages and identify technical problems. Choose an SEO audit, keyword research, page or content review, local or international SEO, or consultation according to your goals. You can start with keyword research before you have a website. Website changes are separately agreed and no search position is guaranteed.</p>
     </section>
     {{ end }}
+    {{ if ne $lang "en" }}
     <section class="seo-static-offer" aria-label="{{ if $isRU }}Статическое предложение{{ else if $isES }}Oferta estática{{ else }}Static offer{{ end }}">
       <h2 class="seo-static-offer__title" data-home-field="offerTitle">{{ partial "home-inline.html" $homeOfferTitle }}</h2>
       {{ if eq $lang "en" }}<p class="seo-static-offer__intro">These are examples of tasks that can be agreed in addition to the three services above, not extra fixed packages. We confirm what is included before starting.</p>{{ end }}
@@ -726,25 +785,23 @@
         {{- end -}}
       </ul>
     </section>
+    {{ end }}
     {{ if eq $lang "en" }}
     <section class="seo-en-home-deliverables" aria-labelledby="seo-en-deliverables-title">
       <h2 id="seo-en-deliverables-title">What You Receive</h2>
-      <p class="seo-en-home-deliverables__intro">Each service has a different result. Keyword research can be delivered even if you do not have a website.</p>
+      <p class="seo-en-home-deliverables__intro">The result depends on the work agreed. These are examples, not three fixed packages. Keyword research can begin without a website.</p>
       <div class="seo-en-home-deliverables__grid">
         <article class="seo-en-home-deliverable">
-          <span class="seo-en-home-deliverable__number" aria-hidden="true">01</span>
           <h3>Website Audit Report</h3>
-          <p>For an existing website: a clear list of issues found and recommendations on what to fix first.</p>
+          <p>For existing websites: relevant technical, page or local-search issues with priorities and recommended next steps.</p>
         </article>
         <article class="seo-en-home-deliverable">
-          <span class="seo-en-home-deliverable__number" aria-hidden="true">02</span>
           <h3>Keyword Research Spreadsheet</h3>
-          <p>A list of searches relevant to your business, grouped by topic. Mapping them to website pages is optional.</p>
+          <p>A list of customer searches grouped by topic; competitor and content findings can be added when agreed. Mapping them to website pages is optional.</p>
         </article>
         <article class="seo-en-home-deliverable">
-          <span class="seo-en-home-deliverable__number" aria-hidden="true">03</span>
-          <h3>Consultation Priorities</h3>
-          <p>Advice on what matters most and what to do next. A written plan or site changes can be agreed separately.</p>
+          <h3>Advice &amp; Content Recommendations</h3>
+          <p>SEO consultation priorities or written page and content recommendations, depending on scope. A separate written consultation plan or website changes must be agreed in advance.</p>
         </article>
       </div>
     </section>
@@ -755,24 +812,24 @@
       <div class="seo-en-buyer-faq__grid">
         <article>
           <h3>How is SEO service pricing determined?</h3>
-          <p>Keyword research cost depends on the topics, target countries and languages, and whether you already have a list of searches. For an SEO audit, the size and complexity of the website matter. We agree on the work, price and deliverables before starting.</p>
+          <p>Price depends on the work requested, such as website size, target markets, competitors, languages and the number of pages to review. We agree on the price, responsibilities and deliverables before starting.</p>
         </article>
         <article>
           <h3>How long does SEO take?</h3>
-          <p>An audit, keyword spreadsheet or consultation has an agreed scope and delivery time. Improvements in Google search may take longer, and no specific ranking or date can be guaranteed.</p>
+          <p>A research task, audit, page review or consultation has an agreed delivery time. Changes in search visibility can take longer; no specific position or date can be guaranteed.</p>
         </article>
         <article>
           <h3>Do I need every SEO service?</h3>
-          <p>No. Choose the result you need now. Keyword research works for a new business without a website; a technical audit checks an existing website; and a consultation helps set priorities. Any further work is optional.</p>
+          <p>No. A new business may start with keyword research. An existing website may need an audit, competitor review or specific page improvements. Local and international checks apply only when relevant.</p>
         </article>
       </div>
       <p class="seo-en-buyer-faq__more">More detail: <a href="{{ "faq/" | relURL }}">SEO Services FAQ</a> · <a href="{{ "about/" | relURL }}">About SEOImpuls</a></p>
     </section>
     {{ end }}
     {{ if eq $lang "en" }}
-    <section class="seo-en-home-scope" aria-labelledby="seo-en-scope-title">
+    <section class="seo-en-home-scope" id="contact-project" aria-labelledby="seo-en-scope-title">
       <h2 id="seo-en-scope-title">Tell Us About Your SEO Project</h2>
-      <p>Tell us what your business offers and who you want to reach. For keyword research, no website is needed; share an existing keyword list if you have one. For a technical SEO audit, send the website address. We agree on the scope and result before starting.</p>
+      <p>Tell us what your business offers, where your customers are and which SEO service interests you. For keyword research, no website is needed. For a website review, share its address. We agree on the exact work and result before starting.</p>
       <div class="seo-en-home-scope-actions">
         <a class="seo-cta seo-cta--primary" href="https://t.me/Seoimpuls" target="_blank" rel="noopener noreferrer">Discuss Your SEO Project</a>
         <a class="seo-cta seo-cta--secondary" href="{{ "seo-consultation/" | relURL }}">SEO Consultation Details</a>

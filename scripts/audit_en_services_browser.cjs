@@ -1,4 +1,4 @@
-/* EN homepage services selection and three exact commercial service routes. */
+/* EN homepage nine buyer-facing areas and three exact detail routes. */
 const fs = require("node:fs"), path = require("node:path");
 const {chromium} = require("playwright");
 const ROOT = "http://127.0.0.1:8765";
@@ -29,7 +29,7 @@ let browser;
     await page.evaluate(()=>document.querySelectorAll("img[loading=lazy]").forEach(x=>x.loading="eager"));
     await page.waitForTimeout(300);
     const main=await page.evaluate(()=>{
-      const cards=Array.from(document.querySelectorAll("#services a.seo-card"));
+      const cards=Array.from(document.querySelectorAll("#services article.seo-en-service-card"));
       const layout=document.getElementById("services");
       const meta=(name)=>document.querySelector('meta[name="'+name+'"]')?.content || "";
       const canonical=document.querySelector('link[rel="canonical"]')?.href||"";
@@ -38,7 +38,9 @@ let browser;
         title:document.title,h1:Array.from(document.querySelectorAll("h1")).map(x=>x.textContent.trim()),
         canonical,robots:meta("robots"),description:meta("description"),
         cards:cards.map(x=>({
-          href:new URL(x.href).pathname,label:x.textContent.trim(),
+          href:x.querySelector("[data-home-service-link]")?.getAttribute("href")||"",
+          kind:x.querySelector("[data-home-service-link]")?.dataset.homeServiceLink||"",
+          id:x.dataset.homeService,title:x.querySelector("h3")?.textContent.trim()||"",
           imageCount:x.querySelectorAll("img").length,
           mark:x.querySelector(".seo-en-service-mark")?.textContent.trim()||"",
           markRect:(()=>{const r=x.querySelector(".seo-en-service-mark")?.getBoundingClientRect();return r?{width:r.width,height:r.height}:null;})()
@@ -48,6 +50,9 @@ let browser;
         scopeItems:document.querySelectorAll(".seo-central--en .seo-static-offer__list li").length,
         oldScopeIcon:!!document.querySelector('.seo-central--en img[src*="seo-icon-google.svg"]'),
         scopeHeading:document.querySelector(".seo-static-offer__title")?.textContent.trim()||"",
+        serviceHeading:document.querySelector("#seo-en-services-title")?.textContent.trim()||"",
+        projectAnchor:!!document.getElementById("contact-project"),
+        processBelow:!!layout&&!!document.querySelector("#how-it-works")&&document.querySelector("#how-it-works").getBoundingClientRect().top>=layout.getBoundingClientRect().bottom-2,
         keywordDeliverable:document.querySelector(".seo-en-home-deliverables")?.textContent.includes("Keyword Research Spreadsheet")||false,
         independentKeyword:document.querySelector(".seo-en-home-scope")?.textContent.includes("For keyword research, no website is needed")||false,
         contactCTA:document.querySelector(".seo-en-home-scope-actions .seo-cta--primary")?.textContent.trim()||"",
@@ -64,16 +69,22 @@ let browser;
     if(main.title!=="Professional SEO Services | SeoImpuls")fail.push("Home title "+main.title);
     if(main.h1.length!==1||main.h1[0]!=="Professional SEO Services")fail.push("Home H1");
     if(main.canonical!=="https://seoimpuls.com/")fail.push("Home canonical");
-    if(main.cards.length!==3||main.selectorCount||!main.hasAnchor)fail.push("Three primary direct services without duplicate selection");
-    if(main.scopeItems!==3||main.oldScopeIcon||main.scopeHeading!=="Other SEO Work We Can Discuss")
-      fail.push("EN supporting work must be three concise lines without legacy imagery");
+    if(main.cards.length!==9||main.selectorCount||!main.hasAnchor||main.serviceHeading!=="SEO Services for Your Business"||!main.projectAnchor)
+      fail.push("Nine distinct buyer-facing SEO areas, section heading or contact anchor missing");
+    if(main.scopeItems!==0||main.oldScopeIcon||main.scopeHeading)
+      fail.push("Legacy extra-work tiles still duplicate new primary services");
+    const ids=["seo-audit","keyword-research","on-page-seo","technical-seo","seo-competitor-analysis","seo-content-optimization","local-seo","international-seo","seo-consultation"];
+    if(main.cards.map(x=>x.id).join("|")!==ids.join("|")||new Set(main.cards.map(x=>x.title)).size!==9)
+      fail.push("Missing or duplicate commercial SEO service headings");
     if(!main.keywordDeliverable||!main.independentKeyword||main.contactCTA!=="Discuss Your SEO Project")
       fail.push("Buyer-facing keyword deliverable or business project CTA missing");
-    if(main.cards.map(x=>x.mark).join("/")!=="01/02/03"||main.cards.some(x=>x.imageCount!==0||!x.markRect||x.markRect.width<36||Math.abs(x.markRect.width-x.markRect.height)>3))
-      fail.push("Service design: CSS-only 01/02/03 marks, no old image elements");
-    for(const [url] of TARGETS)if(main.cards.filter(x=>x.href===url).length!==1)fail.push("Missing one direct service "+url);
+    if(main.cards.map(x=>x.mark).join("/")!=="01/02/03/04/05/06/07/08/09"||main.cards.some(x=>x.imageCount!==0||!x.markRect||x.markRect.width<36||Math.abs(x.markRect.width-x.markRect.height)>3))
+      fail.push("Service design: nine lightweight CSS-only markers, no old image elements");
+    for(const [url] of TARGETS)if(main.cards.filter(x=>x.href===url&&x.kind==="details").length!==1)fail.push("Missing one direct service detail link "+url);
+    if(main.cards.filter(x=>x.kind==="contact"&&x.href==="#contact-project").length!==6)fail.push("Six scoped service enquiries do not reach contact anchor");
     if(main.serviceNav!=="/#services"||main.heroTarget!=="/#services")fail.push("Top services navigation/CTA not anchored");
     if(!main.faq)fail.push("Retained buyer FAQ missing");
+    if(!main.processBelow)fail.push("Service cards should be visually above compact process");
     if(main.overflow)fail.push("Horizontal overflow");
     if(main.images.some(x=>!x.ok))fail.push("Broken home images");
     if(main.schema.includes("INVALID")||!main.schema.includes("WebSite")||!main.schema.includes("Organization"))fail.push("Home structured data");
@@ -138,7 +149,7 @@ let browser;
   await browser.close();
   fs.writeFileSync(path.join(OUT,"audit.json"),JSON.stringify(report,null,2));
   if(report.viewports.some(x=>x.fail.length))throw Error("Direct EN services homepage QA failed");
-  console.log("SERVICES_BROWSER_PASS: homepage 3 direct exact-intent services at 390/768/1280, no obsolete catalog");
+  console.log("SERVICES_BROWSER_PASS: homepage nine distinct SEO service areas, three direct detail routes and six enquiry paths at 390/768/1280");
 })().catch(async e=>{
   console.error("SERVICES_BROWSER_FATAL "+(e.stack||e));
   try{if(browser)await browser.close()}catch(e){}

@@ -110,7 +110,7 @@ function label(el) {
   } else {
     console.log("ACCESSIBILITY_GATE_PASS no serious/critical automated violations");
   }
-  const focus=result.viewports.flatMap(v=>v.keyboardSample.filter(x=>["Explore SEO Services","How We Work","Discuss Your Website"].includes(x.name))
+  const focus=result.viewports.flatMap(v=>v.keyboardSample.filter(x=>["Explore SEO Services","Discuss Your Project","Discuss Your SEO Project"].includes(x.name))
     .map(x=>({width:v.width,name:x.name,style:x.outlineStyle,widthOutline:x.outlineWidth})));
   const missingFocus=focus.filter(x=>x.style==="none" || parseFloat(x.widthOutline||0)<2);
   if(missingFocus.length){

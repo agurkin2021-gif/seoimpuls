@@ -1,0 +1,59 @@
+[
+  {
+    "id": "seo-audit",
+    "title": "SEO Audit",
+    "summary": "Find out what is holding your existing website back in Google search.",
+    "outcome": "Website audit report with problems and suggested priorities.",
+    "route": "technical-seo-audit/"
+  },
+  {
+    "id": "keyword-research",
+    "title": "Keyword Research",
+    "summary": "Find the searches customers use for your products or services, even before you have a website.",
+    "outcome": "Keyword research spreadsheet grouped by topic.",
+    "route": "keyword-research/"
+  },
+  {
+    "id": "on-page-seo",
+    "title": "On-Page SEO",
+    "summary": "Review page titles, headings, wording and links so visitors can understand what each page offers.",
+    "outcome": "Specific recommendations for improving existing pages."
+  },
+  {
+    "id": "technical-seo",
+    "title": "Technical SEO",
+    "summary": "Check why important pages may not appear in Google and find issues with speed, redirects or page access.",
+    "outcome": "Technical problem list with recommended checks and fixes."
+  },
+  {
+    "id": "seo-competitor-analysis",
+    "title": "SEO Competitor Analysis",
+    "summary": "See which competitor pages appear in Google and what useful topics your business may be missing.",
+    "outcome": "Competitor comparison and missed-search opportunities."
+  },
+  {
+    "id": "seo-content-optimization",
+    "title": "SEO Content Optimization",
+    "summary": "Review existing website text and plan content that answers the questions your customers search for.",
+    "outcome": "Page and content improvement priorities."
+  },
+  {
+    "id": "local-seo",
+    "title": "Local SEO",
+    "summary": "Check how customers can find your business in local Google searches and on Maps, where relevant.",
+    "outcome": "Local search visibility review and recommendations."
+  },
+  {
+    "id": "international-seo",
+    "title": "International SEO",
+    "summary": "Check whether people in each target country can find the right language version of your website.",
+    "outcome": "Review of language pages and country-specific search issues."
+  },
+  {
+    "id": "seo-consultation",
+    "title": "SEO Consultation",
+    "summary": "Discuss your business goals, ask SEO questions and decide which work is worth doing first.",
+    "outcome": "Practical guidance; a written plan is quoted separately.",
+    "route": "seo-consultation/"
+  }
+]
