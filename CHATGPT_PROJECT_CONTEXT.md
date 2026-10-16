@@ -60,6 +60,14 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — EN illustrative SEO finding live and validated, handoff checkpoint
+- Owner-approved sample in `What You Receive` added in b646dbe8; small anchor-offset CSS fix in 443f5e87 to prevent sticky header obscuring `#seo-en-example-title`. Direct stable link: https://agurkin2021-gif.github.io/seoimpuls/#seo-en-example-title .
+- **Verified after final CSS fix:** Hugo strict rebuild QA #96 PASS, GitHub Pages Preview #37 PASS, automatic Playwright 390/1280 browser audit #8 PASS, axe WCAG dark/light audit #5 PASS. In Opera, direct example link displays title, label, four finding cells and footer. Last full-page Chrome audit confirms no horizontal overflow, broken images/links, JS failures, H1/canonical/JSON-LD regressions, desktop floating footer / mobile ordinary footer intact.
+- Example is **explicitly hypothetical, not a real client case**, with conditional priority, evidence (HTTP/robots/canonical/GSC if available), approval/implementation ownership, acceptance verification and no indexing/ranking guarantee. Scope EN homepage only; RU/ES, all other EN pages, main and production seoimpuls.com unchanged.
+- All automated WCAG checks returned zero confirmed violations; `incomplete` reports still require manual review; not full compliance certification. GSC_PENDING, GEO_PHYSICAL_UNVERIFIED, PROOF_REQUIRED remain. Do not broaden claims or create fictional cases.
+- Next: authenticated GSC overlap of `/` vs `/services/`, market relevance, real proof; defer further site edits absent data.
+
+
 ### 2026-10-15 — EN example deep-link heading is no longer obscured by fixed header
 - Prior commit b646dbe8 published and validated: Hugo QA #95 PASS, Pages Preview #36 PASS, Chrome responsive run #38831630098 PASS (390/1280px: no overflow, image/link/JS errors, correct H1/meta/canonical/footer), axe WCAG run #38831630071 PASS (zero confirmed violations dark/light, CTA keyboard focus preserved). Visually reviewed full-page 390/1280 PNGs from Chromium artifact.
 - Opening the published example via `#seo-en-example-title` in Opera showed its H3 partly hidden behind the sticky top header because the heading is an in-page anchor. Added `scroll-margin-top:126px` to that EN-only example H3 selector in layouts/index.html. No impact on normal page layout, content, mobile vs desktop grid, RU/ES, other EN pages, production or main.
@@ -809,13 +817,13 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Work strictly on English homepage only, branch white-seo-rebuild. No RU/ES or other EN page edits, no main or production seoimpuls.com deployments. Project source of truth: this file, research docs and current GitHub branch.
+Continue project ONLY on English homepage `/`, branch `white-seo-rebuild`. RU/ES and remaining EN pages do not change; main and production seoimpuls.com stay untouched.
 
-Owner approved exactly one compact, **clearly hypothetical** SEO audit finding in `What You Receive`. Implemented EN-only in `layouts/index.html`: important page with unintended `noindex`, conditional priority, concrete HTTP/robots/canonical evidence, owner approval, responsible implementer and acceptance verification. It is NOT a client case and does NOT promise indexation. CI assertions added in rebuild-qa.yml.
+Latest approved improvement: **one illustrative SEO audit finding** directly below `What You Receive`, explicitly hypothetical and NOT a customer case. Main implementation b646dbe862476a0c697bafce3012c5f4a93e595b; anchor visibility fix 443f5e87776b66bc2773c4e666fe3902d779ea48. Example URL https://agurkin2021-gif.github.io/seoimpuls/#seo-en-example-title .
 
-**Immediate next:** confirm the latest commit in Hugo strict QA, GitHub Pages Preview, Chromium 390/1280 (responsive, links, no overflow, footer), axe WCAG in dark/light; inspect exact sample layout in Opera. Fix any verified issues. Keep H1 `Professional SEO Services`, Title/meta and existing CTA URLs intact.
+Verification of latest page: Hugo #96 PASS; Pages Preview #37 PASS; 390px/1280px Chromium #8 PASS; axe WCAG light/dark #5 PASS (no confirmed automated violations, manual incomplete remains). Opera visually confirmed actual sample and footer. No change to approved H1/Title/meta/canonical. Full SERP snapshot, competitor gaps and limitations: `docs/research/2026-10-15-en-home-competitor-white-space.md` and `docs/research/2026-10-15-en-home-professional-seo-serp.md`.
 
-After QA: GSC authenticated URL/query evidence for `/` vs `/services/`, geo-target, real expertise/cases, CrUX. Status GSC_PENDING / GEO_PHYSICAL_UNVERIFIED / PROOF_REQUIRED until proof is supplied. Do not fabricate customer evidence or rankings.
+**Next step depends on evidence:** obtain authenticated GSC query-URL data for homepage vs `/services/`, validate target countries and real provider trust proof. `GSC_PENDING`, `PROOF_REQUIRED`, `GEO_PHYSICAL_UNVERIFIED`, `RELEASE_BLOCKED`. Avoid additional speculative sections and guarantee claims.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 

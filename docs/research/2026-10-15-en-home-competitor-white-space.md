@@ -72,3 +72,9 @@ Immediate safe candidate for future on-page enhancement: **one labeled specimen 
 - The single scenario shows: unintended `noindex` on an important page, conditionally high priority; specific evidence (HTTP/robots/canonical and GSC if available); approval/implementation ownership; objective post-change acceptance test; no Google indexing/ranking guarantee.
 - Visually scoped two-column `<dl>` at desktop and one-column at mobile, light footprint, no JavaScript. Source: `layouts/index.html`.
 - The demo is not an actual service-deliverable contract or customer proof. Maintain the agreed-scope caveat and avoid real/client-specific URLs or metrics. CI and live preview validation pending for this commit.
+
+## Final implementation and verification checkpoint
+- The illustrative, non-client case was implemented on EN home inside `What You Receive` in commit `b646dbe8` and the deep-link scroll-margin was corrected in `443f5e87`.
+- No customer, company, URL, case-study figure or outcome was fabricated. A conditional priority and no-ranking-guarantee disclaimer are visible in published copy.
+- Final CI: Hugo strict #96 PASS; Pages Preview #37 PASS; Chromium 390/1280 #8 PASS; axe dark/light #5 PASS (automated zero confirmed violations; `incomplete` still needs manual review). Opera verified direct heading link and published structure. RU/ES, other EN and production unaffected.
+- Further buyer differentiation requires actual output samples or approved case data. Avoid growing homepage with duplicated keyword maps or lengthy agency copy.
