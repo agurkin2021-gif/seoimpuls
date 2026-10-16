@@ -60,6 +60,14 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — EN homepage Schema.org correction isolated from RU/ES
+- Owner requested immediate microdata improvements without waiting for other pages. Inspected current schema partial and official Google Organization/Breadcrumb guidelines. Before: EN homepage emits WebSite with false collective `Person: SeoImpuls Team`, lacks Organization, and one-item BreadcrumbList; generic description not page-specific. Original 487×229 `static/SEOIMPULS_logo.webp` exists.
+- Scoped only EN-home path in `layouts/partials/head/seo.html`: two linked JSON-LD entities `Organization` (SeoImpuls name, home URL, real 487×229 logo) and `WebSite` (name, home URL, EN language, owner-approved meta description, publisher @id link). No Person or homepage BreadcrumbList. Avoids addresses, legal/review/agency claims.
+- Preserved existing RU/ES home WebSite/Breadcrumb outputs and untouched internal EN pages, including their later-to-fix BlogPosting use. Added `scripts/verify_en_home_schema.py` strict built-HTML assertions to Hugo and Pages builds and triggered Chromium browser QA on schema partial edits. Research `docs/research/2026-10-15-en-home-schema-audit.md`.
+- Status at commit creation: build/Pages/Chromium/Google Rich Results **PENDING**, do not claim success. No deployment to seoimpuls.com or main; no user-facing content/layout change.
+- Next: verify strict CI and Pages, check page JSON-LD in browser/Google test, and update context with results. GSC/proof/geo still pending.
+
+
 ### 2026-10-15 — Owner risk reversal: remove hypothetical noindex problem from EN homepage
 - Owner says avoid risks and maximize clarity. The illustrative `noindex` SEO audit scenario was misleading on the commercial main page despite disclosure and not required for search intent. **Fully retired that visual block**, without replacing it or expanding page copy.
 - In `layouts/index.html`: removed exactly the `seo-en-home-example` markup and all its EN-only CSS, including mobile rules and sticky-header scroll margin. Kept `What You Receive` three real service-output descriptions, `Which SEO Service Fits Your Website?`, pricing/time FAQ, SEO CTA, H1/meta/canonical and footer animation unchanged.
@@ -825,13 +833,13 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Work **ONLY** on English homepage `/` in `white-seo-rebuild`. Do not edit RU/ES/other EN pages, `main`, or deploy to production `seoimpuls.com`.
+Scope EN homepage only in `white-seo-rebuild`. No production `seoimpuls.com`, main, RU/ES or other EN pages changes.
 
-**New user priority 2026-10-15:** zero unnecessary buyer-facing risk. User explicitly rejected the hypothetical `noindex` issue card as potentially misleading and requested its entire removal. Removed in this commit: EN-only example markup and all associated styles; negative Hugo QA guard added. The rest of owner-approved commercial homepage remains unchanged. The research note must not be treated as authority to put the technical scenario back without renewed user instruction.
+Current task: implement English homepage **schema correction** immediately (no need to await supporting pages). Shared partial `layouts/partials/head/seo.html` gated for `.IsHome && .Site.Language.Lang==en`, emits linked Organization + WebSite, no collective Person and no one-item BreadcrumbList. Real logo 487×229 in static. Detailed before/after `docs/research/2026-10-15-en-home-schema-audit.md`. Legacy RU/ES explicitly preserved.
 
-Immediately verify CI rebuild and public Pages Preview and run Chromium responsive (390/1280), axe WCAG light/dark, and Opera visual. Confirm that `What You Receive` (3 conditional outputs) flows directly to `Which SEO Service Fits Your Website?`; no technical-problem specimen, no extra explanation or fake customer case, approved H1 `Professional SEO Services` and footer remain as before.
+**Next:** verify Hugo rebuild QA and Pages Preview new schema tests; Chromium 390/1280 and actual browser JSON-LD, Google Rich Results Test where accessible. Fix ONLY confirmed EN-home schema issues. Maintain approved H1 `Professional SEO Services` and existing footer. All unverified claims excluded.
 
-**Open evidence gates:** authenticated GSC query-to-URL overlap `/` vs `/services/`, verified provider credentials and actual customer cases, physical target geo, CrUX/production metrics, human WCAG. Status `GSC_PENDING` / `PROOF_REQUIRED` / `GEO_PHYSICAL_UNVERIFIED` / `RELEASE_BLOCKED`. Never assert completely perfect or search-results guaranteed.
+Other open evidence: authenticated GSC query/URL for `/` vs `/services/`, actual provider trust proof, target geo, field CrUX, WCAG manual. `GSC_PENDING` / `PROOF_REQUIRED` / `GEO_PHYSICAL_UNVERIFIED` / `RELEASE_BLOCKED`.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 

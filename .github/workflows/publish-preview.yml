@@ -31,6 +31,8 @@ jobs:
           extended: true
       - name: Build preview
         run: hugo --minify --noBuildLock --baseURL 'https://agurkin2021-gif.github.io/seoimpuls/'
+      - name: Verify EN homepage schema and preserve RU/ES
+        run: python3 scripts/verify_en_home_schema.py
       - name: Verify English homepage floating footer
         run: python3 scripts/verify_en_footer_popup.py
       - name: Require white-hat and retired URL checks

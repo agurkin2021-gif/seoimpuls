@@ -18,6 +18,34 @@
 
 {{- /* Home page schema */ -}}
 {{- if .IsHome -}}
+{{- /* EN homepage: minimal, evidence-based brand identity; RU/ES retain legacy markup. */ -}}
+{{- if eq .Site.Language.Lang "en" -}}
+  {{- $homeURL := .Permalink -}}
+  {{- $brandID := printf "%s#organization" $homeURL -}}
+  {{- $websiteID := printf "%s#website" $homeURL -}}
+  {{- /* Verified existing, publicly served 487x229 WEBP asset. Avoid invented business details. */ -}}
+  {{- $logo := "SEOIMPULS_logo.webp" | absURL -}}
+  {{- $orgSchema := dict
+    "@context" "https://schema.org"
+    "@type" "Organization"
+    "@id" $brandID
+    "name" .Site.Title
+    "url" $homeURL
+    "logo" $logo
+  -}}
+<script type="application/ld+json">{{ $orgSchema | jsonify | safeJS }}</script>
+  {{- $websiteSchema := dict
+    "@context" "https://schema.org"
+    "@type" "WebSite"
+    "@id" $websiteID
+    "name" .Site.Title
+    "url" $homeURL
+    "inLanguage" .Site.LanguageCode
+    "publisher" (dict "@id" $brandID)
+    "description" (.Description | default .Site.Params.description)
+  -}}
+<script type="application/ld+json">{{ $websiteSchema | jsonify | safeJS }}</script>
+{{- else -}}
   {{- $homeSchema := dict
       "@context" "https://schema.org"
       "@type" "WebSite"
@@ -35,6 +63,7 @@
     {{- $homeSchema = merge $homeSchema (dict "image" (. | absURL)) -}}
   {{- end -}}
 <script type="application/ld+json">{{ $homeSchema | jsonify | safeJS }}</script>
+{{- end -}}
 {{- else if .IsPage -}}
   {{- /* Generic page schema */ -}}
   {{- $description := .Description | default $params.description | default .Site.Params.description -}}
@@ -91,7 +120,7 @@
 {{- end -}}
 
 {{- /* BreadcrumbList schema */ -}}
-{{- if ne .Kind "404" -}}
+{{- if and (ne .Kind "404") (not (and .IsHome (eq .Site.Language.Lang "en"))) -}}
   {{- $isRU := eq .Site.Language.Lang "ru" -}}
   {{- $isES := eq .Site.Language.Lang "es" -}}
   {{- $homeLabel := cond $isRU "Главная" (cond $isES "Inicio" "Home") -}}
