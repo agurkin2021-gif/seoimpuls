@@ -1,5 +1,12 @@
 # SEOImpuls — основной контекст проекта (читать первым)
 
+## DESIGN STAGES 02 AND 03 — 2026-10-16 (STAGE 03 QA PENDING)
+- **Stage 02 VERIFIED:** commit `db1f4dd890814428c0a6cb48323a45b262be0a41`, only EN homepage visuals, seven distinct inline semantic SVGs and rebalanced result/service-action hierarchy; RU/ES unaffected in rendered EN-only branch. GitHub Actions strict #38964863183 PASS; preview #38964863211 PASS; EN/RU 390/768/1280 Chrome #38964863069 PASS; general 390/768/1280 Chrome #38964863300 PASS; a11y #38964863130 PASS; context #38964863073 PASS. Manually opened live GitHub Pages noindex preview via Opera with `?design=db1f4dd#services`: icons rendered, headings and outcome panels visibly aligned. These are browser/CI checks, not field CWV or owner's final visual signoff.
+- Stage 03 targets continuing EN-home-only flatness, confirmed by opening `#how-it-works` in connected Opera: a box of three boxes, standalone wall of definition text, three generic deliverable tiles, then three FAQ cards. Change exclusively EN-home stylesheet in `layouts/index.html`: process becomes 3-step connected timeline (mobile vertical); service definition becomes editorial 2-column explanation at ≥1080px; deliverables become a structured 3-row document ledger; FAQ entries become unobstructed questions with vertical rules; enquiry CTA becomes a distinct concluding panel. No copy, commercial claims, links, service choices or other pages changed.
+- **Stage 03 STATUS: SOURCE_EDIT_COMMITTED / STRICT_QA_PENDING / VISUAL_MOBILE_TABLET_DESKTOP_PENDING / PREVIEW_PENDING / PRODUCTION_UNTOUCHED.** Footer's large floating bar is still separate issue; do not claim resolved. Need verify all workflows, EN+RU responsive/screenshots and final browser navigation before acceptance.
+- Next: inspect Stage 03 GitHub Actions and published EN preview; correct actual visual defects and then address any remaining homepage-only visual issue independently. No edits to inner pages, RU/ES, main, production.
+
+
 ## DESIGN STAGE 02 — 2026-10-16: EN HOMEPAGE SERVICE INDEX (PENDING QA)
 - Owner delegated full art direction for the homepage after completing hero Stage 01, with explicit command to work independently. Scope remains EN homepage ONLY; RU/ES, inner pages, main branch and production are not editable.
 - Baseline confirmed in published GitHub Pages preview and Opera: seven cards share effectively the same panel and number treatments; the information-heavy grid has weak visual differentiation compared to the designed hero.
