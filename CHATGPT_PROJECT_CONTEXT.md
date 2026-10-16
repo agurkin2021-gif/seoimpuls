@@ -1,4 +1,11 @@
 # SEOImpuls — основной контекст проекта (читать первым)
+## 2026-10-16 — EXACT 768px FOOTER BREAKPOINT + QA COPY CORRECTION (RUNS PENDING)
+- EN homepage browser #38910448011 still showed 768px fixed shortcut overlap in service cards (390 and 1280 PASS); fresh screenshot #12050445799 shows the readable text starts at x64, but at exactly 768 the legacy mobile footer rule still renders Contacts inside top header while desktop floating rules apply simultaneously. This is a real breakpoint conflict independent of extra left gutter. Scoped EN-only 768px footer fix mirrors the prior accepted EN catalogue fix: body.footer-floating .custom-footer--en-home position fixed, hidden bottom -96px and normal popup bottom 0. No change to global footer or WA/TG shortcuts. Browser QA now logs any overlapping button/text rectangle coordinates, without weakening its fail condition.
+- Strict #38910447930 all routes, schema, hreflang and retired URL validations PASS and reached final sitewide EN text gate, which expected old homepage explanatory phrases. Updated this specific QA to the newly approved plain-language business definition, keeping content and SEO assertions strict. The earlier broad-string replacement had accidentally altered localized menu expected path to /ru/technical-seo-audit/ and /es/technical-seo-audit/; corrected assertions to preserve actual /ru/seo/ and /es/seo/ localized menus, no locale files modified.
+- Preview #38910447841 SUCCESS, homepage visual #38910447974 SUCCESS and WCAG automated diagnostic #38910447779 SUCCESS for the source before this follow-up; new follow-up code still needs fresh CI.
+- Current state **EDITED_QA_PENDING**; only new verified runs can close. No live production, DNS, GSC or another language content edit.
+
+
 ## 2026-10-16 — FOLLOW-UP FIXES: PREVIEW CANONICAL, RU/ES MENU, 768px ICON COLLISION (QA PENDING)
 - First new-route GitHub Actions after de1e05e validated all three new service URL/Title/H1/metadata/WebPage/hreflang tests against production-base Hugo. Full strict #38909786931 then found two real obsolete outgoing anchor links /seo-services/ from RU/ES service-catalogue language switchers. These are automatically rendered by the SHARED header, not from RU/ES source. Scoped header fix: when switching from local services catalogue RU/ES to EN, go to the existing EN homepage /#services, not the retired EN catalogue. No RU/ES source copy or localized URL edit.
 - Preview #38909786575 failed because dedicated route QA assumed production host canonical. Real preview build uses https://agurkin2021-gif.github.io/seoimpuls/; the test now accepts production or known GitHub Pages origin while still enforcing exact route, Title, H1, canonicals and reciprocal hreflang.
@@ -192,6 +199,11 @@ IMPORT_STATUS: completed
 7. Перед новым чатом прочитать AGENTS.md и этот файл прямо из репозитория, проверить фактическое состояние GitHub/Actions и продолжить с секции 6 «Следующее действие».
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
+
+### 2026-10-16 — Fix EN-only exact 768 footer media conflict, improve collision evidence and correct final CI text assertions
+- After passed preview/home browser/axe, remaining strict gate #38910447930 failed on old homepage copy expectation (not a site error); current main browser still flagged 768 floated icon overlap. Reinstated fixed-footer bottom behavior at 768 for EN homepage only, preserving existing animated popup; same 64px text rail remains. Browser reports bounding rects if any overlap persists. CI localized menu assertions restored to /ru/seo/, /es/seo/.
+- Modified only layouts/index.html, EN browser QA script, rebuild-qa workflow and context/plan. Strict/preview/browser after this fix pending; no page beyond authorized EN direct-architecture task.
+
 
 ### 2026-10-16 — Fix preview baseURL and localized switcher and 768px floating overlap, pending CI
 - Initial redirect-free EN route compilation and all three detailed SEO URL/Title/H1 checks PASS. Strict retired-route gate detected 2 RU/ES hub header EN language links to retired /seo-services/; conditional header routes only those to /#services. Preview static QA supports known preview baseURL and keeps detailed SEO constraints. Chromium services audit showed 768px WhatsApp overlap; EN-home tablet content gutter added. No unrelated sources changed. QA after this patch is PENDING.

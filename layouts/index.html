@@ -442,6 +442,12 @@
   .seo-central--en .seo-news-strip__side {grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:none;}
   .seo-central--en .seo-news-strip__side .seo-card:last-child:nth-child(3){grid-column:1/-1;}
 }
+/* At exactly 768px the legacy mobile footer rule overrides the desktop fixed footer.
+   Restore the accepted floating footer for the EN home only; no global footer edits. */
+@media (min-width:768px) and (max-width:768px) {
+  body.footer-floating .custom-footer--en-home {position:fixed;left:0;right:0;bottom:-96px;transition:bottom .95s ease;}
+  body.footer-floating.footer-popup-visible .custom-footer--en-home {position:fixed;bottom:0;}
+}
 /* Protect EN homepage text against viewport-fixed Telegram/WhatsApp shortcuts on tablet. */
 @media (min-width:768px) and (max-width:1199px) {
   .seo-central--en .seo-hero-content,

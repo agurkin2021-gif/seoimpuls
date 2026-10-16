@@ -92,12 +92,13 @@ let browser;
     const focus=await page.evaluate(()=>{
       const section=document.getElementById("services"),header=document.querySelector(".custom-header");
       const r=section.getBoundingClientRect(),h=header?.getBoundingClientRect();
-      const bounds=Array.from(section.querySelectorAll(".seo-card h3,.seo-card li")).map(x=>x.getBoundingClientRect());
+      const bounds=Array.from(section.querySelectorAll(".seo-card h3,.seo-card li")).map(x=>({rect:x.getBoundingClientRect(),text:x.textContent.trim().slice(0,50)}));
       const floaters=Array.from(document.querySelectorAll(".footer-shortcut--whatsapp,.footer-shortcut--telegram"))
         .filter(x=>getComputedStyle(x).position==="fixed"&&x.getBoundingClientRect().width>0);
       const overlaps=[];
-      for(const el of floaters)for(const b of bounds){const a=el.getBoundingClientRect();
-        if(b.bottom>0&&b.top<innerHeight&&a.left<b.right&&a.right>b.left&&a.top<b.bottom&&a.bottom>b.top)overlaps.push(el.className);}
+      for(const el of floaters)for(const item of bounds){const a=el.getBoundingClientRect(),b=item.rect;
+        if(b.bottom>0&&b.top<innerHeight&&a.left<b.right&&a.right>b.left&&a.top<b.bottom&&a.bottom>b.top)
+          overlaps.push({button:el.className,buttonRect:[Math.round(a.left),Math.round(a.top),Math.round(a.right),Math.round(a.bottom)],textRect:[Math.round(b.left),Math.round(b.top),Math.round(b.right),Math.round(b.bottom)],text:item.text});}
       return {sectionTop:Math.round(r.top),headerBottom:Math.round(h?.bottom||0),floatingCount:floaters.length,overlaps};
     });
     if(focus.sectionTop<focus.headerBottom-2)fail.push("Services anchor hidden by fixed header");

@@ -41,3 +41,9 @@ All gates PENDING until this current source is committed and tested. Do not proc
 - Preview #38909786575 route verifier treated its preview canonical as seoimpuls.com, a false assertion; updated verifier allows exact production or GitHub Pages preview origin and checks each new route/hreflang against active build baseURL.
 - Browser #38909786373 checks 390 and 1280 PASS, but 768 flagged fixed Whatsapp overlapping text; screenshots #12049059512 inspected. EN homepage reserves 64px left gutter from 768 to 1199 for hero, service, definition and other content blocks; floating icons unchanged.
 - New QA runs required to prove corrections; prior production-base checks did not finish full strict release gate.
+
+## 2026-10-16 — Responsive 768px and final whitehat assertions
+- Production-base Hugo and all 3 new URL/H1/Title/schema/hreflang + retired-path gate passed in strict #38910447930. Last downstream text assertion incorrectly expected prior homepage wording; replaced with approved business-oriented explanatory phrases. Localized menu assertions restored to existing /ru/seo/, /es/seo/.
+- Pages #38910447841 PASS, responsive home #38910447974 PASS, axe automated #38910447779 PASS. Direct service browser #38910448011 only failed on 768 floating icons (390 and 1280 succeeded).
+- Screenshot #12050445799 showed exact breakpoint conflict (768 mobile footer appears at page top despite desktop fixed icons), corrected by an EN-home-only floating footer override at exactly 768. Browser collision check remains enabled, now includes rect coordinates.
+- Follow-up CI unverified until the next Actions run; no production changes.

@@ -728,9 +728,9 @@ jobs:
                            'agree the scope and deliverables before starting'):
               if fragment not in visible:raise SystemExit('EN contact CTA copy missing '+fragment)
           for fragment in ('what are professional seo services?',
-                           'seoimpuls provides specialist seo work',
-                           'not a general marketing agency package',
-                           'implementation responsibilities are agreed'):
+                           'seo services help businesses understand',
+                           'keyword research can start before a website exists',
+                           'website changes are separately agreed'):
               if fragment not in visible:raise SystemExit('EN buyer-intent definition missing '+fragment)
           for fragment in ('from your goal to a clear result','get a clear report of recommended fixes',
                            'keyword research & clustering','no website needed','seo consultation',
@@ -802,7 +802,7 @@ jobs:
               if forbidden in consult_text:raise SystemExit('Old consultation term: '+forbidden)
           if '/seo-consultation/' not in page.links:
               raise SystemExit('SEO consultation must be linked directly from homepage')
-          print('PASS: /services/seo-consultation/ H1/canonical, content, anchors and catalog link.')
+          print('PASS: /seo-consultation/ H1/canonical, contents, anchors and homepage link.')
           about=Page()
           about.feed(Path('public/about/index.html').read_text(encoding='utf-8'))
           if ''.join(about.h1).strip()!='About SEOImpuls':
@@ -844,7 +844,7 @@ jobs:
           for lang in ('ru','es'):
               menu=PrimaryNav()
               menu.feed(Path('public/'+lang+'/index.html').read_text(encoding='utf-8'))
-              if '/'+lang+'/technical-seo-audit/' not in menu.hrefs:
+              if '/'+lang+'/seo/' not in menu.hrefs:
                   raise SystemExit('Missing localized SEO menu link for '+lang+': '+str(menu.hrefs))
               if any(('link-building' in u or 'uslugi-linkbildinga' in u or '/soft/' in u) for u in menu.hrefs):
                   raise SystemExit('Legacy or broken menu link for '+lang+': '+str(menu.hrefs))
