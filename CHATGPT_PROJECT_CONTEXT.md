@@ -62,6 +62,11 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-16 — Step 2 QA test corrected: select catalogue lede not buyer selector lede
+- Initial 3/14/6 source `f7563f5` passed Hugo strict/Pages (#38852787628/#38852787684) and context guard, with 390/768/1280 browser DOM confirming all status counts and no visual/route/JS failures. Browser #38852787605 failed the new `scopeLegendPresent` assertion only because `querySelector('.seo-catalog__lede')` returned the earlier buyer-decision intro, not the adjacent catalogue lede after the directory heading.
+- Updated only `scripts/audit_en_services_browser.cjs`: scope text now read from `#seo-catalog-title + .seo-catalog__lede`, matching the intended DOM. No HTML, offers, data, other locales or production changes. Plan Step 2 still **IN_PROGRESS / QA_PENDING**, rerun browser/Hugo/Pages.
+
+
 ### 2026-10-16 — Step 2 commercial truth: classify all 23 white-hat workstreams
 - Reviewed `content/seo/index.md`, `content/services/keyword-research/index.md`, `content/services/seo-consultation/index.md`, `content/about/index.md` and `content/faq/index.md` against all 23 cards. Added `docs/research/2026-10-16-en-services-scope-evidence-matrix.md` with one evidence/limitation row per card. No external claims about actual completed client projects or team capabilities.
 - `data/en_seo_catalog.json`: all 23 entries now have explicit `scope_status`: 3 published EN detailed service pages, 14 components of agreed audit/research/consultation work, 6 specialized conditional topics requiring capability and site fit confirmation. `layouts/partials/en-services-catalog.html` displays neutral text status on each card and clearly explains the categories; no new URLs/prices/guarantees, no case studies.

@@ -42,7 +42,7 @@ let browser;
     gridColumns:grid?getComputedStyle(grid).gridTemplateColumns.split(" ").filter(Boolean).length:0,
     workstreamCount:document.querySelectorAll(".seo-catalog__workstream").length,
     scopeStatusCounts:Object.fromEntries(["published","component","conditional"].map(k=>[k,document.querySelectorAll('.seo-catalog__workstream [data-scope-status="'+k+'"]').length])),
-    scopeLegendPresent:(document.querySelector(".seo-catalog__lede")?.textContent||"").includes("Six specialized areas require an explicit capability"),
+    scopeLegendPresent:(document.querySelector("#seo-catalog-title + .seo-catalog__lede")?.textContent||"").includes("Six specialized areas require an explicit capability"),
     groupCount:document.querySelectorAll(".seo-catalog__group").length,
     choiceCount:document.querySelectorAll(".seo-catalog__choice").length,
     selectorBeforeCatalogue:(()=>{
