@@ -1,5 +1,10 @@
 # SEOImpuls — основной контекст проекта (читать первым)
 
+## RULE 2026-10-16 — Do not reference live brand domain
+User explicitly prohibits citing/linking to the currently operating SEOImpuls domain during the redesign. Work exclusively from GitHub branch `white-seo-rebuild` and its preview URL. Do not open the live domain to compare or audit it, do not include its URL in replies, and do not cite it as evidence. Production/DNS/CDN remain untouched. This is a permanent communication and audit-scope rule for follow-up sessions, even if older project docs mention the production address.
+Only project documents updated in this commit (AGENTS.md and CHATGPT_PROJECT_CONTEXT.md); no site code, deployment, URL, locales or design changed.
+
+
 ## AUDIT — 2026-10-16: EN HOMEPAGE VISUAL + CONTENT BALANCE
 - Docs-only audit `docs/research/2026-10-16-en-home-balance-audit.md` completed against EN source and refreshed GitHub Pages preview (?audit=20261016a), current branch prior head 06dac77d; NO homepage HTML, CSS, JS, URLs, other locale, production or deployment changes.
 - Confirmed accepted 3 paid EN offerings and only 3 non-commercial scope lines, self-consistent canonical/Title/H1 as previously tested; prior strict/preview/browser/axe PASS retained for unchanged source, not newly re-run today.
