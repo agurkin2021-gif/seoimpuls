@@ -60,6 +60,13 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-16 UTC / 2026-10-15 AR — Clarify no-manipulative-links FAQ and pass strict release check
+- New full catalogue browser QA **PASS** run #38844041118 for both 390px and 1280px (23 workstreams, four groups, 3 entry cards, no overflow, broken local links, browser errors or failed image loads). Context guard passed, targeted Hugo route assertions fixed in `ea92b35`.
+- Rebuild QA #38844200291 and Pages Preview #38844200353 then failed **strict whitehat content gate**, despite previous steps passing: new FAQ negatively mentioned `backlinks`, which the gate flags as legacy visible copy even in a denial. No prohibited product was actually offered, but current published copy made the machine gate fail. Exact finding `/seo-services/index.html | legacy_visible_copy | backlink`.
+- Updated **only** `data/en_seo_catalog.json` FAQ question/answer to clearly refuse automated placements, purchased ranking links, networks and artificial authority metrics without using a term that the sitewide gate treats as a promoted legacy offer. Strict gate logic itself not weakened. Separate permitted earned editorial outreach remains non-guaranteed.
+- This commit changes one EN catalogue content string only; no URL, H1, title, homepage, RU/ES, production or other service offering modifications. **EDITED_QA_PENDING** for the follow-up Hugo/Pages and browser runs; production release still separately gated.
+
+
 ### 2026-10-15 AR — Correct static HTML class assertion after Hugo minification
 - New EN catalogue commit `62d87d6` built successfully under Hugo and Playwright responsive QA run #38844041118 **PASS**: 390px and 1280px HTTP 200, 23 workstreams, four groups, three choice paths, three linked entry cards, 13 local links checked at each width, no broken links, overflow, image, JavaScript or network failures. Both layouts verified through live DOM at CI; screenshots saved in the run artifact. Context guard #38844041255 PASS.
 - Rebuild QA #38844041104 and Pages Preview #38844041129 **FAIL**, not due to website HTML: `scripts/verify_en_services_route.py` searched a literal `class="seo-catalog__group"`, but Hugo `--minify` legally removes unneeded attribute quotes. The browser test using DOM `querySelectorAll` reliably counted 4/23/3.
