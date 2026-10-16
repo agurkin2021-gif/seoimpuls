@@ -1,4 +1,15 @@
 # SEOImpuls — основной контекст проекта (читать первым)
+## CURRENT FINAL TECHNICAL STATUS — 2026-10-16, EN SERVICE KEYWORD ROUTES
+**OWNER_REVIEW_PENDING, NOT DEPLOYED TO PRODUCTION.** Latest content/layout source commit 833cb99; no other pages may be started without explicit new owner instruction.
+- Exact 3 commercial EN routes validated in Hugo output: /technical-seo-audit/ has HTML Title "Technical SEO Audit | SeoImpuls", one H1 "Technical SEO Audit", canonical self; /keyword-research/ similarly "Keyword Research"; /seo-consultation/ similarly "SEO Consultation". EN homepage title/H1 "Professional SEO Services", homepage menu/hero Services link to #services; three direct service cards. No EN /seo/, /seo-services/, /services/, /services/keyword-research/, /services/seo-consultation/ in built candidate, sitemap or internal links. RU/ES language sources unchanged; hreflang reciprocal to valid new EN service URLs. Commercial EN page schema is WebPage not BlogPosting.
+- PASS: strict Hugo/sitewide whitehat [#38912159752](https://github.com/agurkin2021-gif/seoimpuls/actions/runs/38912159752); Pages Preview [#38912159880](https://github.com/agurkin2021-gif/seoimpuls/actions/runs/38912159880); context guard [#38912159761](https://github.com/agurkin2021-gif/seoimpuls/actions/runs/38912159761).
+- PASS: three-service Chromium at 390/768/1280 [#38912159784](https://github.com/agurkin2021-gif/seoimpuls/actions/runs/38912159784): HTTP 200, 3 exact direct links, valid Title/H1/canonical/schema, no obsolete catalogue, internal links checked, no runtime/network errors, no horizontal overflow; floating WA/TG collision against **ALL** main homepage text `[]` at all three widths. Services-anchor section top vs header bottom at 390=115/81, 768=192/171, 1280=115/79. Tablet desktop footer override and EN reserved 120px left rail accepted; shortcut icons themselves left fixed and unchanged.
+- PASS: general home visual browser [#38912159853](https://github.com/agurkin2021-gif/seoimpuls/actions/runs/38912159853), axe WCAG **automated diagnostic** [#38912159768](https://github.com/agurkin2021-gif/seoimpuls/actions/runs/38912159768). These are automated checks, NOT a formal WCAG conformance or Google CWV ranking certification.
+- Screenshots [artifact #12050378578](https://github.com/agurkin2021-gif/seoimpuls/actions/runs/38912159784/artifacts/12050378578) downloaded and MANUALLY examined at 390/768/1280 (first/services views, desktop full). Observed clear 3 services and no text overlap at final 120px rail. No new images/source fake proof.
+- **STATE: CODE_QA_PASS / RESPONSIVE_VISUAL_QA_PASS / OWNER_REVIEW_PENDING / PRODUCTION_NOT_DEPLOYED**. Exact SEO search volume and national rank not verified; URL keyword is intent-alignment, not ranking promise. Greenfield old URL redirects not applied on live server.
+- This acceptance record updates only docs/context, not the accepted source. Next: wait for owner's instruction, not automatic work on any other page.
+
+
 ## 2026-10-16 — EN FLOATING ICON TRANSITION RAIL 120px (QA PENDING)
 - Strict Hugo/whitehat #38911715468 PASS, preview #38911715464 PASS, EN home visual browser #38911715555 PASS, axe WCAG #38911715467 PASS for preceding EN 64px rail. Stricter direct services browser #38911716000 caught a real collision outside card boundaries during dynamic footer movement, despite screenshots sometimes appearing okay.
 - Actual overlap rectangles: 768 WhatsApp x32..76 over text starting x64, Telegram x46..90 over heading starting x64; 1280 WhatsApp x35..83, Telegram x58..92 over explanatory paragraph starting x64. Original 64px rail is inadequate for moving shortcuts.
@@ -213,6 +224,12 @@ IMPORT_STATUS: completed
 7. Перед новым чатом прочитать AGENTS.md и этот файл прямо из репозитория, проверить фактическое состояние GitHub/Actions и продолжить с секции 6 «Следующее действие».
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
+
+### 2026-10-16 — Accepted technical QA of direct EN service URLs and no-overlap homepage
+- Source 833cb99; Hugo strict #38912159752, Pages #38912159880, context #38912159761 PASS. Chromium direct EN selection #38912159784 390/768/1280 fail:[], 3 direct service links, correct Title/H1/canonical and accurate WebPage schema/hreflang; old EN catalogue/URL paths absent. Home browser #38912159853 PASS; axe automated #38912159768 PASS.
+- Manually reviewed artifact #12050378578 viewport and desktop screenshots. All fixed floating contact collision arrays empty for all homepage readable copy; desktop/tablet spacing accepted. This docs-only acceptance commit makes no page-source changes and does not deploy production.
+- Owner must authorize any next page. State CODE_QA_PASS / RESPONSIVE_VISUAL_QA_PASS / OWNER_REVIEW_PENDING.
+
 
 ### 2026-10-16 — Raise EN-only content clearance from 64px to 120px based on measured motion
 - Full-text collision test #38911716000 caught WA/TG bounding rects reaching horizontal x92 during popup/scroll movement, overlapping headings at x64; 390 PASS, 768/1280 FAIL. Scope: only EN home CSS, no shortcut animation/position changes. Set content left padding 120px for widths >=768 to guarantee measured clearance; strict + browser retest pending. Context/plan in same commit, no production.
@@ -1332,6 +1349,9 @@ IMPORT_STATUS: completed
 - Следующий этап: загрузка ZIP и успешный импорт GitHub Actions.
 
 ## 6. Следующее действие
+
+**LATEST ACCEPTANCE 2026-10-16:** EN main and exact-keyword three direct service URL architecture is code/visual QA PASS in new candidate; owner review pending, production untouched. Do not begin any other page without owner command. Prior NEXT notes superseded.
+
 
 **LATEST 2026-10-16:** finish direct 3 services on EN homepage and exact URL↔Title↔H1 alignment; validate strict Hugo, preview, browser, sitemap/hreflang and record actual run results. Older NEXT entries superseded.
 

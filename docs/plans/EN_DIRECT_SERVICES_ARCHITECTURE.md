@@ -1,5 +1,5 @@
 # SEOImpuls: English direct service architecture
-Date: 2026-10-16. STATUS: EDITED_QA_PENDING. Branch: white-seo-rebuild.
+Date: 2026-10-16. STATUS: CODE_QA_PASS / RESPONSIVE_VISUAL_QA_PASS / OWNER_REVIEW_PENDING; no production deployment. Branch: white-seo-rebuild.
 
 ## Decision
 - Remove English intermediary service catalogue /seo-services/ from the new generated site. The English homepage owns choosing an SEO service.
@@ -57,3 +57,9 @@ All gates PENDING until this current source is committed and tested. Do not proc
 - Strict/Pages/home/a11y passed prior 64px iteration but enhanced 3-viewport browser #38911716000 found moving fixed WA/TG icons at x32..92, intersecting body text starting x64. This is a visible timing-dependent collision, not a false-positive QA.
 - Changed only EN homepage CSS reserved rail to 120px for widths >=768, with at least 28px clearance from measured icon bound. Footer icons, animation, other pages and locales remain unchanged.
 - New strict/Pages/browser/screenshot QA must pass. Old success does not prove this new layout.
+
+## 2026-10-16 — Final acceptance evidence of exact keyword routes
+- Final source commit 833cb99. EN /technical-seo-audit/, /keyword-research/, /seo-consultation/ are built with exact slug ↔ Title ↔ H1; homepage /#services contains 3 direct linked service cards. Old EN hub and service URLs omitted, corrected RU/ES href/hreflang, accurate WebPage schema. NO changes to production.
+- Strict #38912159752 PASS; Pages Preview #38912159880 PASS, context guard #38912159761 PASS, direct services Chromium #38912159784 PASS 390/768/1280; broader home visual #38912159853 PASS; axe-core WCAG automated #38912159768 PASS.
+- Browser reports 0 old intermediate URLs, 0 broken local routes, JS/network errors, 0 horizontal overflow. Floating Telegram/WhatsApp collision bounds tested against entire homepage text: 0 on all tested widths. Services anchor not covered by header. Screenshots #12050378578 downloaded and reviewed at 390,768,1280; accepted appearance with 120px EN rail on >=768px only.
+- These checks do not establish keyword volumes, rankings, live CrUX or full manual WCAG conformance. Site release and new pages require separate owner instruction. Keep no automatic migration or server changes.
