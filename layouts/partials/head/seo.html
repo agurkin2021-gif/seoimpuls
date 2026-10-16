@@ -65,7 +65,7 @@
 <script type="application/ld+json">{{ $homeSchema | jsonify | safeJS }}</script>
 {{- end -}}
 {{- else if .IsPage -}}
-  {{- $commercialEN := and (eq .Site.Language.Lang "en") (in (slice "seo-overview" "services-keyword-research" "services-seo-consultation") (.Params.translationKey | default "")) -}}
+  {{- $commercialEN := and (eq .Site.Language.Lang "en") (in (slice "seo-overview" "services-keyword-research" "services-seo-consultation" "services-seo-retainer") (.Params.translationKey | default "")) -}}
   {{- if $commercialEN -}}
     {{- /* Commercial pages are WebPage, never BlogPosting. */ -}}
     {{- $servicePage := dict

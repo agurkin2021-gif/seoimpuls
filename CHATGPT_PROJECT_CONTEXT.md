@@ -1,5 +1,10 @@
 # SEOImpuls — основной контекст проекта (читать первым)
 
+## QA FOLLOW-UP — 2026-10-16: SEO Retainer correctly marked WebPage
+- Initial source commit `8fa09a41`: Hugo compiled; existing EN home schema and three legacy service page SEO routes passed. Strict and Pages actions stopped at `scripts/verify_en_services_route.py` because new `/seo-retainer/` was marked BlogPosting by an explicit commercial-page whitelist in `layouts/partials/head/seo.html`. This is a REAL schema misclassification, not a test-only failure.
+- Corrected whitelist to include `services-seo-retainer` so the page is WebPage + BreadcrumbList, without changing generic article BlogPosting or RU/ES schema. No production changes.
+- STATUS: EDITED_QA_PENDING / STRICT_RECHECK_PENDING / PREVIEW_RECHECK_PENDING. Next: inspect new Actions and browser test results; then update exact pass/fail evidence.
+
 ## CURRENT WORK — 2026-10-16: SEO Retainer EN landing and featured homepage block
 - OWNER INSTRUCTION: add a distinct SEO Retainer service with a visible EN homepage block; user selected keyword after worldwide Google Ads Planner results (100–1000/mo, 0% QoQ/YoY, low Ads competition), despite 15-region mixed informational/commercial SERP. Full findings in `docs/research/2026-10-16-en-seo-retainer-serp.md`.
 - New `content/services/seo-retainer/index.md` -> `/seo-retainer/`, Title/H1 `SEO Retainer`, body includes onboarding and first-month review, monthly planning/approved edits, specific monthly work log, reporting, approval/access, scope limits, refusal of critical fixes, upfront monthly fee as agreed in proposal, FAQs and contact.
