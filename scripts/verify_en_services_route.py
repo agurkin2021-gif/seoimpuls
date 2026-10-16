@@ -136,7 +136,7 @@ for url, (name, _, ru, es) in SERVICES.items():
     print("PASS: exact URL, Title, H1, metadata, schema, hreflang and direct links", url)
 
 kw = load("keyword-research/index.html")
-assert "keyword-research" in " ".join(kw.ids), "Keyword page content anchors missing"
+assert {"what-is-included", "methodology", "deliverables"}.issubset(kw.ids), "Keyword research page sections missing"
 technical = load("technical-seo-audit/index.html")
 assert "technical-seo" in technical.ids, "Technical audit anchor missing"
 consult = load("seo-consultation/index.html")

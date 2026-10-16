@@ -30,3 +30,8 @@ The phrase technical seo audit is more specific to the existing diagnostic servi
 4. Inspect screenshots, record workflow runs and true outcomes in context. Separate owner acceptance and production authorization.
 
 All gates PENDING until this current source is committed and tested. Do not proceed to other pages automatically.
+
+## 2026-10-16 — First Actions QA diagnosis (not acceptance)
+- Commit 3289214 Hugo compilation and new three route/title/H1/meta/schema/hreflang checks passed.
+- Strict/Pages stopped on a test-only false expectation for "keyword-research" anchor ID; existing keyword page uses what-is-included, methodology, deliverables. Browser workflow readiness requested retired hub URL; changed readiness to homepage.
+- Follow-up full strict/preview/browser evidence still needed. No code source modifications in test correction; no claim that all gates passed.

@@ -1,4 +1,11 @@
 # SEOImpuls — основной контекст проекта (читать первым)
+## 2026-10-16 — QA feedback after commit 3289214, script-only correction
+- Hugo built successfully. Dedicated 3 EN route checks passed Title/H1/canonical/hreflang/schema for /technical-seo-audit/, /keyword-research/, /seo-consultation/.
+- Full strict #38909519843 and Pages #38909519450 stopped only at stale test assertion seeking literal "keyword-research" in document anchor IDs. Existing valid keyword page uses anchors "what-is-included", "methodology", "deliverables"; fixed assertion to check those meaningful IDs. No content/page source change for this correction.
+- Browser service-selector #38909519226 failed starting test webserver readiness because workflow still curled retired /seo-services/ (404); now curls existing /.
+- Code remains EDITED_QA_PENDING until fresh Hugo, Pages and browser tests pass. Do not start any other page automatically.
+
+
 ## ACTIVE OWNER ORDER (2026-10-16): HOMEPAGE DIRECT EN SERVICES, EXACT PHRASE IN URL+TITLE+H1
 Supersedes earlier page lock ONLY /seo-services/: user showed homepage existing service cards, ordered no extra /seo-services/ page, questioned /services/ prefix and then insisted /seo/ must become a real target-keyword URL with matching title.
 - EN homepage owns Professional SEO Services, direct 3 service cards at /#services; menu and primary CTA also go to /#services. Keep existing illustrations and customer-friendly wording. Remove lower duplicate service selector.
@@ -178,6 +185,10 @@ IMPORT_STATUS: completed
 7. Перед новым чатом прочитать AGENTS.md и этот файл прямо из репозитория, проверить фактическое состояние GitHub/Actions и продолжить с секции 6 «Следующее действие».
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
+
+### 2026-10-16 — Fix stale QA references after EN direct-URL rollout
+- Original 3289214 first Actions strict #38909519843 and Pages #38909519450 compiled site and validated 3 EN routes but stopped on outdated keyword page anchor assertion; service browser #38909519226 attempted retired URL in readiness curl. Updated only affected EN QA scripts and same-commit context/plan. No service content changes. New test runs pending.
+
 
 ### 2026-10-16 — EN direct homepage links / keyword-aligned service URLs: source plan before CI
 - User orders no EN services intermediary, removing /services/ prefix and changing vague /seo/ to the technical seo audit query. Implement direct homepage 3 cards /#services and name/title/URL alignments.

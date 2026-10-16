@@ -43,7 +43,7 @@ jobs:
         run: |
           nohup python3 -m http.server 8765 --directory public >/tmp/seo-hub-server.log 2>&1 &
           sleep 2
-          curl -fsSI http://127.0.0.1:8765/seo-services/
+          curl -fsSI http://127.0.0.1:8765/
       - name: Run responsive Chrome diagnostics
         env:
           NODE_PATH: /tmp/seo-hub-browser/node_modules
