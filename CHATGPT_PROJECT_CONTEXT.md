@@ -62,6 +62,12 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-16 — STEP 2 DONE, verified 23-item commercial scope evidence
+- Step 2 completed on source `30e1c72`, retaining `f7563f5` page data and visible truth labels: 3 published service pages, 14 agreed-scope components and 6 conditional specialties; all 23 have documentary evidence or explicit evidence gaps in `docs/research/2026-10-16-en-services-scope-evidence-matrix.md`. No unsupported specialist certification or client work claimed.
+- Hugo strict sitewide #38852948774 PASS; Pages #38852948660 PASS; context #38852948983 PASS; Playwright #38852948749 PASS at 390/768/1280, all 23 categories and 3/14/6 distribution, no broken links, JS/network failures, overflow or header/footer collision. Reviewed 390/1280 category screenshots artifact #12025483380.
+- Plan Step 2 DONE, Step 3 NEXT: deliver reproducible, truthfully labelled evidence format, not a fabricated client case. Do not edit sibling pages or production.
+
+
 ### 2026-10-16 — Step 2 QA test corrected: select catalogue lede not buyer selector lede
 - Initial 3/14/6 source `f7563f5` passed Hugo strict/Pages (#38852787628/#38852787684) and context guard, with 390/768/1280 browser DOM confirming all status counts and no visual/route/JS failures. Browser #38852787605 failed the new `scopeLegendPresent` assertion only because `querySelector('.seo-catalog__lede')` returned the earlier buyer-decision intro, not the adjacent catalogue lede after the directory heading.
 - Updated only `scripts/audit_en_services_browser.cjs`: scope text now read from `#seo-catalog-title + .seo-catalog__lede`, matching the intended DOM. No HTML, offers, data, other locales or production changes. Plan Step 2 still **IN_PROGRESS / QA_PENDING**, rerun browser/Hugo/Pages.
@@ -1016,7 +1022,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-SOURCE OF TRUTH: `docs/plans/EN_SEO_SERVICES_FINISH_PLAN.md` and this context in `white-seo-rebuild`. Owner instructed finish EN `/seo-services/` only, **work sequentially and update both documents in each commit**. Current plan: STEP 0 DONE, STEP 1 DONE (63f39bb, strict/Pages/Playwright 390/768/1280 all PASS). STEP 2 IN_PROGRESS — evidence matrix and visible 3 published / 14 component / 6 conditional scope classification committed; QA and screenshots pending. Do not claim proof without evidence. Do not touch main, EN homepage or sibling service pages, RU/ES content or live server.
+SOURCE OF TRUTH: `docs/plans/EN_SEO_SERVICES_FINISH_PLAN.md` and this context in `white-seo-rebuild`. Owner instructed finish EN `/seo-services/` only, **work sequentially and update both documents in each commit**. Current plan: STEP 0 DONE, STEP 1 DONE (63f39bb, strict/Pages/Playwright 390/768/1280 all PASS). STEP 2 DONE — source 30e1c72, Hugo/Pages/Playwright 390/768/1280 passed, 23 entry matrix and 3/14/6 visible labels verified; STEP 3 NEXT — build reproducible truthful report-format example without claiming customer results. Do not claim proof without evidence. Do not touch main, EN homepage or sibling service pages, RU/ES content or live server.
 
 Current last-proven site: `3878934` plus record `1791892`, strict/Pages/390-1280 PASS, 23 workstreams/4 groups/3 deep links; title `SEO Audits, Keyword Research & Consulting | SeoImpuls`, H1 `Choose the Right SEO Work for Your Website`, canonical `/seo-services/`. Preview noindex; live site not changed. Plan Step 1 code changes, once committed, are **EDITED_QA_PENDING** until CI finishes. External release blocks: GSC and incoming link history, production 301/410 decisions, real proof/customer permission and owner production approval.
 
