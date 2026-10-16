@@ -1,5 +1,13 @@
 # SEOImpuls — основной контекст проекта (читать первым)
 
+## CURRENT WORK — 2026-10-16: SEO Retainer EN landing and featured homepage block
+- OWNER INSTRUCTION: add a distinct SEO Retainer service with a visible EN homepage block; user selected keyword after worldwide Google Ads Planner results (100–1000/mo, 0% QoQ/YoY, low Ads competition), despite 15-region mixed informational/commercial SERP. Full findings in `docs/research/2026-10-16-en-seo-retainer-serp.md`.
+- New `content/services/seo-retainer/index.md` -> `/seo-retainer/`, Title/H1 `SEO Retainer`, body includes onboarding and first-month review, monthly planning/approved edits, specific monthly work log, reporting, approval/access, scope limits, refusal of critical fixes, upfront monthly fee as agreed in proposal, FAQs and contact.
+- EN only: `data/en_home_services.json` and `layouts/index.html` expand existing nine service cards by a tenth full-width featured Retainer card with direct detail link, custom CSS no graphics, no removal of nine categories, no new redundant services hub.
+- Static/browser/preview QA scripts and workflows updated; EN intent remains separate from technical audit, keyword research, consultation and general Professional SEO Services homepage. RU/ES content unchanged; production, CDN, GSC, main untouched.
+- STATUS: EDITED_QA_PENDING / PREVIEW_PENDING / NO PRODUCTION DEPLOYMENT. Next: observe strict Hugo/whitehat/context guard, noindex Preview and Chrome 390/768/1280 screenshot audits; repair failures in same-commit-context follow-ups. Owner review required before any deployment.
+
+
 ## ACCEPTED CODE / BROWSER / PREVIEW — 2026-10-16: NINE PLAIN SEO SERVICE AREAS
 - The homepage visual/content source from bb9b418 remains unchanged through test-only commits 1510891 and b389ede. Nine buyer-facing service cards are visible in the working Preview, not merely in source, with primary H2 SEO Services for Your Business and three valid EN service detail links plus six links to the same-page project enquiry.
 - **PASS** strict Hugo, EN/RU/ES generated routes, self-consistent SEO schema, whitehat content and retired routes: [#38926019064](https://github.com/agurkin2021-gif/seoimpuls/actions/runs/38926019064).

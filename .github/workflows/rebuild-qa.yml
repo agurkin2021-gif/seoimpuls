@@ -468,14 +468,14 @@ jobs:
                   a=dict(attrs)
                   if t=='a' and a.get('data-home-link-field')=='card2Url':
                       self.cards.append(a.get('href',''))
-          # EN homepage now has nine data-driven service areas (verified separately).
+          # EN homepage has nine work areas plus featured SEO Retainer (verified separately).
           # Preserve original card 2 fallback only on unchanged localized RU/ES homepages.
           for lang,path in [('ru','public/ru/index.html'),('es','public/es/index.html')]:
               p=Cards();p.feed(Path(path).read_text(encoding='utf-8'))
               assert len(p.cards)==1 and p.cards[0] and '/soft/' not in p.cards[0],(lang,p.cards)
           en=Path('public/index.html').read_text(encoding='utf-8')
-          assert en.count('data-home-service=')==9, 'EN homepage needs nine data-driven service areas'
-          print('PASS: ES blank software removed; localized card fallback intact; EN uses nine primary areas')
+          assert en.count('data-home-service=')==10, 'EN homepage needs ten data-driven service areas'
+          print('PASS: ES blank software removed; localized card fallback intact; EN uses ten primary areas')
           PY
       - name: Check RU About factual scope and localized links
         shell: bash
@@ -716,16 +716,16 @@ jobs:
           if legacy:raise SystemExit('Legacy grey copy on EN homepage: '+str(legacy))
           if ''.join(page.h1).strip()!='Professional SEO Services':
               raise SystemExit('Incorrect EN homepage H1: '+str(page.h1))
-          for service in ('/technical-seo-audit/','/keyword-research/','/seo-consultation/','/#services'):
+          for service in ('/technical-seo-audit/','/keyword-research/','/seo-consultation/','/seo-retainer/','/#services'):
               if service not in page.links:raise SystemExit('Missing EN homepage service or anchor '+service)
           if any(old in page.links for old in ('/seo/','/seo-services/','/services/keyword-research/','/services/seo-consultation/')):
               raise SystemExit('Deprecated EN service link remains on homepage')
           for fragment in ('seo services for businesses: website audits, keyword research',
                            'seo services for your business',
                            'seo competitor analysis','seo content optimization','technical seo',
-                           'on-page seo','local seo','international seo','seo consultation'):
+                           'on-page seo','local seo','international seo','seo consultation','seo retainer'):
                if fragment not in visible:raise SystemExit('EN buyer-facing main service missing '+fragment)
-          if page.offer_items:raise SystemExit('EN legacy supporting-work tiles must not duplicate the nine service areas')
+          if page.offer_items:raise SystemExit('EN legacy supporting-work tiles must not duplicate the primary service areas')
           if 'seo-icon-google.svg' in html:raise SystemExit('Old service images rendered on EN homepage')
           for fragment in ('what you receive','website audit report','keyword research spreadsheet',
                            'advice & content recommendations','no website',

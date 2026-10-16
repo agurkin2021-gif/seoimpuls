@@ -1,4 +1,4 @@
-/* EN homepage nine buyer-facing areas and three exact detail routes. */
+/* EN homepage nine focused SEO areas plus featured retainer and four exact detail routes. */
 const fs = require("node:fs"), path = require("node:path");
 const {chromium} = require("playwright");
 const ROOT = "http://127.0.0.1:8765";
@@ -7,6 +7,7 @@ const TARGETS = [
   ["/technical-seo-audit/", "Technical SEO Audit"],
   ["/keyword-research/", "Keyword Research"],
   ["/seo-consultation/", "SEO Consultation"],
+  ["/seo-retainer/", "SEO Retainer"],
 ];
 fs.mkdirSync(OUT,{recursive:true});
 let browser;
@@ -40,7 +41,7 @@ let browser;
         cards:cards.map(x=>({
           href:x.querySelector("[data-home-service-link]")?.getAttribute("href")||"",
           kind:x.querySelector("[data-home-service-link]")?.dataset.homeServiceLink||"",
-          id:x.dataset.homeService,title:x.querySelector("h3")?.textContent.trim()||"",
+          id:x.dataset.homeService,title:x.querySelector("h3")?.textContent.trim()||"",featured:x.classList.contains("seo-en-service-card--featured"),
           imageCount:x.querySelectorAll("img").length,
           mark:x.querySelector(".seo-en-service-mark")?.textContent.trim()||"",
           markRect:(()=>{const r=x.querySelector(".seo-en-service-mark")?.getBoundingClientRect();return r?{width:r.width,height:r.height}:null;})()
@@ -69,17 +70,18 @@ let browser;
     if(main.title!=="Professional SEO Services | SeoImpuls")fail.push("Home title "+main.title);
     if(main.h1.length!==1||main.h1[0]!=="Professional SEO Services")fail.push("Home H1");
     if(main.canonical!=="https://seoimpuls.com/")fail.push("Home canonical");
-    if(main.cards.length!==9||main.selectorCount||!main.hasAnchor||main.serviceHeading!=="SEO Services for Your Business"||!main.projectAnchor)
-      fail.push("Nine distinct buyer-facing SEO areas, section heading or contact anchor missing");
+    if(main.cards.length!==10||main.selectorCount||!main.hasAnchor||main.serviceHeading!=="SEO Services for Your Business"||!main.projectAnchor)
+      fail.push("Nine SEO work areas plus featured SEO Retainer, section heading or contact anchor missing");
     if(main.scopeItems!==0||main.oldScopeIcon||main.scopeHeading)
       fail.push("Legacy extra-work tiles still duplicate new primary services");
-    const ids=["seo-audit","keyword-research","on-page-seo","technical-seo","seo-competitor-analysis","seo-content-optimization","local-seo","international-seo","seo-consultation"];
-    if(main.cards.map(x=>x.id).join("|")!==ids.join("|")||new Set(main.cards.map(x=>x.title)).size!==9)
+    const ids=["seo-audit","keyword-research","on-page-seo","technical-seo","seo-competitor-analysis","seo-content-optimization","local-seo","international-seo","seo-consultation","seo-retainer"];
+    if(main.cards.map(x=>x.id).join("|")!==ids.join("|")||new Set(main.cards.map(x=>x.title)).size!==10)
       fail.push("Missing or duplicate commercial SEO service headings");
     if(!main.keywordDeliverable||!main.independentKeyword||main.contactCTA!=="Discuss Your SEO Project")
       fail.push("Buyer-facing keyword deliverable or business project CTA missing");
-    if(main.cards.map(x=>x.mark).join("/")!=="01/02/03/04/05/06/07/08/09"||main.cards.some(x=>x.imageCount!==0||!x.markRect||x.markRect.width<36||Math.abs(x.markRect.width-x.markRect.height)>3))
-      fail.push("Service design: nine lightweight CSS-only markers, no old image elements");
+    if(main.cards.map(x=>x.mark).join("/")!=="01/02/03/04/05/06/07/08/09/10"||main.cards.some(x=>x.imageCount!==0||!x.markRect||x.markRect.width<36||Math.abs(x.markRect.width-x.markRect.height)>3))
+      fail.push("Service design: ten lightweight CSS-only markers, no old image elements");
+    if(main.cards.filter(x=>x.featured).length!==1||main.cards.at(-1).id!=="seo-retainer"||!main.cards.at(-1).featured)fail.push("Featured retainer must be the final service");
     for(const [url] of TARGETS)if(main.cards.filter(x=>x.href===url&&x.kind==="details").length!==1)fail.push("Missing one direct service detail link "+url);
     if(main.cards.filter(x=>x.kind==="contact"&&x.href==="#contact-project").length!==6)fail.push("Six scoped service enquiries do not reach contact anchor");
     if(main.serviceNav!=="/#services"||main.heroTarget!=="/#services")fail.push("Top services navigation/CTA not anchored");
@@ -150,7 +152,7 @@ let browser;
   await browser.close();
   fs.writeFileSync(path.join(OUT,"audit.json"),JSON.stringify(report,null,2));
   if(report.viewports.some(x=>x.fail.length))throw Error("Direct EN services homepage QA failed");
-  console.log("SERVICES_BROWSER_PASS: homepage nine distinct SEO service areas, three direct detail routes and six enquiry paths at 390/768/1280");
+  console.log("SERVICES_BROWSER_PASS: homepage nine SEO areas plus a featured retainer, four direct detail routes and six enquiry paths at 390/768/1280");
 })().catch(async e=>{
   console.error("SERVICES_BROWSER_FATAL "+(e.stack||e));
   try{if(browser)await browser.close()}catch(e){}

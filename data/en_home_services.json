@@ -55,5 +55,13 @@
     "summary": "Discuss your business goals, ask SEO questions and decide which work is worth doing first.",
     "outcome": "Practical guidance; a written plan is quoted separately.",
     "route": "seo-consultation/"
+  },
+  {
+    "id": "seo-retainer",
+    "title": "SEO Retainer",
+    "summary": "Ongoing SEO management for your website: investigate issues, agree priorities, implement approved improvements and review performance.",
+    "outcome": "Monthly work log, verified changes and a clear list of next priorities.",
+    "route": "seo-retainer/",
+    "featured": true
   }
 ]

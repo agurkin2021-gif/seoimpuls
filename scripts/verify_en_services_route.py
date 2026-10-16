@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verify nine customer-facing SEO areas and three existing detail routes."""
+"""Verify nine established SEO areas, the retainer and four direct detail routes."""
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import urlsplit
@@ -13,6 +13,7 @@ SERVICES = {
     "/keyword-research/": ("Keyword Research", "keyword", "/ru/uslugi/semanticheskoe-yadro/", "/es/servicios/investigacion-palabras-clave/"),
     "/seo-consultation/": ("SEO Consultation", "consultation", "/ru/uslugi/seo-konsultaciya/", "/es/servicios/consultoria-seo/"),
 }
+RETAINER = "/seo-retainer/"
 RETIRED_EN = (
     "/seo/", "/seo-services/", "/services/",
     "/services/keyword-research/", "/services/seo-consultation/",
@@ -131,11 +132,11 @@ assert home.canonical == [BASE_URL + "/"], home.canonical
 assert "services" in home.ids, "Homepage service cards must have #services anchor"
 EXPECTED_AREAS = ["seo-audit", "keyword-research", "on-page-seo", "technical-seo",
     "seo-competitor-analysis", "seo-content-optimization", "local-seo", "international-seo",
-    "seo-consultation"]
-assert home.service_ids == EXPECTED_AREAS, ("Nine distinct service area IDs required", home.service_ids)
-assert len(home.service_cards) == 9, home.service_cards
-assert len(home.service_marks) == 9, home.service_marks
-assert {local_target(href) for kind, href in home.service_cards if kind == "details"} == set(SERVICES), home.service_cards
+    "seo-consultation", "seo-retainer"]
+assert home.service_ids == EXPECTED_AREAS, ("Ten distinct service area IDs required", home.service_ids)
+assert len(home.service_cards) == 10, home.service_cards
+assert len(home.service_marks) == 10, home.service_marks
+assert {local_target(href) for kind, href in home.service_cards if kind == "details"} == set(SERVICES) | {RETAINER}, home.service_cards
 assert sum(kind == "contact" and local_target(href) == "#contact-project" for kind, href in home.service_cards) == 6, home.service_cards
 assert "contact-project" in home.ids, "Project enquiry anchor missing"
 assert not home.service_images, f"Old service icon images remain visible: {home.service_images}"
@@ -153,7 +154,7 @@ assert not home.offer_items, ("Old EN supporting-work list must be absent", home
 assert 'seo-icon-google.svg' not in source_html, "Old decorative SEO scope image still present"
 assert all(term in source_html.lower() for term in (
   "seo services for your business", "seo competitor analysis", "seo content optimization",
-  "international seo", "local seo", "on-page seo", "technical seo",
+  "international seo", "local seo", "on-page seo", "technical seo", "seo retainer",
   "keyword research spreadsheet", "for keyword research, no website is needed",
   "tell us about your seo project"
 )), "Buyer-friendly service taxonomy or deliverable missing"
@@ -185,6 +186,22 @@ for url, (name, _, ru, es) in SERVICES.items():
         assert local.alternate.get("en-us") == BASE_URL + url, (url, code, local.alternate)
     print("PASS: exact URL, Title, H1, metadata, schema, hreflang and direct links", url)
 
+retainer = load("seo-retainer/index.html")
+assert h1(retainer) == "SEO Retainer", h1(retainer)
+assert title(retainer) == "SEO Retainer | SeoImpuls", title(retainer)
+assert retainer.canonical == [BASE_URL + RETAINER], retainer.canonical
+assert retainer.language.lower() in ("en", "en-us"), retainer.language
+assert retainer.meta.get("description", [""])[0], "Retainer meta description missing"
+assert len(retainer.meta.get("robots", [])) == 1 and retainer.meta["robots"][0].startswith("index,follow"), retainer.meta
+for key in ("og:title", "og:description", "og:url", "twitter:card"):
+    assert retainer.meta.get(key), (RETAINER, key)
+assert schema_types(retainer).count("WebPage") == 1 and schema_types(retainer).count("BreadcrumbList") == 1, schema_types(retainer)
+assert "BlogPosting" not in schema_types(retainer), schema_types(retainer)
+assert {"overview", "included", "first-month", "monthly-cycle", "deliverables",
+        "scope", "pricing", "comparison", "faq", "start"}.issubset(retainer.ids), retainer.ids
+assert "ru-ru" not in retainer.alternate and "es-es" not in retainer.alternate, "Do not create fake translated alternates"
+assert RETAINER in [local_target(href) for href in home.links], "Homepage SEO Retainer must be directly linked"
+print("PASS: SEO Retainer direct page, unique intent, metadata, schema and real anchors")
 kw = load("keyword-research/index.html")
 assert {"what-is-included", "methodology", "deliverables"}.issubset(kw.ids), "Keyword research page sections missing"
 technical = load("technical-seo-audit/index.html")
@@ -200,7 +217,7 @@ maps = [((x.text or "").strip()) for x in root_map.iter() if x.tag.rsplit("}", 1
 assert BASE_URL + "/en/sitemap.xml" in maps, maps
 en_map = ET.parse(ROOT / "en/sitemap.xml").getroot()
 urls = {((x.text or "").strip()) for x in en_map.iter() if x.tag.rsplit("}", 1)[-1] == "loc"}
-for new in SERVICES:
+for new in tuple(SERVICES) + (RETAINER,):
     assert BASE_URL + new in urls, (new, "Missing indexed destination")
 for old in RETIRED_EN:
     assert BASE_URL + old not in urls, (old, "Retired route appears in sitemap")
@@ -210,5 +227,5 @@ for path in ("about/index.html", "faq/index.html"):
     assert "/#services" in [local_target(x) for x in obj.links], (path, "Services should lead to home selector")
     assert not any(local_target(x).split("#")[0] in RETIRED_EN for x in obj.links), (path, "Retired link")
 
-print("PASS: three service landing pages use exact search phrase in URL, Title and H1")
+print("PASS: four service landing pages use exact search phrase in URL, Title and H1")
 print("PASS: homepage owns direct service selection; intermediate hub retired, RU/ES sources preserved")

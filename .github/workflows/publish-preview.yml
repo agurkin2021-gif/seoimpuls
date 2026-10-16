@@ -59,7 +59,7 @@ jobs:
               s=re.sub(r'url\((["\x27]?)/(?!/|seoimpuls/)',r'url(\1/seoimpuls/',s)
               f.write_text(s,encoding='utf-8')
           assert (root/'index.html').exists()
-          for htmlfile in (root/'index.html',root/'technical-seo-audit'/'index.html',root/'keyword-research'/'index.html',root/'seo-consultation'/'index.html',root/'ru'/'uslugi'/'index.html',root/'es'/'servicios'/'index.html'):
+          for htmlfile in (root/'index.html',root/'technical-seo-audit'/'index.html',root/'keyword-research'/'index.html',root/'seo-consultation'/'index.html',root/'seo-retainer'/'index.html',root/'ru'/'uslugi'/'index.html',root/'es'/'servicios'/'index.html'):
               txt=htmlfile.read_text(encoding='utf-8')
               matches=re.findall(r'''(?is)<meta\b(?=[^>]*\bname\s*=\s*["']?robots\b)[^>]*>''',txt)
               assert len(matches)==1 and 'noindex,nofollow' in matches[0].lower(),(htmlfile,matches)
@@ -76,6 +76,7 @@ jobs:
           links=AnchorLinks()
           links.feed((root/'index.html').read_text(encoding='utf-8'))
           for expected in ('/seoimpuls/#services','/seoimpuls/technical-seo-audit/',
+                           '/seoimpuls/seo-retainer/',
                            '/seoimpuls/keyword-research/','/seoimpuls/seo-consultation/',
                            '/seoimpuls/#contact-project'):
               assert expected in links.urls, 'Missing preview path '+expected
