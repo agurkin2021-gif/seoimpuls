@@ -1,4 +1,13 @@
 # SEOImpuls — основной контекст проекта (читать первым)
+
+## AUDIT — 2026-10-16: EN HOMEPAGE VISUAL + CONTENT BALANCE
+- Docs-only audit `docs/research/2026-10-16-en-home-balance-audit.md` completed against EN source and refreshed GitHub Pages preview (?audit=20261016a), current branch prior head 06dac77d; NO homepage HTML, CSS, JS, URLs, other locale, production or deployment changes.
+- Confirmed accepted 3 paid EN offerings and only 3 non-commercial scope lines, self-consistent canonical/Title/H1 as previously tested; prior strict/preview/browser/axe PASS retained for unchanged source, not newly re-run today.
+- **P1 OPEN:** first-fold process panel substantially oversized/empty vs narrow paid service cards; duplicative 01/02/03 across steps, offers and deliverables; header singles out Technical SEO Audit; hero/process implies automatic “practical plan” although consultation written plan is separately scoped; broad SEO Audit card labels a Technical SEO Audit URL; “Keyword Research & Clustering” remains jargon.
+- **P2 OPEN:** redundant hero/definition/deliverables/FAQ/CTA explanation, non-distinct hero buttons; full-width Contacts bar animation not geometry-certified; 768 nav tall and 390 cookie wall; commercial H3 cards lack dedicated visible group H2. Source/preview differences due to stale browser tab were cleared by re-navigation.
+- No fabrication of case studies, screenshots, prices, search-volume claims or previous rejected hypothetical noindex example; real ranking/traffic, live CrUX, exhaustive geo SERP and GSC remained unverified.
+- **STATUS AUDIT_DOCUMENTED / CODE_UNCHANGED / PRODUCTION_UNTOUCHED.** Next: owner-directed EN homepage layout/buyer-message improvements; re-run all QA and update this file with each subsequent change.
+
 ## ACCEPTED CODE + VISUAL QA — 2026-10-16: EN HOMEPAGE BUYER COPY SIMPLIFICATION
 **SCOPE:** EN homepage only; owner has not approved another page or production publication.
 - Exact content/layout source `755e52d` introduced 3 brief non-commercial supporting SEO tasks instead of 8 apparent services, only 3 main cards, no old `seo-icon-google.svg` EN illustration; 3 original EN CSS service marks remain.
