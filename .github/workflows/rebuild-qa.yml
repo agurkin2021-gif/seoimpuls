@@ -683,10 +683,12 @@ jobs:
           from pathlib import Path
           class Page(HTMLParser):
               def __init__(self):
-                  super().__init__(); self.ignore=0;self.visible=[];self.h1=[];self.onh1=False;self.links=[];self.canonical=[];self.ids=[]
+                  super().__init__(); self.ignore=0;self.visible=[];self.h1=[];self.onh1=False;self.links=[];self.canonical=[];self.ids=[];self.offer_items=[]
               def handle_starttag(self,tag,attrs):
                   attrs=dict(attrs)
                   if attrs.get('id'):self.ids.append(attrs['id'])
+                  if tag=='li' and attrs.get('data-home-field','').startswith('offerItem'):
+                      self.offer_items.append(attrs['data-home-field'])
                   if tag in ('script','style'):self.ignore+=1
                   if tag=='h1':self.onh1=True
                   if tag=='a':self.links.append(attrs.get('href',''))
@@ -719,7 +721,8 @@ jobs:
                            'page and content improvements:','fixes and follow-up:',
                            'not extra fixed packages','we confirm what is included'):
               if fragment not in visible:raise SystemExit('EN supporting-work explanation missing '+fragment)
-          if html.count('data-home-field="offerItem') != 3:raise SystemExit('EN supporting-work list must have exactly 3 brief lines')
+          if page.offer_items != ['offerItem1','offerItem2','offerItem3']:
+              raise SystemExit('EN supporting-work list must have exactly 3 brief lines: '+str(page.offer_items))
           if 'seo-icon-google.svg' in html:raise SystemExit('Old scope icon still rendered on EN homepage')
           for fragment in ('site architecture:','performance & usability:','international seo:',
                            'implementation & measurement:'):

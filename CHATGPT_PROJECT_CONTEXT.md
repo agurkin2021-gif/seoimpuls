@@ -1,4 +1,10 @@
 # SEOImpuls — основной контекст проекта (читать первым)
+## 2026-10-16 — EN 3-LINE SCOPE STATIC TEST MINIFICATION FIX (QA PENDING)
+- New source `755e52d` Hugo compilation and JSON-LD home checks PASS. Strict #38918077584 and Pages preview #38918077632 stopped at the EN-only supporting-scope static assertion: it counted only `data-home-field="offerItem...` with quotes in minified HTML. Hugo minifier omits optional quote characters. This is an invalid assertion, NOT proof that page renders 8 items.
+- Same source responsive Chrome dedicated #38918077643 PASS, general home #38918077646 PASS and axe #38918077640 PASS. Screenshot review remains to be completed.
+- Corrected both static and sitewide CI verification to count **actual parsed LI `data-home-field` attribute values via HTMLParser**, requiring exactly `offerItem1`, `offerItem2`, `offerItem3`. No page HTML/CSS/text changed in this follow-up. New strict/Pages runs must pass before acceptance; exact source content remains commit `755e52d`.
+- Only home scope checks and documentation changed; never auto-start a different page or deploy production.
+
 ## ACTIVE WORK — 2026-10-16: EN HOMEPAGE BUYER SIMPLIFICATION (QA PENDING)
 Owner directs: «Приоритет — сначала сократить восемь дополнительных блоков и исправить тексты для клиентов». Authorized scope **ONLY EN homepage**; do not start any other page, change existing EN detail service page content, RU/ES, production, main, DNS or GSC.
 - Replace 8 falsely independent supporting scope tiles with only 3 short explanatory lines: Competitor research; Page and content improvements; Fixes and follow-up. Clarify optional, separately scoped work; no new commercial products or routes. Use compact one-column EN-only styling. RU/ES old 8-row source remains guarded and untouched.
@@ -268,6 +274,11 @@ IMPORT_STATUS: completed
 7. Перед новым чатом прочитать AGENTS.md и этот файл прямо из репозитория, проверить фактическое состояние GitHub/Actions и продолжить с секции 6 «Следующее действие».
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
+### 2026-10-16 — Correct brittle quote-based static scope assertions
+- Strict #38918077584 / Pages #38918077632 failed in scripts/verify_en_services_route.py due to counting quoted attributes after Hugo minification. A parser-based LI count is now required in both static and sitewide validations.
+- HTML source unchanged from commit 755e52d. Browser 390/768/1280 #38918077643 PASS, home visual #38918077646 PASS and axe #38918077640 PASS on source, screenshots still to inspect.
+- Fix committed with context and plan; await fresh strict+Pages CI. No other page or production edits.
+
 ### 2026-10-16 — Simplified EN homepage eight scope tiles to three plain supporting tasks (PENDING QA)
 - Owner requested less confusing supporting work and copy suitable for business owners. Three linked main service cards kept unchanged; eight additional tile-like work lines replaced with 3 short examples, explicitly not separately sold packages. EN-only compact styling.
 - Home intro, SEO description, deliverables, pricing/timing FAQ and CTA clarify keyword research without a ready website and results as agreed documents or advice (not guaranteed implementation or rankings).

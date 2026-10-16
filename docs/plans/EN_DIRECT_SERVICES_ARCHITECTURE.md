@@ -89,3 +89,8 @@ All gates PENDING until this current source is committed and tested. Do not proc
 - Home description, definition, deliverables, FAQ/pricing, contact CTA revised; audit only for existing websites, keyword collection even with no site, consultation spoken advice doesn't automatically include a written action plan. No invented guarantee or testimonial.
 - EN-only compact scope list CSS; URL, H1, Title, canonical/schema/hreflang and global footer unchanged. All new content locked by static/browser/sitewide CI.
 - QA PENDING on this source. Perform strict Hugo, Pages/noindex, Chrome 390/768/1280, visual and automated accessibility; inspect screenshots. No other page or production changes.
+
+## 2026-10-16 — Correct static count after Hugo minification
+- Source content commit 755e52d compiled, browser/visual/a11y passed (#38918077643/#38918077646/#38918077640) but strict #38918077584 and preview #38918077632 failed at *test-only* counting of quoted `data-home-field="offerItem..."` attributes in minified HTML.
+- The correct business contract is unchanged: 3 and only 3 supporting-work items. Static and CI counters now inspect real parsed LI attributes via HTMLParser, independent of whether Hugo includes quote characters.
+- No change to actual site source in this commit; fresh strict/preview green and manual screenshots required for validation.

@@ -38,6 +38,7 @@ class Markup(HTMLParser):
         self.service_images = []
         self.service_marks = []
         self.service_region = 0
+        self.offer_items = []
 
     def handle_starttag(self, tag, attrs):
         a = dict(attrs)
@@ -51,6 +52,8 @@ class Markup(HTMLParser):
             self.service_images.append(a.get("src", ""))
         if self.service_region and tag == "span" and "seo-en-service-mark" in a.get("class", "").split():
             self.service_marks.append(a.get("class", ""))
+        if tag == "li" and a.get("data-home-field", "").startswith("offerItem"):
+            self.offer_items.append(a["data-home-field"])
         if tag == "h1":
             self.in_h1 = True
         if tag == "title":
@@ -138,7 +141,9 @@ assert not any(local_target(href).split("#")[0] in RETIRED_EN for href in home.l
 assert set(schema_types(home)) == {"WebSite", "Organization"}, schema_types(home)
 source_html = (ROOT / "index.html").read_text(encoding="utf-8")
 assert 'seo-static-offer__list--en-compact' in source_html, "Missing compact EN scope styling"
-assert source_html.count('data-home-field="offerItem') == 3, "EN should have only 3 supporting-work entries, not 8"
+assert home.offer_items == ["offerItem1", "offerItem2", "offerItem3"], (
+    "EN should have exactly 3 supporting-work entries, not 8", home.offer_items
+)
 assert 'seo-icon-google.svg' not in source_html, "Old decorative SEO scope image still present"
 assert all(term in source_html.lower() for term in (
   "other seo work we can discuss", "competitor research:", "page and content improvements:",
