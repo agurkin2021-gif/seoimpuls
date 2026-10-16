@@ -736,8 +736,8 @@ jobs:
               if fragment not in visible:raise SystemExit('EN contact CTA copy missing '+fragment)
           for fragment in ('what are professional seo services?',
                            'seo services help businesses understand',
-                           'keyword research can start before a website exists',
-                           'website changes are separately agreed'):
+                           'you can order keyword research for a business idea before you have a website',
+                           'does not include website changes unless separately agreed'):
               if fragment not in visible:raise SystemExit('EN buyer-intent definition missing '+fragment)
           for fragment in ('from your goal to a clear result','get a clear report of recommended fixes',
                            'keyword research & clustering','no website needed','seo consultation',

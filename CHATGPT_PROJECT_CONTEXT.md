@@ -1,4 +1,11 @@
 # SEOImpuls — основной контекст проекта (читать первым)
+## 2026-10-16 — EN HOMEPAGE QA: UPDATE BUSINESS-DEFINITION EXPECTATIONS (PENDING)
+- Source `755e52d` unchanged: simplified 8 extra scope blocks to 3 examples with search-facing names, plain-language buyer copy.
+- Strict run #38918491957 passed the new parser-based 3-row count and stopped in the downstream sitewide-copy assertion, which still required the previous literal phrase `keyword research can start before a website exists` and `website changes are separately agreed`. New EN definition explicitly says `You can order keyword research for a business idea before you have a website` and `does not include website changes unless separately agreed`. This is the same factual scope expressed more clearly; outdated exact-text assertions are corrected without dropping the meaning checks.
+- Site source not modified; only `.github/workflows/rebuild-qa.yml` and context/plan updated in this commit. New strict+Pages must pass; dedicated Chromium/visual/axe tests already passed on exact source `755e52d` but manual screenshots and final QA still to be recorded.
+- Owner lock: work only on EN homepage, no changes to other pages or production.
+
+
 ## 2026-10-16 — EN 3-LINE SCOPE STATIC TEST MINIFICATION FIX (QA PENDING)
 - New source `755e52d` Hugo compilation and JSON-LD home checks PASS. Strict #38918077584 and Pages preview #38918077632 stopped at the EN-only supporting-scope static assertion: it counted only `data-home-field="offerItem...` with quotes in minified HTML. Hugo minifier omits optional quote characters. This is an invalid assertion, NOT proof that page renders 8 items.
 - Same source responsive Chrome dedicated #38918077643 PASS, general home #38918077646 PASS and axe #38918077640 PASS. Screenshot review remains to be completed.
@@ -274,6 +281,11 @@ IMPORT_STATUS: completed
 7. Перед новым чатом прочитать AGENTS.md и этот файл прямо из репозитория, проверить фактическое состояние GitHub/Actions и продолжить с секции 6 «Следующее действие».
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
+### 2026-10-16 — Update stale CI buyer-definition phrase assertions (PENDING strict)
+- Strict #38918491957 got past EN supporting-scope parsing but downstream copy assertion expected literal legacy wording. Updated expected phrases to equally strict, current plain language for keyword research without a site and separate website changes.
+- No HTML/CSS/content changes: source 755e52d remains. New strict and Pages CI pending, browser/home/axe source tests passed.
+- Scope EN homepage only; no next page or production.
+
 ### 2026-10-16 — Correct brittle quote-based static scope assertions
 - Strict #38918077584 / Pages #38918077632 failed in scripts/verify_en_services_route.py due to counting quoted attributes after Hugo minification. A parser-based LI count is now required in both static and sitewide validations.
 - HTML source unchanged from commit 755e52d. Browser 390/768/1280 #38918077643 PASS, home visual #38918077646 PASS and axe #38918077640 PASS on source, screenshots still to inspect.

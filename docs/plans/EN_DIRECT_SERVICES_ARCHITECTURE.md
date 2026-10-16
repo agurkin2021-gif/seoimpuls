@@ -94,3 +94,6 @@ All gates PENDING until this current source is committed and tested. Do not proc
 - Source content commit 755e52d compiled, browser/visual/a11y passed (#38918077643/#38918077646/#38918077640) but strict #38918077584 and preview #38918077632 failed at *test-only* counting of quoted `data-home-field="offerItem..."` attributes in minified HTML.
 - The correct business contract is unchanged: 3 and only 3 supporting-work items. Static and CI counters now inspect real parsed LI attributes via HTMLParser, independent of whether Hugo includes quote characters.
 - No change to actual site source in this commit; fresh strict/preview green and manual screenshots required for validation.
+
+## 2026-10-16 — Downstream full-site copy assertion
+- Strict run #38918491957 passed new HTMLParser scope validation, then detected stale expected literal phrase from old homepage definition, while new source retains stronger explicit buyer benefits. Adjusted two expected strings, still require SEO service definition, no-site keyword research and separate website implementation. Site source unchanged from 755e52d; re-run strict and preview.
