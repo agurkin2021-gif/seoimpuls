@@ -84,6 +84,10 @@ for target in ('seo-work-technical','seo-work-content','seo-work-specialized','s
     assert ('#'+target) in hub.links,(target,'Missing navigable category link')
 assert 'Illustrative reporting format only' in hub_markup,'Do not present an example as an actual client case'
 assert 'What a Verifiable SEO Finding Looks Like' in hub_markup,'Concrete audit output example missing'
+assert hub.class_counts.get('seo-catalog__real-qa',0)==1,'One verified internal QA evidence record required'
+for marker in ('Verified Internal QA Record', '38851634798', '38851849354', 'not customer results', 'section at 192px'):
+    assert marker in hub_markup,('Missing or untraceable internal QA proof',marker)
+
 
 for label in ('E-commerce SEO','Local SEO & Business Profile Review','AI Search Content Readiness','International & Multilingual SEO','Earned Editorial Visibility Planning'):
     assert label in hub_markup,(label,'catalogued scope missing')

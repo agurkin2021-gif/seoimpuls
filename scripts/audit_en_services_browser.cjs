@@ -56,6 +56,9 @@ let browser;
     consultationGraphicCount:document.querySelectorAll(".services-hub-card__consult-visual").length,
     consultMediaImageCount:document.querySelectorAll('.services-hub-card[href$="/services/seo-consultation/"] img').length,
     reportExampleCount:document.querySelectorAll(".seo-catalog__evidence-item").length,
+    verifiedInternalQaCount:document.querySelectorAll("[data-internal-qa-proof]").length,
+    verifiedInternalQaLinks:Array.from(document.querySelectorAll('[data-internal-qa-proof] a[href]')).map(a=>a.href),
+    exampleDisclaimer:(document.querySelector(".seo-catalog__example-note")?.textContent||"").includes("not a real client case"),
     faqQuestionCount:document.querySelectorAll(".seo-catalog__faq details").length,
     detailLinks:Array.from(document.querySelectorAll(".seo-catalog__detail-link")).map(a=>({text:a.textContent.trim(),href:a.href})),
     categoryScrollMargin:parseFloat(getComputedStyle(document.querySelector("#seo-work-technical")).scrollMarginTop)||0,
@@ -102,6 +105,9 @@ let browser;
   if(width===390 && initialConsent.shown && (initialConsent.layout!=="grid"||initialConsent.columns!==2||initialConsent.buttons!==3||!initialConsent.accept||!initialConsent.reject))fail.push("Mobile consent action layout");
   if(data.consultationGraphicCount!==1||data.consultMediaImageCount!==0)fail.push("Repeated consultation image");
   if(data.reportExampleCount!==4)fail.push("Evidence example");
+  if(data.verifiedInternalQaCount!==1||data.verifiedInternalQaLinks.length!==2||
+    !data.verifiedInternalQaLinks.some(x=>x.endsWith("/38851634798"))||
+    !data.verifiedInternalQaLinks.some(x=>x.endsWith("/38851849354"))||!data.exampleDisclaimer)fail.push("Verifiable internal QA proof or honesty disclaimer");
   if(data.faqQuestionCount!==5)fail.push("Buyer FAQ coverage");
   if(data.detailLinks.length!==3||data.detailLinks.some(x=>!x.text.startsWith("Review ")))fail.push("Descriptive workstream links");
   if(data.categoryScrollMargin<100)fail.push("Section scroll margin");
