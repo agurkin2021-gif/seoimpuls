@@ -62,6 +62,12 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-16 — Step 2 commercial truth: classify all 23 white-hat workstreams
+- Reviewed `content/seo/index.md`, `content/services/keyword-research/index.md`, `content/services/seo-consultation/index.md`, `content/about/index.md` and `content/faq/index.md` against all 23 cards. Added `docs/research/2026-10-16-en-services-scope-evidence-matrix.md` with one evidence/limitation row per card. No external claims about actual completed client projects or team capabilities.
+- `data/en_seo_catalog.json`: all 23 entries now have explicit `scope_status`: 3 published EN detailed service pages, 14 components of agreed audit/research/consultation work, 6 specialized conditional topics requiring capability and site fit confirmation. `layouts/partials/en-services-catalog.html` displays neutral text status on each card and clearly explains the categories; no new URLs/prices/guarantees, no case studies.
+- Updated targeted static and browser tests to enforce statuses 3/14/6 and disclosure; EN homepage, RU/ES and other EN content untouched. Step 2 **EDITED_QA_PENDING** until Hugo strict/Pages/390-768-1280 QA passes.
+
+
 ### 2026-10-16 — STEP 1 DONE; three-viewport verified handoff to commercial truth audit
 - Completed ordered finish-plan step 1, source `63f39bb`: selector appears before 23-group directory; 3 exact deep-service paths kept, no duplicate. Full strict multilingual Hugo #38852257807 PASS; Pages #38852257602 PASS; context #38852257833 PASS; Playwright #38852257739 PASS at 390, 768, 1280 with no errors/overflow/broken routes.
 - At 768 px header bottom 171, category anchor top 192; footer fixed to bottom y=741–800 (formerly overlapped header). 390 mobile and 768 tablet first viewport screenshots personally inspected from artifact #12025618382; mobile cookie consent retains parallel accept/reject and visible manage action.
@@ -1005,7 +1011,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-SOURCE OF TRUTH: `docs/plans/EN_SEO_SERVICES_FINISH_PLAN.md` and this context in `white-seo-rebuild`. Owner instructed finish EN `/seo-services/` only, **work sequentially and update both documents in each commit**. Current plan: STEP 0 DONE, STEP 1 DONE (63f39bb, strict/Pages/Playwright 390/768/1280 all PASS). STEP 2 NEXT — reconcile all 23 workstreams against three published EN detail pages, About and FAQ, distinguish verified listed offers from conditional project-scoped work. Do not claim proof without evidence. Do not touch main, EN homepage or sibling service pages, RU/ES content or live server.
+SOURCE OF TRUTH: `docs/plans/EN_SEO_SERVICES_FINISH_PLAN.md` and this context in `white-seo-rebuild`. Owner instructed finish EN `/seo-services/` only, **work sequentially and update both documents in each commit**. Current plan: STEP 0 DONE, STEP 1 DONE (63f39bb, strict/Pages/Playwright 390/768/1280 all PASS). STEP 2 IN_PROGRESS — evidence matrix and visible 3 published / 14 component / 6 conditional scope classification committed; QA and screenshots pending. Do not claim proof without evidence. Do not touch main, EN homepage or sibling service pages, RU/ES content or live server.
 
 Current last-proven site: `3878934` plus record `1791892`, strict/Pages/390-1280 PASS, 23 workstreams/4 groups/3 deep links; title `SEO Audits, Keyword Research & Consulting | SeoImpuls`, H1 `Choose the Right SEO Work for Your Website`, canonical `/seo-services/`. Preview noindex; live site not changed. Plan Step 1 code changes, once committed, are **EDITED_QA_PENDING** until CI finishes. External release blocks: GSC and incoming link history, production 301/410 decisions, real proof/customer permission and owner production approval.
 

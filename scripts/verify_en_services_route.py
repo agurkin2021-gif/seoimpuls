@@ -60,6 +60,10 @@ hub_markup=Path('public/seo-services/index.html').read_text(encoding='utf-8')
 assert 'Choose the right starting point' in hub_markup,'EN service-choice direct answer missing'
 assert hub.class_counts.get('seo-catalog__group',0) == 4,'Four workstream groups are required'
 assert hub.class_counts.get('seo-catalog__workstream',0) == 23,'All 23 scoped SEO workstreams must render'
+for status,expected in [('published',3),('component',14),('conditional',6)]:
+    assert hub_markup.count('data-scope-status='+status)==expected or hub_markup.count('data-scope-status="'+status+'"')==expected,(status,'scope classification mismatch')
+assert 'Six specialized areas require an explicit capability' in hub_markup,'Unverified specialties must be disclosed'
+
 assert hub.class_counts.get('seo-catalog__choice',0) == 3,'Three direct buyer entry paths are required'
 pos_selector=hub_markup.find('<section class=seo-catalog__matching')
 pos_directory=hub_markup.find('SEO Work We Can Scope')

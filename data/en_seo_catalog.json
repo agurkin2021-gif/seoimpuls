@@ -10,37 +10,43 @@
           "when": "Several technical issues appear together or visibility has fallen.",
           "work": "Audit crawl paths, indexing signals, redirects, templates and canonical URLs.",
           "output": "Prioritized findings with affected URLs and validation checks.",
-          "url": "/seo/"
+          "url": "/seo/",
+          "scope_status": "published"
         },
         {
           "name": "Crawlability & Indexation",
           "when": "Important pages are missing or irrelevant URLs are indexed.",
           "work": "Inspect robots directives, sitemaps, HTTP statuses, internal links and Search Console evidence.",
-          "output": "URL-level indexability and crawling action list."
+          "output": "URL-level indexability and crawling action list.",
+          "scope_status": "component"
         },
         {
           "name": "JavaScript Rendering SEO",
           "when": "Key page content depends on JavaScript.",
           "work": "Compare raw HTML and rendered content, navigational links and resource loading.",
-          "output": "Rendering issues and template-level corrections."
+          "output": "Rendering issues and template-level corrections.",
+          "scope_status": "component"
         },
         {
           "name": "Core Web Vitals & Mobile Performance",
           "when": "Mobile pages feel slow or unstable.",
           "work": "Review field and lab measurements, loading bottlenecks and important layouts.",
-          "output": "Performance priorities and measurable checks."
+          "output": "Performance priorities and measurable checks.",
+          "scope_status": "component"
         },
         {
           "name": "Structured Data & Search Appearance",
           "when": "Relevant markup is absent or inconsistent with visible content.",
           "work": "Check JSON-LD eligibility, entities, page content and parsing errors.",
-          "output": "Validated markup recommendations without rich-result guarantees."
+          "output": "Validated markup recommendations without rich-result guarantees.",
+          "scope_status": "component"
         },
         {
           "name": "SEO Migrations, Redirects & Canonicals",
           "when": "You are redesigning, changing domains or moving URLs.",
           "work": "Inventory old and new URLs, assess equivalence, plan redirects and verify canonical links.",
-          "output": "Migration map, prelaunch checks and postlaunch validation."
+          "output": "Migration map, prelaunch checks and postlaunch validation.",
+          "scope_status": "component"
         }
       ]
     },
@@ -54,37 +60,43 @@
           "when": "You need relevant search terms and a clear page plan.",
           "work": "Research queries, inspect intents, group related topics and map them to pages.",
           "output": "Keyword clusters and keyword-to-URL map.",
-          "url": "/services/keyword-research/"
+          "url": "/services/keyword-research/",
+          "scope_status": "published"
         },
         {
           "name": "On-Page SEO",
           "when": "Existing pages are not aligned with their target searches.",
           "work": "Assess titles, headings, content, snippets, images and contextual links.",
-          "output": "Page-level improvement briefs with priorities."
+          "output": "Page-level improvement briefs with priorities.",
+          "scope_status": "component"
         },
         {
           "name": "Content Audits & Refresh Planning",
           "when": "Pages are outdated, overlapping or missing needed answers.",
           "work": "Review usefulness, existing evidence, overlap and consolidation options.",
-          "output": "Keep, improve, combine or retire recommendations."
+          "output": "Keep, improve, combine or retire recommendations.",
+          "scope_status": "component"
         },
         {
           "name": "SEO Content Strategy & Briefs",
           "when": "You need a cohesive publishing plan.",
           "work": "Identify unanswered questions, group topics and define useful page formats.",
-          "output": "Prioritized topic roadmap and content briefs."
+          "output": "Prioritized topic roadmap and content briefs.",
+          "scope_status": "component"
         },
         {
           "name": "Information Architecture & Internal Linking",
           "when": "Visitors struggle to reach important information.",
           "work": "Assess site hierarchy, navigational paths, link depth and anchor clarity.",
-          "output": "Architecture map and internal linking priorities."
+          "output": "Architecture map and internal linking priorities.",
+          "scope_status": "component"
         },
         {
           "name": "Keyword Cannibalization & Intent Mapping",
           "when": "Several URLs appear to serve the same search intent.",
           "work": "Compare actual SERPs, page content and available performance signals.",
-          "output": "One primary destination per intent and URL-specific decisions."
+          "output": "One primary destination per intent and URL-specific decisions.",
+          "scope_status": "component"
         }
       ]
     },
@@ -97,37 +109,43 @@
           "name": "International & Multilingual SEO",
           "when": "Wrong language pages appear or translations miss local intent.",
           "work": "Review target-market queries, hreflang, canonicals and language URLs.",
-          "output": "Localized intent and technical language-routing recommendations."
+          "output": "Localized intent and technical language-routing recommendations.",
+          "scope_status": "component"
         },
         {
           "name": "Local SEO & Business Profile Review",
           "when": "A physical or service-area business needs better local discovery.",
           "work": "Review eligible local pages, business-information consistency and authorized profile signals.",
-          "output": "Local on-page and business-profile review checklist."
+          "output": "Local on-page and business-profile review checklist.",
+          "scope_status": "conditional"
         },
         {
           "name": "E-commerce SEO",
           "when": "Product and category pages are difficult to discover.",
           "work": "Assess taxonomy, product copy, faceted URLs, internal links and eligible markup.",
-          "output": "Store-template audit and product/category priorities."
+          "output": "Store-template audit and product/category priorities.",
+          "scope_status": "conditional"
         },
         {
           "name": "Image & Video Search SEO",
           "when": "Visual content lacks accessible context or useful metadata.",
           "work": "Review descriptions, image alternatives, captions and video landing pages.",
-          "output": "Media search optimization checklist for approved assets."
+          "output": "Media search optimization checklist for approved assets.",
+          "scope_status": "conditional"
         },
         {
           "name": "Large-Site & Template SEO",
           "when": "Repeated templates create widespread crawl or content problems.",
           "work": "Sample URL patterns, templates and indexation evidence; use logs when provided.",
-          "output": "Template-level findings and scalable quality controls."
+          "output": "Template-level findings and scalable quality controls.",
+          "scope_status": "conditional"
         },
         {
           "name": "AI Search Content Readiness",
           "when": "You want content that modern search interfaces can understand.",
           "work": "Check accessible answers, attribution, clarity and underlying crawlability.",
-          "output": "Content and technical recommendations; no AI citation guarantee."
+          "output": "Content and technical recommendations; no AI citation guarantee.",
+          "scope_status": "conditional"
         }
       ]
     },
@@ -140,32 +158,37 @@
           "name": "Competitor & SERP Gap Research",
           "when": "Competitors answer important questions your site misses.",
           "work": "Inspect organic page types and compare intent and content coverage.",
-          "output": "Competitor reference set and actionable gaps."
+          "output": "Competitor reference set and actionable gaps.",
+          "scope_status": "component"
         },
         {
           "name": "Google Search Console & Analytics",
           "when": "Performance or indexation changes require investigation.",
           "work": "Review authorized reports, key landing pages and data quality.",
-          "output": "Evidence-based baseline, anomalies and follow-up measures."
+          "output": "Evidence-based baseline, anomalies and follow-up measures.",
+          "scope_status": "component"
         },
         {
           "name": "SEO Implementation & Validation",
           "when": "Recommendations were made, but changes need acceptance checks.",
           "work": "Check modified templates, redirects, metadata, links and indexing signals.",
-          "output": "Pass/fail validation report with remaining issues."
+          "output": "Pass/fail validation report with remaining issues.",
+          "scope_status": "component"
         },
         {
           "name": "Earned Editorial Visibility Planning",
           "when": "You want genuine coverage without manufactured ranking links.",
           "work": "Identify relevant publications and original resources worth citing.",
-          "output": "Ethical outreach plan; no paid ranking links or placement guarantees."
+          "output": "Ethical outreach plan; no paid ranking links or placement guarantees.",
+          "scope_status": "conditional"
         },
         {
           "name": "SEO Consulting & Prioritization",
           "when": "You need advice on the next SEO decision.",
           "work": "Review goals, available diagnostics, risks and implementation capacity.",
           "output": "Scoped priorities and recommendations; implementation agreed separately.",
-          "url": "/services/seo-consultation/"
+          "url": "/services/seo-consultation/",
+          "scope_status": "published"
         }
       ]
     }

@@ -25,6 +25,10 @@
 .seo-central--services .seo-catalog__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;align-items:stretch}
 .seo-central--services .seo-catalog__workstream{min-width:0;border:1px solid rgba(103,173,211,.30);border-radius:10px;padding:18px 18px 15px;background:linear-gradient(170deg,rgba(11,29,50,.96),rgba(5,16,32,.97));box-shadow:0 9px 23px rgba(0,0,0,.13)}
 .seo-central--services .seo-catalog__workstream h4{margin:0 0 12px;color:#eaf6ff;font-size:17px;line-height:1.32}
+.seo-central--services .seo-catalog__status {display:inline-block;max-width:100%;margin:0 0 12px;padding:4px 8px;border-radius:5px;border:1px solid rgba(110,176,215,.36);color:#c9dff0;background:rgba(23,62,91,.35);font-size:12px;font-weight:650;line-height:1.35}
+.seo-central--services .seo-catalog__status--published {color:#b4eafd;border-color:rgba(120,206,241,.64)}
+.seo-central--services .seo-catalog__status--conditional {color:#f0d9bb;border-color:rgba(220,174,112,.44);background:rgba(76,55,36,.31)}
+
 .seo-central--services .seo-catalog__line{font-size:14px;line-height:1.55;margin:0 0 10px;color:#c5d5e8;overflow-wrap:anywhere}
 .seo-central--services .seo-catalog__line strong{color:#f0f7ff;font-weight:700}
 .seo-central--services .seo-catalog__detail-link{display:inline-block;margin-top:5px;color:#8cddfb;text-underline-offset:3px;font-weight:650;font-size:14px}
@@ -90,7 +94,7 @@
 </div>
 </section>
 <h2 class="seo-catalog__heading" id="seo-catalog-title">SEO Work We Can Scope</h2>
-<p class="seo-catalog__lede">Browse the SEO workstreams below by the problem they solve, the checks involved and a typical output. These are areas of work within an agreed engagement, not 23 standalone packages or promises that every task is included. Execution, access and deliverables are confirmed for each project.</p>
+<p class="seo-catalog__lede">Browse the SEO workstreams below by the problem they solve, the checks involved and a typical output. Three services have their own detailed pages. Fourteen related workstreams can be considered within an agreed audit, research or consultation scope. Six specialized areas require an explicit capability and project-fit review before they can be offered. These are not 23 standalone packages, and nothing is automatically included. Execution, access and deliverables are confirmed for each project.</p>
 <nav class="seo-catalog__toc" aria-label="Jump to an SEO work area">
   <span class="seo-catalog__toc-label">Jump to:</span>
   {{- range .groups }}
@@ -107,6 +111,8 @@
 {{- $work := . -}}
 <article class="seo-catalog__workstream">
 <h4>{{ .name }}</h4>
+{{- $status := .scope_status | default "conditional" }}
+<p class="seo-catalog__status seo-catalog__status--{{ $status }}" data-scope-status="{{ $status }}">{{ if eq $status "published" }}Detailed service page{{ else if eq $status "component" }}Part of an agreed scope{{ else }}Specialist fit to confirm{{ end }}</p>
 <p class="seo-catalog__line"><strong>When:</strong> {{ .when }}</p>
 <p class="seo-catalog__line"><strong>Work:</strong> {{ .work }}</p>
 <p class="seo-catalog__line"><strong>Typical output:</strong> {{ .output }}</p>

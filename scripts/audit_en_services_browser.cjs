@@ -41,6 +41,8 @@ let browser;
     canonical:document.querySelector('link[rel="canonical"]')?.href||"",
     gridColumns:grid?getComputedStyle(grid).gridTemplateColumns.split(" ").filter(Boolean).length:0,
     workstreamCount:document.querySelectorAll(".seo-catalog__workstream").length,
+    scopeStatusCounts:Object.fromEntries(["published","component","conditional"].map(k=>[k,document.querySelectorAll('.seo-catalog__workstream [data-scope-status="'+k+'"]').length])),
+    scopeLegendPresent:(document.querySelector(".seo-catalog__lede")?.textContent||"").includes("Six specialized areas require an explicit capability"),
     groupCount:document.querySelectorAll(".seo-catalog__group").length,
     choiceCount:document.querySelectorAll(".seo-catalog__choice").length,
     selectorBeforeCatalogue:(()=>{
@@ -93,6 +95,7 @@ let browser;
   if(data.canonical!=="https://seoimpuls.com/seo-services/")fail.push("Canonical");
   if(data.cards.length!==3)fail.push("Cards");
   if(data.workstreamCount!==23||data.groupCount!==4||data.choiceCount!==3)fail.push("Workstream scope");
+  if(data.scopeStatusCounts.published!==3||data.scopeStatusCounts.component!==14||data.scopeStatusCounts.conditional!==6||!data.scopeLegendPresent)fail.push("Commercial truth and capability labels");
   if(!data.selectorBeforeCatalogue)fail.push("Buyer choice must precede workstream directory");
   if(data.jumpLinks.length!==5||data.jumpLinks.some(x=>!x.targetExists))fail.push("Category navigation");
   if(data.returnLinks!==4||data.catalogueScrollMargin<100)fail.push("Return navigation");
@@ -127,7 +130,7 @@ let browser;
   if(scrollCheck.sectionTop<scrollCheck.headerBottom-2)fail.push("Anchor obscured by header");
   try{await page.screenshot({path:path.join(OUT,width+"-category.png"),timeout:12000,animations:"disabled"});}catch(e){console.log("SERVICES_SCREENSHOT_WARNING "+e.message.slice(0,120));}
   report.viewports.push({width,status:res.status(),...data,scrollCheck,initialConsent,brokenLinks,errors,networkFailures,fail});
-  console.log("SERVICES_BROWSER_SUMMARY "+JSON.stringify({width,status:res.status(),h1:data.h1,gridColumns:data.gridColumns,cards:data.cards.length,workstreams:data.workstreamCount,groups:data.groupCount,choices:data.choiceCount,jumpLinks:data.jumpLinks.length,returnLinks:data.returnLinks,consent:initialConsent,consultGraphic:data.consultationGraphicCount,scrollCheck,footer:data.footerGeometry,overflow:data.scrollWidth>width,brokenLinks,errors,networkFailures,fail}));
+  console.log("SERVICES_BROWSER_SUMMARY "+JSON.stringify({width,status:res.status(),h1:data.h1,gridColumns:data.gridColumns,cards:data.cards.length,workstreams:data.workstreamCount,statuses:data.scopeStatusCounts,groups:data.groupCount,choices:data.choiceCount,jumpLinks:data.jumpLinks.length,returnLinks:data.returnLinks,consent:initialConsent,consultGraphic:data.consultationGraphicCount,scrollCheck,footer:data.footerGeometry,overflow:data.scrollWidth>width,brokenLinks,errors,networkFailures,fail}));
   await ctx.close();
  }
  await browser.close();
