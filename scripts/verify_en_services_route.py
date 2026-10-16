@@ -67,8 +67,14 @@ oldtext=(Path('public')/'services/index.html').read_text(encoding='utf-8')
 assert old.refresh or re.search(r'window\.location|location\.href',oldtext,re.I),'Old URL must redirect'
 assert 'seo-services/' in oldtext,'Old alias misses new hub'
 assert 'SEO Services & Practical Deliverables' not in ''.join(old.h1),'Duplicate old catalog'
-site=(Path('public')/'sitemap.xml').read_text(encoding='utf-8')
-assert re.search(r'<loc>[^<]*?/seo-services/</loc>',site),'Canonical hub absent from sitemap'
-assert not re.search(r'<loc>[^<]*?/services/</loc>',site),'Old alias in sitemap'
+# Multilingual Hugo outputs a root sitemapindex and language-specific sitemaps.
+import xml.etree.ElementTree as ET
+root_sitemap=ET.parse('public/sitemap.xml').getroot()
+root_locations=[(el.text or '').strip() for el in root_sitemap.iter() if el.tag.endswith('}loc') or el.tag=='loc']
+assert any(x.endswith('/en/sitemap.xml') for x in root_locations),root_locations
+english=ET.parse('public/en/sitemap.xml').getroot()
+english_locations=[(el.text or '').strip() for el in english.iter() if el.tag.endswith('}loc') or el.tag=='loc']
+assert any(urlsplit(loc).path.endswith('/seo-services/') for loc in english_locations),'Canonical hub absent from English sitemap'
+assert not any(urlsplit(loc).path.endswith('/services/') for loc in english_locations),'Old alias listed in English sitemap'
 print('PASS: EN SEO services hub canonical, H1, 3 services, breadcrumb and sitemap')
 print('PASS: old alias redirects, EN links, hreflang reciprocal, child URLs unchanged')

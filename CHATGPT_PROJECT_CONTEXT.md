@@ -60,6 +60,12 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — Correct English service hub sitemap QA for multilingual Hugo sitemapindex
+- After HTML Title fix 8447c02d, Hugo #103 and Pages #44 still failed **only** on service QA sitemap assertion: script searched `public/sitemap.xml` for the hub, but this multilingual Hugo site generates root `sitemapindex` with linked `public/en/sitemap.xml`, `public/es/sitemap.xml`, `public/ru/sitemap.xml`.
+- Independently opened published GitHub Pages sitemap index and English sitemap in Opera; old `/services/` is in `/en/sitemap.xml` in prior stable build. QA false positive confirmed; actual new page output/canonical/H1/links/hreflang and alias tests already passed earlier in script.
+- Updated `scripts/verify_en_services_route.py`: XML-parse sitemap index, then English sitemap, assert new hub present and old alias absent, rather than text-regex root index. No site HTML, URL, style, RU/ES source or production changes in this commit. Need CI rerun before QA accepted.
+
+
 ### 2026-10-15 — Fix confirmed missing EN services catalog Title during route migration
 - New `/seo-services/` canonical migration commit 44b2da53 triggered Hugo QA #102 and Pages #43, both FAIL at targeted check: HTML `<title>` was only `SeoImpuls` rather than scoped `SEO Services & Practical Deliverables | SeoImpuls`. This is an actual on-page defect in section template, not false keyword gap.
 - Fixed **only the EN service hub title** in `layouts/services/list.html` via Hugo named `title` block. RU/ES section title behavior remains prior `SeoImpuls`, all other page templates and EN homepage unaffected. New URL, alias, reciprocal hreflang and all link changes from previous commit remain.
