@@ -62,6 +62,12 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-16 — STEP 4 DONE: 23 contextual paths verified, no doorway URLs
+- Step 4 source `13de711` preserves three genuine service detail links and gives 20 components/conditional specialties context-specific email inquiries with encoded subject names. Conditions are labelled truthfully. No new landing pages or price promises.
+- Hugo strict #38853823350 PASS, Pages #38853823391 PASS, context #38853823361 PASS, Playwright #38853823263 PASS at 390/768/1280; 23 workstream links, exactly 20 mailto, no href placeholders, link/JS/network/overflow errors. Inspected screenshot artifact #12026660158; workstream links readable on desktop.
+- Plan STEP 4 DONE, STEP 5 NEXT: read-only RU/ES equivalence/keyword overlap review. Production, RU/ES and EN sibling contents remain unchanged.
+
+
 ### 2026-10-16 — Step 4 contextual enquiry path for every catalogue workstream
 - EN `layouts/partials/en-services-catalog.html` now renders three existing detailed service links plus 20 topic-specific `mailto:support@seoimpuls.com` links. Published service remains `Review [name]`, documented components `Discuss [name] scope`, six conditional specialties `Check availability for [name]`. Email subject contains exact workstream name; no contact data sent before the user intentionally clicks, no JavaScript/form backend, no new pages or invented prices/results.
 - Updated Hugo static HTML parser and Playwright three-viewport checks to enforce exactly 23 contextual workstream links, 20 mailto enquiries, 3 deep routes, valid subjects and no placeholder href. Plan Step 4 IN_PROGRESS pending strict Hugo/Pages/Chrome evidence. Home, RU/ES, sibling service pages, main and production untouched.
@@ -1043,7 +1049,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-SOURCE OF TRUTH: `docs/plans/EN_SEO_SERVICES_FINISH_PLAN.md` and this context in `white-seo-rebuild`. Owner instructed finish EN `/seo-services/` only, **work sequentially and update both documents in each commit**. Current plan: STEP 0 DONE, STEP 1 DONE (63f39bb, strict/Pages/Playwright 390/768/1280 all PASS). STEP 2 DONE — source 30e1c72, Hugo/Pages/Playwright 390/768/1280 passed, 23 entry matrix and 3/14/6 visible labels verified; STEP 3 DONE — honest first-party QA report verified in live-browser artifact; real customer evidence remains BLOCKED_EXTERNAL. STEP 4 IN_PROGRESS — 3 published deep links and 20 workstream-specific email inquiries implemented, strict/Pages/Chrome 390/768/1280 pending. Do not claim proof without evidence. Do not touch main, EN homepage or sibling service pages, RU/ES content or live server.
+SOURCE OF TRUTH: `docs/plans/EN_SEO_SERVICES_FINISH_PLAN.md` and this context in `white-seo-rebuild`. Owner instructed finish EN `/seo-services/` only, **work sequentially and update both documents in each commit**. Current plan: STEP 0 DONE, STEP 1 DONE (63f39bb, strict/Pages/Playwright 390/768/1280 all PASS). STEP 2 DONE — source 30e1c72, Hugo/Pages/Playwright 390/768/1280 passed, 23 entry matrix and 3/14/6 visible labels verified; STEP 3 DONE — honest first-party QA report verified in live-browser artifact; real customer evidence remains BLOCKED_EXTERNAL. STEP 4 DONE — three existing specialist routes + 20 topic-specific email enquiries all pass strict/Pages/Chrome 390/768/1280. STEP 5 NEXT — read-only language equivalence and hreflang audit; no RU/ES edits permitted. Do not claim proof without evidence. Do not touch main, EN homepage or sibling service pages, RU/ES content or live server.
 
 Current last-proven site: `3878934` plus record `1791892`, strict/Pages/390-1280 PASS, 23 workstreams/4 groups/3 deep links; title `SEO Audits, Keyword Research & Consulting | SeoImpuls`, H1 `Choose the Right SEO Work for Your Website`, canonical `/seo-services/`. Preview noindex; live site not changed. Plan Step 1 code changes, once committed, are **EDITED_QA_PENDING** until CI finishes. External release blocks: GSC and incoming link history, production 301/410 decisions, real proof/customer permission and owner production approval.
 
