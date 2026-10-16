@@ -62,6 +62,11 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-16 — STEP 3 DONE; real first-party QA proof distinct from hypothetical SEO scenario
+- Completed source evidence block in `d98a5e3`, corrected markup-aware verifier in `218abbd`. Hugo strict #38853455473 PASS, Pages #38853455351 PASS, context #38853455458 PASS; Playwright #38853326385 PASS for the identical HTML before test-only fix, all three viewports 390/768/1280 with verified sample/links/disclaimer. Screenshot artifact #12026171699 desktop sample inspected for readability, proper 4-part hypothetical noindex example plus clearly marked **real internal QA, not client case**.
+- Underlying actual measurement: #38851634798 observed 768 section top120 vs sticky header171 (FAIL); #38851849354 retest section192/header171 PASS. No claims of SEO ranking, customers or revenue. Plan Step 3 DONE; Step 4 NEXT: add a contextual inquiry path for each of the 20 workstreams without standalone pages, retain three deep URLs.
+
+
 ### 2026-10-16 — Step 3 source QA corrected for emphasized non-client disclaimer
 - Source `d98a5e3` built under Hugo but route QA failed because it searched unbroken literal `not customer results`. Actual HTML correctly emphasizes the negation as `<strong>not</strong> customer results`, so the generated markup is truthful; string test was brittle. Fixed only `scripts/verify_en_services_route.py` to assert the actual HTML disclaimer and two traceability links. No site content changes.
 - Step 3 IN_PROGRESS: repeat full strict/Pages/Chrome 390/768/1280; verified internal QA remains a first-party test, never a customer result or rankings case.
@@ -1033,7 +1038,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-SOURCE OF TRUTH: `docs/plans/EN_SEO_SERVICES_FINISH_PLAN.md` and this context in `white-seo-rebuild`. Owner instructed finish EN `/seo-services/` only, **work sequentially and update both documents in each commit**. Current plan: STEP 0 DONE, STEP 1 DONE (63f39bb, strict/Pages/Playwright 390/768/1280 all PASS). STEP 2 DONE — source 30e1c72, Hugo/Pages/Playwright 390/768/1280 passed, 23 entry matrix and 3/14/6 visible labels verified; STEP 3 IN_PROGRESS — documented first-party QA record with verifiable run links, original hypothetical SEO issue clearly labelled; must pass full QA before DONE. Do not claim proof without evidence. Do not touch main, EN homepage or sibling service pages, RU/ES content or live server.
+SOURCE OF TRUTH: `docs/plans/EN_SEO_SERVICES_FINISH_PLAN.md` and this context in `white-seo-rebuild`. Owner instructed finish EN `/seo-services/` only, **work sequentially and update both documents in each commit**. Current plan: STEP 0 DONE, STEP 1 DONE (63f39bb, strict/Pages/Playwright 390/768/1280 all PASS). STEP 2 DONE — source 30e1c72, Hugo/Pages/Playwright 390/768/1280 passed, 23 entry matrix and 3/14/6 visible labels verified; STEP 3 DONE — honest first-party QA report verified in live-browser artifact; real customer evidence remains BLOCKED_EXTERNAL. STEP 4 NEXT — direct workstream-scoped contact paths for 20 component/conditional cards, retain only 3 existing commercial destinations. Do not claim proof without evidence. Do not touch main, EN homepage or sibling service pages, RU/ES content or live server.
 
 Current last-proven site: `3878934` plus record `1791892`, strict/Pages/390-1280 PASS, 23 workstreams/4 groups/3 deep links; title `SEO Audits, Keyword Research & Consulting | SeoImpuls`, H1 `Choose the Right SEO Work for Your Website`, canonical `/seo-services/`. Preview noindex; live site not changed. Plan Step 1 code changes, once committed, are **EDITED_QA_PENDING** until CI finishes. External release blocks: GSC and incoming link history, production 301/410 decisions, real proof/customer permission and owner production approval.
 
