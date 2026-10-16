@@ -166,10 +166,28 @@ let browser;
     sectionTop:Math.round(document.getElementById("seo-work-technical").getBoundingClientRect().top),
     headerBottom:Math.round(document.querySelector(".custom-header")?.getBoundingClientRect().bottom||0)
   }));
+  // Visual regression: fixed social shortcuts must not cover readable catalogue text.
+  const floatingContactOverlap=await page.evaluate(()=>{
+    const isIntersect=(a,b)=>a.left<b.right&&a.right>b.left&&a.top<b.bottom&&a.bottom>b.top;
+    const floated=[...document.querySelectorAll(".footer-shortcut--whatsapp,.footer-shortcut--telegram")]
+      .filter(el=>getComputedStyle(el).position==="fixed" && el.getBoundingClientRect().width>0);
+    const texts=[...document.querySelectorAll(".seo-catalog h2,.seo-catalog h3,.seo-catalog h4,.seo-catalog p,.seo-catalog li,.seo-catalog a")];
+    const collisions=[];
+    for(const button of floated){
+      const b=button.getBoundingClientRect();
+      for(const el of texts){
+        const rect=el.getBoundingClientRect();
+        if(rect.bottom<=0||rect.top>=innerHeight||rect.width===0||rect.height===0)continue;
+        if(isIntersect(b,rect))collisions.push({button:button.className,text:el.textContent.trim().slice(0,65),buttonRight:Math.round(b.right),textLeft:Math.round(rect.left)});
+      }
+    }
+    return {floatingIcons:floated.length,collisions};
+  });
+  if(width>=768&&floatingContactOverlap.collisions.length)fail.push("Floating contacts overlap catalogue text");
   if(scrollCheck.sectionTop<scrollCheck.headerBottom-2)fail.push("Anchor obscured by header");
   try{await page.screenshot({path:path.join(OUT,width+"-category.png"),timeout:12000,animations:"disabled"});}catch(e){console.log("SERVICES_SCREENSHOT_WARNING "+e.message.slice(0,120));}
   report.viewports.push({width,status:res.status(),...data,scrollCheck,initialConsent,brokenLinks,errors,networkFailures,fail});
-  console.log("SERVICES_BROWSER_SUMMARY "+JSON.stringify({width,status:res.status(),h1:data.h1,seoHead:data.seoHead,faqOpened,keyboardTOC:tocKeyboardHash,gridColumns:data.gridColumns,cards:data.cards.length,workstreams:data.workstreamCount,enquiryLinks:data.detailLinks.filter(x=>x.href.startsWith("mailto:")).length,statuses:data.scopeStatusCounts,groups:data.groupCount,choices:data.choiceCount,jumpLinks:data.jumpLinks.length,returnLinks:data.returnLinks,consent:initialConsent,consultGraphic:data.consultationGraphicCount,scrollCheck,footer:data.footerGeometry,overflow:data.scrollWidth>width,brokenLinks,errors,networkFailures,fail}));
+  console.log("SERVICES_BROWSER_SUMMARY "+JSON.stringify({width,status:res.status(),h1:data.h1,seoHead:data.seoHead,faqOpened,keyboardTOC:tocKeyboardHash,gridColumns:data.gridColumns,cards:data.cards.length,workstreams:data.workstreamCount,enquiryLinks:data.detailLinks.filter(x=>x.href.startsWith("mailto:")).length,statuses:data.scopeStatusCounts,groups:data.groupCount,choices:data.choiceCount,jumpLinks:data.jumpLinks.length,returnLinks:data.returnLinks,consent:initialConsent,consultGraphic:data.consultationGraphicCount,scrollCheck,footer:data.footerGeometry,floatingContactOverlap,overflow:data.scrollWidth>width,brokenLinks,errors,networkFailures,fail}));
   await ctx.close();
  }
  await browser.close();

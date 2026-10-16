@@ -69,6 +69,11 @@
   body.footer-floating .custom-footer--en-services {position:fixed;bottom:-96px;transition:bottom .95s ease;}
   body.footer-floating.footer-popup-visible .custom-footer--en-services {position:fixed;bottom:0;}
 }
+/* Keep text away from viewport-fixed WA/TG shortcuts on tablet / compact desktop.
+   Buttons remain fixed and usable; only this EN catalogue reserves a symmetric rail. */
+@media (min-width:768px) and (max-width:1199px) {
+  .seo-central--services .seo-catalog {padding-inline:44px;box-sizing:border-box;}
+}
 @media(min-width:641px) and (max-width:1020px) {
   /* 768px has a wrapped 171px header; 120px offset hid anchored headings. */
   .seo-central--services .seo-catalog__group,
