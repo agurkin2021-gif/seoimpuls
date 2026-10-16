@@ -1,5 +1,5 @@
 # SEOImpuls — customer-first EN /seo-services/ simplification
-Date: 2026-10-16. Status: **EDITED_QA_PENDING / OWNER_REVIEW_PENDING — plain-language SEO offer**. Authorized scope: **ONLY /seo-services/**. Owner explicitly prohibits any assistant-initiated transition to another page.
+Date: 2026-10-16. Status: **EDITED_QA_PENDING / OWNER_REVIEW_PENDING — remove duplicated service selector**. Authorized scope: **ONLY /seo-services/**. Owner explicitly prohibits any assistant-initiated transition to another page.
 
 ## Problem (verified in source, not presumed Google traffic data)
 - 23 equal-weight workstream cards: 3 established commercial pages, 14 constituent tasks, 6 specialist areas without confirmed standalone offer.
@@ -60,3 +60,10 @@ Date: 2026-10-16. Status: **EDITED_QA_PENDING / OWNER_REVIEW_PENDING — plain-l
 - Changed only EN /seo-services/ source, EN-guarded shared presentation, dedicated SEO QA and that page's H1 assertion in sitewide CI, with the required context. No edits to the homepage, other service pages, RU/ES, main or production.
 - Status **EDITED_QA_PENDING**, dependent on fresh Hugo/strict, Pages noindex preview, browser 390/768/1280 and inspected screenshots. Older PASS runs applied to different source.
 - NEVER switch to other pages without explicit new owner command.
+
+## 2026-10-16 — Follow-up UX cleanup after reviewing fresh screenshots
+- Browser checks of commit e7f9188 passed (strict #38904642890, preview #38904642446, Chromium #38904642723, context #38904642597); artifact #12048005196 viewed on 390, 768 and 1280 screenshots.
+- Screenshot review revealed remaining commercial duplication: the 3 image-bearing linked service cards were repeated in a second 3-choice block, then two of the same services appeared among four work-area cards. This violates the owner's preference for a simple service selector.
+- Next source revision removes the duplicate 3-choice block completely, preserves all 3 primary card destinations + images + explanatory benefit, and limits the *additional* informational work areas to SEO Competitor Analysis and On-Page SEO (2 cards, 3 examples each). No new commercial child pages or promises. Existing FAQ, proof, audit example and contact methods remain.
+- Static and browser regression tests updated to require 3 primary service cards, 0 repeated choice cards, 2 supplemental areas / 6 examples. All other site SEO, images, contacts, floating icons and breakpoint checks continue.
+- Current source QA **PENDING**; previous e7f9188 PASS cannot be assigned to the newly edited source. Final owner acceptance still pending. NO AUTO-PIVOT.

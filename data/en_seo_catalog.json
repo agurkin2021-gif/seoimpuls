@@ -1,26 +1,6 @@
 {
   "scope_areas": [
     {
-      "id": "technical",
-      "name": "SEO Audit — Check Your Website",
-      "summary": "Find out whether problems on your website make it harder for Google to show your business.",
-      "examples": [
-        "Check whether important pages can appear in Google",
-        "Find issues with pages, links and loading",
-        "Get a clear list of recommended fixes"
-      ]
-    },
-    {
-      "id": "content",
-      "name": "Keyword Research — Find Customer Searches",
-      "summary": "Find phrases people type into Google, even when your business does not have a website yet.",
-      "examples": [
-        "Collect searches relevant to your products or services",
-        "Group related searches by topic (keyword clustering)",
-        "Receive a spreadsheet with keyword groups"
-      ]
-    },
-    {
       "id": "specialized",
       "name": "SEO Competitor Analysis — See What Rivals Do",
       "summary": "Find businesses that appear in Google for searches that matter to you, then compare their pages and topics.",
@@ -39,26 +19,6 @@
         "Suggest clearer text and useful links",
         "Agree which improvements are worth making first"
       ]
-    }
-  ],
-  "choices": [
-    {
-      "start": "SEO audit",
-      "problem": "Your website exists, but you are unsure why people have trouble finding it on Google.",
-      "result": "A clear report of problems and the most important fixes",
-      "url": "/seo/"
-    },
-    {
-      "start": "Keyword research",
-      "problem": "You want to know what people search for or need to organize a list of search terms.",
-      "result": "A spreadsheet of searches grouped by topic",
-      "url": "/services/keyword-research/"
-    },
-    {
-      "start": "SEO consultation",
-      "problem": "You need advice about what to do first for your business.",
-      "result": "Practical recommendations and a clear next-step plan",
-      "url": "/services/seo-consultation/"
     }
   ],
   "faq": [

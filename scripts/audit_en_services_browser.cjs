@@ -56,11 +56,7 @@ let browser;
     scopeDisclaimer:(document.querySelector(".seo-catalog__scope-disclaimer")?.textContent||"").includes("These are not separate packages"),
     specialistQualifier:(document.querySelector(".seo-catalog__scope-disclaimer")?.textContent||"").includes("Additional work such as competitor research or page improvements"),
     choiceCount:document.querySelectorAll(".seo-catalog__choice").length,
-    selectorBeforeCatalogue:(()=>{
-      const selector=document.querySelector(".seo-catalog__matching");
-      const heading=document.getElementById("seo-catalog-title");
-      return !!selector&&!!heading&&!!(selector.compareDocumentPosition(heading)&Node.DOCUMENT_POSITION_FOLLOWING);
-    })(),
+    duplicateChoiceSelector:!!document.querySelector(".seo-catalog__matching"),
     sampleLink:document.querySelector(".seo-catalog__sample-link")?.getAttribute("href")||"",
     catalogueScrollMargin:parseFloat(getComputedStyle(document.querySelector("#seo-catalog-title")).scrollMarginTop)||0,
     consultationGraphicCount:document.querySelectorAll(".services-hub-card__consult-visual").length,
@@ -118,9 +114,9 @@ let browser;
   if(data.canonical!=="https://seoimpuls.com/seo-services/")fail.push("Canonical");
   if(data.cards.length!==3)fail.push("Cards");
   if(data.benefits.length!==3||!data.benefits.some(x=>x.includes("No website needed"))||!data.keywordImagePresent||!data.competitorExplained||!data.plainProcess)fail.push("Plain-language benefits or original keyword image missing");
-  if(data.workstreamCount!==0||data.areaCount!==4||data.topicCount!==12||data.choiceCount!==3)fail.push("Concise four-area scope");
+  if(data.workstreamCount!==0||data.areaCount!==2||data.topicCount!==6||data.choiceCount!==0)fail.push("Two optional work areas, no duplicate service choices");
   if(!data.scopeDisclaimer||!data.specialistQualifier||data.legacyGranularEnquiries!==0||data.detailLinks.length)fail.push("Work components must not look like standalone offers");
-  if(!data.selectorBeforeCatalogue)fail.push("Buyer choice must precede concise scope overview");
+  if(data.duplicateChoiceSelector)fail.push("Repeated three-choice selector should be removed");
   if(data.sampleLink!=="#seo-catalog-example"||data.catalogueScrollMargin<100)fail.push("Useful report anchor");
   if(width===390 && initialConsent.shown && (initialConsent.layout!=="grid"||initialConsent.columns!==2||initialConsent.buttons!==3||!initialConsent.accept||!initialConsent.reject))fail.push("Mobile consent action layout");
   if(data.consultationGraphicCount!==1||data.consultMediaImageCount!==0)fail.push("Repeated consultation image");

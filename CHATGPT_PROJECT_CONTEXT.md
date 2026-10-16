@@ -1,4 +1,12 @@
 # SEOImpuls — основной контекст проекта (читать первым)
+## 2026-10-16 — MORE PRECISE EN /seo-services/ UX: NO REPEATED SERVICES (QA PENDING)
+OWNER SCOPE LOCK: work ONLY EN /seo-services/. DO NOT switch to any other page without a new explicit user instruction; do not touch main, production, homepage, RU, ES or specialist pages.
+- Latest buyer-friendly source e7f9188 PASSED strict Hugo #38904642890, Pages Preview #38904642446, Chromium 390/768/1280 #38904642723 and context #38904642597. Screenshot artifact #12048005196 manually examined. Found non-critical but real UX issue: the same 3 linked services were visible twice (hero image cards + a duplicate 3-choice selector); two of them were reiterated in a 4-area scope matrix. This overcomplicated selection for a non-SEO business owner.
+- Current targeted revision removes the repeated 3-choice selector and redundant SEO Audit/Keyword Research scope entries; retains exactly 3 actual commercial offers with images and plain-language descriptions; only 2 **informational, non-published as product** entries remain below: SEO Competitor Analysis and On-Page SEO. They are separately scoped only if actually deliverable; no new indexed URLs or false service claims.
+- Edited files ONLY `data/en_seo_catalog.json`, `layouts/partials/en-services-catalog.html`, `scripts/verify_en_services_route.py`, `scripts/audit_en_services_browser.cjs`, the active plan and this context. Existing Title, H1, SEO metadata, 3 service URLs, 3 original images, CTA, example, FAQ, language links, floating contacts and production remain intact.
+- Status **EDITED_QA_PENDING** for this exact iteration. The previous green CI runs do not verify this source revision. Next: inspect strict Hugo + noindexed Pages Preview + Chrome 390/768/1280 and screenshots; fix only any proven EN /seo-services/ defect. Never auto-transition.
+
+
 ## АКТИВНАЯ ЗАДАЧА 2026-10-16 — понятные услуги с поисковыми запросами (QA PENDING)
 **ВЫШЕСТОЯЩИЙ ЗАПРЕТ: работать только с EN /seo-services/; не переходить на другие страницы без новой прямой команды владельца.** Продакшен, main, домашняя EN страница, /seo/, соседние EN услуги, RU и ES — не изменять.
 - Новый запрос владельца: названия услуг должны включать узнаваемые англоязычные SEO-поисковые фразы, но описания обязаны быть понятны владельцу обычного бизнеса, не специалисту по SEO: проблема → польза → результат.
@@ -150,6 +158,13 @@ IMPORT_STATUS: completed
 7. Перед новым чатом прочитать AGENTS.md и этот файл прямо из репозитория, проверить фактическое состояние GitHub/Actions и продолжить с секции 6 «Следующее действие».
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
+
+### 2026-10-16 — Remove redundant service-choice duplication after screenshot review (CI PENDING)
+- Reviewed fresh screenshots #12048005196 of passing e7f9188. Found 3 primary linked services repeated in separate chooser and again in informational matrix; navigation unnecessarily confusing.
+- Kept 3 original service cards, associated images, simple benefits and SEO keywords. Removed the second 3-choice UI and its old JSON data. Reduced supporting scope overview to 2 informative possible activities: competitor research and on-page page improvements (6 brief examples, no new commercial URLs).
+- Revised only the EN-specific catalogue data and partial + EN page testing scripts, active plan and same-commit context. No other page/production edit.
+- Status EDITED_QA_PENDING. Next: inspect new CI/browser and screenshot evidence, remain on /seo-services/ until direct owner instruction.
+
 
 ### 2026-10-16 — EN /seo-services/ buyer-friendly search-facing service language (new version, QA pending)
 - Владелец просит писать услуги простым языком для бизнес-клиента, сохранив реальные SEO-ключевые формулировки. Вторую страницу переписали: SEO Audit / Keyword Research / SEO Consultation — три основные услуги с чётким результатом.
@@ -1227,6 +1242,9 @@ IMPORT_STATUS: completed
 - Следующий этап: загрузка ZIP и успешный импорт GitHub Actions.
 
 ## 6. Следующее действие
+
+**2026-10-16 CURRENT OVERRIDE:** EN /seo-services/ only; test new simplified 3 primary + 2 supplemental + zero duplicate selector source. Do not start or modify any other page automatically.
+
 
 **OWNER-LOCK OVERRIDE (2026-10-16): EN /seo-services/ only. Newly edited business-friendly service names and cards need Hugo/strict, Pages preview and browser 390/768/1280 QA, then owner acceptance. Never switch page automatically. Older NEXT instructions below are superseded.**
 

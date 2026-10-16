@@ -72,23 +72,21 @@ print('SERVICES_HEAD_REPORT',json.dumps({key:hub.meta.get(key,[]) for key in ('r
 assert hub.social_nodes==0 and hub.map_nodes==0,'EN hub still contains non-branded social links or unverified location map'
 hub_markup=Path('public/seo-services/index.html').read_text(encoding='utf-8')
 assert 'Choose the right starting point' in hub_markup,'EN service-choice direct answer missing'
-assert hub.class_counts.get('seo-catalog__area',0)==4,'Four concise scope areas required'
-assert hub.class_counts.get('seo-catalog__topic',0)==12,'Three examples per work area required'
+assert hub.class_counts.get('seo-catalog__area',0)==2,'Two optional explanatory areas required'
+assert hub.class_counts.get('seo-catalog__topic',0)==6,'Three examples for each optional area required'
 assert hub.class_counts.get('seo-catalog__workstream',0)==0,'Old 23 workstream tiles must not render'
 assert not hub.workstream_links,'Workstream-specific contact links must not render'
-assert 'You do not need to know SEO terminology' in hub_markup,'Plain customer explanation missing'
+assert 'The three services above are the main ways to start' in hub_markup,'Clear buyer offer distinction missing'
 assert 'These are not separate packages' in hub_markup,'Not fixed packages caveat missing'
 assert 'Additional work such as competitor research or page improvements' in hub_markup,'Additional work must be qualified'
 catalog_data=json.loads(Path('data/en_seo_catalog.json').read_text(encoding='utf-8'))
-assert len(catalog_data.get('scope_areas',[]))==4,'Four work areas in source'
+assert len(catalog_data.get('scope_areas',[]))==2,'Exactly two additional work areas in source'
 assert all(len(x['examples'])==3 for x in catalog_data['scope_areas']),'Keep scope concise'
 assert 'groups' not in catalog_data,'Old misleading 23 workstreams must not remain as source data'
-assert hub.class_counts.get('seo-catalog__choice',0) == 3,'Three direct buyer entry paths are required'
-pos_selector=hub_markup.find('<section class=seo-catalog__matching')
-pos_directory=hub_markup.find('Other SEO Work, Explained Simply')
-if pos_selector < 0: pos_selector=hub_markup.find('<section class="seo-catalog__matching')
-assert pos_selector>=0 and pos_directory>pos_selector, 'Three-way buyer selector must appear before the concise scope overview'
-assert hub_markup.count('Which SEO Service Fits Your Business?')==1,'Duplicate service decision selector'
+assert hub.class_counts.get('seo-catalog__choice',0)==0,'Repeated three-choice selector must not render'
+assert hub.class_counts.get('seo-catalog__matching',0)==0,'Do not render a second set of the same three services'
+assert 'Other SEO Work, Explained Simply' in hub_markup,'Additional work area heading missing'
+assert 'choices' not in catalog_data,'Removed choice selector must not linger as inactive data'
 
 assert hub.class_counts.get('seo-catalog__toc',0)==0,'Overloaded categories navigation should be removed'
 assert hub.class_counts.get('seo-catalog__back',0)==0,'No repetitive return links'
@@ -98,7 +96,7 @@ assert hub.class_counts.get('services-hub-card__consult-visual',0)==1,'Consultat
 assert hub.class_counts.get('seo-catalog__example',0)==1,'Demonstrable output example missing'
 assert hub.class_counts.get('seo-catalog__evidence-item',0)==4,'Four evidence-to-action fields required'
 assert hub.tags.get('details',0)>=5,'SEO buyer FAQ needs at least five answers'
-for target in ('seo-area-technical','seo-area-content','seo-area-specialized','seo-area-strategy','seo-catalog-example'):
+for target in ('seo-area-specialized','seo-area-strategy','seo-catalog-example'):
     assert target in hub.ids,(target,'Missing concise work area or example')
 assert 'Illustrative reporting format only' in hub_markup,'Do not present an example as an actual client case'
 assert 'Example: What an SEO Audit Report Can Show' in hub_markup,'Concrete audit output example missing'

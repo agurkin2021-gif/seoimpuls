@@ -108,22 +108,8 @@
 @media (max-width:640px){.seo-central--services .seo-catalog__areas{grid-template-columns:1fr;gap:12px}.seo-central--services .seo-catalog__area{padding:17px}}
 </style>
 <section class="seo-catalog" aria-labelledby="seo-catalog-title" data-en-catalog="1">
-<section class="seo-catalog__matching" aria-labelledby="seo-catalog-match">
-<h2 class="seo-catalog__heading" id="seo-catalog-match">Which SEO Service Fits Your Business?</h2>
-<p class="seo-catalog__lede">Choose what you want to receive: a website check, a list of customer searches or a clear plan for your business.</p>
-<div class="seo-catalog__choice-grid">
-{{- range .choices }}
-<article class="seo-catalog__choice">
-<h3>{{ .start }}</h3>
-<p><strong>Problem:</strong> {{ .problem }}</p>
-<p><strong>Usual output:</strong> {{ .result }}</p>
-<a href="{{ .url | relURL }}">See {{ .start }} details</a>
-</article>
-{{- end }}
-</div>
-</section>
 <h2 class="seo-catalog__heading" id="seo-catalog-title">Other SEO Work, Explained Simply</h2>
-<p class="seo-catalog__lede">You do not need to know SEO terminology. These examples show what research and website improvements can involve. They are not four extra services you must buy.</p>
+<p class="seo-catalog__lede">The three services above are the main ways to start. We can also discuss competitor research or improvements to existing pages when those tasks suit your business. These are examples, not extra ready-made packages.</p>
 <div class="seo-catalog__areas" aria-label="Examples of SEO project scope">
 {{- range .scope_areas }}
 <section class="seo-catalog__area" id="seo-area-{{ .id }}" aria-labelledby="seo-area-title-{{ .id }}">
