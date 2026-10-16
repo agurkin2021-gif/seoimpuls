@@ -38,6 +38,20 @@ let browser;
       return {
         title:document.title,h1:Array.from(document.querySelectorAll("h1")).map(x=>x.textContent.trim()),
         canonical,robots:meta("robots"),description:meta("description"),
+        heroDesign:(()=>{
+          const stage=document.querySelector(".seo-central--art-directed .seo-en-hero-stage");
+          const copy=stage?.querySelector(".seo-en-hero-copy");
+          const visual=stage?.querySelector(".seo-en-hero-visual");
+          const rect=el=>{const r=el?.getBoundingClientRect();return r?{left:r.left,right:r.right,top:r.top,bottom:r.bottom,width:r.width,height:r.height}:null};
+          return {stageCount:document.querySelectorAll(".seo-en-hero-stage").length,
+            figureCount:document.querySelectorAll(".seo-en-hero-visual").length,
+            svgCount:visual?.querySelectorAll("svg").length||0,
+            aria:visual?.getAttribute("aria-label")||"",
+            kicker:copy?.querySelector(".seo-en-hero-eyebrow")?.textContent.trim()||"",
+            grid:stage?getComputedStyle(stage).gridTemplateColumns:"",
+            copy:rect(copy),visual:rect(visual),stage:rect(stage),
+            svgExternalImages:visual?.querySelectorAll("image, img, use[href^='http'], use[xlink\\:href^='http']").length||0};
+        })(),
         cards:cards.map(x=>({
           href:x.querySelector("[data-home-service-link]")?.getAttribute("href")||"",
           kind:x.querySelector("[data-home-service-link]")?.dataset.homeServiceLink||"",
@@ -72,6 +86,17 @@ let browser;
     if(main.title!=="Professional SEO Services | SeoImpuls")fail.push("Home title "+main.title);
     if(main.h1.length!==1||main.h1[0]!=="Professional SEO Services")fail.push("Home H1");
     if(main.canonical!=="https://seoimpuls.com/")fail.push("Home canonical");
+    const hd=main.heroDesign;
+    if(hd.stageCount!==1||hd.figureCount!==1||hd.svgCount!==1||!hd.aria.includes("search intent")||
+       !hd.kicker.includes("TECHNICAL SEO")||hd.svgExternalImages)
+      fail.push("EN first-screen diagram missing, inaccessible or using external image");
+    if(!hd.copy||!hd.visual||!hd.stage||hd.stage.width<250||
+       hd.visual.width<220||hd.visual.right>width+2||hd.visual.left<-2)
+      fail.push("EN first-screen diagram outside visible viewport");
+    if(hd.copy&&hd.visual){
+      if(width>900&&hd.copy.right>hd.visual.left+3)fail.push("EN desktop hero copy overlaps diagram");
+      if(width<=900&&hd.copy.bottom>hd.visual.top+3)fail.push("EN compact hero should stack copy above diagram");
+    }
     if(main.cards.length!==7||main.selectorCount||!main.hasAnchor||main.serviceHeading!=="SEO Services for Your Business"||!main.projectAnchor)
       fail.push("Six merged SEO work areas plus featured SEO Retainer, heading or contact anchor missing");
     if(main.scopeItems!==0||main.oldScopeIcon||main.scopeHeading)
@@ -193,6 +218,7 @@ let browser;
       const grid=document.querySelector("#services .seo-en-primary-services__grid");
       return {
         lang:document.documentElement.lang,
+        heroDiagramCount:document.querySelectorAll(".seo-en-hero-visual, .seo-en-hero-stage, .seo-central--art-directed").length,
         h1:Array.from(document.querySelectorAll("h1")).map(x=>x.textContent.trim()),
         ids:cards.map(x=>x.dataset.homeService),
         cards:cards.map(x=>({id:x.dataset.homeService,title:x.querySelector("h3")?.textContent.trim()||"",
@@ -210,6 +236,7 @@ let browser;
         links:Array.from(document.querySelectorAll("a[href]")).map(x=>x.href)
       };
     });
+    if(ru.heroDiagramCount!==0)fail.push("RU homepage unexpectedly received EN-only hero design");
     if(ruResponse.status()!==200||!ru.lang.toLowerCase().startsWith("ru")||
        ru.h1.length!==1||ru.h1[0]!=="Профессиональные SEO-услуги"||
        ru.ids.join("|")!==ids.join("|")||ru.cards.length!==7)
