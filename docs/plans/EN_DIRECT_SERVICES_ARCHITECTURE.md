@@ -52,3 +52,8 @@ All gates PENDING until this current source is committed and tested. Do not proc
 - Strict #38911153927 PASS; preview #38911153919 PASS; direct service browser #38911154181 PASS at 390/768/1280; general home browser #38911153939 PASS; axe WCAG #38911154116 PASS; but screenshots #12049823824 reveal fixed left WA/TG icons on top of the beginning of the below-cards text at 1280 (not caught by card-only collision test).
 - EN-only content gutter (padding-left:64px) widened to apply at all widths >=768, not just tablets. Existing fixed WA/TG UI itself is unchanged. EN dedicated browser guard strengthened to check collision rectangles of the ENTIRE .seo-central--en text, not just the service-card text.
 - Therefore prior checks do not constitute complete visual acceptance; source revision QA pending. Keep the EN route naming/Title/H1 solution already confirmed by page code checks.
+
+## 2026-10-16 — Measured icon motion, corrected rail
+- Strict/Pages/home/a11y passed prior 64px iteration but enhanced 3-viewport browser #38911716000 found moving fixed WA/TG icons at x32..92, intersecting body text starting x64. This is a visible timing-dependent collision, not a false-positive QA.
+- Changed only EN homepage CSS reserved rail to 120px for widths >=768, with at least 28px clearance from measured icon bound. Footer icons, animation, other pages and locales remain unchanged.
+- New strict/Pages/browser/screenshot QA must pass. Old success does not prove this new layout.

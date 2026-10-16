@@ -448,7 +448,7 @@
   body.footer-floating .custom-footer--en-home {position:fixed;left:0;right:0;bottom:-96px;transition:bottom .95s ease;}
   body.footer-floating.footer-popup-visible .custom-footer--en-home {position:fixed;bottom:0;}
 }
-/* Keep all EN homepage copy clear of viewport-fixed Telegram/WhatsApp icons on tablet AND desktop. */
+/* 120px EN-only rail clears transient fixed Telegram/WhatsApp bounds seen up to x92 during footer motion. */
 @media (min-width:768px) {
   .seo-central--en .seo-hero-content,
   .seo-central--en .seo-news-strip,
@@ -456,7 +456,7 @@
   .seo-central--en .seo-static-offer,
   .seo-central--en .seo-en-home-deliverables,
   .seo-central--en .seo-en-buyer-faq,
-  .seo-central--en .seo-en-home-scope {padding-left:64px;box-sizing:border-box;}
+  .seo-central--en .seo-en-home-scope {padding-left:120px;box-sizing:border-box;}
 }
 @media (max-width:767px) {
   .seo-central--en .seo-hero-content {padding:28px 18px 26px;}

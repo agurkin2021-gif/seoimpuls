@@ -1,4 +1,11 @@
 # SEOImpuls — основной контекст проекта (читать первым)
+## 2026-10-16 — EN FLOATING ICON TRANSITION RAIL 120px (QA PENDING)
+- Strict Hugo/whitehat #38911715468 PASS, preview #38911715464 PASS, EN home visual browser #38911715555 PASS, axe WCAG #38911715467 PASS for preceding EN 64px rail. Stricter direct services browser #38911716000 caught a real collision outside card boundaries during dynamic footer movement, despite screenshots sometimes appearing okay.
+- Actual overlap rectangles: 768 WhatsApp x32..76 over text starting x64, Telegram x46..90 over heading starting x64; 1280 WhatsApp x35..83, Telegram x58..92 over explanatory paragraph starting x64. Original 64px rail is inadequate for moving shortcuts.
+- Kept footer and shortcut animation unchanged. Increased EN-home content left rail (all viewport widths >=768) from 64px to **120px**, leaving at least 28px safety beyond observed rightmost shortcut at x92. Direct browser continues to inspect all homepage text and records exact bounding rectangles, not just cards.
+- No other page, link, URL, title, H1 or locale source changes. Status EDITED_QA_PENDING until new strict + Pages + 390/768/1280 browser, screenshots inspected. Do not proceed to unrelated pages.
+
+
 ## 2026-10-16 — MANUAL VISUAL FINDING: 1280px shortcut overlap below service cards (QA PENDING)
 - First combined strict/Hugo #38911153927 PASS, preview #38911153919 PASS, three-way direct service browser #38911154181 PASS at 390,768,1280, EN home browser #38911153939 PASS, axe diagnostic #38911154116 PASS. The previous automated service browser inspected floating icon collisions only with texts INSIDE the 3 service cards.
 - Downloaded screenshot artifact #12049823824 and manually inspected 390,768,1280 initial/services. **Found a real remaining 1280px visual regression**: fixed WhatsApp/Telegram shortcuts at far left overlap first line of the "What Are Professional SEO Services?" explanation immediately below 3 cards. Do NOT claim final visual PASS yet.
@@ -206,6 +213,10 @@ IMPORT_STATUS: completed
 7. Перед новым чатом прочитать AGENTS.md и этот файл прямо из репозитория, проверить фактическое состояние GitHub/Actions и продолжить с секции 6 «Следующее действие».
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
+
+### 2026-10-16 — Raise EN-only content clearance from 64px to 120px based on measured motion
+- Full-text collision test #38911716000 caught WA/TG bounding rects reaching horizontal x92 during popup/scroll movement, overlapping headings at x64; 390 PASS, 768/1280 FAIL. Scope: only EN home CSS, no shortcut animation/position changes. Set content left padding 120px for widths >=768 to guarantee measured clearance; strict + browser retest pending. Context/plan in same commit, no production.
+
 
 ### 2026-10-16 — Fix screenshot-confirmed fixed icons over downstream homepage copy at 1280
 - Although recent pipeline passed, artifact #12049823824 shows WhatsApp/Telegram shortcuts on top of the explanation paragraph below three cards at 1280. Enlarged EN left content rail to >=768, and browser QA checks ALL homepage text rather than cards only. Only EN template, EN browser QA and same-commit context/plan changed. New QA pending; no production or unrelated page work.
