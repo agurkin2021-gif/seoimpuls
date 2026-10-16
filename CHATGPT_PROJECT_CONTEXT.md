@@ -60,6 +60,13 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — EN SEO services catalog buyer-intent and visual gap fixes
+- URL change completed in commits 44b2da53, 8447c02d, 3da878cb, 8c47e968: Hugo QA #105 PASS, Pages Preview #46 PASS. Opera verified `https://agurkin2021-gif.github.io/seoimpuls/seo-services/` Title `SEO Services & Practical Deliverables | SeoImpuls`, 3 legitimate service links and header new URL. Alias /services redirects (Hugo HTML, not HTTP301); children unchanged.
+- Discovered live EN catalog partial laid out four desktop columns for three cards, leaving empty cell. Updated `layouts/partials/services-hub.html` EN-only three-column grid (two tablet, one mobile) and a short direct choice-answer paragraph before cards, clarifying audit/keyword/consultation service selection (no invented offerings or guarantees).
+- On EN catalog only, generic social-account links and unrelated location map were visible in footer; `layouts/partials/footer.html` now detects `$isEnServicesHub`, suppresses only the footer-right generic social/map block, retains real WhatsApp/Telegram/email and unmodified EN homepage logic and other languages. EN-only footer wrapper CSS avoids empty-grid layout.
+- Extended route validation to assert catalog choice paragraph and absence of unverified social/map nodes. Preview/Hugo/browser checks pending for this commit, do not claim PASS yet. RU/ES and other EN page content, main and production untouched.
+
+
 ### 2026-10-15 — Update Pages preview EN hub link assertion after canonical URL rename
 - Hugo QA #104 PASS, including dedicated service URL assertions: new `/seo-services/` canonical/H1/Title, three child links, RU/ES reciprocal hreflang, old `/services/` HTML alias, EN language sitemap without duplicate.
 - Pages #45 failed solely in preview post-build hardcoded link assertion expecting `/seoimpuls/services/` in homepage instead of updated `/seoimpuls/seo-services/`. Corrected this assertion in publish-preview.yml; no website HTML, CSS, RU/ES or production changes.

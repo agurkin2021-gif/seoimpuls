@@ -13,9 +13,12 @@ class Page(HTMLParser):
         self.title=[]; self.in_title=False
         self.links=set(); self.canonical=[]
         self.alternate={}; self.refresh=[]; self.jsonld=[]
+        self.social_nodes=0; self.map_nodes=0
         self.in_json=False; self.jsontext=[]
     def handle_starttag(self,tag,attrs):
         a=dict(attrs)
+        if tag=='div' and 'footer-social-icons' in a.get('class',''):self.social_nodes+=1
+        if tag=='div' and 'footer-map' in a.get('class','').split():self.map_nodes+=1
         if tag=='h1':self.in_h1=True
         if tag=='title':self.in_title=True
         if tag=='a' and a.get('href'):self.links.add(a['href'])
@@ -46,6 +49,9 @@ hub=parse('seo-services/index.html')
 assert ''.join(hub.h1).strip()=='SEO Services & Practical Deliverables',hub.h1
 assert len(hub.canonical)==1 and hub.canonical[0].endswith('/seo-services/'),hub.canonical
 assert 'SEO Services & Practical Deliverables' in ''.join(hub.title),hub.title
+assert hub.social_nodes==0 and hub.map_nodes==0,'EN hub still contains non-branded social links or unverified location map'
+hub_markup=Path('public/seo-services/index.html').read_text(encoding='utf-8')
+assert 'Compare the three SEO services we offer' in hub_markup,'EN service-choice direct answer missing'
 for path in ('/seo/','/services/keyword-research/','/services/seo-consultation/'):
     assert contains_path(hub.links,path),(path,hub.links)
 crumb=[doc for doc in hub.jsonld if doc.get('@type')=='BreadcrumbList']

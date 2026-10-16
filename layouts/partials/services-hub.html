@@ -300,8 +300,26 @@
       min-height: 0;
     }
   }
+  {{- if eq $lang "en" }}
+  /* EN catalog contains exactly 3 offered services; no fourth empty column. */
+  .seo-central--services .services-hub {grid-template-columns:repeat(3,minmax(0,1fr));}
+  .seo-central--services .services-hub__intro {max-width:850px;margin:0 auto 22px;text-align:center;color:#cbdced;font-size:16px;line-height:1.58;}
+  .custom-footer--en-services .footer-wrap {grid-template-columns:minmax(0,1fr);gap:0;padding:12px 28px;}
+  .custom-footer--en-services .footer-contacts {justify-content:flex-start;flex-wrap:wrap;}
+  @media(max-width:1020px) {
+    .seo-central--services .services-hub {grid-template-columns:repeat(2,minmax(0,1fr));}
+  }
+  @media(max-width:640px) {
+    .seo-central--services .services-hub {grid-template-columns:1fr;}
+    .seo-central--services .services-hub__intro {text-align:left;font-size:15px;margin:0 0 17px;}
+    .custom-footer--en-services .footer-wrap {padding:12px 16px;}
+  }
+  {{- end }}
 </style>
 
+  {{- if eq $lang "en" }}
+  <p class="services-hub__intro">Compare the three SEO services we offer: technical audits for website issues, keyword research for search-intent and page mapping, and focused consultation for deciding priorities. Choose the work that fits your website; scope and deliverables are agreed separately.</p>
+  {{- end }}
   <div class="services-hub" data-services-hub="1">
     {{- range $cardIndex, $card := sort $cards "rank" -}}
       {{- $href := trim ($card.url | default "") " \n\r\t" -}}
