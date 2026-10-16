@@ -1,5 +1,12 @@
 # SEOImpuls — основной контекст проекта (читать первым)
 
+## 2026-10-16 — EN nine-area follow-up: stale localized / preview asserts, site source unchanged
+- Feature source bb9b418: Hugo and homepage JSON-LD PASS, EN browser Chrome direct-services 390/768/1280 [#38925456308](https://github.com/agurkin2021-gif/seoimpuls/actions/runs/38925456308) PASS (9 cards and 01–09 CSS marks, no failed internal paths/network/JS/overflow/shortcut collisions); home screenshot browser [#38925456144](https://github.com/agurkin2021-gif/seoimpuls/actions/runs/38925456144) PASS, axe [#38925456100](https://github.com/agurkin2021-gif/seoimpuls/actions/runs/38925456100) PASS (manual accessibility still open).
+- Previous QA-only 1510891 corrected EN route parser; on its run strict #38925752480 stopped at old EN-only assertion requiring previous card2Url data field, while RU/ES still correctly use that field; now gate checks RU/ES only and checks exactly 9 EN data-driven areas. Preview #38925752323 passed route/schema/whitehat but stopped at obsolete hero #how-it-works secondary link; preview gate now expects approved new contact-project target.
+- Browser test now measures **actual nine-card grid columns** rather than surrounding block display, expecting 390=1, 768=2, 1280=3. No visual/site code changed in this commit; rebuild/preview/browser must rerun on exact new head.
+- STATUS EDITED_QA_PENDING / PRODUCTION_UNTOUCHED. Next: verify all Actions and GitHub Pages preview, inspect actual desktop/mobile screenshots; do not confuse old failed assertions with site defects.
+
+
 ## 2026-10-16 — EN nine-area QA gate repair, site source unchanged
 - Prior feature commit bb9b418 Hugo --minify + homepage schema PASS, but strict/Pages build intentionally stopped at stale `scripts/verify_en_services_route.py` expecting old three EN cards; traceback showed empty old-aside selectors because new nine articles use a section. Corrected parser to collect the nine EN service IDs/marks and 3 detail + 6 scoped enquiry links; rejected legacy scope duplication. EN page HTML, CSS, site links and RU/ES not modified.
 - Updated embedded strict sitewide expected text to match the already-changed scope pricing wording and SEO delivery-time disclaimer, not lower requirements. All checks must be rerun on this commit. Context guard on prior bb9b418 PASSED, WCAG automation PASSED; prior strict+Pages failed due old test and cannot count as pass.

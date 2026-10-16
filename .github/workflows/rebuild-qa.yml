@@ -468,10 +468,14 @@ jobs:
                   a=dict(attrs)
                   if t=='a' and a.get('data-home-link-field')=='card2Url':
                       self.cards.append(a.get('href',''))
-          for lang,path in [('en','public/index.html'),('ru','public/ru/index.html'),('es','public/es/index.html')]:
+          # EN homepage now has nine data-driven service areas (verified separately).
+          # Preserve original card 2 fallback only on unchanged localized RU/ES homepages.
+          for lang,path in [('ru','public/ru/index.html'),('es','public/es/index.html')]:
               p=Cards();p.feed(Path(path).read_text(encoding='utf-8'))
               assert len(p.cards)==1 and p.cards[0] and '/soft/' not in p.cards[0],(lang,p.cards)
-          print('PASS: blank ES software removed; explicit home card 2 preserved in EN/RU/ES')
+          en=Path('public/index.html').read_text(encoding='utf-8')
+          assert en.count('data-home-service=')==9, 'EN homepage needs nine data-driven service areas'
+          print('PASS: ES blank software removed; localized card fallback intact; EN uses nine primary areas')
           PY
       - name: Check RU About factual scope and localized links
         shell: bash

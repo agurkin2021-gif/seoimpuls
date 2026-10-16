@@ -77,7 +77,7 @@ jobs:
           links.feed((root/'index.html').read_text(encoding='utf-8'))
           for expected in ('/seoimpuls/#services','/seoimpuls/technical-seo-audit/',
                            '/seoimpuls/keyword-research/','/seoimpuls/seo-consultation/',
-                           '/seoimpuls/#how-it-works'):
+                           '/seoimpuls/#contact-project'):
               assert expected in links.urls, 'Missing preview path '+expected
           invalid=[url for url in links.urls
                    if url.startswith('/') and not url.startswith('//')
@@ -85,7 +85,7 @@ jobs:
           assert not invalid, 'EN home links escaped preview base path: '+str(invalid[:12])
           for retired in ('/seoimpuls/seo-services/','/seoimpuls/seo/','/seoimpuls/services/keyword-research/','/seoimpuls/services/seo-consultation/'):
               assert retired not in links.urls, 'Retired EN internal link in homepage: '+retired
-          print('PASS: EN home three direct services and anchors resolve under /seoimpuls/')
+          print('PASS: EN home detail routes, services and contact anchors resolve under /seoimpuls/')
           PY
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3

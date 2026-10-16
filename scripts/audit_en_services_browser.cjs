@@ -45,7 +45,7 @@ let browser;
           mark:x.querySelector(".seo-en-service-mark")?.textContent.trim()||"",
           markRect:(()=>{const r=x.querySelector(".seo-en-service-mark")?.getBoundingClientRect();return r?{width:r.width,height:r.height}:null;})()
         })),
-        columns:layout?getComputedStyle(layout).gridTemplateColumns.split(" ").filter(Boolean).length:0,
+        columns:(()=>{const g=document.querySelector("#services .seo-en-primary-services__grid");return g?getComputedStyle(g).gridTemplateColumns.split(" ").filter(Boolean).length:0;})(),
         selectorCount:document.querySelectorAll("#seo-en-choose-title").length,
         scopeItems:document.querySelectorAll(".seo-central--en .seo-static-offer__list li").length,
         oldScopeIcon:!!document.querySelector('.seo-central--en img[src*="seo-icon-google.svg"]'),
@@ -85,6 +85,7 @@ let browser;
     if(main.serviceNav!=="/#services"||main.heroTarget!=="/#services")fail.push("Top services navigation/CTA not anchored");
     if(!main.faq)fail.push("Retained buyer FAQ missing");
     if(!main.processBelow)fail.push("Service cards should be visually above compact process");
+    if(main.columns!==(width===390?1:width===768?2:3))fail.push("Responsive nine-card grid column count");
     if(main.overflow)fail.push("Horizontal overflow");
     if(main.images.some(x=>!x.ok))fail.push("Broken home images");
     if(main.schema.includes("INVALID")||!main.schema.includes("WebSite")||!main.schema.includes("Organization"))fail.push("Home structured data");
