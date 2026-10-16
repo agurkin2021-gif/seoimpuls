@@ -481,12 +481,12 @@
 .seo-central--en .seo-en-home-scope p {max-width:890px;margin:0 0 17px;color:rgba(214,224,240,.9);font-size:15px;line-height:1.65;}
 .seo-central--en .seo-en-home-scope-actions {display:flex;flex-wrap:wrap;gap:12px;}
 .seo-central--en .seo-en-home-scope-actions .seo-cta {min-height:46px;font-size:15px;padding:0 20px;}
-/* WCAG: preserve readable labels on EN enquiry CTA, including visited and hover states. */
+/* WCAG: CTA contrast must follow its EN teal background in all link states. */
 .seo-central--en .seo-en-home-scope-actions a.seo-cta--primary,
 .seo-central--en .seo-en-home-scope-actions a.seo-cta--primary:visited,
 .seo-central--en .seo-en-home-scope-actions a.seo-cta--primary:hover,
 .seo-central--en .seo-en-home-scope-actions a.seo-cta--primary:focus-visible {
-  color:#fff!important;
+  color:var(--seo-en-action-fg,#071321)!important;
   font-weight:700;
 }
 /* Visible keyboard focus on EN home CTAs independent of hover styles. */
@@ -838,6 +838,12 @@
 .seo-central--art-directed .seo-en-home-scope p{font-size:15px;line-height:1.68;color:#c4d5e1;max-width:830px}
 .seo-central--art-directed .seo-en-home-scope-actions{gap:11px}
 /* The bottom conversion panel now uses the same action colors as the hero. */
+/* Prevent inherited neon halo from turning quiet outlined actions into equal visual weight. */
+.seo-central--art-directed .seo-en-home-scope .seo-cta{filter:none;}
+.seo-central--art-directed .seo-en-home-scope .seo-cta::after{
+  display:none!important;
+  content:none!important;
+}
 .seo-central--art-directed .seo-en-home-scope .seo-cta--primary{
   background:var(--seo-en-action-bg);
   border-color:var(--seo-en-action-bg);

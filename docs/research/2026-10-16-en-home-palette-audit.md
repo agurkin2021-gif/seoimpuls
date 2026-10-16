@@ -21,3 +21,8 @@
 
 ## Status
 Design decision and CSS edit prepared, not yet QA accepted. Await strict Hugo/preview and actual browser checks on new preview commit.
+
+## Runtime finding and corrective follow-up
+- Opera test of initial normalization candidate `61a6cfef10` showed the contact CTA's real text was WHITE, not the proposed dark color, due to a stronger legacy EN-only visited/hover/focus rule declaring `color:#fff!important`.
+- That rendered combination #ffffff on #59c1d0 = **2.11:1**, below 4.5:1 for normal text. Corrective patch changes the old rule to `var(--seo-en-action-fg,#071321)!important`, maintaining 8.86:1 across link states, and disables a global ::after neon halo for the closing panel buttons.
+- New candidate requires Pages and Opera recheck; previous contrast 8.86:1 was an *intended* CSS combination, not the initial candidate's effective rendering.

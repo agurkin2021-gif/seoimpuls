@@ -1,5 +1,11 @@
 # SEOImpuls — основной контекст проекта (читать первым)
 
+## 2026-10-16 — Fix EN contact CTA white-text contrast conflict after live Opera review (QA PENDING)
+- Post-preview Opera screenshot of `/#contact-project` on candidate `61a6cfef10` showed bottom CTA had new teal #59c1d0 background but inherited white text from an earlier more-specific `.seo-central--en .seo-en-home-scope-actions a.seo-cta--primary` rule (including visited/hover/focus). White on teal contrast = **2.11:1**: unacceptable for normal text despite compilation PASS. Previous source-only intended ratio was not what Opera rendered.
+- Correct that exact legacy EN-only high-specificity rule to inherit dark #071321 via the established EN palette custom property (8.86:1 on #59c1d0). Disable unrelated global glow ::after pseudo-element only on EN contact CTAs so hero and contact styles match; leave keyboard focus treatment visible.
+- Modified `layouts/index.html`, this project context, and existing `docs/research/2026-10-16-en-home-palette-audit.md` in one commit. No geometry, service content, RU/ES, main branch, or production changed.
+- Await new Hugo/Pages/browser/WCAG QA on this patch and live Opera bottom-button screenshot. Earlier candidate build success does NOT certify final appearance.
+
 ## 2026-10-16 — EN homepage palette/CTA hierarchy normalization (QA PENDING)
 - Examined current GitHub Pages working preview in Opera at homepage top, #services, and bottom #contact-project; source commit prior to this edit: `597fbc5f28`. This is the EN working preview, not production.
 - Primary design palette is coherent: nearly-black navy #070b14/#07101f, restrained navy surfaces #0a1b2e, light text #f1f5fb/#bed0de, teal information accents. Distinct issue: HERO primary CTA was #59c1d0 with dark #071321 text but bottom contact primary CTA inherited #1f739f with white text and brighter glow; secondary CTA styling also differed.
