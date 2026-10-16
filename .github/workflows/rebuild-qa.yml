@@ -714,18 +714,22 @@ jobs:
               if service not in page.links:raise SystemExit('Missing EN homepage service or anchor '+service)
           if any(old in page.links for old in ('/seo/','/seo-services/','/services/keyword-research/','/services/seo-consultation/')):
               raise SystemExit('Deprecated EN service link remains on homepage')
-          if 'technical seo audits, on-page optimization, keyword research, content strategy and international seo — with clear priorities and defined deliverables.' not in visible:raise SystemExit('EN homepage subtitle mismatch')
-          for fragment in ('what our seo services cover','technical seo & indexing','on-page seo:',
-                           'keyword research:','content strategy:','site architecture:',
-                           'performance & usability:','international seo:',
-                           'implementation & measurement:','the agreed scope determines'):
-              if fragment not in visible:raise SystemExit('EN service-coverage section missing '+fragment)
-          for fragment in ('what you receive','prioritized seo findings','keyword-to-page map',
-                           'verification plan','depending on the agreed work'):
+          if 'professional seo services for businesses: understand customer searches, check website issues, and get a practical plan.' not in visible:raise SystemExit('EN homepage description/benefit mismatch')
+          for fragment in ('other seo work we can discuss','competitor research:',
+                           'page and content improvements:','fixes and follow-up:',
+                           'not extra fixed packages','we confirm what is included'):
+              if fragment not in visible:raise SystemExit('EN supporting-work explanation missing '+fragment)
+          if html.count('data-home-field="offerItem') != 3:raise SystemExit('EN supporting-work list must have exactly 3 brief lines')
+          if 'seo-icon-google.svg' in html:raise SystemExit('Old scope icon still rendered on EN homepage')
+          for fragment in ('site architecture:','performance & usability:','international seo:',
+                           'implementation & measurement:'):
+              if fragment in visible:raise SystemExit('Old eight-card service menu not fully retired: '+fragment)
+          for fragment in ('what you receive','website audit report','keyword research spreadsheet',
+                           'consultation priorities','no website','mapping them to website pages is optional'):
               if fragment not in visible:raise SystemExit('EN deliverables block missing '+fragment)
-          for fragment in ('discuss your website’s seo priorities',
-                           'share your website, target market',
-                           'agree the scope and deliverables before starting'):
+          for fragment in ('tell us about your seo project','discuss your seo project',
+                           'for keyword research, no website is needed',
+                           'for a technical seo audit, send the website address'):
               if fragment not in visible:raise SystemExit('EN contact CTA copy missing '+fragment)
           for fragment in ('what are professional seo services?',
                            'seo services help businesses understand',
@@ -739,11 +743,12 @@ jobs:
           if 'seo-en-choose-title' in page.ids:raise SystemExit('Redundant lower 3-choice selector remains')
           if 'services' not in page.ids:raise SystemExit('Homepage #services anchor missing')
           if '/seo-consultation/' not in page.links:raise SystemExit('EN consultation route missing')
-          for fragment in ('pricing, timing & seo scope',
+          for fragment in ('cost, timing & what to expect',
                            'how is seo service pricing determined?',
                            'how long does seo take?',
                            'do i need every seo service?',
-                           'rankings nor a fixed results date'):
+                           'we agree on the work, price and deliverables',
+                           'no specific ranking or date can be guaranteed'):
               if fragment not in visible:raise SystemExit('EN buyer decision Q&A missing '+fragment)
           for url in ('/faq/','/about/'):
               if url not in page.links:raise SystemExit('EN trust/FAQ internal link missing '+url)

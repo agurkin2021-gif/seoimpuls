@@ -442,6 +442,19 @@
 .seo-central--en .seo-static-offer__list li {margin:0;padding:17px 18px;border:1px solid rgba(146,174,206,.24);border-radius:10px;background:rgba(13,26,44,.72);font-size:14px;line-height:1.57;min-width:0;}
 .seo-central--en .seo-static-offer__list li strong {color:#e4eefb;font-weight:750;}
 .seo-central--en .seo-static-offer__list li .seo-inline-server-icon {width:15px;height:15px;vertical-align:-2px;opacity:.8;}
+/* EN buyer-first supporting work: three simple examples, not eight product-style tiles. */
+.seo-central--en .seo-static-offer__list--en-compact {
+  display:grid;grid-template-columns:minmax(0,1fr);gap:4px;max-width:960px;
+}
+.seo-central--en .seo-static-offer__list--en-compact li {
+  padding:10px 16px;margin:0;border:0;border-left:2px solid rgba(110,190,229,.54);
+  border-radius:0 6px 6px 0;background:rgba(10,25,42,.33);
+  box-shadow:none;line-height:1.6;
+}
+.seo-central--en .seo-static-offer__list--en-compact li strong {font-weight:700;}
+@media(max-width:767px){
+  .seo-central--en .seo-static-offer__list--en-compact li{padding:10px 13px;}
+}
 
 
 .seo-central--en .seo-en-home-deliverables {max-width:1280px;margin:0 auto;padding:24px 32px 28px;border-top:1px solid rgba(146,174,206,.25);}
@@ -684,7 +697,7 @@
             </div>
             <ul class="seo-card-list">
               <li>Get advice on where to start</li>
-              <li>Receive a practical plan of next steps</li>
+              <li>Understand which steps matter first</li>
             </ul>
           </a>
           {{- end -}}
@@ -694,61 +707,63 @@
     {{ if eq $lang "en" }}
     <section class="seo-en-home-definition" aria-labelledby="seo-en-professional-definition">
       <h2 id="seo-en-professional-definition">What Are Professional SEO Services?</h2>
-      <p>SEO services help businesses understand what customers search for and improve their visibility in Google. Keyword research can start before a website exists; a technical SEO audit identifies problems on an existing website; and a consultation helps set priorities. Each service has a clear agreed result, whether a spreadsheet, report or plan. Website changes are separately agreed, and search rankings are not guaranteed.</p>
+      <p>SEO services help businesses understand what customers search for and what may hold back their website in Google. You can order keyword research for a business idea before you have a website, request a technical SEO audit for an existing site, or use an SEO consultation to decide what to do next. A report or spreadsheet does not include website changes unless separately agreed. Google rankings are not guaranteed.</p>
     </section>
     {{ end }}
     <section class="seo-static-offer" aria-label="{{ if $isRU }}Статическое предложение{{ else if $isES }}Oferta estática{{ else }}Static offer{{ end }}">
       <h2 class="seo-static-offer__title" data-home-field="offerTitle">{{ partial "home-inline.html" $homeOfferTitle }}</h2>
-      {{ if eq $lang "en" }}<p class="seo-static-offer__intro">We select the work that fits your website and goals. The agreed scope determines which services and deliverables are included.</p>{{ end }}
-      <ul class="seo-static-offer__list">
+      {{ if eq $lang "en" }}<p class="seo-static-offer__intro">These are examples of tasks that can be agreed in addition to the three services above, not extra fixed packages. We confirm what is included before starting.</p>{{ end }}
+      <ul class="seo-static-offer__list{{ if eq $lang "en" }} seo-static-offer__list--en-compact{{ end }}">
         <li data-home-field="offerItem1">{{ partial "home-inline.html" $homeOfferItem1 }}</li>
         <li data-home-field="offerItem2">{{ partial "home-inline.html" $homeOfferItem2 }}</li>
         <li data-home-field="offerItem3">{{ partial "home-inline.html" $homeOfferItem3 }}</li>
+        {{- if ne $lang "en" -}}
         <li data-home-field="offerItem4">{{ partial "home-inline.html" $homeOfferItem4 }}</li>
         <li data-home-field="offerItem5">{{ partial "home-inline.html" $homeOfferItem5 }}</li>
-        <li><span class="seo-inline-server-icon" aria-hidden="true"><img src="{{ if eq $lang "en" }}{{ "uploads/seo-icon-google.svg" | relURL }}{{ else }}{{ "server-icon.svg" | relURL }}{{ end }}" alt="" width="64" height="64" decoding="async"></span><span data-home-field="offerItem6">{{ partial "home-inline.html" $homeOfferItem6 }}</span></li>
+        <li><span class="seo-inline-server-icon" aria-hidden="true"><img src="{{ "server-icon.svg" | relURL }}" alt="" width="64" height="64" decoding="async"></span><span data-home-field="offerItem6">{{ partial "home-inline.html" $homeOfferItem6 }}</span></li>
         <li data-home-field="offerItem7">{{ partial "home-inline.html" $homeOfferItem7 }}</li>
         <li data-home-field="offerItem8">{{ partial "home-inline.html" $homeOfferItem8 }}</li>
+        {{- end -}}
       </ul>
     </section>
     {{ if eq $lang "en" }}
     <section class="seo-en-home-deliverables" aria-labelledby="seo-en-deliverables-title">
       <h2 id="seo-en-deliverables-title">What You Receive</h2>
-      <p class="seo-en-home-deliverables__intro">Depending on the agreed work, practical SEO deliverables can include:</p>
+      <p class="seo-en-home-deliverables__intro">Each service has a different result. Keyword research can be delivered even if you do not have a website.</p>
       <div class="seo-en-home-deliverables__grid">
         <article class="seo-en-home-deliverable">
           <span class="seo-en-home-deliverable__number" aria-hidden="true">01</span>
-          <h3>Prioritized SEO Findings</h3>
-          <p>A documented list of affected URLs, identified issues and recommended actions, ordered by practical priority.</p>
+          <h3>Website Audit Report</h3>
+          <p>For an existing website: a clear list of issues found and recommendations on what to fix first.</p>
         </article>
         <article class="seo-en-home-deliverable">
           <span class="seo-en-home-deliverable__number" aria-hidden="true">02</span>
-          <h3>Keyword-to-Page Map</h3>
-          <p>Grouped search queries, target pages, potential overlap and content gaps where keyword research is part of the scope.</p>
+          <h3>Keyword Research Spreadsheet</h3>
+          <p>A list of searches relevant to your business, grouped by topic. Mapping them to website pages is optional.</p>
         </article>
         <article class="seo-en-home-deliverable">
           <span class="seo-en-home-deliverable__number" aria-hidden="true">03</span>
-          <h3>Verification Plan</h3>
-          <p>Agreed implementation responsibilities, acceptance checks and suitable Search Console or analytics baselines.</p>
+          <h3>Consultation Priorities</h3>
+          <p>Advice on what matters most and what to do next. A written plan or site changes can be agreed separately.</p>
         </article>
       </div>
     </section>
     {{ end }}
     {{ if eq $lang "en" }}
     <section class="seo-en-buyer-faq" aria-labelledby="seo-en-buyer-faq-title">
-      <h2 id="seo-en-buyer-faq-title">Pricing, Timing &amp; SEO Scope</h2>
+      <h2 id="seo-en-buyer-faq-title">Cost, Timing &amp; What to Expect</h2>
       <div class="seo-en-buyer-faq__grid">
         <article>
           <h3>How is SEO service pricing determined?</h3>
-          <p>Cost depends on website size, the number of important URLs, target markets, data access and whether implementation is included. We discuss and agree the specific scope before any work starts; there is no universal package price.</p>
+          <p>Keyword research cost depends on the topics, target countries and languages, and whether you already have a list of searches. For an SEO audit, the size and complexity of the website matter. We agree on the work, price and deliverables before starting.</p>
         </article>
         <article>
           <h3>How long does SEO take?</h3>
-          <p>An audit or keyword map has its own agreed delivery scope. Changes in search visibility depend on implementation, crawling, content quality and competitors. Neither rankings nor a fixed results date can be promised.</p>
+          <p>An audit, keyword spreadsheet or consultation has an agreed scope and delivery time. Improvements in Google search may take longer, and no specific ranking or date can be guaranteed.</p>
         </article>
         <article>
           <h3>Do I need every SEO service?</h3>
-          <p>No. You can start with a focused technical assessment, keyword research or an SEO consultation. Additional recommendations and implementation are considered only when the findings justify them.</p>
+          <p>No. Choose the result you need now. Keyword research works for a new business without a website; a technical audit checks an existing website; and a consultation helps set priorities. Any further work is optional.</p>
         </article>
       </div>
       <p class="seo-en-buyer-faq__more">More detail: <a href="{{ "faq/" | relURL }}">SEO Services FAQ</a> · <a href="{{ "about/" | relURL }}">About SEOImpuls</a></p>
@@ -756,10 +771,10 @@
     {{ end }}
     {{ if eq $lang "en" }}
     <section class="seo-en-home-scope" aria-labelledby="seo-en-scope-title">
-      <h2 id="seo-en-scope-title">Discuss Your Website’s SEO Priorities</h2>
-      <p>Share your website, target market and the SEO problems you want to solve. We review the request, explain relevant work and agree the scope and deliverables before starting. Search rankings cannot be guaranteed.</p>
+      <h2 id="seo-en-scope-title">Tell Us About Your SEO Project</h2>
+      <p>Tell us what your business offers and who you want to reach. For keyword research, no website is needed; share an existing keyword list if you have one. For a technical SEO audit, send the website address. We agree on the scope and result before starting.</p>
       <div class="seo-en-home-scope-actions">
-        <a class="seo-cta seo-cta--primary" href="https://t.me/Seoimpuls" target="_blank" rel="noopener noreferrer">Discuss Your Website</a>
+        <a class="seo-cta seo-cta--primary" href="https://t.me/Seoimpuls" target="_blank" rel="noopener noreferrer">Discuss Your SEO Project</a>
         <a class="seo-cta seo-cta--secondary" href="{{ "seo-consultation/" | relURL }}">SEO Consultation Details</a>
       </div>
     </section>

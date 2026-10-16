@@ -45,6 +45,12 @@ let browser;
         })),
         columns:layout?getComputedStyle(layout).gridTemplateColumns.split(" ").filter(Boolean).length:0,
         selectorCount:document.querySelectorAll("#seo-en-choose-title").length,
+        scopeItems:document.querySelectorAll(".seo-central--en .seo-static-offer__list li").length,
+        oldScopeIcon:!!document.querySelector('.seo-central--en img[src*="seo-icon-google.svg"]'),
+        scopeHeading:document.querySelector(".seo-static-offer__title")?.textContent.trim()||"",
+        keywordDeliverable:document.querySelector(".seo-en-home-deliverables")?.textContent.includes("Keyword Research Spreadsheet")||false,
+        independentKeyword:document.querySelector(".seo-en-home-scope")?.textContent.includes("For keyword research, no website is needed")||false,
+        contactCTA:document.querySelector(".seo-en-home-scope-actions .seo-cta--primary")?.textContent.trim()||"",
         heroTarget:document.querySelector('[data-home-link-field="heroBuilderUrl"]')?.getAttribute("href")||"",
         serviceNav:Array.from(document.querySelectorAll("nav.custom-header__nav a")).find(x=>x.textContent.trim()==="Services")?.getAttribute("href")||"",
         hasAnchor:!!layout,faq:!!document.getElementById("seo-en-buyer-faq-title"),
@@ -59,6 +65,10 @@ let browser;
     if(main.h1.length!==1||main.h1[0]!=="Professional SEO Services")fail.push("Home H1");
     if(main.canonical!=="https://seoimpuls.com/")fail.push("Home canonical");
     if(main.cards.length!==3||main.selectorCount||!main.hasAnchor)fail.push("Three primary direct services without duplicate selection");
+    if(main.scopeItems!==3||main.oldScopeIcon||main.scopeHeading!=="Other SEO Work We Can Discuss")
+      fail.push("EN supporting work must be three concise lines without legacy imagery");
+    if(!main.keywordDeliverable||!main.independentKeyword||main.contactCTA!=="Discuss Your SEO Project")
+      fail.push("Buyer-facing keyword deliverable or business project CTA missing");
     if(main.cards.map(x=>x.mark).join("/")!=="01/02/03"||main.cards.some(x=>x.imageCount!==0||!x.markRect||x.markRect.width<36||Math.abs(x.markRect.width-x.markRect.height)>3))
       fail.push("Service design: CSS-only 01/02/03 marks, no old image elements");
     for(const [url] of TARGETS)if(main.cards.filter(x=>x.href===url).length!==1)fail.push("Missing one direct service "+url);

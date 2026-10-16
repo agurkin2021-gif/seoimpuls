@@ -1,5 +1,5 @@
 # SEOImpuls: English direct service architecture
-Date: 2026-10-16. STATUS: CODE_QA_PASS / RESPONSIVE_VISUAL_QA_PASS / OWNER_REVIEW_PENDING; no production deployment. Branch: white-seo-rebuild.
+Date: 2026-10-16. STATUS: EDITED_QA_PENDING / OWNER_REVIEW_PENDING for new simplified EN homepage; no production deployment. Branch: white-seo-rebuild.
 
 ## Decision
 - Remove English intermediary service catalogue /seo-services/ from the new generated site. The English homepage owns choosing an SEO service.
@@ -81,3 +81,11 @@ All gates PENDING until this current source is committed and tested. Do not proc
 - Measured 390/768/1280 CSS-only markers exactly 38×38, 38×38, 46×46px. Card images zero; original icon files remain in Git unchanged. No broken service URLs, fixed contact overlap, scripts/network errors, overflow or hidden anchor.
 - Screenshots from artifact #12052215561 manually inspected for all three widths; visual acceptance limited to these screenshots and browser automation, not formal accessibility certification.
 - Owner still needs to approve page and future image use. Do not deploy production or pivot to another page automatically.
+
+## 2026-10-16 — EN homepage eight supplementary work tiles simplified per owner
+- Immediate owner priority: remove eight competing-looking work tiles and rewrite client text for non-SEO business owners, including businesses without a website.
+- Three direct service offers stay /technical-seo-audit/, /keyword-research/, /seo-consultation/. All existing CSS-only numbered service cards intact.
+- EN scope title `Other SEO Work We Can Discuss` with exactly 3 plain brief lines (competitor research; page/content improvements; agreed fixes and follow-up). These are examples, NOT 3 more purchasable products. The old decorative SVG disappears from EN markup only; original asset remains and RU/ES retain all legacy-scope rows.
+- Home description, definition, deliverables, FAQ/pricing, contact CTA revised; audit only for existing websites, keyword collection even with no site, consultation spoken advice doesn't automatically include a written action plan. No invented guarantee or testimonial.
+- EN-only compact scope list CSS; URL, H1, Title, canonical/schema/hreflang and global footer unchanged. All new content locked by static/browser/sitewide CI.
+- QA PENDING on this source. Perform strict Hugo, Pages/noindex, Chrome 390/768/1280, visual and automated accessibility; inspect screenshots. No other page or production changes.

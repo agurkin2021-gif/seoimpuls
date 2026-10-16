@@ -1,4 +1,13 @@
 # SEOImpuls — основной контекст проекта (читать первым)
+## ACTIVE WORK — 2026-10-16: EN HOMEPAGE BUYER SIMPLIFICATION (QA PENDING)
+Owner directs: «Приоритет — сначала сократить восемь дополнительных блоков и исправить тексты для клиентов». Authorized scope **ONLY EN homepage**; do not start any other page, change existing EN detail service page content, RU/ES, production, main, DNS or GSC.
+- Replace 8 falsely independent supporting scope tiles with only 3 short explanatory lines: Competitor research; Page and content improvements; Fixes and follow-up. Clarify optional, separately scoped work; no new commercial products or routes. Use compact one-column EN-only styling. RU/ES old 8-row source remains guarded and untouched.
+- Rewrite home meta description, definition, standalone keyword spreadsheet deliverable, realistic audit/consultation outcomes, pricing/time FAQ and CTA in plain language for business owners **with or without a website**. Consultation written plan is *not* implied automatically: writing remains separately scoped.
+- EN old decorative `seo-icon-google.svg` will no longer render because its item is localized-only; original files preserved in Git. Three primary cards remain CSS 01/02/03, with untouched internal URLs `/technical-seo-audit/`, `/keyword-research/`, `/seo-consultation/`; all SEO Title/H1/canonical/hreflang untouched.
+- Targeted file changes: `content/_index.md`, EN conditional markup/styles in `layouts/index.html`, `scripts/verify_en_services_route.py`, `scripts/audit_en_services_browser.cjs`, current EN homepage assertions within `.github/workflows/rebuild-qa.yml`, active plan and this journal.
+- Status **EDITED_QA_PENDING** until strict Hugo+whitehat, Pages/noindex, Chrome 390/768/1280, home browser, WCAG automation and screenshots are checked. Any older PASS is irrelevant for changed content. No production deployment or automatic page change.
+
+
 ## 2026-10-16 — Read-only post-change audit of EN homepage
 - Report written to `docs/research/2026-10-16-en-home-post-css-audit.md` using source `00881d5`, current docs-only head `98763ec`, actual Pages preview, Actions #38914027341/#38914027471/#38914027320/#38914027575/#38914027393 and screenshots #12052215561.
 - Technical build and three SEO routes are GREEN. Three CSS-only service marks intact, 0 old image tags within main cards, 0 broken internal routes or measured social icon overlaps.
@@ -259,6 +268,12 @@ IMPORT_STATUS: completed
 7. Перед новым чатом прочитать AGENTS.md и этот файл прямо из репозитория, проверить фактическое состояние GitHub/Actions и продолжить с секции 6 «Следующее действие».
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
+### 2026-10-16 — Simplified EN homepage eight scope tiles to three plain supporting tasks (PENDING QA)
+- Owner requested less confusing supporting work and copy suitable for business owners. Three linked main service cards kept unchanged; eight additional tile-like work lines replaced with 3 short examples, explicitly not separately sold packages. EN-only compact styling.
+- Home intro, SEO description, deliverables, pricing/timing FAQ and CTA clarify keyword research without a ready website and results as agreed documents or advice (not guaranteed implementation or rankings).
+- Updated EN static/browser/sitewide assertions, active plan, this context in SAME commit; RU/ES unaffected, service page source/URLs untouched, no production.
+- Tests not executed yet: EDITED_QA_PENDING. Next inspect strict build/preview/390-768-1280/browser/WCAG/screenshot only for EN home.
+
 
 ### 2026-10-16 — Completed read-only EN home post-change audit
 - Inspected preview, source, exact CI and all three responsive screenshots. New report `docs/research/2026-10-16-en-home-post-css-audit.md` records verified passes, P1/P2/P3 issues, risk limits and prioritized fixes.

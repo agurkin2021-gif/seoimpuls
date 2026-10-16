@@ -136,6 +136,20 @@ assert "/#services" in [local_target(x) for x in home.links], "Services navigati
 assert "seo-en-choose-title" not in home.ids, "Redundant lower 3-choice selector still on homepage"
 assert not any(local_target(href).split("#")[0] in RETIRED_EN for href in home.links), "Homepage links to retired EN URLs"
 assert set(schema_types(home)) == {"WebSite", "Organization"}, schema_types(home)
+source_html = (ROOT / "index.html").read_text(encoding="utf-8")
+assert 'seo-static-offer__list--en-compact' in source_html, "Missing compact EN scope styling"
+assert source_html.count('data-home-field="offerItem') == 3, "EN should have only 3 supporting-work entries, not 8"
+assert 'seo-icon-google.svg' not in source_html, "Old decorative SEO scope image still present"
+assert all(term in source_html.lower() for term in (
+  "other seo work we can discuss", "competitor research:", "page and content improvements:",
+  "fixes and follow-up:", "keyword research spreadsheet", "no website is needed",
+  "tell us about your seo project"
+)), "Business-friendly scope or deliverable is missing"
+assert all(term not in source_html.lower() for term in (
+  "discuss your website’s seo priorities", "share your website, target market",
+  "performance & usability:", "international seo:"
+)), "Old site-only CTA or 8-offer list remains"
+
 
 for url, (name, _, ru, es) in SERVICES.items():
     page = load(url.lstrip("/") + "index.html")
