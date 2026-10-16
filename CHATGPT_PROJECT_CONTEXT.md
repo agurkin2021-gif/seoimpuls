@@ -70,6 +70,13 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-16 — EN /seo-services/ live URL migration preflight (read-only, release still blocked)
+- Active owner scope remains EN `/seo-services/` only. Opera opened production `/link-building-services/` (legacy Link Building Services), `/services/` (nginx 404 page), `/seo-services/` (nginx 404 page), `/robots.txt`, and live root/EN sitemaps. These are browser observations, **not raw HTTP status/header chain measurements**. Live EN sitemap lists old `/link-building-services/` service routes; Pages preview EN sitemap lists `/seo-services/` and three specialist routes. Preview `/services/` is an HTML alias, not verified HTTP 301.
+- Recorded URL-by-URL *candidate* migration logic in `docs/research/2026-10-16-en-services-production-url-preflight.md`. Critically, old link-building catalogue and Tier/DR pages must NOT be blanket 301'd to the new clean services catalogue. Existing old keyword and consultation pages are only conditional, semantically plausible successors and await GSC/URL-level evidence. No additional page editing authorized.
+- **No HTML/CSS/JS/content, live site, DNS, GSC, hreflang, production redirect or alias change.** Accepted catalogue stages 0–7 remain done. Migration release still **BLOCKED_EXTERNAL** (history/inbound links, actual redirects, locale parity, verified client proof, separate owner authorization). Next: obtain evidence before any production plan, not speculative edits.
+
+
+
 ### 2026-10-16 — NEW /seo/ scope: GitHub access restored; SERP snapshots and controlled plan saved
 - HISTORICAL NOTE, SUPERSEDED BY OWNER CORRECTION ABOVE: Assistant proposed moving from completed EN catalogue to `/seo/`, user initially said to proceed, but subsequently clarified that `/seo-services/` remained the authorized scope. The apparent authorization was a mistaken inference; the `/seo/` plan is inactive. Retry after connector access failure was about continuation, not a permanent scope change. GitHub read/write and Opera confirmed restored. Branch `white-seo-rebuild` baseline HEAD `1d5eaf2`. EN homepage and catalogue remain frozen, as do other service pages, RU/ES, main and production.
 - Read `AGENTS.md`, `docs/SEO_PAGE_WORKFLOW.md`, existing `content/seo/index.md` and historical intent report; opened /seo/ preview in Opera. Current Title/H1 `Technical SEO Services & Audits`; route /seo/ remains canonical target; current text emphasizes technical audit but gives equal sections to On-Page, Keyword/Content, International, potentially overlapping established specialist pages.
