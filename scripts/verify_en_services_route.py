@@ -61,6 +61,12 @@ assert 'Choose the right starting point' in hub_markup,'EN service-choice direct
 assert hub.class_counts.get('seo-catalog__group',0) == 4,'Four workstream groups are required'
 assert hub.class_counts.get('seo-catalog__workstream',0) == 23,'All 23 scoped SEO workstreams must render'
 assert hub.class_counts.get('seo-catalog__choice',0) == 3,'Three direct buyer entry paths are required'
+pos_selector=hub_markup.find('<section class=seo-catalog__matching')
+pos_directory=hub_markup.find('SEO Work We Can Scope')
+if pos_selector < 0: pos_selector=hub_markup.find('<section class="seo-catalog__matching')
+assert pos_selector>=0 and pos_directory>pos_selector, 'Three-way buyer selector must appear before the 23-workstream catalogue'
+assert hub_markup.count('Which SEO Service Should You Start With?')==1,'Duplicate service decision selector'
+
 assert hub.class_counts.get('seo-catalog__toc',0)==1,'Category navigation missing'
 assert hub.class_counts.get('seo-catalog__back',0)==4,'Each category needs a return-to-navigation link'
 assert 'seo-catalog-title' in hub.ids and '#seo-catalog-title' in hub.links,'Catalogue heading anchor missing'

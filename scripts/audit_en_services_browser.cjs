@@ -8,7 +8,7 @@ let browser;
 (async()=>{
  browser=await chromium.launch({headless:true,args:["--no-sandbox"]});
  const report={url:PAGE_URL,viewports:[]};
- for(const width of [390,1280]){
+ for(const width of [390,768,1280]){
   const ctx=await browser.newContext({viewport:{width,height:width===390?844:800},deviceScaleFactor:1,isMobile:width===390,hasTouch:width===390});
   const page=await ctx.newPage(),errors=[],networkFailures=[];
   page.on("pageerror",e=>errors.push(e.message));
@@ -43,6 +43,11 @@ let browser;
     workstreamCount:document.querySelectorAll(".seo-catalog__workstream").length,
     groupCount:document.querySelectorAll(".seo-catalog__group").length,
     choiceCount:document.querySelectorAll(".seo-catalog__choice").length,
+    selectorBeforeCatalogue:(()=>{
+      const selector=document.querySelector(".seo-catalog__matching");
+      const heading=document.getElementById("seo-catalog-title");
+      return !!selector&&!!heading&&!!(selector.compareDocumentPosition(heading)&Node.DOCUMENT_POSITION_FOLLOWING);
+    })(),
     jumpLinks:Array.from(document.querySelectorAll(".seo-catalog__toc a[href^='#']")).map(a=>({target:a.getAttribute("href").slice(1),label:a.textContent.trim(),targetExists:!!document.getElementById(a.getAttribute("href").slice(1))})),
     returnLinks:document.querySelectorAll(".seo-catalog__back[href='#seo-catalog-title']").length,
     catalogueScrollMargin:parseFloat(getComputedStyle(document.querySelector("#seo-catalog-title")).scrollMarginTop)||0,
@@ -82,6 +87,7 @@ let browser;
   if(data.canonical!=="https://seoimpuls.com/seo-services/")fail.push("Canonical");
   if(data.cards.length!==3)fail.push("Cards");
   if(data.workstreamCount!==23||data.groupCount!==4||data.choiceCount!==3)fail.push("Workstream scope");
+  if(!data.selectorBeforeCatalogue)fail.push("Buyer choice must precede workstream directory");
   if(data.jumpLinks.length!==5||data.jumpLinks.some(x=>!x.targetExists))fail.push("Category navigation");
   if(data.returnLinks!==4||data.catalogueScrollMargin<100)fail.push("Return navigation");
   if(width===390 && initialConsent.shown && (initialConsent.layout!=="grid"||initialConsent.columns!==2||initialConsent.buttons!==3||!initialConsent.accept||!initialConsent.reject))fail.push("Mobile consent action layout");
@@ -90,7 +96,7 @@ let browser;
   if(data.faqQuestionCount!==5)fail.push("Buyer FAQ coverage");
   if(data.detailLinks.length!==3||data.detailLinks.some(x=>!x.text.startsWith("Review ")))fail.push("Descriptive workstream links");
   if(data.categoryScrollMargin<100)fail.push("Section scroll margin");
-  if(data.gridColumns!==(width===390?1:3))fail.push("Grid columns="+data.gridColumns);
+  if(data.gridColumns!==(width===390?1:width===768?2:3))fail.push("Grid columns="+data.gridColumns);
   if(!data.intro.startsWith("Choose the right starting point"))fail.push("Direct answer");
   for(const u of ["/seo/","/services/keyword-research/","/services/seo-consultation/"]){
     if(!data.cards.some(x=>new URL(x.href).pathname===u))fail.push("Missing card "+u);
@@ -120,7 +126,7 @@ let browser;
  await browser.close();
  fs.writeFileSync(path.join(OUT,"audit.json"),JSON.stringify(report,null,2));
  if(report.viewports.some(x=>x.fail.length))throw Error("EN services QA failed");
- console.log("SERVICES_BROWSER_PASS two viewports, no broken links, no fake footer");
+ console.log("SERVICES_BROWSER_PASS 390/768/1280 viewports, no broken links, no fake footer");
 })().catch(async e=>{
  console.error("SERVICES_BROWSER_FATAL "+(e.stack||e));
  try{if(browser)await browser.close();}catch(closeError){console.error("SERVICES_BROWSER_CLOSE_WARNING "+closeError.message);}

@@ -19,7 +19,7 @@
 | ID | Priority | Scope | Acceptance gate | Status |
 |---|---|---|---|---|
 | 0 | P0 | Baseline: read repository context, catalogue, Google SERP snapshots, homepage/service content and previous QA; map known blockers | Evidence paths and known limitations recorded | **DONE — 2026-10-16, before plan** |
-| 1 | P0 | Buyer journey: move the existing three-choice *problem → appropriate service → deliverable* selector to immediately after the three hero service cards, **before** 23-workstream catalogue. Preserve 3 linked routes, no duplicate selector, fixed-scroll anchors and mobile layout | Hugo + strict gate + route QA, Playwright at 390/768/1280 and preview; exactly one selector above catalogue | **NEXT** |
+| 1 | P0 | Buyer journey: move the existing three-choice *problem → appropriate service → deliverable* selector to immediately after the three hero service cards, **before** 23-workstream catalogue. Preserve 3 linked routes, no duplicate selector, fixed-scroll anchors and mobile layout | Hugo + strict gate + route QA, Playwright at 390/768/1280 and preview; exactly one selector above catalogue | **IN_PROGRESS — source change committed; CI/preview/visual QA pending** |
 | 2 | P0 | Commercial truth: audit all 23 workstreams against known service commitments, About/FAQ and their linked pages. Mark specialties as conditional scope; do not assert verified capabilities without evidence; preserve truthful ethical boundary | Each scope categorized as linked active service / conditional assessed work, no contradiction and no new URLs | TODO |
 | 3 | P1 | Demonstrable output: improve genuine problem/evidence/output sample clarity and a clearly labelled reproducible *sample format*, not a fake client case. Ground real proof only in client-approved records if supplied | No fabricated data, clear example/disclaimer, evidence and acceptance criteria; real case flagged **BLOCKED_EXTERNAL** until provided | TODO |
 | 4 | P1 | Workstream conversion without doorway pages: for each of the 23 categories, give a coherent path to ask about that work, not invented separate service pages/prices; maintain three deep commercial URLs | Contextual workstream-to-contact navigation, descriptive anchors, no dead ends/placeholder routes | TODO |
@@ -47,3 +47,5 @@
 ## Execution log
 
 - 2026-10-16 — Plan created by owner instruction. Step 0 complete from repository evidence, Step 1 NEXT. No site code changed by this planning commit.
+
+- 2026-10-16 — Step 1 source: moved exactly one 3-way buyer selector before the directory, preserved 23 workstreams, updated route & browser test ordering assertions and added 768px QA. Waiting for CI/preview screenshots before marking DONE.

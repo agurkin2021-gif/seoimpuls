@@ -62,6 +62,12 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-16 — Controlled plan Step 1: move problem-to-service decision before catalogue
+- Follow `docs/plans/EN_SEO_SERVICES_FINISH_PLAN.md`, STEP 1 IN_PROGRESS. Changed only `layouts/partials/en-services-catalog.html` (exactly one 3-choice selector moved after the three EN hero cards and before 23 workstreams), `scripts/verify_en_services_route.py` (HTML order/no duplicate assertion), `scripts/audit_en_services_browser.cjs` (390/768/1280 + selector order + expected grid), and EN-only Playwright workflow triggers and artifact label to include partial/data edits. Updated plan and this context in SAME COMMIT.
+- Preserved all 23 workstreams, four group navigation, existing Title/H1/URL/canonical, existing 3 child URLs, illustrations, hypothetical sample output, EN homepage and all RU/ES source untouched. No production deployment.
+- **EDITED_QA_PENDING**: need CI strict/Hugo + Pages and Chrome screenshots at 390/768/1280 before STEP 1 can become DONE. Subsequent Step 2 is portfolio/truth reconciliation of 23 conditional workstreams, NOT a new list of pages.
+
+
 ### 2026-10-16 — Persistent controlled finish plan for EN /seo-services/
 - User explicitly instructed: write and store a step-by-step plan in GitHub, then execute without losing continuity. Created `docs/plans/EN_SEO_SERVICES_FINISH_PLAN.md` (strict ordered steps 0–7 and external blockers; status STEP 1 NEXT). No site/layout/code edits in this **planning-only** commit.
 - Enforced immutable scope: only EN catalogue; homepage `professional seo services` frozen; RU/ES/other EN pages read-only; no production/GSC changes. Frontmatter Title/H1 and current valid URL retained. All changes and status transitions must update this context AND the plan in the same commit, with CI evidence before declaring PASS.
@@ -982,7 +988,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-SOURCE OF TRUTH: `docs/plans/EN_SEO_SERVICES_FINISH_PLAN.md` and this context in `white-seo-rebuild`. Owner instructed finish EN `/seo-services/` only, **work sequentially and update both documents in each commit**. Current plan: STEP 0 DONE; STEP 1 NEXT — move the three-path problem/choice selector before the 23-workstream directory (no duplicated selector) and pass Hugo strict gate / Pages / Playwright 390-768-1280. Do not touch main, EN homepage or sibling service pages, RU/ES content or live server.
+SOURCE OF TRUTH: `docs/plans/EN_SEO_SERVICES_FINISH_PLAN.md` and this context in `white-seo-rebuild`. Owner instructed finish EN `/seo-services/` only, **work sequentially and update both documents in each commit**. Current plan: STEP 0 DONE; STEP 1 IN_PROGRESS (selector moved into the first section before the directory); Hugo/Pages and Playwright 390/768/1280 are pending. Do not mark DONE until actual CI and preview evidence. Do not touch main, EN homepage or sibling service pages, RU/ES content or live server.
 
 Current last-proven site: `3878934` plus record `1791892`, strict/Pages/390-1280 PASS, 23 workstreams/4 groups/3 deep links; title `SEO Audits, Keyword Research & Consulting | SeoImpuls`, H1 `Choose the Right SEO Work for Your Website`, canonical `/seo-services/`. Preview noindex; live site not changed. Plan Step 1 code changes, once committed, are **EDITED_QA_PENDING** until CI finishes. External release blocks: GSC and incoming link history, production 301/410 decisions, real proof/customer permission and owner production approval.
 

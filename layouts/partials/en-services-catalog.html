@@ -29,7 +29,7 @@
 .seo-central--services .seo-catalog__line strong{color:#f0f7ff;font-weight:700}
 .seo-central--services .seo-catalog__detail-link{display:inline-block;margin-top:5px;color:#8cddfb;text-underline-offset:3px;font-weight:650;font-size:14px}
 .seo-central--services .seo-catalog__detail-link:focus-visible,.seo-central--services .seo-catalog__choice a:focus-visible,.seo-central--services .seo-catalog__cta a:focus-visible{outline:2px solid #9ce2fd;outline-offset:4px;border-radius:2px}
-.seo-central--services .seo-catalog__matching{margin:39px 0 0}
+.seo-central--services .seo-catalog__matching{margin:0 0 34px}
 .seo-central--services .seo-catalog__choice-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
 .seo-central--services .seo-catalog__choice{border-left:3px solid #76c6eb;padding:17px 17px 19px;background:rgba(13,36,56,.8);border-radius:4px 9px 9px 4px}
 .seo-central--services .seo-catalog__choice h3{margin:0 0 10px;color:#eef8ff;font-size:18px;line-height:1.28}
@@ -59,6 +59,20 @@
 .seo-central--services .seo-catalog__evidence-grid{grid-template-columns:1fr}.seo-central--services .seo-catalog__example{padding:17px 15px}.seo-central--services .seo-catalog__toc a{padding:7px 9px}.seo-central--services .seo-catalog{margin-top:32px}.seo-central--services .seo-catalog__grid{grid-template-columns:1fr;gap:11px}.seo-central--services .seo-catalog__workstream{padding:15px 15px 12px}.seo-central--services .seo-catalog__choice{padding:15px}.seo-central--services .seo-catalog__cta{padding:17px 16px}.seo-central--services .seo-catalog__lede{font-size:15px}}
 </style>
 <section class="seo-catalog" aria-labelledby="seo-catalog-title" data-en-catalog="1">
+<section class="seo-catalog__matching" aria-labelledby="seo-catalog-match">
+<h2 class="seo-catalog__heading" id="seo-catalog-match">Which SEO Service Should You Start With?</h2>
+<p class="seo-catalog__lede">Select a starting point based on the issue you can already describe. Detailed work is scoped on the destination page.</p>
+<div class="seo-catalog__choice-grid">
+{{- range .choices }}
+<article class="seo-catalog__choice">
+<h3>{{ .start }}</h3>
+<p><strong>Problem:</strong> {{ .problem }}</p>
+<p><strong>Usual output:</strong> {{ .result }}</p>
+<a href="{{ .url | relURL }}">Review {{ .start }}</a>
+</article>
+{{- end }}
+</div>
+</section>
 <h2 class="seo-catalog__heading" id="seo-catalog-title">SEO Work We Can Scope</h2>
 <p class="seo-catalog__lede">Browse the SEO workstreams below by the problem they solve, the checks involved and a typical output. These are areas of work within an agreed engagement, not 23 standalone packages or promises that every task is included. Execution, access and deliverables are confirmed for each project.</p>
 <nav class="seo-catalog__toc" aria-label="Jump to an SEO work area">
@@ -87,20 +101,6 @@
 <a class="seo-catalog__back" href="#seo-catalog-title">↑ Back to categories</a>
 </section>
 {{- end }}
-<section class="seo-catalog__matching" aria-labelledby="seo-catalog-match">
-<h2 class="seo-catalog__heading" id="seo-catalog-match">Which SEO Service Should You Start With?</h2>
-<p class="seo-catalog__lede">Select a starting point based on the issue you can already describe. Detailed work is scoped on the destination page.</p>
-<div class="seo-catalog__choice-grid">
-{{- range .choices }}
-<article class="seo-catalog__choice">
-<h3>{{ .start }}</h3>
-<p><strong>Problem:</strong> {{ .problem }}</p>
-<p><strong>Usual output:</strong> {{ .result }}</p>
-<a href="{{ .url | relURL }}">Review {{ .start }}</a>
-</article>
-{{- end }}
-</div>
-</section>
 <section class="seo-catalog__scope" aria-labelledby="seo-catalog-scope">
 <h2 class="seo-catalog__heading" id="seo-catalog-scope">How Scope and Deliverables Are Defined</h2>
 <p>SEO work is not a pre-filled checklist: it begins with the website's actual problems, target market and available evidence. A diagnostic review and changes to a live website are separate responsibilities.</p>

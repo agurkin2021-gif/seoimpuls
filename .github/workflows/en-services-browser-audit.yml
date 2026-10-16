@@ -8,6 +8,8 @@ on:
       - 'content/services/_index.md'
       - 'layouts/services/list.html'
       - 'layouts/partials/services-hub.html'
+      - 'layouts/partials/en-services-catalog.html'
+      - 'data/en_seo_catalog.json'
       - 'layouts/partials/footer.html'
       - 'hugo.toml'
   workflow_dispatch:
@@ -48,7 +50,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: seoimpuls-en-services-390-1280
+          name: seoimpuls-en-services-390-768-1280
           path: audit-artifacts/en-services/
           if-no-files-found: warn
           retention-days: 14
