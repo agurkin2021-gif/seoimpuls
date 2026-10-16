@@ -1,4 +1,14 @@
 # SEOImpuls — основной контекст проекта (читать первым)
+
+## 2026-10-16 — НОВОЕ ПОРУЧЕНИЕ: НЕ ИСПОЛЬЗОВАТЬ СТАРЫЕ ИЗОБРАЖЕНИЯ В EN КАРТОЧКАХ, ДЕЛАТЬ СОБСТВЕННЫЙ АДАПТИВ
+Владелец: «картинки пока наши не используем, будем делать свой адаптив». Ограниченная реализация: только три карточки услуг английской главной; прежние SVG-иконки в них заменены на собственные CSS-маркеры 01/02/03, без новых изображений или дополнительных запросов ресурсов.
+- В `layouts/index.html` добавлены только EN-условия, собственные градиенты/рамки/числовые маркеры и адаптивные стили. RU/ES fallback сохраняет старые изображения; исходные assets не удалялись. Логотип, другие картинки и внутренние страницы не менялись.
+- Три прямые ссылки `/technical-seo-audit/`, `/keyword-research/`, `/seo-consultation/`, главный H1/Title, SEO metadata, canonicals, hreflang, страницы услуг и якорь `#services` не менялись.
+- Новые проверки `scripts/verify_en_services_route.py` и `scripts/audit_en_services_browser.cjs` проверяют отсутствие `img` в EN карточках, 3 CSS-маркера с корректной геометрией, исходные assets в репозитории, ссылки, 390/768/1280, плавующие WhatsApp/Telegram и отсутствие переполнения.
+- НЕ трогать production, main, RU/ES и другие EN страницы; не начинать следующую страницу автоматически.
+- **EDITED_QA_PENDING**, пока не завершены Actions Hugo strict + Pages preview + Chromium 390/768/1280 и визуальная проверка скриншотов. Предыдущие PASS для старой версии не являются доказательством нового варианта.
+
+
 ## CURRENT FINAL TECHNICAL STATUS — 2026-10-16, EN SERVICE KEYWORD ROUTES
 **OWNER_REVIEW_PENDING, NOT DEPLOYED TO PRODUCTION.** Latest content/layout source commit 833cb99; no other pages may be started without explicit new owner instruction.
 - Exact 3 commercial EN routes validated in Hugo output: /technical-seo-audit/ has HTML Title "Technical SEO Audit | SeoImpuls", one H1 "Technical SEO Audit", canonical self; /keyword-research/ similarly "Keyword Research"; /seo-consultation/ similarly "SEO Consultation". EN homepage title/H1 "Professional SEO Services", homepage menu/hero Services link to #services; three direct service cards. No EN /seo/, /seo-services/, /services/, /services/keyword-research/, /services/seo-consultation/ in built candidate, sitemap or internal links. RU/ES language sources unchanged; hreflang reciprocal to valid new EN service URLs. Commercial EN page schema is WebPage not BlogPosting.
@@ -224,6 +234,13 @@ IMPORT_STATUS: completed
 7. Перед новым чатом прочитать AGENTS.md и этот файл прямо из репозитория, проверить фактическое состояние GitHub/Actions и продолжить с секции 6 «Следующее действие».
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
+
+### 2026-10-16 — Custom CSS-only responsive marks for three EN home services
+- Owner asked not to reuse legacy service artwork. Replaced exactly the three EN home service icon pictures with lightweight numbered CSS marks. No new image files; no assets deleted; other languages and detail pages are untouched.
+- EN homepage template styles and two targeted verification scripts modified; this project context and direct-service plan updated in same commit. All primary service URLs/Title/H1 and SEO architecture retained.
+- QA status EDITED_QA_PENDING until new strict/Pages/browser/screenshot evidence; no deployment to seoimpuls.com.
+- Next: inspect new QA and mobile/tablet/desktop screenshots. Remain within current requested scope until new owner direction.
+
 
 ### 2026-10-16 — Accepted technical QA of direct EN service URLs and no-overlap homepage
 - Source 833cb99; Hugo strict #38912159752, Pages #38912159880, context #38912159761 PASS. Chromium direct EN selection #38912159784 390/768/1280 fail:[], 3 direct service links, correct Title/H1/canonical and accurate WebPage schema/hreflang; old EN catalogue/URL paths absent. Home browser #38912159853 PASS; axe automated #38912159768 PASS.
@@ -1349,6 +1366,9 @@ IMPORT_STATUS: completed
 - Следующий этап: загрузка ZIP и успешный импорт GitHub Actions.
 
 ## 6. Следующее действие
+
+**OWNER OVERRIDE 2026-10-16:** CSS-only EN service marks require new technical + 390/768/1280 visual acceptance. No switch to another page automatically; no legacy service image reuse on the home cards. Earlier instructions below are historical.
+
 
 **LATEST ACCEPTANCE 2026-10-16:** EN main and exact-keyword three direct service URL architecture is code/visual QA PASS in new candidate; owner review pending, production untouched. Do not begin any other page without owner command. Prior NEXT notes superseded.
 

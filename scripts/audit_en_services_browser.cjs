@@ -37,7 +37,12 @@ let browser;
       return {
         title:document.title,h1:Array.from(document.querySelectorAll("h1")).map(x=>x.textContent.trim()),
         canonical,robots:meta("robots"),description:meta("description"),
-        cards:cards.map(x=>({href:new URL(x.href).pathname,label:x.textContent.trim()})),
+        cards:cards.map(x=>({
+          href:new URL(x.href).pathname,label:x.textContent.trim(),
+          imageCount:x.querySelectorAll("img").length,
+          mark:x.querySelector(".seo-en-service-mark")?.textContent.trim()||"",
+          markRect:(()=>{const r=x.querySelector(".seo-en-service-mark")?.getBoundingClientRect();return r?{width:r.width,height:r.height}:null;})()
+        })),
         columns:layout?getComputedStyle(layout).gridTemplateColumns.split(" ").filter(Boolean).length:0,
         selectorCount:document.querySelectorAll("#seo-en-choose-title").length,
         heroTarget:document.querySelector('[data-home-link-field="heroBuilderUrl"]')?.getAttribute("href")||"",
@@ -54,6 +59,8 @@ let browser;
     if(main.h1.length!==1||main.h1[0]!=="Professional SEO Services")fail.push("Home H1");
     if(main.canonical!=="https://seoimpuls.com/")fail.push("Home canonical");
     if(main.cards.length!==3||main.selectorCount||!main.hasAnchor)fail.push("Three primary direct services without duplicate selection");
+    if(main.cards.map(x=>x.mark).join("/")!=="01/02/03"||main.cards.some(x=>x.imageCount!==0||!x.markRect||x.markRect.width<36||Math.abs(x.markRect.width-x.markRect.height)>3))
+      fail.push("Service design: CSS-only 01/02/03 marks, no old image elements");
     for(const [url] of TARGETS)if(main.cards.filter(x=>x.href===url).length!==1)fail.push("Missing one direct service "+url);
     if(main.serviceNav!=="/#services"||main.heroTarget!=="/#services")fail.push("Top services navigation/CTA not anchored");
     if(!main.faq)fail.push("Retained buyer FAQ missing");
@@ -115,7 +122,7 @@ let browser;
     try{await page.screenshot({path:path.join(OUT,width+"-full.png"),fullPage:true,animations:"disabled",timeout:15000});}catch(e){console.log("SERVICES_SCREENSHOT_WARNING "+e.message);}
     report.viewports.push({width,main,children,focus,broken,errors,networkFailures,fail});
     console.log("SERVICES_BROWSER_SUMMARY "+JSON.stringify({width,status:response.status(),cardCount:main.cards.length,
-      serviceRoutes:main.cards.map(x=>x.href),columns:main.columns,focus,errors,networkFailures,broken,fail}));
+      serviceRoutes:main.cards.map(x=>x.href),cardVisuals:main.cards.map(x=>({mark:x.mark,imageCount:x.imageCount,rect:x.markRect})),columns:main.columns,focus,errors,networkFailures,broken,fail}));
     await context.close();
   }
   await browser.close();

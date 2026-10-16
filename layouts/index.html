@@ -372,6 +372,54 @@
 .seo-central--en .seo-news-strip__side .seo-card {padding:14px 18px;min-height:0;}
 .seo-central--en .seo-news-strip__side .seo-card-list li {font-size:13px;line-height:1.4;margin-bottom:4px;}
 .seo-central--en .seo-news-strip__side .seo-card-head {margin-bottom:6px;}
+/* Lightweight, bespoke, responsive service symbols: no external image requests. */
+.seo-central--en .seo-news-strip__side .seo-card--custom-visual{
+  position:relative;overflow:hidden;isolation:isolate;
+  background:linear-gradient(135deg,rgba(16,40,66,.96),rgba(7,18,34,.97));
+  border:1px solid rgba(118,180,222,.36);
+}
+.seo-central--en .seo-news-strip__side .seo-card--custom-visual::before{
+  content:"";position:absolute;inset:0 0 auto auto;width:40%;height:70%;pointer-events:none;
+  background:radial-gradient(ellipse at top right,rgba(57,150,214,.23),transparent 80%);
+}
+.seo-central--en .seo-news-strip__side .seo-card--custom-visual:hover,
+.seo-central--en .seo-news-strip__side .seo-card--custom-visual:focus-visible{
+  background:linear-gradient(135deg,rgba(18,48,78,.98),rgba(8,26,46,.99));
+  border-color:rgba(138,216,250,.8);
+}
+.seo-central--en .seo-news-strip__side .seo-card-icon{
+  display:grid;place-items:center;width:clamp(38px,4vw,46px);
+  height:clamp(38px,4vw,46px);flex:0 0 clamp(38px,4vw,46px);
+}
+.seo-central--en .seo-en-service-mark{
+  position:relative;display:grid;place-items:center;width:100%;height:100%;
+  box-sizing:border-box;border:1px solid rgba(115,200,241,.55);border-radius:11px;
+  background:linear-gradient(145deg,#16446d,#091b32 80%);
+  color:#c6edff;font-size:clamp(14px,1.35vw,18px);font-weight:800;
+  letter-spacing:.03em;font-variant-numeric:tabular-nums;
+  box-shadow:0 0 12px rgba(47,136,195,.14),inset 0 1px rgba(192,237,255,.16);
+}
+.seo-central--en .seo-en-service-mark::after{
+  content:"";position:absolute;width:40%;height:2px;left:30%;bottom:5px;
+  border-radius:3px;background:#72ceff;
+}
+.seo-central--en .seo-card--custom-visual:nth-child(2) .seo-en-service-mark{
+  border-color:rgba(120,207,177,.6);background:linear-gradient(145deg,#16483d,#0a1d2b 80%);
+  color:#cdf7e7;
+}
+.seo-central--en .seo-card--custom-visual:nth-child(2) .seo-en-service-mark::after{background:#79ecc0}
+.seo-central--en .seo-card--custom-visual:nth-child(3) .seo-en-service-mark{
+  border-color:rgba(190,173,233,.6);background:linear-gradient(145deg,#343258,#11182e 80%);
+  color:#e9dcff;
+}
+.seo-central--en .seo-card--custom-visual:nth-child(3) .seo-en-service-mark::after{background:#c6b4f2}
+@media(max-width:640px){
+  .seo-central--en .seo-news-strip__side .seo-card--custom-visual{padding:16px}
+  .seo-central--en .seo-en-service-mark{font-size:16px}
+}
+@media(prefers-reduced-motion:reduce){
+  .seo-central--en .seo-news-strip__side .seo-card--custom-visual{transition:none}
+}
 @media (min-width:768px) and (max-width:1020px){.seo-central--en #services{scroll-margin-top:192px;}}
 .seo-central--en .seo-news-article--compact {padding:23px 24px;}
 .seo-central--en .seo-news-article__title {font-size:22px;}
@@ -589,10 +637,14 @@
         </div>
 
         <aside class="seo-news-strip__side"{{ if eq $lang "en" }} id="services"{{ end }} aria-label="{{ if $isRU }}Рекомендуемые блоки услуг{{ else if $isES }}Bloques de servicio destacados{{ else }}Featured service blocks{{ end }}">
-          <a class="seo-card" href="{{ $homeCard1Link.href | safeURL }}"{{ with $homeCard1Link.cloaked }} data-seo-cloaked-href="{{ . }}"{{ end }}{{ with $homeCard1Link.rel }} rel="{{ . }}"{{ end }} data-home-link-field="card1Url" data-home-link-value="{{ $homeCard1UrlRaw }}">
+          <a class="seo-card{{ if eq $lang "en" }} seo-card--custom-visual{{ end }}" href="{{ $homeCard1Link.href | safeURL }}"{{ with $homeCard1Link.cloaked }} data-seo-cloaked-href="{{ . }}"{{ end }}{{ with $homeCard1Link.rel }} rel="{{ . }}"{{ end }} data-home-link-field="card1Url" data-home-link-value="{{ $homeCard1UrlRaw }}">
             <div class="seo-card-head">
               <span class="seo-card-icon" aria-hidden="true">
-                <img src="{{ if eq $lang "en" }}{{ "uploads/seo-icon-search-optimization.svg" | relURL }}{{ else }}/uploads/seo-icon-search-optimization.svg{{ end }}" alt="" width="64" height="64" decoding="async" />
+                {{- if eq $lang "en" -}}
+                  <span class="seo-en-service-mark">01</span>
+                {{- else -}}
+                  <img src="/uploads/seo-icon-search-optimization.svg" alt="" width="64" height="64" decoding="async" />
+                {{- end -}}
               </span>
               <h3 class="seo-card-title" data-home-field="card1Title">{{ partial "home-inline.html" $homeCard1Title }}</h3>
             </div>
@@ -603,10 +655,14 @@
           </a>
 
           {{- if $homeCard2Link.href -}}
-          <a class="seo-card" href="{{ $homeCard2Link.href | safeURL }}"{{ with $homeCard2Link.cloaked }} data-seo-cloaked-href="{{ . }}"{{ end }}{{ with $homeCard2Link.rel }} rel="{{ . }}"{{ end }} data-home-link-field="card2Url" data-home-link-value="{{ $homeCard2UrlRaw }}">
+          <a class="seo-card{{ if eq $lang "en" }} seo-card--custom-visual{{ end }}" href="{{ $homeCard2Link.href | safeURL }}"{{ with $homeCard2Link.cloaked }} data-seo-cloaked-href="{{ . }}"{{ end }}{{ with $homeCard2Link.rel }} rel="{{ . }}"{{ end }} data-home-link-field="card2Url" data-home-link-value="{{ $homeCard2UrlRaw }}">
             <div class="seo-card-head">
               <span class="seo-card-icon" aria-hidden="true">
-                <img src="{{ if eq $lang "en" }}{{ "uploads/seo-icon-search-marketing.svg" | relURL }}{{ else }}{{ "server-icon.svg" | relURL }}{{ end }}" alt="" width="64" height="64" decoding="async" />
+                {{- if eq $lang "en" -}}
+                  <span class="seo-en-service-mark">02</span>
+                {{- else -}}
+                  <img src="{{ "server-icon.svg" | relURL }}" alt="" width="64" height="64" decoding="async" />
+                {{- end -}}
               </span>
               <h3 class="seo-card-title" data-home-field="card2Title">{{ partial "home-inline.html" $homeCard2Title }}</h3>
             </div>
@@ -618,10 +674,10 @@
           </a>
           {{- end -}}
           {{- if eq $lang "en" -}}
-          <a class="seo-card" href="{{ "seo-consultation/" | relURL }}" data-home-service="seo-consultation">
+          <a class="seo-card seo-card--custom-visual" href="{{ "seo-consultation/" | relURL }}" data-home-service="seo-consultation">
             <div class="seo-card-head">
               <span class="seo-card-icon" aria-hidden="true">
-                <img src="{{ "uploads/seo-icon-seo-marketing.svg" | relURL }}" alt="" width="64" height="64" decoding="async" />
+                <span class="seo-en-service-mark">03</span>
               </span>
               <h3 class="seo-card-title">SEO Consultation</h3>
             </div>

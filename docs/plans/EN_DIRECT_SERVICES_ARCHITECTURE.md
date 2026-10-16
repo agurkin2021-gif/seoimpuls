@@ -1,5 +1,5 @@
 # SEOImpuls: English direct service architecture
-Date: 2026-10-16. STATUS: CODE_QA_PASS / RESPONSIVE_VISUAL_QA_PASS / OWNER_REVIEW_PENDING; no production deployment. Branch: white-seo-rebuild.
+Date: 2026-10-16. STATUS: EDITED_QA_PENDING / OWNER_REVIEW_PENDING — new owner CSS-only service card directive; no production deployment. Branch: white-seo-rebuild.
 
 ## Decision
 - Remove English intermediary service catalogue /seo-services/ from the new generated site. The English homepage owns choosing an SEO service.
@@ -63,3 +63,11 @@ All gates PENDING until this current source is committed and tested. Do not proc
 - Strict #38912159752 PASS; Pages Preview #38912159880 PASS, context guard #38912159761 PASS, direct services Chromium #38912159784 PASS 390/768/1280; broader home visual #38912159853 PASS; axe-core WCAG automated #38912159768 PASS.
 - Browser reports 0 old intermediate URLs, 0 broken local routes, JS/network errors, 0 horizontal overflow. Floating Telegram/WhatsApp collision bounds tested against entire homepage text: 0 on all tested widths. Services anchor not covered by header. Screenshots #12050378578 downloaded and reviewed at 390,768,1280; accepted appearance with 120px EN rail on >=768px only.
 - These checks do not establish keyword volumes, rankings, live CrUX or full manual WCAG conformance. Site release and new pages require separate owner instruction. Keep no automatic migration or server changes.
+
+## 2026-10-16 — Owner image directive and lightweight responsive layout
+- The three EN homepage service cards must not display older SVG/raster illustrations. Their existing source assets remain preserved for future explicit owner decisions; the site's brand logo and unrelated images remain unchanged.
+- Created custom CSS-only 01/02/03 indicators in the cards, with responsive sizes, tasteful borders and gradients, accessible decorative markup and reduced-motion support. No new graphical dependencies or network requests.
+- No changes to keywords, exact EN service slugs, Title/H1, canonical/hreflang, three card links, or established 120px left rail reserved for fixed WhatsApp/Telegram controls.
+- EN-only source `layouts/index.html` and focused checks `scripts/verify_en_services_route.py`/`scripts/audit_en_services_browser.cjs`; same-commit documentation. RU/ES icon rendering remains as before.
+- New static and browser checks require exactly three CSS marks, zero `img` inside EN service cards, size and shape checks, no broken links/overflow or contact overlap. QA pending: Hugo strict + preview + Playwright 390/768/1280 screenshots. Old green runs are historical.
+- No automatic work on any other page or production without a separate direct instruction.

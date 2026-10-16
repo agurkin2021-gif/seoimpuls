@@ -35,6 +35,8 @@ class Markup(HTMLParser):
         self.ids = set()
         self.language = ""
         self.service_cards = []
+        self.service_images = []
+        self.service_marks = []
         self.service_region = 0
 
     def handle_starttag(self, tag, attrs):
@@ -45,6 +47,10 @@ class Markup(HTMLParser):
             self.language = a.get("lang", "")
         if tag == "aside" and a.get("id") == "services":
             self.service_region += 1
+        if self.service_region and tag == "img":
+            self.service_images.append(a.get("src", ""))
+        if self.service_region and tag == "span" and "seo-en-service-mark" in a.get("class", "").split():
+            self.service_marks.append(a.get("class", ""))
         if tag == "h1":
             self.in_h1 = True
         if tag == "title":
@@ -119,6 +125,13 @@ assert home.canonical == [BASE_URL + "/"], home.canonical
 assert "services" in home.ids, "Homepage service cards must have #services anchor"
 assert {local_target(href) for href in home.service_cards} == set(SERVICES), home.service_cards
 assert len(home.service_cards) == 3, f"Expected exactly 3 genuine service cards, got {home.service_cards}"
+assert len(home.service_marks) == 3, f"Expected exactly 3 CSS-only service marks, got {home.service_marks}"
+assert not home.service_images, f"Old service icon images remain visible: {home.service_images}"
+assert all((Path("static")/path).is_file() for path in (
+    "uploads/seo-icon-search-optimization.svg",
+    "uploads/seo-icon-search-marketing.svg",
+    "uploads/seo-icon-seo-marketing.svg"
+)), "Preserved original service icon assets missing"
 assert "/#services" in [local_target(x) for x in home.links], "Services navigation / hero must jump to homepage selector"
 assert "seo-en-choose-title" not in home.ids, "Redundant lower 3-choice selector still on homepage"
 assert not any(local_target(href).split("#")[0] in RETIRED_EN for href in home.links), "Homepage links to retired EN URLs"
