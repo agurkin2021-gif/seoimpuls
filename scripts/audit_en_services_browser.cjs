@@ -92,7 +92,9 @@ let browser;
     const focus=await page.evaluate(()=>{
       const section=document.getElementById("services"),header=document.querySelector(".custom-header");
       const r=section.getBoundingClientRect(),h=header?.getBoundingClientRect();
-      const bounds=Array.from(section.querySelectorAll(".seo-card h3,.seo-card li")).map(x=>({rect:x.getBoundingClientRect(),text:x.textContent.trim().slice(0,50)}));
+      const bounds=Array.from(document.querySelectorAll(".seo-central--en h1,.seo-central--en h2,.seo-central--en h3,.seo-central--en p,.seo-central--en li,.seo-central--en a"))
+        .filter(x=>x.textContent.trim()&&getComputedStyle(x).display!=="none")
+        .map(x=>({rect:x.getBoundingClientRect(),text:x.textContent.trim().slice(0,50)}));
       const floaters=Array.from(document.querySelectorAll(".footer-shortcut--whatsapp,.footer-shortcut--telegram"))
         .filter(x=>getComputedStyle(x).position==="fixed"&&x.getBoundingClientRect().width>0);
       const overlaps=[];
@@ -102,7 +104,7 @@ let browser;
       return {sectionTop:Math.round(r.top),headerBottom:Math.round(h?.bottom||0),floatingCount:floaters.length,overlaps};
     });
     if(focus.sectionTop<focus.headerBottom-2)fail.push("Services anchor hidden by fixed header");
-    if(focus.overlaps.length)fail.push("Floating contacts cover readable service cards");
+    if(focus.overlaps.length)fail.push("Floating contacts cover readable homepage text");
     await page.locator('a[data-home-link-field="heroBuilderUrl"]').focus();
     await page.keyboard.press("Enter");
     await page.waitForTimeout(130);

@@ -47,3 +47,8 @@ All gates PENDING until this current source is committed and tested. Do not proc
 - Pages #38910447841 PASS, responsive home #38910447974 PASS, axe automated #38910447779 PASS. Direct service browser #38910448011 only failed on 768 floating icons (390 and 1280 succeeded).
 - Screenshot #12050445799 showed exact breakpoint conflict (768 mobile footer appears at page top despite desktop fixed icons), corrected by an EN-home-only floating footer override at exactly 768. Browser collision check remains enabled, now includes rect coordinates.
 - Follow-up CI unverified until the next Actions run; no production changes.
+
+## 2026-10-16 — Visual review overrides initial automated acceptance
+- Strict #38911153927 PASS; preview #38911153919 PASS; direct service browser #38911154181 PASS at 390/768/1280; general home browser #38911153939 PASS; axe WCAG #38911154116 PASS; but screenshots #12049823824 reveal fixed left WA/TG icons on top of the beginning of the below-cards text at 1280 (not caught by card-only collision test).
+- EN-only content gutter (padding-left:64px) widened to apply at all widths >=768, not just tablets. Existing fixed WA/TG UI itself is unchanged. EN dedicated browser guard strengthened to check collision rectangles of the ENTIRE .seo-central--en text, not just the service-card text.
+- Therefore prior checks do not constitute complete visual acceptance; source revision QA pending. Keep the EN route naming/Title/H1 solution already confirmed by page code checks.

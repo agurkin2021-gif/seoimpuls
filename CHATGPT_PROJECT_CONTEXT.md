@@ -1,4 +1,11 @@
 # SEOImpuls — основной контекст проекта (читать первым)
+## 2026-10-16 — MANUAL VISUAL FINDING: 1280px shortcut overlap below service cards (QA PENDING)
+- First combined strict/Hugo #38911153927 PASS, preview #38911153919 PASS, three-way direct service browser #38911154181 PASS at 390,768,1280, EN home browser #38911153939 PASS, axe diagnostic #38911154116 PASS. The previous automated service browser inspected floating icon collisions only with texts INSIDE the 3 service cards.
+- Downloaded screenshot artifact #12049823824 and manually inspected 390,768,1280 initial/services. **Found a real remaining 1280px visual regression**: fixed WhatsApp/Telegram shortcuts at far left overlap first line of the "What Are Professional SEO Services?" explanation immediately below 3 cards. Do NOT claim final visual PASS yet.
+- Expanded EN home 64px reserved left text/content gutter from 768–1199 to ALL widths >=768, preserving original fixed icon positions and footer animation. Expanded dedicated Chrome overlap test to check all readable elements inside .seo-central--en, not just card text, and log exact bounding rectangles. No global CSS/shared footer changes.
+- Status EDITED_QA_PENDING; new strict, Pages, browser 390/768/1280, WCAG and screenshot inspection required. Work remains limited to authorized EN home/direct service route architecture; other languages' content and production untouched.
+
+
 ## 2026-10-16 — EXACT 768px FOOTER BREAKPOINT + QA COPY CORRECTION (RUNS PENDING)
 - EN homepage browser #38910448011 still showed 768px fixed shortcut overlap in service cards (390 and 1280 PASS); fresh screenshot #12050445799 shows the readable text starts at x64, but at exactly 768 the legacy mobile footer rule still renders Contacts inside top header while desktop floating rules apply simultaneously. This is a real breakpoint conflict independent of extra left gutter. Scoped EN-only 768px footer fix mirrors the prior accepted EN catalogue fix: body.footer-floating .custom-footer--en-home position fixed, hidden bottom -96px and normal popup bottom 0. No change to global footer or WA/TG shortcuts. Browser QA now logs any overlapping button/text rectangle coordinates, without weakening its fail condition.
 - Strict #38910447930 all routes, schema, hreflang and retired URL validations PASS and reached final sitewide EN text gate, which expected old homepage explanatory phrases. Updated this specific QA to the newly approved plain-language business definition, keeping content and SEO assertions strict. The earlier broad-string replacement had accidentally altered localized menu expected path to /ru/technical-seo-audit/ and /es/technical-seo-audit/; corrected assertions to preserve actual /ru/seo/ and /es/seo/ localized menus, no locale files modified.
@@ -199,6 +206,10 @@ IMPORT_STATUS: completed
 7. Перед новым чатом прочитать AGENTS.md и этот файл прямо из репозитория, проверить фактическое состояние GitHub/Actions и продолжить с секции 6 «Следующее действие».
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
+
+### 2026-10-16 — Fix screenshot-confirmed fixed icons over downstream homepage copy at 1280
+- Although recent pipeline passed, artifact #12049823824 shows WhatsApp/Telegram shortcuts on top of the explanation paragraph below three cards at 1280. Enlarged EN left content rail to >=768, and browser QA checks ALL homepage text rather than cards only. Only EN template, EN browser QA and same-commit context/plan changed. New QA pending; no production or unrelated page work.
+
 
 ### 2026-10-16 — Fix EN-only exact 768 footer media conflict, improve collision evidence and correct final CI text assertions
 - After passed preview/home browser/axe, remaining strict gate #38910447930 failed on old homepage copy expectation (not a site error); current main browser still flagged 768 floated icon overlap. Reinstated fixed-footer bottom behavior at 768 for EN homepage only, preserving existing animated popup; same 64px text rail remains. Browser reports bounding rects if any overlap persists. CI localized menu assertions restored to /ru/seo/, /es/seo/.
