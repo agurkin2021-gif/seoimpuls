@@ -301,6 +301,21 @@
     }
   }
   {{- if eq $lang "en" }}
+  /* English consultation has an honest, self-contained process illustration. */
+  .seo-central--services .services-hub-card__consult-visual {
+    width:100%;height:100%;min-width:0;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;gap:15px;padding:18px;
+    background:radial-gradient(circle at 50% 45%,rgba(55,164,218,.25),transparent 63%),linear-gradient(145deg,#081729,#102b4b 56%,#06172b);
+    color:#ecf7ff;
+  }
+  .seo-central--services .services-hub-card__consult-eyebrow {font-size:11px;text-transform:uppercase;letter-spacing:.14em;font-weight:700;color:#a7d9f4;}
+  .seo-central--services .services-hub-card__consult-steps {display:flex;align-items:center;justify-content:center;gap:8px;width:100%;}
+  .seo-central--services .services-hub-card__consult-steps span {
+    flex:1;min-width:0;max-width:122px;padding:11px 5px;text-align:center;border:1px solid rgba(148,215,245,.48);
+    border-radius:6px;background:rgba(23,80,132,.71);color:#f3fbff;font-size:clamp(12px,1vw,15px);font-weight:700;
+  }
+  .seo-central--services .services-hub-card__consult-steps b {flex:0 0 auto;color:#80d4f7;font-weight:500;font-size:18px;}
+  .seo-central--services .services-hub-card__consult-caption {font-size:13px;color:#cce5f8;text-align:center;}
   /* EN catalog contains exactly 3 offered services; no fourth empty column. */
   .seo-central--services .services-hub {grid-template-columns:repeat(3,minmax(0,1fr));}
   .seo-central--services .services-hub__intro {max-width:850px;margin:0 auto 22px;text-align:center;color:#cbdced;font-size:16px;line-height:1.58;}
@@ -328,8 +343,16 @@
       {{- $rankGroup := div (int $card.rank) 100 -}}
       <a class="services-hub-card" href="{{ $link.href | default "#" | safeURL }}" data-services-card-rank="{{ $rankGroup }}" data-services-card-image="{{ $card.image | safeURL }}" data-services-card-label="{{ $card.label | plainify }}" data-services-card-url="{{ $href | safeURL }}"{{ with $link.cloaked }} data-seo-cloaked-href="{{ . }}"{{ end }}{{ with $link.rel }} rel="{{ . }}"{{ end }}>
         <span class="services-hub-card__media">
-          {{- with $card.image -}}
-            <img src="{{ . | safeURL }}" alt="{{ $card.alt | default $card.label }}" width="420" height="237"{{ if eq $cardIndex 0 }} fetchpriority="high"{{ else }} loading="lazy" fetchpriority="low"{{ end }} decoding="async">
+          {{- if and (eq $lang "en") (eq $href "/services/seo-consultation/") -}}
+            <span class="services-hub-card__consult-visual" aria-hidden="true">
+              <span class="services-hub-card__consult-eyebrow">SEO Strategy Review</span>
+              <span class="services-hub-card__consult-steps"><span>Review</span><b>→</b><span>Prioritize</span><b>→</b><span>Plan</span></span>
+              <span class="services-hub-card__consult-caption">Evidence → priorities → next steps</span>
+            </span>
+          {{- else -}}
+            {{- with $card.image -}}
+              <img src="{{ . | safeURL }}" alt="{{ $card.alt | default $card.label }}" width="420" height="237" loading="eager"{{ if eq $cardIndex 0 }} fetchpriority="high"{{ end }} decoding="async">
+            {{- end -}}
           {{- end -}}
         </span>
         <span class="services-hub-card__body">

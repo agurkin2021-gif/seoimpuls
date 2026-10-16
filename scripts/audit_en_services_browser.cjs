@@ -35,6 +35,13 @@ let browser;
     workstreamCount:document.querySelectorAll(".seo-catalog__workstream").length,
     groupCount:document.querySelectorAll(".seo-catalog__group").length,
     choiceCount:document.querySelectorAll(".seo-catalog__choice").length,
+    jumpLinks:Array.from(document.querySelectorAll(".seo-catalog__toc a[href^='#']")).map(a=>({target:a.getAttribute("href").slice(1),label:a.textContent.trim(),targetExists:!!document.getElementById(a.getAttribute("href").slice(1))})),
+    consultationGraphicCount:document.querySelectorAll(".services-hub-card__consult-visual").length,
+    consultMediaImageCount:document.querySelectorAll('.services-hub-card[href$="/services/seo-consultation/"] img').length,
+    reportExampleCount:document.querySelectorAll(".seo-catalog__evidence-item").length,
+    faqQuestionCount:document.querySelectorAll(".seo-catalog__faq details").length,
+    detailLinks:Array.from(document.querySelectorAll(".seo-catalog__detail-link")).map(a=>({text:a.textContent.trim(),href:a.href})),
+    categoryScrollMargin:parseFloat(getComputedStyle(document.querySelector("#seo-work-technical")).scrollMarginTop)||0,
     cards:Array.from(document.querySelectorAll(".services-hub-card")).map(x=>({label:x.textContent.trim(),href:x.href})),
     intro:document.querySelector(".services-hub__intro")?.textContent.trim()||"",
     footerClass:document.querySelector(".custom-footer")?.className||"",
@@ -65,6 +72,12 @@ let browser;
   if(data.canonical!=="https://seoimpuls.com/seo-services/")fail.push("Canonical");
   if(data.cards.length!==3)fail.push("Cards");
   if(data.workstreamCount!==23||data.groupCount!==4||data.choiceCount!==3)fail.push("Workstream scope");
+  if(data.jumpLinks.length!==5||data.jumpLinks.some(x=>!x.targetExists))fail.push("Category navigation");
+  if(data.consultationGraphicCount!==1||data.consultMediaImageCount!==0)fail.push("Repeated consultation image");
+  if(data.reportExampleCount!==4)fail.push("Evidence example");
+  if(data.faqQuestionCount!==5)fail.push("Buyer FAQ coverage");
+  if(data.detailLinks.length!==3||data.detailLinks.some(x=>!x.text.startsWith("Review ")))fail.push("Descriptive workstream links");
+  if(data.categoryScrollMargin<100)fail.push("Section scroll margin");
   if(data.gridColumns!==(width===390?1:3))fail.push("Grid columns="+data.gridColumns);
   if(!data.intro.startsWith("Choose the right starting point"))fail.push("Direct answer");
   for(const u of ["/seo/","/services/keyword-research/","/services/seo-consultation/"]){
@@ -75,11 +88,21 @@ let browser;
   if(!data.menu.endsWith("/seo-services/"))fail.push("Nav");
   if(data.scrollWidth>width+2)fail.push("Overflow");
   if(data.images.some(x=>!x.ok))fail.push("Images");
-  if(data.jsonld.some(x=>!x.valid))fail.push("JSON-LD");
+  if(data.jsonld.some(x=>!x.valid)||!data.jsonld.some(x=>x.type==="BreadcrumbList")||data.jsonld.some(x=>x.type==="BlogPosting"))fail.push("JSON-LD");
   if(errors.length||networkFailures.length)fail.push("JavaScript/network");
   if(brokenLinks.length)fail.push("Internal links");
-  report.viewports.push({width,status:res.status(),...data,brokenLinks,errors,networkFailures,fail});
-  console.log("SERVICES_BROWSER_SUMMARY "+JSON.stringify({width,status:res.status(),h1:data.h1,gridColumns:data.gridColumns,cards:data.cards.length,workstreams:data.workstreamCount,groups:data.groupCount,choices:data.choiceCount,overflow:data.scrollWidth>width,brokenLinks,errors,networkFailures,fail}));
+
+  // A real hash jump must not place its section heading underneath the fixed header.
+  await page.evaluate(()=>document.getElementById("seo-work-technical").scrollIntoView({block:"start",behavior:"instant"}));
+  await page.waitForTimeout(200);
+  const scrollCheck=await page.evaluate(()=>({
+    sectionTop:Math.round(document.getElementById("seo-work-technical").getBoundingClientRect().top),
+    headerBottom:Math.round(document.querySelector(".custom-header")?.getBoundingClientRect().bottom||0)
+  }));
+  if(scrollCheck.sectionTop<scrollCheck.headerBottom-2)fail.push("Anchor obscured by header");
+  try{await page.screenshot({path:path.join(OUT,width+"-category.png"),timeout:12000,animations:"disabled"});}catch(e){console.log("SERVICES_SCREENSHOT_WARNING "+e.message.slice(0,120));}
+  report.viewports.push({width,status:res.status(),...data,scrollCheck,brokenLinks,errors,networkFailures,fail});
+  console.log("SERVICES_BROWSER_SUMMARY "+JSON.stringify({width,status:res.status(),h1:data.h1,gridColumns:data.gridColumns,cards:data.cards.length,workstreams:data.workstreamCount,groups:data.groupCount,choices:data.choiceCount,jumpLinks:data.jumpLinks.length,consultGraphic:data.consultationGraphicCount,scrollCheck,overflow:data.scrollWidth>width,brokenLinks,errors,networkFailures,fail}));
   await ctx.close();
  }
  await browser.close();

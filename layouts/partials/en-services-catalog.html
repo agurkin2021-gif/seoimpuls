@@ -4,6 +4,18 @@
 .seo-central--services .seo-catalog{margin:42px 0 0;color:#dbe7f5}
 .seo-central--services .seo-catalog__heading{margin:0 0 10px;font-size:clamp(25px,2.1vw,32px);line-height:1.2;color:#f2f7ff}
 .seo-central--services .seo-catalog__lede{margin:0 0 27px;max-width:920px;font-size:16px;line-height:1.6;color:#c5d8e9}
+.seo-central--services .seo-catalog__group,.seo-central--services .seo-catalog__matching,.seo-central--services .seo-catalog__scope,.seo-central--services .seo-catalog__example,.seo-central--services .seo-catalog__faq {scroll-margin-top:120px}
+.seo-central--services .seo-catalog__toc {display:flex;align-items:center;flex-wrap:wrap;gap:9px;margin:0 0 26px}
+.seo-central--services .seo-catalog__toc-label {font-size:13px;font-weight:750;color:#d9eafa;margin-right:3px}
+.seo-central--services .seo-catalog__toc a {color:#c1e6fb;text-decoration:none;border:1px solid rgba(111,186,226,.45);border-radius:6px;padding:8px 11px;background:#0d2943;font-size:13px;font-weight:650;line-height:1.35}
+.seo-central--services .seo-catalog__toc a:hover {border-color:#a0e1fc;background:#153b5c;color:#fff}
+.seo-central--services .seo-catalog__toc a:focus-visible {outline:2px solid #9ce2fd;outline-offset:3px}
+.seo-central--services .seo-catalog__example {margin:37px 0 0;padding:22px 23px;border:1px solid rgba(110,181,219,.35);border-radius:10px;background:linear-gradient(145deg,rgba(13,40,63,.92),rgba(8,22,40,.96))}
+.seo-central--services .seo-catalog__example-note {font-size:14px;color:#c4d8e8;margin:0 0 17px;line-height:1.55}
+.seo-central--services .seo-catalog__evidence-grid {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.seo-central--services .seo-catalog__evidence-item {min-width:0;border-top:2px solid rgba(102,191,236,.55);padding:11px 12px 0;background:rgba(9,26,43,.34)}
+.seo-central--services .seo-catalog__evidence-item strong {display:block;color:#f0f7ff;margin:0 0 6px;font-size:14px}
+.seo-central--services .seo-catalog__evidence-item p {margin:0;color:#d0e0ef;line-height:1.52;font-size:14px}
 .seo-central--services .seo-catalog__group{margin:0 0 30px}
 .seo-central--services .seo-catalog__group-title{margin:0 0 5px;color:#f0f7ff;font-size:clamp(20px,1.75vw,25px);line-height:1.3}
 .seo-central--services .seo-catalog__group-note{margin:0 0 15px;color:#b9cce0;font-size:15px;line-height:1.5}
@@ -36,23 +48,31 @@
 .seo-central--services .seo-catalog__cta-links{display:flex;flex-wrap:wrap;gap:13px 20px}
 .seo-central--services .seo-catalog__cta-links a{color:#8cddfb;font-weight:700;text-underline-offset:3px}
 @media(max-width:1020px){.seo-central--services .seo-catalog__grid{grid-template-columns:repeat(2,minmax(0,1fr))}.seo-central--services .seo-catalog__choice-grid{grid-template-columns:1fr}}
-@media(max-width:640px){.seo-central--services .seo-catalog{margin-top:32px}.seo-central--services .seo-catalog__grid{grid-template-columns:1fr;gap:11px}.seo-central--services .seo-catalog__workstream{padding:15px 15px 12px}.seo-central--services .seo-catalog__choice{padding:15px}.seo-central--services .seo-catalog__cta{padding:17px 16px}.seo-central--services .seo-catalog__lede{font-size:15px}}
+@media(max-width:640px){.seo-central--services .seo-catalog__evidence-grid{grid-template-columns:1fr}.seo-central--services .seo-catalog__example{padding:17px 15px}.seo-central--services .seo-catalog__toc a{padding:7px 9px}.seo-central--services .seo-catalog{margin-top:32px}.seo-central--services .seo-catalog__grid{grid-template-columns:1fr;gap:11px}.seo-central--services .seo-catalog__workstream{padding:15px 15px 12px}.seo-central--services .seo-catalog__choice{padding:15px}.seo-central--services .seo-catalog__cta{padding:17px 16px}.seo-central--services .seo-catalog__lede{font-size:15px}}
 </style>
 <section class="seo-catalog" aria-labelledby="seo-catalog-title" data-en-catalog="1">
 <h2 class="seo-catalog__heading" id="seo-catalog-title">SEO Work We Can Scope</h2>
 <p class="seo-catalog__lede">Browse the SEO workstreams below by the problem they solve, the checks involved and a typical output. These are areas of work within an agreed engagement, not 23 standalone packages or promises that every task is included. Execution, access and deliverables are confirmed for each project.</p>
+<nav class="seo-catalog__toc" aria-label="Jump to an SEO work area">
+  <span class="seo-catalog__toc-label">Jump to:</span>
+  {{- range .groups }}
+    <a href="#seo-work-{{ .id }}">{{ .name }}</a>
+  {{- end }}
+  <a href="#seo-catalog-example">Example deliverable</a>
+</nav>
 {{- range .groups }}
 <section class="seo-catalog__group" id="seo-work-{{ .id }}" aria-labelledby="seo-work-title-{{ .id }}">
 <h3 class="seo-catalog__group-title" id="seo-work-title-{{ .id }}">{{ .name }}</h3>
 <p class="seo-catalog__group-note">{{ .summary }}</p>
 <div class="seo-catalog__grid">
 {{- range .services }}
+{{- $work := . -}}
 <article class="seo-catalog__workstream">
 <h4>{{ .name }}</h4>
 <p class="seo-catalog__line"><strong>When:</strong> {{ .when }}</p>
 <p class="seo-catalog__line"><strong>Work:</strong> {{ .work }}</p>
 <p class="seo-catalog__line"><strong>Typical output:</strong> {{ .output }}</p>
-{{- with .url }}<a class="seo-catalog__detail-link" href="{{ . | relURL }}">View detailed service</a>{{ end }}
+{{- with .url }}<a class="seo-catalog__detail-link" href="{{ . | relURL }}">Review {{ $work.name }}</a>{{ end }}
 </article>
 {{- end }}
 </div>
@@ -81,6 +101,16 @@
 <li><strong>Document the output.</strong> Deliver relevant findings such as an issue register, keyword-to-URL map, content brief or migration plan as specified in the scope.</li>
 <li><strong>Validate separately.</strong> If implementation is commissioned, agree who makes changes and how results will be checked. Rankings and timing are not guaranteed.</li>
 </ol>
+</section>
+<section class="seo-catalog__example" id="seo-catalog-example" aria-labelledby="seo-catalog-example-title">
+<h2 class="seo-catalog__heading" id="seo-catalog-example-title">What a Verifiable SEO Finding Looks Like</h2>
+<p class="seo-catalog__example-note">Illustrative reporting format only — not a real client case, completed audit or ranking claim. Actual findings require website-specific evidence.</p>
+<div class="seo-catalog__evidence-grid">
+  <div class="seo-catalog__evidence-item"><strong>Possible problem</strong><p>An important URL intended for search includes a <code>noindex</code> directive in its returned HTML.</p></div>
+  <div class="seo-catalog__evidence-item"><strong>Evidence to collect</strong><p>Record the URL, HTTP status, source and rendered HTML, robots directives and available Search Console observations.</p></div>
+  <div class="seo-catalog__evidence-item"><strong>Recommended decision</strong><p>Confirm whether exclusion is intentional. Change only the approved directive or template, with rollback instructions if needed.</p></div>
+  <div class="seo-catalog__evidence-item"><strong>Acceptance check</strong><p>Fetch the updated live URL, verify intended robots directives and internal links, then review indexing after recrawling. Removing <code>noindex</code> does not guarantee inclusion.</p></div>
+</div>
 </section>
 <section class="seo-catalog__faq" aria-labelledby="seo-catalog-faq">
 <h2 class="seo-catalog__heading" id="seo-catalog-faq">Questions About SEO Work</h2>

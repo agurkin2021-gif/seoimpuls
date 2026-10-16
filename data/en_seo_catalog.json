@@ -196,6 +196,10 @@
       "answer": "No. They are SEO workstreams that can be assessed and included in a separately agreed project scope. Each project needs only relevant work."
     },
     {
+      "question": "What affects the cost and delivery time?",
+      "answer": "Site size, number of URLs and templates, target markets, data quality, available access, reporting depth and who implements fixes all affect a quote and schedule. The catalogue is not a fixed-price offer; specific deliverables and terms must be agreed before work begins."
+    },
+    {
       "question": "Is implementation included with an audit?",
       "answer": "Not automatically. Diagnosis, development and verification are separate responsibilities. Access, implementation steps and deliverables require agreement."
     },

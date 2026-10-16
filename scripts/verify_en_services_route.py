@@ -15,9 +15,12 @@ class Page(HTMLParser):
         self.alternate={}; self.refresh=[]; self.jsonld=[]
         self.social_nodes=0; self.map_nodes=0
         self.class_counts={}
+        self.ids=set(); self.tags={}
         self.in_json=False; self.jsontext=[]
     def handle_starttag(self,tag,attrs):
         a=dict(attrs)
+        self.tags[tag]=self.tags.get(tag,0)+1
+        if a.get('id'):self.ids.add(a['id'])
         for cls in (a.get('class') or '').split():
             self.class_counts[cls]=self.class_counts.get(cls,0)+1
         if tag=='div' and 'footer-social-icons' in a.get('class',''):self.social_nodes+=1
@@ -58,6 +61,17 @@ assert 'Choose the right starting point' in hub_markup,'EN service-choice direct
 assert hub.class_counts.get('seo-catalog__group',0) == 4,'Four workstream groups are required'
 assert hub.class_counts.get('seo-catalog__workstream',0) == 23,'All 23 scoped SEO workstreams must render'
 assert hub.class_counts.get('seo-catalog__choice',0) == 3,'Three direct buyer entry paths are required'
+assert hub.class_counts.get('seo-catalog__toc',0)==1,'Category navigation missing'
+assert hub.class_counts.get('services-hub-card__consult-visual',0)==1,'Consultation graphic should not duplicate technical artwork'
+assert hub.class_counts.get('seo-catalog__example',0)==1,'Demonstrable output example missing'
+assert hub.class_counts.get('seo-catalog__evidence-item',0)==4,'Four evidence-to-action fields required'
+assert hub.tags.get('details',0)>=5,'SEO buyer FAQ needs at least five answers'
+for target in ('seo-work-technical','seo-work-content','seo-work-specialized','seo-work-strategy','seo-catalog-example'):
+    assert target in hub.ids,(target,'Missing navigation target')
+    assert ('#'+target) in hub.links,(target,'Missing navigable category link')
+assert 'Illustrative reporting format only' in hub_markup,'Do not present an example as an actual client case'
+assert 'What a Verifiable SEO Finding Looks Like' in hub_markup,'Concrete audit output example missing'
+
 for label in ('E-commerce SEO','Local SEO & Business Profile Review','AI Search Content Readiness','International & Multilingual SEO','Earned Editorial Visibility Planning'):
     assert label in hub_markup,(label,'catalogued scope missing')
 for required in ('23 standalone packages','How Scope and Deliverables Are Defined','Questions About SEO Work'):
@@ -67,6 +81,7 @@ for path in ('/seo/','/services/keyword-research/','/services/seo-consultation/'
     assert contains_path(hub.links,path),(path,hub.links)
 crumb=[doc for doc in hub.jsonld if doc.get('@type')=='BreadcrumbList']
 assert len(crumb)==1,crumb
+assert not any(doc.get('@type')=='BlogPosting' for doc in hub.jsonld),'Service catalogue must not be mislabeled as a blog post'
 assert len(crumb[0]['itemListElement'])>=2,crumb
 assert crumb[0]['itemListElement'][-1]['item'].endswith('/seo-services/'),crumb
 for lang,path in [('ru','ru/uslugi/index.html'),('es','es/servicios/index.html')]:

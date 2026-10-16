@@ -4,6 +4,8 @@
 
 ## ТЕКУЩИЙ ПРИОРИТЕТ — EN services hub после завершения главной (решение владельца 2026-10-15)
 
+- **2026-10-16: владелец потребовал продолжать только EN `/seo-services/` до полного контрольного аудита и устранения проверенных визуальных/интентных недостатков. Другие EN service pages НЕ начинать.**
+
 - Владелец завершил работу над английской главной `/` и **отдельно разрешил** перейти к английскому каталогу услуг. Главная заморожена по контенту; разрешены только точечные зависимости ссылок при изменении адреса каталога.
 - Рабочая версия каталога: **`/seo-services/`** на ветке `white-seo-rebuild`; прежний `/services/` — только HTML alias, **не серверный HTTP 301**. Интент: выбор SEO-работ по проблеме и результату. 23 направления — возможные виды работ в согласованном объёме; три действующие специализированные страницы остаются точками входа. Главная владеет `professional seo services` / выбором SEO-исполнителя.
 - Английские дочерние `/seo/`, `/services/keyword-research/`, `/services/seo-consultation/` — отдельные целевые страницы, в этой фазе не переименовывать. **Не изменять RU `/ru/` и ES `/es/`** до отдельной команды. `main` и производственный сервер `seoimpuls.com` не затрагивать.
@@ -59,6 +61,13 @@ IMPORT_STATUS: completed
 7. Перед новым чатом прочитать AGENTS.md и этот файл прямо из репозитория, проверить фактическое состояние GitHub/Actions и продолжить с секции 6 «Следующее действие».
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
+
+### 2026-10-16 — EN SEO catalogue depth/visual/buyer evidence audit (scope locked to /seo-services/)
+- Owner explicitly blocked advancing to other pages until EN `/seo-services/` is comprehensively polished. Deep page-only audit in `docs/research/2026-10-16-en-services-depth-audit.md` (current source + live Opera 1st-screen, hash navigation, bottom FAQ; comparator references with clear SERP caveats). Baseline: 23 scoped types and 3 linked primary offers were technically valid but no TOC for 4 groups, clipped hash headings under sticky header, repeated first/third magnifier hero art, top-row lazy image flash, generic inner links, no illustrative evidence format and missing price/schedule factor FAQ.
+- Planned code changes in this commit: EN guarded `layouts/partials/services-hub.html` substitutes an accessible pure-HTML/CSS 3-step consultation visual (Review / Prioritize / Plan) for the repeated generic graphic, and eager-loads remaining two above-fold images; EN `layouts/partials/en-services-catalog.html` adds 5 category/output jump links with scroll-margin compensation, descriptive deep-link names, and one explicitly hypothetical evidence→fix→acceptance example (not a fabricated case). `data/en_seo_catalog.json` gains one honestly conditional FAQ about costs and timelines. No new commercial URLs, fake packages, client claims, results or promises.
+- `scripts/verify_en_services_route.py` and `scripts/audit_en_services_browser.cjs` now enforce 5 navigable anchors, 1 distinct consultation diagram, evidence example with 4 fields, 5 FAQ questions, descriptive 3 links, valid non-BlogPosting schema and real 390px/1280px anchor-to-header geometry, retaining earlier canonical/hreflang/sitemap/redirect/route checks.
+- **Status: EDITED_QA_PENDING** until GitHub Actions Hugo strict gate, Pages and Playwright browser screenshots PASS. This is a scoped EN page change; EN home, other EN service pages, RU/ES, repo main and live VPS untouched. After QA inspect preview visually and perform follow-up gaps audit; production remains RELEASE_BLOCKED pending GSC/live URL migration and user authorization.
+
 
 ### 2026-10-16 UTC / 2026-10-15 AR — EN 23-workstream catalogue final acceptance
 - Last source commit `0a91a30e3cd12d8c8a9bf0ed54771c9f9b7de84f` introduced a separate EN HTML Title via `seo_title` without changing the approved H1. Actual connected Opera Preview at `https://agurkin2021-gif.github.io/seoimpuls/seo-services/?v=0a91a30` displayed browser title `SEO Audits, Keyword Research & Consulting | SeoImpuls`. H1 remains `Choose the Right SEO Work for Your Website`. No homepage metadata change.
@@ -950,7 +959,7 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Current stage: English SEO work catalogue expanded by explicit owner authorization beyond three linked service entry points, still at `/seo-services/` on `white-seo-rebuild`; 23 scoped workstreams in 4 groups. Latest content commit `0a91a30` completed Hugo/strict white-hat and Pages Preview plus Chromium 390/1280. CODE_QA_PASS / RESPONSIVE_VISUAL_QA_PASS for this EN catalogue only. EN homepage `/` title/content/H1 remain frozen; only necessary hero/nav/link dependencies changed. RU/ES source, English child page URLs, repo main, and live seoimpuls.com are untouched.
+Current stage: OWNER REQUESTED FURTHER POLISH OF EN `/seo-services/` BEFORE ANY OTHER PAGE. Baseline 23/4 workstreams plus three linked service details is preserved. New targeted UX/semantic/illustrative-proof edits are EDITED_QA_PENDING; see `docs/research/2026-10-16-en-services-depth-audit.md`. After new Hugo/Pages/Chromium 390/1280 tests pass, visually inspect actual EN preview and audit remaining catalog-specific gaps; do not move to other services without explicit user direction. EN homepage `/` title/content/H1 remain frozen; only necessary hero/nav/link dependencies changed. RU/ES source, English child page URLs, repo main, and live seoimpuls.com are untouched.
 
 SERP-first competitor top10 and intent map: `docs/research/2026-10-15-en-services-serp-and-architecture.md`. Homepage owns `professional seo services` and provider-selection; catalog compares SEO workstreams and deliverables and has three existing deeper entry pages. Do not claim `seo services list` informational SERP represents demand for 23 priced packages.
 
