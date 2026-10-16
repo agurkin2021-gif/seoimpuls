@@ -72,35 +72,34 @@ print('SERVICES_HEAD_REPORT',json.dumps({key:hub.meta.get(key,[]) for key in ('r
 assert hub.social_nodes==0 and hub.map_nodes==0,'EN hub still contains non-branded social links or unverified location map'
 hub_markup=Path('public/seo-services/index.html').read_text(encoding='utf-8')
 assert 'Choose the right starting point' in hub_markup,'EN service-choice direct answer missing'
-assert hub.class_counts.get('seo-catalog__group',0) == 4,'Four workstream groups are required'
-assert hub.class_counts.get('seo-catalog__workstream',0) == 23,'All 23 scoped SEO workstreams must render'
-assert len(hub.workstream_links)==23,'Every SEO workstream must have a direct contextual contact or service path'
-assert sum(url.startswith('mailto:support@seoimpuls.com?subject=') for url in hub.workstream_links)==20,'Twenty scoped workstreams require topic-specific inquiry links'
-assert sum(urlsplit(url).path in ('/seo/','/services/keyword-research/','/services/seo-consultation/') for url in hub.workstream_links)==3,'Keep only three published service destinations'
-assert not any(url=='#' or not url for url in hub.workstream_links),'No placeholder links allowed'
-
-for status,expected in [('published',3),('component',14),('conditional',6)]:
-    assert hub_markup.count('data-scope-status='+status)==expected or hub_markup.count('data-scope-status="'+status+'"')==expected,(status,'scope classification mismatch')
-assert 'Six specialized areas require an explicit capability' in hub_markup,'Unverified specialties must be disclosed'
-
+assert hub.class_counts.get('seo-catalog__area',0)==4,'Four concise scope areas required'
+assert hub.class_counts.get('seo-catalog__topic',0)==12,'Three examples per work area required'
+assert hub.class_counts.get('seo-catalog__workstream',0)==0,'Old 23 workstream tiles must not render'
+assert not hub.workstream_links,'Workstream-specific contact links must not render'
+assert 'Start with one of the three services above' in hub_markup,'Single buyer entry path missing'
+assert 'These are not separate packages' in hub_markup,'Not fixed packages caveat missing'
+assert 'Specialized reviews, implementation and deliverables depend' in hub_markup,'Specialist scope must be qualified'
+catalog_data=json.loads(Path('data/en_seo_catalog.json').read_text(encoding='utf-8'))
+assert len(catalog_data.get('scope_areas',[]))==4,'Four work areas in source'
+assert all(len(x['examples'])==3 for x in catalog_data['scope_areas']),'Keep scope concise'
+assert 'groups' not in catalog_data,'Old misleading 23 workstreams must not remain as source data'
 assert hub.class_counts.get('seo-catalog__choice',0) == 3,'Three direct buyer entry paths are required'
 pos_selector=hub_markup.find('<section class=seo-catalog__matching')
 pos_directory=hub_markup.find('SEO Work We Can Scope')
 if pos_selector < 0: pos_selector=hub_markup.find('<section class="seo-catalog__matching')
-assert pos_selector>=0 and pos_directory>pos_selector, 'Three-way buyer selector must appear before the 23-workstream catalogue'
+assert pos_selector>=0 and pos_directory>pos_selector, 'Three-way buyer selector must appear before the concise scope overview'
 assert hub_markup.count('Which SEO Service Should You Start With?')==1,'Duplicate service decision selector'
 
-assert hub.class_counts.get('seo-catalog__toc',0)==1,'Category navigation missing'
-assert hub.class_counts.get('seo-catalog__back',0)==4,'Each category needs a return-to-navigation link'
-assert 'seo-catalog-title' in hub.ids and '#seo-catalog-title' in hub.links,'Catalogue heading anchor missing'
-
+assert hub.class_counts.get('seo-catalog__toc',0)==0,'Overloaded categories navigation should be removed'
+assert hub.class_counts.get('seo-catalog__back',0)==0,'No repetitive return links'
+assert '#seo-catalog-example' in hub.links,'Useful sample link missing'
+assert 'seo-catalog-title' in hub.ids,'Main scope heading missing'
 assert hub.class_counts.get('services-hub-card__consult-visual',0)==1,'Consultation graphic should not duplicate technical artwork'
 assert hub.class_counts.get('seo-catalog__example',0)==1,'Demonstrable output example missing'
 assert hub.class_counts.get('seo-catalog__evidence-item',0)==4,'Four evidence-to-action fields required'
 assert hub.tags.get('details',0)>=5,'SEO buyer FAQ needs at least five answers'
-for target in ('seo-work-technical','seo-work-content','seo-work-specialized','seo-work-strategy','seo-catalog-example'):
-    assert target in hub.ids,(target,'Missing navigation target')
-    assert ('#'+target) in hub.links,(target,'Missing navigable category link')
+for target in ('seo-area-technical','seo-area-content','seo-area-specialized','seo-area-strategy','seo-catalog-example'):
+    assert target in hub.ids,(target,'Missing concise work area or example')
 assert 'Illustrative reporting format only' in hub_markup,'Do not present an example as an actual client case'
 assert 'What a Verifiable SEO Finding Looks Like' in hub_markup,'Concrete audit output example missing'
 assert hub.class_counts.get('seo-catalog__real-qa',0)==1,'One verified internal QA evidence record required'
@@ -109,11 +108,10 @@ for marker in ('Verified Internal QA Record', '38851634798', '38851849354', 'cus
     assert marker in hub_markup,('Missing or untraceable internal QA proof',marker)
 
 
-for label in ('E-commerce SEO','Local SEO & Business Profile Review','AI Search Content Readiness','International & Multilingual SEO','Earned Editorial Visibility Planning'):
-    assert label in hub_markup,(label,'catalogued scope missing')
-for required in ('23 standalone packages','How Scope and Deliverables Are Defined','Questions About SEO Work'):
-    assert required in hub_markup,(required,'missing scope guidance')
-
+for required in ('What SEO Work May Include','How Scope and Deliverables Are Defined','Questions About SEO Work'):
+    assert required in hub_markup,(required,'Missing useful buyer guidance')
+assert '23 standalone packages' not in hub_markup,'Old 23-card FAQ language remains'
+assert 'SEO work enquiry:' not in hub_markup,'Granular mailto CTAs not removed'
 for path in ('/seo/','/services/keyword-research/','/services/seo-consultation/'):
     assert contains_path(hub.links,path),(path,hub.links)
 crumb=[doc for doc in hub.jsonld if doc.get('@type')=='BreadcrumbList']

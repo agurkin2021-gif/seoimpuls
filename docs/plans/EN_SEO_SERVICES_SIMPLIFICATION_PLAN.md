@@ -1,5 +1,5 @@
 # SEOImpuls — customer-first EN /seo-services/ simplification
-Date: 2026-10-16. Status: **IN_PROGRESS**. Authorized scope: **ONLY /seo-services/**. Owner explicitly prohibits any assistant-initiated transition to another page.
+Date: 2026-10-16. Status: **EDITED_QA_PENDING**. Authorized scope: **ONLY /seo-services/**. Owner explicitly prohibits any assistant-initiated transition to another page.
 
 ## Problem (verified in source, not presumed Google traffic data)
 - 23 equal-weight workstream cards: 3 established commercial pages, 14 constituent tasks, 6 specialist areas without confirmed standalone offer.
@@ -19,8 +19,8 @@ Date: 2026-10-16. Status: **IN_PROGRESS**. Authorized scope: **ONLY /seo-service
 | Gate | Scope | Acceptance | Status |
 |---|---|---|---|
 | S0 | Inspect source + accessibility page | 23-card overload and overlap documented; freeze other pages | DONE |
-| S1 | EN-only UX/content simplification | Four concise groups, no 23 workstream tiles or 20 mailto CTAs, three service pathways preserved | NEXT |
-| S2 | Tighten EN-only static/browser tests | Assert new block counts/semantics without weakening strict SEO, navigation, page proof, 390/768/1280 overlap checks | PENDING |
+| S1 | EN-only UX/content simplification | Four concise groups, no 23 workstream tiles or 20 mailto CTAs, three service pathways preserved | SOURCE DONE, QA PENDING |
+| S2 | Tighten EN-only static/browser tests | Assert new block counts/semantics without weakening strict SEO, navigation, page proof, 390/768/1280 overlap checks | SOURCE DONE, QA PENDING |
 | S3 | Full automated/browser evidence | Hugo + strict whitehat + Pages preview + Playwright 390/768/1280 all green, screenshots actually reviewed | PENDING |
 | S4 | Owner-facing acceptance/status | Document completed test IDs and known limitations; remain on /seo-services/ even if approved | PENDING |
 
@@ -34,3 +34,9 @@ Date: 2026-10-16. Status: **IN_PROGRESS**. Authorized scope: **ONLY /seo-service
 
 ## Invariant
 **NEVER AUTO-PIVOT.** When S0–S4 are DONE, stop on this page and wait for a new explicit owner instruction before beginning any other URL.
+
+## 2026-10-16 — EN-only UX redesign source commit
+- Customer view: 3 real service entries + 3 concise decision routes + 4 non-commercial scope cards with 12 examples, not 23 separately marketed tasks and 20 extra email buttons.
+- Specialist scope and fixed-package caveats preserved; 5 FAQ entries retained. Exact H1/Title/url and case-example proof unchanged.
+- Updated static and browser tests require new work-area DOM with 0 workstream tiles; previous CI PASS no longer applies to this edited version.
+- Status EDITED_QA_PENDING. Next: inspect strict Hugo, preview noindex and Chrome 390/768/1280 evidence. Remain on this page regardless of result.

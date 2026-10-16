@@ -1,5 +1,15 @@
 # SEOImpuls — основной контекст проекта (читать первым)
 
+## /seo-services/ UX REDESIGN SOURCE — 2026-10-16 (QA PENDING)
+OWNER LOCK: only EN `/seo-services/`, do not move to any other page without explicit new owner command.
+- Previously shown 23 separate workstream-style tiles (with 20 granular mailto requests) now replaced by 4 concise descriptive scope areas, each 3 task examples (12 total), NOT independent packages.
+- Three real services / 3 hero cards / 3 problem-to-service choices and approved H1, Title, canonical are preserved. No new indexed URL. FAQ wording clarified, specialist capabilities qualified; verifiable internal QA and illustrative finding remain.
+- Source modified ONLY `data/en_seo_catalog.json` and `layouts/partials/en-services-catalog.html`; targeted EN QA scripts `scripts/verify_en_services_route.py` and `scripts/audit_en_services_browser.cjs` adjusted without dropping SEO head/schema/mobile/contact proof checks.
+- No homepage, /seo/, child service sources, RU/ES, main or production edits; no production deployment.
+- Status **EDITED_QA_PENDING**: Hugo strict/Pages/Chrome 390,768,1280 including screenshots must be checked AFTER commit. Prior PASS was for earlier 23-tile version.
+- Continue ONLY this page until user instructs otherwise.
+
+
 ## АКТУАЛЬНОЕ ПОРУЧЕНИЕ — 2026-10-16: ВОЗОБНОВИТЬ ТОЛЬКО ВТОРУЮ EN СТРАНИЦУ
 PAGE_SCOPE_LOCK_2026_10_16: EN /seo-services/ ONLY. NOT CLOSED. NO AUTO-PIVOT.
 
@@ -112,6 +122,14 @@ IMPORT_STATUS: completed
 7. Перед новым чатом прочитать AGENTS.md и этот файл прямо из репозитория, проверить фактическое состояние GitHub/Actions и продолжить с секции 6 «Следующее действие».
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
+
+### 2026-10-16 — Simplified EN catalogue source and acceptance checks (pending CI)
+- Replaced 23 equal-weight scope cards and 20 mailto CTAs with four clear non-commercial work areas (12 brief examples), preserving 3 actual linked service options and buyer problem selector.
+- Refined first FAQ, confirmed specialist fit disclaimer, preserved QA proof, original URL, H1, Title, schema/meta rules and mobile fixed-contact protection.
+- Updated EN-only static and Chrome tests to reject old 23-card DOM and check new concise 4/12/0 structure. No tests yet executed for this commit: **EDITED_QA_PENDING**.
+- Exact files: data/en_seo_catalog.json, layouts/partials/en-services-catalog.html, scripts/verify_en_services_route.py, scripts/audit_en_services_browser.cjs, docs/plans/EN_SEO_SERVICES_SIMPLIFICATION_PLAN.md, CHATGPT_PROJECT_CONTEXT.md. No other page content changes.
+- Next: review triggered Hugo/strict/Pages/Chrome 390-768-1280 CI and screenshots, fix only proven issues on this page. No other page without owner instruction.
+
 
 ### 2026-10-16 — Owner scope lock: reopen only EN /seo-services/ for customer simplification
 - Владелец вернул вторую EN страницу /seo-services/ на доработку и запретил ассистенту самовольно переходить к другим страницам даже после завершения.
