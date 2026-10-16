@@ -1,5 +1,8 @@
 # SEOImpuls — EN `/seo-services/` controlled completion plan
 
+> HISTORICAL COMPLETE PLAN (steps 0–7 approved on previous 23-card version). **SUPERSEDED** by the owner's 2026-10-16 directive to reopen this same page: [EN_SEO_SERVICES_SIMPLIFICATION_PLAN.md](EN_SEO_SERVICES_SIMPLIFICATION_PLAN.md). The old QA PASS does not apply automatically after redesign. Never pivot to another page without a new owner command.
+
+
 **Owner instruction:** 2026-10-16 — finish **this catalogue only**, follow the written plan in order and preserve context after every operation. No other EN service-page content rewrites, no RU/ES content edits, no changes to `main`, production, DNS, GSC or redirects without separate authorization.
 
 **Source of truth:** this file + `CHATGPT_PROJECT_CONTEXT.md` (both checked in every new session). Branch `white-seo-rebuild`. Source page `content/services/_index.md`, EN catalogue partial `layouts/partials/en-services-catalog.html`, catalogue data `data/en_seo_catalog.json`, existing cards in `layouts/partials/services-hub.html`. Preview: https://agurkin2021-gif.github.io/seoimpuls/seo-services/ . Production URL is reserved but **not deployed**.
