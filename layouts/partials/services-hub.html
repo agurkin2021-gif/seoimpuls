@@ -318,7 +318,7 @@
 </style>
 
   {{- if eq $lang "en" }}
-  <p class="services-hub__intro">Compare the three SEO services we offer: technical audits for website issues, keyword research for search-intent and page mapping, and focused consultation for deciding priorities. Choose the work that fits your website; scope and deliverables are agreed separately.</p>
+  <p class="services-hub__intro">Choose the right starting point: a technical SEO audit for website issues, keyword research for search intent and page planning, or focused consultation for deciding priorities. Browse the additional white-hat SEO workstreams below; access, implementation and deliverables are agreed separately.</p>
   {{- end }}
   <div class="services-hub" data-services-hub="1">
     {{- range $cardIndex, $card := sort $cards "rank" -}}
@@ -339,6 +339,10 @@
       </a>
     {{- end -}}
   </div>
+
+{{- if eq $lang "en" }}
+  {{- partial "en-services-catalog.html" $page -}}
+{{- end }}
 
 {{- if gt (len $textBlocks) 0 -}}
   <div class="seo-builder seo-builder--services-text" data-services-hub-text-builder="1" data-admin-page-path="{{ with $page.File }}content/{{ .Path }}{{ end }}">

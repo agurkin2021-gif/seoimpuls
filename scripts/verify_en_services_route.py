@@ -46,12 +46,20 @@ def contains_path(links,path):
     return any(urlsplit(link).path.endswith(path) for link in links)
 
 hub=parse('seo-services/index.html')
-assert ''.join(hub.h1).strip()=='SEO Services & Practical Deliverables',hub.h1
+assert ''.join(hub.h1).strip()=='Choose the Right SEO Work for Your Website',hub.h1
 assert len(hub.canonical)==1 and hub.canonical[0].endswith('/seo-services/'),hub.canonical
-assert 'SEO Services & Practical Deliverables' in ''.join(hub.title),hub.title
+assert 'Choose the Right SEO Work for Your Website' in ''.join(hub.title),hub.title
 assert hub.social_nodes==0 and hub.map_nodes==0,'EN hub still contains non-branded social links or unverified location map'
 hub_markup=Path('public/seo-services/index.html').read_text(encoding='utf-8')
-assert 'Compare the three SEO services we offer' in hub_markup,'EN service-choice direct answer missing'
+assert 'Choose the right starting point' in hub_markup,'EN service-choice direct answer missing'
+assert hub_markup.count('class="seo-catalog__group"') == 4,'Four workstream groups are required'
+assert hub_markup.count('class="seo-catalog__workstream"') == 23,'All 23 scoped SEO workstreams must render'
+assert hub_markup.count('class="seo-catalog__choice"') == 3,'Three direct buyer entry paths are required'
+for label in ('E-commerce SEO','Local SEO & Business Profile Review','AI Search Content Readiness','International & Multilingual SEO','Earned Editorial Visibility Planning'):
+    assert label in hub_markup,(label,'catalogued scope missing')
+for required in ('23 standalone packages','How Scope and Deliverables Are Defined','Questions About SEO Work'):
+    assert required in hub_markup,(required,'missing scope guidance')
+
 for path in ('/seo/','/services/keyword-research/','/services/seo-consultation/'):
     assert contains_path(hub.links,path),(path,hub.links)
 crumb=[doc for doc in hub.jsonld if doc.get('@type')=='BreadcrumbList']
@@ -72,7 +80,7 @@ old=parse('services/index.html')
 oldtext=(Path('public')/'services/index.html').read_text(encoding='utf-8')
 assert old.refresh or re.search(r'window\.location|location\.href',oldtext,re.I),'Old URL must redirect'
 assert 'seo-services/' in oldtext,'Old alias misses new hub'
-assert 'SEO Services & Practical Deliverables' not in ''.join(old.h1),'Duplicate old catalog'
+assert 'Choose the Right SEO Work for Your Website' not in ''.join(old.h1),'Duplicate old catalog'
 # Multilingual Hugo outputs a root sitemapindex and language-specific sitemaps.
 import xml.etree.ElementTree as ET
 root_sitemap=ET.parse('public/sitemap.xml').getroot()

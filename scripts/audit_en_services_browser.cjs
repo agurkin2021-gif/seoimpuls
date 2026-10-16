@@ -32,6 +32,9 @@ let browser;
     title:document.title,h1:Array.from(document.querySelectorAll("h1")).map(x=>x.textContent.trim()),
     canonical:document.querySelector('link[rel="canonical"]')?.href||"",
     gridColumns:grid?getComputedStyle(grid).gridTemplateColumns.split(" ").filter(Boolean).length:0,
+    workstreamCount:document.querySelectorAll(".seo-catalog__workstream").length,
+    groupCount:document.querySelectorAll(".seo-catalog__group").length,
+    choiceCount:document.querySelectorAll(".seo-catalog__choice").length,
     cards:Array.from(document.querySelectorAll(".services-hub-card")).map(x=>({label:x.textContent.trim(),href:x.href})),
     intro:document.querySelector(".services-hub__intro")?.textContent.trim()||"",
     footerClass:document.querySelector(".custom-footer")?.className||"",
@@ -57,12 +60,13 @@ let browser;
   console.log("SERVICES_STAGE "+width+" checked "+paths.length+" local routes");
   const fail=[];
   if(res.status()!==200)fail.push("HTTP");
-  if(data.h1.length!==1||data.h1[0]!=="SEO Services & Practical Deliverables")fail.push("H1");
-  if(!data.title.startsWith("SEO Services & Practical Deliverables | SeoImpuls"))fail.push("Title");
+  if(data.h1.length!==1||data.h1[0]!=="Choose the Right SEO Work for Your Website")fail.push("H1");
+  if(!data.title.startsWith("Choose the Right SEO Work for Your Website | SeoImpuls"))fail.push("Title");
   if(data.canonical!=="https://seoimpuls.com/seo-services/")fail.push("Canonical");
   if(data.cards.length!==3)fail.push("Cards");
+  if(data.workstreamCount!==23||data.groupCount!==4||data.choiceCount!==3)fail.push("Workstream scope");
   if(data.gridColumns!==(width===390?1:3))fail.push("Grid columns="+data.gridColumns);
-  if(!data.intro.startsWith("Compare the three SEO services we offer"))fail.push("Direct answer");
+  if(!data.intro.startsWith("Choose the right starting point"))fail.push("Direct answer");
   for(const u of ["/seo/","/services/keyword-research/","/services/seo-consultation/"]){
     if(!data.cards.some(x=>new URL(x.href).pathname===u))fail.push("Missing card "+u);
   }
@@ -75,7 +79,7 @@ let browser;
   if(errors.length||networkFailures.length)fail.push("JavaScript/network");
   if(brokenLinks.length)fail.push("Internal links");
   report.viewports.push({width,status:res.status(),...data,brokenLinks,errors,networkFailures,fail});
-  console.log("SERVICES_BROWSER_SUMMARY "+JSON.stringify({width,status:res.status(),h1:data.h1,gridColumns:data.gridColumns,cards:data.cards.length,overflow:data.scrollWidth>width,brokenLinks,errors,networkFailures,fail}));
+  console.log("SERVICES_BROWSER_SUMMARY "+JSON.stringify({width,status:res.status(),h1:data.h1,gridColumns:data.gridColumns,cards:data.cards.length,workstreams:data.workstreamCount,groups:data.groupCount,choices:data.choiceCount,overflow:data.scrollWidth>width,brokenLinks,errors,networkFailures,fail}));
   await ctx.close();
  }
  await browser.close();

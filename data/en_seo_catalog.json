@@ -1,0 +1,211 @@
+{
+  "groups": [
+    {
+      "id": "technical",
+      "name": "Technical SEO & Search Access",
+      "summary": "Find what prevents important pages from being discovered, rendered and indexed.",
+      "services": [
+        {
+          "name": "Technical SEO Audits",
+          "when": "Several technical issues appear together or visibility has fallen.",
+          "work": "Audit crawl paths, indexing signals, redirects, templates and canonical URLs.",
+          "output": "Prioritized findings with affected URLs and validation checks.",
+          "url": "/seo/"
+        },
+        {
+          "name": "Crawlability & Indexation",
+          "when": "Important pages are missing or irrelevant URLs are indexed.",
+          "work": "Inspect robots directives, sitemaps, HTTP statuses, internal links and Search Console evidence.",
+          "output": "URL-level indexability and crawling action list."
+        },
+        {
+          "name": "JavaScript Rendering SEO",
+          "when": "Key page content depends on JavaScript.",
+          "work": "Compare raw HTML and rendered content, navigational links and resource loading.",
+          "output": "Rendering issues and template-level corrections."
+        },
+        {
+          "name": "Core Web Vitals & Mobile Performance",
+          "when": "Mobile pages feel slow or unstable.",
+          "work": "Review field and lab measurements, loading bottlenecks and important layouts.",
+          "output": "Performance priorities and measurable checks."
+        },
+        {
+          "name": "Structured Data & Search Appearance",
+          "when": "Relevant markup is absent or inconsistent with visible content.",
+          "work": "Check JSON-LD eligibility, entities, page content and parsing errors.",
+          "output": "Validated markup recommendations without rich-result guarantees."
+        },
+        {
+          "name": "SEO Migrations, Redirects & Canonicals",
+          "when": "You are redesigning, changing domains or moving URLs.",
+          "work": "Inventory old and new URLs, assess equivalence, plan redirects and verify canonical links.",
+          "output": "Migration map, prelaunch checks and postlaunch validation."
+        }
+      ]
+    },
+    {
+      "id": "content",
+      "name": "Keywords, Pages & Content",
+      "summary": "Map distinct search needs to useful pages, without creating competing thin URLs.",
+      "services": [
+        {
+          "name": "Keyword Research & Clustering",
+          "when": "You need relevant search terms and a clear page plan.",
+          "work": "Research queries, inspect intents, group related topics and map them to pages.",
+          "output": "Keyword clusters and keyword-to-URL map.",
+          "url": "/services/keyword-research/"
+        },
+        {
+          "name": "On-Page SEO",
+          "when": "Existing pages are not aligned with their target searches.",
+          "work": "Assess titles, headings, content, snippets, images and contextual links.",
+          "output": "Page-level improvement briefs with priorities."
+        },
+        {
+          "name": "Content Audits & Refresh Planning",
+          "when": "Pages are outdated, overlapping or missing needed answers.",
+          "work": "Review usefulness, existing evidence, overlap and consolidation options.",
+          "output": "Keep, improve, combine or retire recommendations."
+        },
+        {
+          "name": "SEO Content Strategy & Briefs",
+          "when": "You need a cohesive publishing plan.",
+          "work": "Identify unanswered questions, group topics and define useful page formats.",
+          "output": "Prioritized topic roadmap and content briefs."
+        },
+        {
+          "name": "Information Architecture & Internal Linking",
+          "when": "Visitors struggle to reach important information.",
+          "work": "Assess site hierarchy, navigational paths, link depth and anchor clarity.",
+          "output": "Architecture map and internal linking priorities."
+        },
+        {
+          "name": "Keyword Cannibalization & Intent Mapping",
+          "when": "Several URLs appear to serve the same search intent.",
+          "work": "Compare actual SERPs, page content and available performance signals.",
+          "output": "One primary destination per intent and URL-specific decisions."
+        }
+      ]
+    },
+    {
+      "id": "specialized",
+      "name": "Markets, Platforms & Search Formats",
+      "summary": "Adapt SEO analysis to language, location, website type and content format.",
+      "services": [
+        {
+          "name": "International & Multilingual SEO",
+          "when": "Wrong language pages appear or translations miss local intent.",
+          "work": "Review target-market queries, hreflang, canonicals and language URLs.",
+          "output": "Localized intent and technical language-routing recommendations."
+        },
+        {
+          "name": "Local SEO & Business Profile Review",
+          "when": "A physical or service-area business needs better local discovery.",
+          "work": "Review eligible local pages, business-information consistency and authorized profile signals.",
+          "output": "Local on-page and business-profile review checklist."
+        },
+        {
+          "name": "E-commerce SEO",
+          "when": "Product and category pages are difficult to discover.",
+          "work": "Assess taxonomy, product copy, faceted URLs, internal links and eligible markup.",
+          "output": "Store-template audit and product/category priorities."
+        },
+        {
+          "name": "Image & Video Search SEO",
+          "when": "Visual content lacks accessible context or useful metadata.",
+          "work": "Review descriptions, image alternatives, captions and video landing pages.",
+          "output": "Media search optimization checklist for approved assets."
+        },
+        {
+          "name": "Large-Site & Template SEO",
+          "when": "Repeated templates create widespread crawl or content problems.",
+          "work": "Sample URL patterns, templates and indexation evidence; use logs when provided.",
+          "output": "Template-level findings and scalable quality controls."
+        },
+        {
+          "name": "AI Search Content Readiness",
+          "when": "You want content that modern search interfaces can understand.",
+          "work": "Check accessible answers, attribution, clarity and underlying crawlability.",
+          "output": "Content and technical recommendations; no AI citation guarantee."
+        }
+      ]
+    },
+    {
+      "id": "strategy",
+      "name": "Research, Implementation & Measurement",
+      "summary": "Define priorities and verify approved SEO changes with evidence.",
+      "services": [
+        {
+          "name": "Competitor & SERP Gap Research",
+          "when": "Competitors answer important questions your site misses.",
+          "work": "Inspect organic page types and compare intent and content coverage.",
+          "output": "Competitor reference set and actionable gaps."
+        },
+        {
+          "name": "Google Search Console & Analytics",
+          "when": "Performance or indexation changes require investigation.",
+          "work": "Review authorized reports, key landing pages and data quality.",
+          "output": "Evidence-based baseline, anomalies and follow-up measures."
+        },
+        {
+          "name": "SEO Implementation & Validation",
+          "when": "Recommendations were made, but changes need acceptance checks.",
+          "work": "Check modified templates, redirects, metadata, links and indexing signals.",
+          "output": "Pass/fail validation report with remaining issues."
+        },
+        {
+          "name": "Earned Editorial Visibility Planning",
+          "when": "You want genuine coverage without manufactured ranking links.",
+          "work": "Identify relevant publications and original resources worth citing.",
+          "output": "Ethical outreach plan; no paid ranking links or placement guarantees."
+        },
+        {
+          "name": "SEO Consulting & Prioritization",
+          "when": "You need advice on the next SEO decision.",
+          "work": "Review goals, available diagnostics, risks and implementation capacity.",
+          "output": "Scoped priorities and recommendations; implementation agreed separately.",
+          "url": "/services/seo-consultation/"
+        }
+      ]
+    }
+  ],
+  "choices": [
+    {
+      "problem": "Important pages are not indexed, or redirects are wrong.",
+      "start": "Technical SEO audit",
+      "result": "Technical issue register and priority checks",
+      "url": "/seo/"
+    },
+    {
+      "problem": "Search demand is unclear or pages target competing queries.",
+      "start": "Keyword research",
+      "result": "Intent groups and keyword-to-URL mapping",
+      "url": "/services/keyword-research/"
+    },
+    {
+      "problem": "Several areas need work and priorities are uncertain.",
+      "start": "SEO consultation",
+      "result": "Focused recommendations and a scoped next-step plan",
+      "url": "/services/seo-consultation/"
+    }
+  ],
+  "faq": [
+    {
+      "question": "Are these 23 separate fixed-price packages?",
+      "answer": "No. They are SEO workstreams that can be assessed and included in a separately agreed project scope. Each project needs only relevant work."
+    },
+    {
+      "question": "Is implementation included with an audit?",
+      "answer": "Not automatically. Diagnosis, development and verification are separate responsibilities. Access, implementation steps and deliverables require agreement."
+    },
+    {
+      "question": "Can SEO work guarantee rankings, rich results or AI citations?",
+      "answer": "No. Search systems determine indexing and presentation. We can identify issues, propose fixes and evaluate evidence, but cannot guarantee inclusion, placement or traffic."
+    },
+    {
+      "question": "Do you sell backlinks or artificial authority scores?",
+      "answer": "No. Mass backlinks, paid links intended to manipulate rankings, link networks, automated spam and artificial authority metrics are excluded. Earned editorial visibility planning does not promise placements."
+    }
+  ]
+}

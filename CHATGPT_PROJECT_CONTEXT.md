@@ -5,10 +5,10 @@
 ## ТЕКУЩИЙ ПРИОРИТЕТ — EN services hub после завершения главной (решение владельца 2026-10-15)
 
 - Владелец завершил работу над английской главной `/` и **отдельно разрешил** перейти к английскому каталогу услуг. Главная заморожена по контенту; разрешены только точечные зависимости ссылок при изменении адреса каталога.
-- Рабочая версия каталога: **`/seo-services/`** на ветке `white-seo-rebuild`; прежний `/services/` — только HTML alias, **не серверный HTTP 301**. Интент каталога: выбор между тремя реально предлагаемыми направлениями и результатами; главная владеет `professional seo services` / общим выбором SEO-исполнителя.
+- Рабочая версия каталога: **`/seo-services/`** на ветке `white-seo-rebuild`; прежний `/services/` — только HTML alias, **не серверный HTTP 301**. Интент: выбор SEO-работ по проблеме и результату. 23 направления — возможные виды работ в согласованном объёме; три действующие специализированные страницы остаются точками входа. Главная владеет `professional seo services` / выбором SEO-исполнителя.
 - Английские дочерние `/seo/`, `/services/keyword-research/`, `/services/seo-consultation/` — отдельные целевые страницы, в этой фазе не переименовывать. **Не изменять RU `/ru/` и ES `/es/`** до отдельной команды. `main` и производственный сервер `seoimpuls.com` не затрагивать.
 - SERP top-10 и map см. `docs/research/2026-10-15-en-services-serp-and-architecture.md`. Приоритет: изолировать интент каталога от главной, не выдавать `seo services list` за ключ каталога без оснований, не придумывать услуги/кейсы/цены.
-- EN catalog lab QA: Hugo, Pages Preview и Playwright 390/1280 успешно проверены на `6099121` (ссылки на Actions ниже). Это **не означает** завершённую миграцию, GSC-проверку, производственную публикацию или полную готовность всех EN/RU/ES страниц.
+- Предыдущая версия EN-каталога прошла Hugo/Pages/Playwright 390/1280 на `6099121`. **Новая версия с 23 направлениями имеет статус EDITED_QA_PENDING** до повторного CI и браузерной проверки. Это не означает релиз, миграцию или GSC-проверку.
 
 ## 1. Проект, доступ и границы
 
@@ -59,6 +59,15 @@ IMPORT_STATUS: completed
 7. Перед новым чатом прочитать AGENTS.md и этот файл прямо из репозитория, проверить фактическое состояние GitHub/Actions и продолжить с секции 6 «Следующее действие».
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
+
+### 2026-10-15 AR — Expand EN /seo-services/ to 23 scoped white-hat SEO workstreams
+- Explicit owner request: list all legitimate SEO work areas without competing with homepage primary `professional seo services` query. New EN catalogue intent: problem → task → typical deliverable → appropriate start page. Full matrix and SERP evidence limits recorded in `docs/research/2026-10-15-en-services-complete-catalog.md`.
+- Title/H1 for EN catalogue: `SEO Audits, Keyword Research & Consulting | SeoImpuls` / `Choose the Right SEO Work for Your Website`; existing URL `/seo-services/` kept. English homepage H1, Title, metadata, and other source files unchanged.
+- Updated `content/services/_index.md` (EN metadata, first-screen selection answer, existing three service cards retained, duplicated generic text builder blocks removed). Added `data/en_seo_catalog.json` (23 scoped activities grouped 6+6+6+5); new EN-only `layouts/partials/en-services-catalog.html` renders problem, assessment, output, three selection paths, scope steps, ethical limits, FAQ and contact. Shared `layouts/partials/services-hub.html` changed only in `en` guard. No new thin routes, unverified cases/prices, link spam services, guarantees or invented link placements.
+- Updated `scripts/verify_en_services_route.py` and `scripts/audit_en_services_browser.cjs` for new H1/intro, 23 cards, four groups, and prior canonical/aliases/SEO/390/1280 checks.
+- **EDITED_QA_PENDING:** all file edits staged in one Git commit with this context; Hugo build, GitHub Pages preview, context guard and real browser visual QA must be inspected after commit. Old 390/1280 PASS was on prior 3-card version, not evidence for new 23-workstream version.
+- Operational boundary: `main`, RU and ES content, DNS, production `seoimpuls.com`, GSC and deployment unchanged. Next: inspect generated HTML and new Actions; resolve confirmed regressions with separate context-logged commit; then final focused EN catalogue intent/cannibalization review. GSC/live migration and sitewide release gates still pending.
+
 
 ### 2026-10-15 — EN services hub: first successful 390/1280 visual QA and context-priority correction
 - Scope: only `CHATGPT_PROJECT_CONTEXT.md` on `white-seo-rebuild`; preceding script-fix commit `6099121730ab`. Corrected outdated top-of-file priority (it still said EN homepage only) to match explicit owner authorization for `/seo-services/` confirmed in AGENTS.md and section 6. **No site file/content/styles/URL/RU/ES/production edits in this commit.**
@@ -906,11 +915,11 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Current stage: English `SEO Services` hub, URL changed from `/services/` to `/seo-services/` on `white-seo-rebuild` at user's request. EN homepage `/` title/content/H1 remain frozen; only necessary hero/nav/link dependencies changed. RU/ES source, English child page URLs, repo main, and live seoimpuls.com are untouched.
+Current stage: English SEO work catalogue expanded by explicit owner authorization beyond three linked service entry points, still at `/seo-services/` on `white-seo-rebuild`; 23 scoped workstreams in 4 groups. Current new edit is EDITED_QA_PENDING until Hugo, Pages and browser 390/1280 verify actual output. EN homepage `/` title/content/H1 remain frozen; only necessary hero/nav/link dependencies changed. RU/ES source, English child page URLs, repo main, and live seoimpuls.com are untouched.
 
-SERP-first competitor top10 and intent map: `docs/research/2026-10-15-en-services-serp-and-architecture.md`. Homepage owns `professional seo services` and provider-selection; catalog owns selecting actual services and comparing deliverables. Don't target `seo services list` 20-category informative SERP on 3-offer catalog.
+SERP-first competitor top10 and intent map: `docs/research/2026-10-15-en-services-serp-and-architecture.md`. Homepage owns `professional seo services` and provider-selection; catalog compares SEO workstreams and deliverables and has three existing deeper entry pages. Do not claim `seo services list` informational SERP represents demand for 23 priced packages.
 
-Old `/services/` has Hugo HTML alias (not production server 301), only `/seo-services/` should be full canonical indexed hub; child `/services/keyword-research/`, `/services/seo-consultation/` unchanged. New `scripts/verify_en_services_route.py` and updated CI check aliases, site map, canonical, hreflang and links. **Latest verified:** script fix `6099121` passed context guard #38840975820, Hugo #38840975931, Pages Preview #38840975836, browser QA #38840975773 (390/1280: HTTP 200, 3 cards, 1/3-column layouts, 13 local routes, no JS/network errors, no overflow or broken links). Artifact #12020632894 contains mobile and desktop first/full screenshots, inspected. **Status: CODE_QA_PASS and RESPONSIVE_VISUAL_QA_PASS for the EN hub only.** Remaining: optional differentiation of visually similar first/third illustrations; verify actual GSC performance, production URL history and HTTP 301 if publishing the changed route; full sitewide strict gate and user approval before deployment. No production migration without approval/GSC. Release still gated.
+Old `/services/` has Hugo HTML alias (not production server 301), only `/seo-services/` should be full canonical indexed hub; child `/services/keyword-research/`, `/services/seo-consultation/` unchanged. New `scripts/verify_en_services_route.py` and updated CI check aliases, site map, canonical, hreflang and links. **Latest verified:** script fix `6099121` passed context guard #38840975820, Hugo #38840975931, Pages Preview #38840975836, browser QA #38840975773 (390/1280: HTTP 200, 3 cards, 1/3-column layouts, 13 local routes, no JS/network errors, no overflow or broken links). Artifact #12020632894 contains mobile and desktop first/full screenshots, inspected. **Status: prior three-card EN catalogue CODE_QA_PASS / VISUAL_QA_PASS; new 23-workstream version EDITED_QA_PENDING until fresh CI and browser evidence.** Remaining: optional differentiation of visually similar first/third illustrations; verify actual GSC performance, production URL history and HTTP 301 if publishing the changed route; full sitewide strict gate and user approval before deployment. No production migration without approval/GSC. Release still gated.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 
