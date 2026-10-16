@@ -35,3 +35,9 @@ All gates PENDING until this current source is committed and tested. Do not proc
 - Commit 3289214 Hugo compilation and new three route/title/H1/meta/schema/hreflang checks passed.
 - Strict/Pages stopped on a test-only false expectation for "keyword-research" anchor ID; existing keyword page uses what-is-included, methodology, deliverables. Browser workflow readiness requested retired hub URL; changed readiness to homepage.
 - Follow-up full strict/preview/browser evidence still needed. No code source modifications in test correction; no claim that all gates passed.
+
+## 2026-10-16 — First real browser and preview corrections
+- Strict #38909786931 reached retired-route gate after successful 3 EN commercial tests but reported RU/ES header language-switch links pointing to removed English hub. The localized sources stay intact; shared header conditional EN destination now uses /#services for those two hub pages only.
+- Preview #38909786575 route verifier treated its preview canonical as seoimpuls.com, a false assertion; updated verifier allows exact production or GitHub Pages preview origin and checks each new route/hreflang against active build baseURL.
+- Browser #38909786373 checks 390 and 1280 PASS, but 768 flagged fixed Whatsapp overlapping text; screenshots #12049059512 inspected. EN homepage reserves 64px left gutter from 768 to 1199 for hero, service, definition and other content blocks; floating icons unchanged.
+- New QA runs required to prove corrections; prior production-base checks did not finish full strict release gate.

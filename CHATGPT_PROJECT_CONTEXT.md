@@ -1,4 +1,11 @@
 # SEOImpuls — основной контекст проекта (читать первым)
+## 2026-10-16 — FOLLOW-UP FIXES: PREVIEW CANONICAL, RU/ES MENU, 768px ICON COLLISION (QA PENDING)
+- First new-route GitHub Actions after de1e05e validated all three new service URL/Title/H1/metadata/WebPage/hreflang tests against production-base Hugo. Full strict #38909786931 then found two real obsolete outgoing anchor links /seo-services/ from RU/ES service-catalogue language switchers. These are automatically rendered by the SHARED header, not from RU/ES source. Scoped header fix: when switching from local services catalogue RU/ES to EN, go to the existing EN homepage /#services, not the retired EN catalogue. No RU/ES source copy or localized URL edit.
+- Preview #38909786575 failed because dedicated route QA assumed production host canonical. Real preview build uses https://agurkin2021-gif.github.io/seoimpuls/; the test now accepts production or known GitHub Pages origin while still enforcing exact route, Title, H1, canonicals and reciprocal hreflang.
+- Browser services #38909786373 390/1280 passed but at 768 viewport detected WA/TG fixed icon overlap with homepage service text. Screenshot artifact #12049059512 verified floating WhatsApp icon and nearby text collision under service cards. Scoped EN-home CSS reserves a 64px left content rail on 768–1199 widths while leaving floating buttons fixed in their original position. No global footer changes.
+- This follow-up commit changes ONLY EN home CSS in layouts/index.html, conditional shared header links, preview-aware EN route checks, context and direct-architecture plan. **EDITED_QA_PENDING** until strict + Pages + Chrome confirm. No production/DNS/GSC edit or other page content changes.
+
+
 ## 2026-10-16 — QA feedback after commit 3289214, script-only correction
 - Hugo built successfully. Dedicated 3 EN route checks passed Title/H1/canonical/hreflang/schema for /technical-seo-audit/, /keyword-research/, /seo-consultation/.
 - Full strict #38909519843 and Pages #38909519450 stopped only at stale test assertion seeking literal "keyword-research" in document anchor IDs. Existing valid keyword page uses anchors "what-is-included", "methodology", "deliverables"; fixed assertion to check those meaningful IDs. No content/page source change for this correction.
@@ -185,6 +192,10 @@ IMPORT_STATUS: completed
 7. Перед новым чатом прочитать AGENTS.md и этот файл прямо из репозитория, проверить фактическое состояние GitHub/Actions и продолжить с секции 6 «Следующее действие».
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
+
+### 2026-10-16 — Fix preview baseURL and localized switcher and 768px floating overlap, pending CI
+- Initial redirect-free EN route compilation and all three detailed SEO URL/Title/H1 checks PASS. Strict retired-route gate detected 2 RU/ES hub header EN language links to retired /seo-services/; conditional header routes only those to /#services. Preview static QA supports known preview baseURL and keeps detailed SEO constraints. Chromium services audit showed 768px WhatsApp overlap; EN-home tablet content gutter added. No unrelated sources changed. QA after this patch is PENDING.
+
 
 ### 2026-10-16 — Fix stale QA references after EN direct-URL rollout
 - Original 3289214 first Actions strict #38909519843 and Pages #38909519450 compiled site and validated 3 EN routes but stopped on outdated keyword page anchor assertion; service browser #38909519226 attempted retired URL in readiness curl. Updated only affected EN QA scripts and same-commit context/plan. No service content changes. New test runs pending.

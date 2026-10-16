@@ -78,6 +78,10 @@
             {{ if eq $lang $.Site.Language.Lang }}
               {{ $target = $currentURL }}
             {{ end }}
+            {{/* EN services hub no longer exists: localized hub switcher leads to EN home selector. */}}
+            {{ if and (ne $.Site.Language.Lang "en") (eq $lang "en") (eq ($.Page.Params.translationKey | default "") "services") }}
+              {{ $target = "/#services" }}
+            {{ end }}
           {{ end }}
           <a class="lang-dot lang-dot--{{ .Lang }} {{ if $isActive }}is-active{{ end }}"
              href="{{ $target }}"
