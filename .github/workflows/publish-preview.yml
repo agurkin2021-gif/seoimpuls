@@ -50,6 +50,8 @@ jobs:
           for f in root.rglob('*.html'):
               s=f.read_text(encoding='utf-8')
               s=re.sub(r'''(?i)(\s(?:href|src|action|poster|content|srcset)\s*=\s*["']?/)(?!/|seoimpuls/)''',r'\1seoimpuls/',s)
+              # Use one consistent robots directive in preview; remove conflicting production index meta first.
+              s=re.sub(r'''(?is)<meta\b(?=[^>]*\bname\s*=\s*["']?robots\b)[^>]*>''','',s)
               s=re.sub(r'(?i)(<head\b[^>]*>)',r'\1<meta name="robots" content="noindex,nofollow">',s,count=1)
               f.write_text(s,encoding='utf-8')
           for f in root.rglob('*.css'):
@@ -57,6 +59,12 @@ jobs:
               s=re.sub(r'url\((["\x27]?)/(?!/|seoimpuls/)',r'url(\1/seoimpuls/',s)
               f.write_text(s,encoding='utf-8')
           assert (root/'index.html').exists()
+          for htmlfile in (root/'index.html',root/'seo-services'/'index.html',root/'ru'/'uslugi'/'index.html',root/'es'/'servicios'/'index.html'):
+              txt=htmlfile.read_text(encoding='utf-8')
+              matches=re.findall(r'''(?is)<meta\b(?=[^>]*\bname\s*=\s*["']?robots\b)[^>]*>''',txt)
+              assert len(matches)==1 and 'noindex,nofollow' in matches[0].lower(),(htmlfile,matches)
+          print('PASS: preview EN/RU/ES have exactly one noindex robots tag without index conflict')
+
           from html.parser import HTMLParser
           class AnchorLinks(HTMLParser):
               def __init__(self):

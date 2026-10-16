@@ -38,6 +38,16 @@ let browser;
    const jsonld=Array.from(document.querySelectorAll('script[type="application/ld+json"]')).map(x=>{try{return {valid:true,type:JSON.parse(x.textContent)["@type"]||"graph"};}catch(e){return {valid:false,error:String(e)}}});
    return {
     title:document.title,h1:Array.from(document.querySelectorAll("h1")).map(x=>x.textContent.trim()),
+    seoHead:(()=>{
+      const meta=(name)=>document.querySelector('meta[name="'+name+'"]')?.content||document.querySelector('meta[property="'+name+'"]')?.content||"";
+      return {lang:document.documentElement.lang,
+        description:document.querySelector('meta[name="description" i]')?.content||"",
+        robots:Array.from(document.querySelectorAll('meta[name="robots" i]')).map(x=>x.content),
+        ogTitle:meta("og:title"),ogDescription:meta("og:description"),ogUrl:meta("og:url"),
+        twitterCard:meta("twitter:card"),
+        hreflang:Object.fromEntries(Array.from(document.querySelectorAll('link[rel="alternate"][hreflang]')).map(x=>[x.hreflang.toLowerCase(),x.href]))
+      };
+    })(),
     canonical:document.querySelector('link[rel="canonical"]')?.href||"",
     gridColumns:grid?getComputedStyle(grid).gridTemplateColumns.split(" ").filter(Boolean).length:0,
     workstreamCount:document.querySelectorAll(".seo-catalog__workstream").length,
@@ -95,6 +105,12 @@ let browser;
   if(res.status()!==200)fail.push("HTTP");
   if(data.h1.length!==1||data.h1[0]!=="Choose the Right SEO Work for Your Website")fail.push("H1");
   if(data.title!=="SEO Audits, Keyword Research & Consulting | SeoImpuls")fail.push("Title");
+  if(!/^(en-us|en)$/i.test(data.seoHead.lang)||data.seoHead.robots.length!==1||!data.seoHead.robots[0].startsWith("index,follow")||
+     !data.seoHead.description.includes("Compare SEO audits")||!data.seoHead.ogTitle||!data.seoHead.ogDescription||
+     !data.seoHead.ogUrl.endsWith("/seo-services/")||!data.seoHead.twitterCard)fail.push("SEO head metadata");
+  for(const code of ["en-us","ru-ru","es-es","x-default"]){
+     if(!data.seoHead.hreflang[code])fail.push("Missing hreflang "+code);
+  }
   if(data.canonical!=="https://seoimpuls.com/seo-services/")fail.push("Canonical");
   if(data.cards.length!==3)fail.push("Cards");
   if(data.workstreamCount!==23||data.groupCount!==4||data.choiceCount!==3)fail.push("Workstream scope");
@@ -131,6 +147,18 @@ let browser;
   if(errors.length||networkFailures.length)fail.push("JavaScript/network");
   if(brokenLinks.length)fail.push("Internal links");
 
+  // Keyboard navigation smoke checks; not a complete WCAG certification.
+  const focusLink=page.locator(".seo-catalog__toc a").first();
+  await focusLink.focus();
+  await page.keyboard.press("Enter");
+  await page.waitForTimeout(180);
+  const tocKeyboardHash=await page.evaluate(()=>location.hash);
+  if(tocKeyboardHash!=="#seo-work-technical")fail.push("Keyboard TOC navigation");
+  const faqSummary=page.locator(".seo-catalog__faq details summary").first();
+  await faqSummary.focus();
+  await page.keyboard.press("Enter");
+  const faqOpened=await page.locator(".seo-catalog__faq details").first().evaluate(x=>x.open);
+  if(!faqOpened)fail.push("Keyboard FAQ interaction");
   // A real hash jump must not place its section heading underneath the fixed header.
   await page.evaluate(()=>document.getElementById("seo-work-technical").scrollIntoView({block:"start",behavior:"instant"}));
   await page.waitForTimeout(200);
@@ -141,7 +169,7 @@ let browser;
   if(scrollCheck.sectionTop<scrollCheck.headerBottom-2)fail.push("Anchor obscured by header");
   try{await page.screenshot({path:path.join(OUT,width+"-category.png"),timeout:12000,animations:"disabled"});}catch(e){console.log("SERVICES_SCREENSHOT_WARNING "+e.message.slice(0,120));}
   report.viewports.push({width,status:res.status(),...data,scrollCheck,initialConsent,brokenLinks,errors,networkFailures,fail});
-  console.log("SERVICES_BROWSER_SUMMARY "+JSON.stringify({width,status:res.status(),h1:data.h1,gridColumns:data.gridColumns,cards:data.cards.length,workstreams:data.workstreamCount,enquiryLinks:data.detailLinks.filter(x=>x.href.startsWith("mailto:")).length,statuses:data.scopeStatusCounts,groups:data.groupCount,choices:data.choiceCount,jumpLinks:data.jumpLinks.length,returnLinks:data.returnLinks,consent:initialConsent,consultGraphic:data.consultationGraphicCount,scrollCheck,footer:data.footerGeometry,overflow:data.scrollWidth>width,brokenLinks,errors,networkFailures,fail}));
+  console.log("SERVICES_BROWSER_SUMMARY "+JSON.stringify({width,status:res.status(),h1:data.h1,seoHead:data.seoHead,faqOpened,keyboardTOC:tocKeyboardHash,gridColumns:data.gridColumns,cards:data.cards.length,workstreams:data.workstreamCount,enquiryLinks:data.detailLinks.filter(x=>x.href.startsWith("mailto:")).length,statuses:data.scopeStatusCounts,groups:data.groupCount,choices:data.choiceCount,jumpLinks:data.jumpLinks.length,returnLinks:data.returnLinks,consent:initialConsent,consultGraphic:data.consultationGraphicCount,scrollCheck,footer:data.footerGeometry,overflow:data.scrollWidth>width,brokenLinks,errors,networkFailures,fail}));
   await ctx.close();
  }
  await browser.close();

@@ -16,12 +16,17 @@ class Page(HTMLParser):
         self.social_nodes=0; self.map_nodes=0
         self.class_counts={}
         self.ids=set(); self.tags={}
+        self.meta={}; self.html_lang=''
         self.workstream_links=[]
         self.in_json=False; self.jsontext=[]
     def handle_starttag(self,tag,attrs):
         a=dict(attrs)
         self.tags[tag]=self.tags.get(tag,0)+1
         if a.get('id'):self.ids.add(a['id'])
+        if tag=='html':self.html_lang=a.get('lang','')
+        if tag=='meta':
+            field=(a.get('name') or a.get('property') or '').lower()
+            if field:self.meta.setdefault(field,[]).append(a.get('content',''))
         for cls in (a.get('class') or '').split():
             self.class_counts[cls]=self.class_counts.get(cls,0)+1
         if tag=='div' and 'footer-social-icons' in a.get('class',''):self.social_nodes+=1
@@ -57,6 +62,13 @@ hub=parse('seo-services/index.html')
 assert ''.join(hub.h1).strip()=='Choose the Right SEO Work for Your Website',hub.h1
 assert len(hub.canonical)==1 and hub.canonical[0].endswith('/seo-services/'),hub.canonical
 assert ''.join(hub.title).strip()=='SEO Audits, Keyword Research & Consulting | SeoImpuls',hub.title
+assert hub.html_lang.lower() in ('en-us','en'),hub.html_lang
+assert len(hub.meta.get('robots',[]))==1 and hub.meta['robots'][0].startswith('index,follow'),hub.meta.get('robots')
+assert len(hub.meta.get('description',[]))==1 and 'Compare SEO audits' in hub.meta['description'][0],hub.meta.get('description')
+for key in ('og:title','og:description','og:url','twitter:card'):
+    assert hub.meta.get(key),(key,'SEO social metadata absent')
+print('SERVICES_HEAD_REPORT',json.dumps({key:hub.meta.get(key,[]) for key in ('robots','description','og:title','og:description','og:url','twitter:card','twitter:title','twitter:description')},ensure_ascii=False))
+
 assert hub.social_nodes==0 and hub.map_nodes==0,'EN hub still contains non-branded social links or unverified location map'
 hub_markup=Path('public/seo-services/index.html').read_text(encoding='utf-8')
 assert 'Choose the right starting point' in hub_markup,'EN service-choice direct answer missing'
