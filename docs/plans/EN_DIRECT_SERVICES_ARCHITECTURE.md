@@ -97,3 +97,10 @@ All gates PENDING until this current source is committed and tested. Do not proc
 
 ## 2026-10-16 — Downstream full-site copy assertion
 - Strict run #38918491957 passed new HTMLParser scope validation, then detected stale expected literal phrase from old homepage definition, while new source retains stronger explicit buyer benefits. Adjusted two expected strings, still require SEO service definition, no-site keyword research and separate website implementation. Site source unchanged from 755e52d; re-run strict and preview.
+
+## 2026-10-16 — Acceptance: eight supporting tiles condensed to three and business-facing copy
+- **Source** `755e52d`: replaced eight 'What Our SEO Services Cover' near-products with 3 compact optional, descriptive lines: competitor research; page/content improvements; fixes/follow-up. Extra work clearly optional and agreed separately. Exactly 3 main service cards/URLs continue; no new service URL or image dependency.
+- Rewritten SEO description, result definitions, standalone keyword research spreadsheet/no-website entry path, price/timing FAQ and business-project CTA. Consultation explicitly doesn't promise written plan without separate agreement. No false case studies, prices or ranking guarantees.
+- Strict+preview+context `50965ff`: #38918895547/#38918895213/#38918895395 all PASS (no site source change in two intervening CI-only commits). Chromium source #38918077643 on 390/768/1280 PASS, #38918077646 home visual PASS and #38918077640 axe automation PASS.
+- Screenshot artifact #12054026326 downloaded and manually reviewed: 390/768/1280 layout of 3 secondary explanatory lines and service cards is legible, no new breakage observed. No field CWV, no guaranteed rankings, no full manual WCAG certification; 2 ARIA and 62 contrast incomplete axe nodes at each 390/1280 size.
+- **Scope complete for this explicit owner task**, but full homepage remains OWNER_REVIEW_PENDING and prior P2/P3 findings stay active. Never auto-advance or deploy production.

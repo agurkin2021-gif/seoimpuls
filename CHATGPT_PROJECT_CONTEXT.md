@@ -1,4 +1,14 @@
 # SEOImpuls — основной контекст проекта (читать первым)
+## ACCEPTED CODE + VISUAL QA — 2026-10-16: EN HOMEPAGE BUYER COPY SIMPLIFICATION
+**SCOPE:** EN homepage only; owner has not approved another page or production publication.
+- Exact content/layout source `755e52d` introduced 3 brief non-commercial supporting SEO tasks instead of 8 apparent services, only 3 main cards, no old `seo-icon-google.svg` EN illustration; 3 original EN CSS service marks remain.
+- User-facing SEO copy now explains website audit for an existing site, keyword research/clustering before a site exists, and consultation as guidance. Concrete deliverables: Website Audit Report, Keyword Research Spreadsheet, Consultation Priorities; no automatic written consultation plan/implementation promise. Updated pricing/timing and contact CTA `Discuss Your SEO Project`.
+- **STRICT PASS** on final QA-only head `50965ff`: [#38918895547](https://github.com/agurkin2021-gif/seoimpuls/actions/runs/38918895547). GitHub Pages noindexed preview **PASS**: [#38918895213](https://github.com/agurkin2021-gif/seoimpuls/actions/runs/38918895213). Context guard PASS: [#38918895395](https://github.com/agurkin2021-gif/seoimpuls/actions/runs/38918895395).
+- Same unchanged site source browser **PASS**: [direct 390/768/1280 #38918077643](https://github.com/agurkin2021-gif/seoimpuls/actions/runs/38918077643), [home visual 390/1280 #38918077646](https://github.com/agurkin2021-gif/seoimpuls/actions/runs/38918077646), [automated axe 390/1280 #38918077640](https://github.com/agurkin2021-gif/seoimpuls/actions/runs/38918077640). All dedicated Chrome arrays `fail:[]`, no broken routes, network/JS faults, horizontal overflow or fixed social-icon text overlaps. H1 `Professional SEO Services`, Title, 3 child routes and canonical unchanged.
+- Screenshots artifact [#12054026326](https://github.com/agurkin2021-gif/seoimpuls/actions/runs/38918077643/artifacts/12054026326) downloaded/inspected at mobile 390, tablet 768, desktop 1280; three simple supporting text rows legible, links/card panels intact. No comprehensive WCAG certification: axe reported 0 confirmed violations, with 2 ARIA and 62 contrast incomplete nodes at both checked sizes. Full-width floating Contacts bar, 768 header, 390 mobile cookie wall, oversized 1280 process box and detailed field CWV not fixed by current request.
+- **STATUS CODE_QA_PASS / RESPONSIVE_VISUAL_QA_PASS / COPY_SIMPLIFICATION_DONE / OWNER_REVIEW_PENDING / PRODUCTION_NOT_DEPLOYED**. Current documentation commit records evidence only, no site code changes.
+
+
 ## 2026-10-16 — EN HOMEPAGE QA: UPDATE BUSINESS-DEFINITION EXPECTATIONS (PENDING)
 - Source `755e52d` unchanged: simplified 8 extra scope blocks to 3 examples with search-facing names, plain-language buyer copy.
 - Strict run #38918491957 passed the new parser-based 3-row count and stopped in the downstream sitewide-copy assertion, which still required the previous literal phrase `keyword research can start before a website exists` and `website changes are separately agreed`. New EN definition explicitly says `You can order keyword research for a business idea before you have a website` and `does not include website changes unless separately agreed`. This is the same factual scope expressed more clearly; outdated exact-text assertions are corrected without dropping the meaning checks.
@@ -281,6 +291,13 @@ IMPORT_STATUS: completed
 7. Перед новым чатом прочитать AGENTS.md и этот файл прямо из репозитория, проверить фактическое состояние GitHub/Actions и продолжить с секции 6 «Следующее действие».
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
+### 2026-10-16 — EN homepage eight-to-three simplified scope and buyer text: confirmed QA
+- Exact site source 755e52d retained. Full strict #38918895547, Pages #38918895213, context #38918895395 PASSED after minifier-tolerant attribute and approved buyer-copy test fixes (50965ff).
+- Direct Chrome #38918077643 PASS (390,768,1280) all fail arrays empty; home browser #38918077646 PASS and axe #38918077640 PASS automated. Reviewed downloaded source screenshots artifact #12054026326, no visible clipping of concise work lines.
+- Eight added work blocks are now 3 supportive, non-purchasable text examples. All site-only CTAs and high-level keyword deliverables clarified for businesses without a website. Old supplemental SVG no longer renders on EN. RU/ES output source unchanged; three target EN URL, Title/H1 and internal links unchanged.
+- Outstanding unrelated visual/UX issues from original audit remain (full-width Contacts footer verification, 768 header, mobile consent, 1280 process whitespace, manual axe incomplete contrast/ARIA). Code/visual QA PASS for *this scope*, owner still to accept, production unchanged.
+- This change is only docs/research/context QA recording, not source modifications; do not move to other pages automatically.
+
 ### 2026-10-16 — Update stale CI buyer-definition phrase assertions (PENDING strict)
 - Strict #38918491957 got past EN supporting-scope parsing but downstream copy assertion expected literal legacy wording. Updated expected phrases to equally strict, current plain language for keyword research without a site and separate website changes.
 - No HTML/CSS/content changes: source 755e52d remains. New strict and Pages CI pending, browser/home/axe source tests passed.
