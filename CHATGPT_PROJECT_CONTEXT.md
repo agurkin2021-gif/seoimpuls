@@ -62,6 +62,13 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-16 — Persistent controlled finish plan for EN /seo-services/
+- User explicitly instructed: write and store a step-by-step plan in GitHub, then execute without losing continuity. Created `docs/plans/EN_SEO_SERVICES_FINISH_PLAN.md` (strict ordered steps 0–7 and external blockers; status STEP 1 NEXT). No site/layout/code edits in this **planning-only** commit.
+- Enforced immutable scope: only EN catalogue; homepage `professional seo services` frozen; RU/ES/other EN pages read-only; no production/GSC changes. Frontmatter Title/H1 and current valid URL retained. All changes and status transitions must update this context AND the plan in the same commit, with CI evidence before declaring PASS.
+- Step 1 is buyer-choice section reorder **before** 23 workstreams. Remaining jobs: commercial truth review, non-fabricated proof format, conversion paths, hreflang equivalence read-only audit, full 390/768/1280 SEO/visual QA and terminal release-blocker report.
+- Next: apply Step 1 small scoped site change; CI and visual evidence required. Existing 2026-10-16 QA baseline remains last proven site state until new tests pass.
+
+
 ### 2026-10-16 — EN catalogue final full QA after mobile polish (no site code changes)
 - Verified last site/UI commit `3878934c97b59070a875c3e0be710c31058f2f4d`: Hugo full rebuild and strict white-hat release gate GitHub Actions **#38846778912 PASS**; GitHub Pages working preview **#38846778882 PASS**; context guard **#38846779134 PASS**; English catalogue Playwright Chromium **#38846778800 PASS**. URL: https://agurkin2021-gif.github.io/seoimpuls/seo-services/ .
 - Browser 390px: HTTP 200, one approved H1, correct distinct HTML Title and self canonical, three clickable main service cards, four categories with 23 workstreams, three choice paths, five category/example TOC links, four return links, one distinct consultation diagram, 4-field **illustrative not actual** work-output example, five FAQ questions, no broken links or JS/network errors, no overflow. Responsive grid 1 column. Anchored section top 120px, sticky header bottom 81px. Cookie banner shown with exactly three buttons; Accept/Reject equal-size two-column grid and Manage Preferences visible below.
@@ -975,13 +982,9 @@ IMPORT_STATUS: completed
 
 ## 6. Следующее действие
 
-Current priority: USER REQUIRES EN `/seo-services/` TO BE FINISHED BEFORE ANY OTHER EN SERVICES. Work only in `white-seo-rebuild`; English homepage, RU/ES, other EN pages, repo main and production `seoimpuls.com` remain unchanged.
+SOURCE OF TRUTH: `docs/plans/EN_SEO_SERVICES_FINISH_PLAN.md` and this context in `white-seo-rebuild`. Owner instructed finish EN `/seo-services/` only, **work sequentially and update both documents in each commit**. Current plan: STEP 0 DONE; STEP 1 NEXT — move the three-path problem/choice selector before the 23-workstream directory (no duplicated selector) and pass Hugo strict gate / Pages / Playwright 390-768-1280. Do not touch main, EN homepage or sibling service pages, RU/ES content or live server.
 
-EN hub current source after commit `3878934`: 23 scoped white-hat workstreams in 4 groups, three legitimate child service entry links, readable navigational TOC with 5 targets and 4 category-return links, conditional pricing FAQ, demonstrable (clearly hypothetical) evidence→decision→acceptance example and distinct consultation visual. Primary `/` continues to own `professional seo services` (provider selection); `/seo-services/` owns SEO-work selection by problem and deliverable. Independent SERP evidence/limitations: `docs/research/2026-10-15-en-services-serp-and-architecture.md` and `docs/research/2026-10-16-en-services-depth-audit.md`.
-
-FINAL LAB QA for `3878934`: Hugo/strict gate #38846778912 PASS; Preview #38846778882 PASS; context #38846779134 PASS; dedicated browser #38846778800 PASS at 390/1280 (23 workstreams, 4 groups, 5 TOC and 4 return links, 3 main cards, valid metadata/schema, no JS/network/link/overflow errors). Mobile consent retains three working buttons and equal Accept/Reject grid. Anchor top 120 vs fixed header 81 mobile/79 desktop. Browser screenshots `seoimpuls-en-services-390-1280` artifact #12023079816 inspected. STATUS: **CODE_QA_PASS / RESPONSIVE_VISUAL_QA_PASS FOR EN CATALOG**, NOT READY_FOR_PRODUCTION.
-
-Canonical remains `/seo-services/` and Hugo HTML alias `/services/` is NOT an HTTP 301. No production URL migration and no GSC history audit, external links or 3–6 month query performance yet. RELEASE_BLOCKED until separate production approval, data and appropriate redirects. Do not claim the page will rank or is algorithmically immune. **Do not proceed to other service pages by default**. If owner identifies a new catalog issue, use recorded QA baseline and make only verifiable scoped fixes.
+Current last-proven site: `3878934` plus record `1791892`, strict/Pages/390-1280 PASS, 23 workstreams/4 groups/3 deep links; title `SEO Audits, Keyword Research & Consulting | SeoImpuls`, H1 `Choose the Right SEO Work for Your Website`, canonical `/seo-services/`. Preview noindex; live site not changed. Plan Step 1 code changes, once committed, are **EDITED_QA_PENDING** until CI finishes. External release blocks: GSC and incoming link history, production 301/410 decisions, real proof/customer permission and owner production approval.
 
 ## 7. Формат обязательной записи после КАЖДОЙ правки
 
