@@ -12,13 +12,16 @@ fs.mkdirSync(OUT,{recursive:true});
   const page=await ctx.newPage(),errors=[],networkFailures=[];
   page.on("pageerror",e=>errors.push(e.message));
   page.on("requestfailed",r=>networkFailures.push({url:r.url(),error:r.failure()?.errorText}));
+  console.log("SERVICES_STAGE "+width+" opening page");
   const res=await page.goto(URL,{waitUntil:"domcontentloaded",timeout:30000});
   await page.waitForTimeout(550);
+  console.log("SERVICES_STAGE "+width+" DOM ready");
   try{await page.screenshot({path:path.join(OUT,width+"-first.png"),timeout:12000,animations:"disabled"});}catch(e){console.log("SERVICES_SCREENSHOT_WARNING "+e.message.slice(0,120));}
   const reject=page.getByRole("button",{name:/Reject Non-Essential/i});
   if(await reject.count())await reject.first().click({timeout:6000});
   await page.evaluate(()=>document.querySelectorAll("img[loading=lazy]").forEach(x=>x.loading="eager"));
   await page.waitForTimeout(500);
+  console.log("SERVICES_STAGE "+width+" cookies handled");
   const data=await page.evaluate(()=>{
    const grid=document.querySelector(".services-hub");
    const images=Array.from(document.images).map(x=>({src:x.currentSrc,ok:x.complete&&x.naturalWidth>0}));
@@ -40,9 +43,17 @@ fs.mkdirSync(OUT,{recursive:true});
    };
   });
   try{await page.screenshot({path:path.join(OUT,width+"-full.png"),fullPage:true,timeout:14000,animations:"disabled"});}catch(e){console.log("SERVICES_SCREENSHOT_WARNING "+e.message.slice(0,120));}
+  // Link QA is deterministic against the Hugo output; do not stall on request loops.
+  console.log("SERVICES_STAGE "+width+" DOM diagnostics collected");
   const brokenLinks=[];
   const paths=Array.from(new Set(data.links.filter(u=>u.startsWith(ORIGIN)||u.startsWith("https://seoimpuls.com/")).map(u=>new URL(u).pathname)));
-  for(const p of paths){try{const r=await page.request.get(ORIGIN+p,{timeout:9000});if(r.status()>=400)brokenLinks.push({url:p,status:r.status()});}catch(e){brokenLinks.push({url:p,error:e.message.slice(0,150)});}}
+  for(const p of paths){
+    const decoded=decodeURIComponent(p);
+    const relative=decoded.replace(/^\/+/, "");
+    const local=path.join("public",relative,decoded.endsWith("/")?"index.html":"");
+    if(!fs.existsSync(local))brokenLinks.push({url:p,file:local});
+  }
+  console.log("SERVICES_STAGE "+width+" checked "+paths.length+" local routes");
   const fail=[];
   if(res.status()!==200)fail.push("HTTP");
   if(data.h1.length!==1||data.h1[0]!=="SEO Services & Practical Deliverables")fail.push("H1");

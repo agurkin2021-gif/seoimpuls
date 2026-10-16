@@ -60,6 +60,12 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-15 — Make EN services browser QA deterministic; avoid per-link HTTP delays
+- First dedicated Playwright workflow #38838692026 remained in `Run responsive Chrome diagnostics` longer than expected without granular stage logs. Hugo QA #107 and Pages #48 passed; Opera independently confirmed public EN hub renders all 3 images after lazy loading, correct 3-column desktop layout, direct service selection text and removal of generic footer links/map.
+- Updated **only the audit script** `scripts/audit_en_services_browser.cjs`: replace repeated HTTP subrequests with direct existence checks for generated local Hugo HTML/static targets; add stage logging at page/DOM/cookie/diagnostic steps. This is a QA reliability change, not a content or site layout change. Keep screenshot and responsive metadata tests.
+- Re-run the browser workflow; inspect actual artifact before claiming 390/1280 PASS. RU/ES and production unchanged.
+
+
 ### 2026-10-15 — EN catalog dedicated visual QA at 390 and 1280px
 - Last scoped catalog selection+footer commit 7a5da8d9 verified in Hugo QA #106 and Pages Preview #47 PASS; Opera observed the EN-only direct choice paragraph, three valid service cards and zero generic social links. RU/ES and other EN source left unchanged.
 - Added dedicated Chromium script `scripts/audit_en_services_browser.cjs` and triggered workflow `.github/workflows/en-services-browser-audit.yml`. At 390x844 and 1280x800 it checks SEO title/H1/canonical, intro, exactly 3 service card URLs, CSS responsive columns 1/3, image loading, footer real contacts and no unverified map/social, sitemap-relevant links, JSON-LD syntax, JS/network/broken link errors and horizontal overflow; produces screenshots and JSON.
