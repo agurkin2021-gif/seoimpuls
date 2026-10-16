@@ -62,6 +62,16 @@ IMPORT_STATUS: completed
 
 ## 5. Журнал изменений (новые записи сверху; обновлять в каждом коммите)
 
+### 2026-10-16 — NEW /seo/ scope: GitHub access restored; SERP snapshots and controlled plan saved
+- Owner explicitly moved on from completed EN catalogue to the next EN `/seo/` technical page and instructed to retry after connector access failure. GitHub read/write and Opera confirmed restored. Branch `white-seo-rebuild` baseline HEAD `1d5eaf2`. EN homepage and catalogue remain frozen, as do other service pages, RU/ES, main and production.
+- Read `AGENTS.md`, `docs/SEO_PAGE_WORKFLOW.md`, existing `content/seo/index.md` and historical intent report; opened /seo/ preview in Opera. Current Title/H1 `Technical SEO Services & Audits`; route /seo/ remains canonical target; current text emphasizes technical audit but gives equal sections to On-Page, Keyword/Content, International, potentially overlapping established specialist pages.
+- **SERP evidence:** Google Web first ten result titles/URLs for `technical seo services` and `technical seo audit services`, English/US-parameter request `hl=en&gl=us&pws=0&udm=14&num=10`, desktop Opera 2026-10-16. Direct providers and editorial/directories mixed; physical US IP and search volume NOT verified. Detailed URLs, competitor evidence and gap matrix saved in `docs/research/2026-10-16-en-technical-seo-serp-intent.md`.
+- **Critical template issue:** shared `layouts/partials/head/seo.html` emits `BlogPosting` for every `.IsPage` including /seo/. Next target is rendered HTML confirmation and EN /seo/-only correction, not a global change.
+- New ordered plan `docs/plans/EN_TECHNICAL_SEO_PAGE_PLAN.md`: gates 0–1 done, 2 IN_PROGRESS, 3 NEXT. Both added in this docs-only commit alongside context. **Current status: BASELINE_AUDITED / SERP_SNAPSHOT_OBSERVED_GEO_UNVERIFIED / CONTENT_REVISION_PENDING / RELEASE_BLOCKED**.
+- Exact next: verify /seo/ generated HTML schema and semantics on working branch; make narrow template fix with same-commit context; run strict Hugo / Pages / browser QA with CI evidence before accepting. No original page or server edit yet.
+
+
+
 ### 2026-10-16 — EN catalogue final QA acceptance and decision record
 - Step 6 accepted after `ad90cbd`: Hugo strict #38888649717 PASS, GitHub Pages #38888649363 PASS, Playwright at 390/768/1280 #38888649421 PASS, context guard #38888649376 PASS. Fresh screenshots from #12039969650 inspected; WhatsApp/Telegram remain floating where intended and at 768 their overlap count with catalogue text is exactly 0. No broken links, JS/network errors or horizontal overflows.
 - Step 7 final record: `docs/research/2026-10-16-en-services-final-qa.md` added and plan moved to Step 6 DONE / Step 7 DONE. No site/HTML/CSS/JS changes in this documentation-only commit.
@@ -1074,6 +1084,8 @@ IMPORT_STATUS: completed
 - Следующий этап: загрузка ZIP и успешный импорт GitHub Actions.
 
 ## 6. Следующее действие
+
+**CURRENT (2026-10-16 after explicit owner instruction): EN /seo/ technical SEO audit is the active authorized page. Plan: docs/plans/EN_TECHNICAL_SEO_PAGE_PLAN.md. Baseline and Google Web parameterized SERP snapshots (2 queries, 10 results each) done; US physical geo unverified. Route-specific rendered schema QA next; EN /seo/ BlogPosting misclassification in shared template is a confirmed source-level defect. Freeze homepage, /seo-services/, other service pages, RU/ES, main, production.**
 
 SOURCE OF TRUTH: `docs/plans/EN_SEO_SERVICES_FINISH_PLAN.md` and this context in `white-seo-rebuild`. Owner instructed finish EN `/seo-services/` only, **work sequentially and update both documents in each commit**. Current plan: STEP 0 DONE, STEP 1 DONE (63f39bb, strict/Pages/Playwright 390/768/1280 all PASS). STEP 2 DONE — source 30e1c72, Hugo/Pages/Playwright 390/768/1280 passed, 23 entry matrix and 3/14/6 visible labels verified; STEP 3 DONE — honest first-party QA report verified in live-browser artifact; real customer evidence remains BLOCKED_EXTERNAL. STEP 4 DONE — three existing specialist routes + 20 topic-specific email enquiries all pass strict/Pages/Chrome 390/768/1280. STEP 5 AUDIT_DONE — read-only RU/ES relation matrix, translation parity partial, future multilingual work BLOCKED_EXTERNAL. STEP 6 DONE — source ad90cbd passed strict #38888649717, Pages #38888649363, Chrome #38888649421 and context #38888649376; 768px icons 2/overlaps 0. STEP 7 DONE — decision record docs/research/2026-10-16-en-services-final-qa.md. Page CODE_QA_PASS / RESPONSIVE_VISUAL_QA_PASS / RELEASE_BLOCKED. No next service-page action until separate owner decision and external evidence. Do not claim proof without evidence. Do not touch main, EN homepage or sibling service pages, RU/ES content or live server.
 
