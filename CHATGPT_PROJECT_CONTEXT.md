@@ -1,3 +1,13 @@
+## 2026-10-19 — CLOUDFLARE PRODUCTION MIGRATION COMPLETE
+- Production source is GitHub repository `agurkin2021-gif/seoimpuls`; current server contents were intentionally not used or copied.
+- Rebuilt source from `white-seo-rebuild` was promoted to `main`. Cloudflare Worker `seoimpuls` is connected to GitHub `main` and auto-deploys on push.
+- Cloudflare build uses `SKIP_DEPENDENCY_INSTALL=true`; repository build downloads pinned Hugo Extended 0.154.5, builds `public/`, runs core release gates and publishes only generated static output.
+- Production Worker routes are active for `seoimpuls.com/*` and `www.seoimpuls.com/*`; www redirects permanently to apex.
+- Final DNS: both apex and www proxied A records use non-origin placeholder `192.0.2.0`. Legacy server IP `87.199.197.223` is absent from all six domains currently in this Cloudflare account.
+- Final live checks PASS: EN homepage, `/seo-retainer/`, RU homepage, `robots.txt`, `sitemap.xml`; `/.git/config` returns site 404. Public www redirects to apex.
+- GitHub Pages remains a preview mechanism for the rebuild workflow, not production. Production traffic is served by Cloudflare Worker.
+- Migration status: COMPLETE. Old server is no longer required by the six checked Cloudflare domains unless it hosts unrelated services outside this account.
+
 ## 2026-10-19 — CLOUDFLARE WORKER VERIFIED; PRODUCTION ROUTING ENABLEMENT
 - Fresh Cloudflare build after `SKIP_DEPENDENCY_INSTALL=true` completed successfully. GitHub checks on source `217cc4e7564b`: Cloudflare Workers Build PASS, repository audit PASS, Pages preview PASS, context-check PASS.
 - Verified technical Worker URL before production routing: EN homepage `Professional SEO Services | SeoImpuls`, `/seo-retainer/`, RU homepage, and `robots.txt` render from the repository build. Request to `/.git/config` returns the generated site 404; repository metadata/source is not published.
