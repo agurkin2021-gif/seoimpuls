@@ -1,3 +1,9 @@
+## 2026-10-19 — CLOUDFLARE BUILD INSTALL FIX
+- First Cloudflare manual build for Worker `seoimpuls` stalled in Cloudflare's automatic dependency-install phase before `npx wrangler deploy` executed; no application/deployment error was emitted and the production domain was not switched.
+- Owner added Cloudflare Production build variable `SKIP_DEPENDENCY_INSTALL=true`. This is confirmed in Worker Settings. The stalled build was manually cancelled.
+- This context-only commit intentionally retriggers CI and is promoted to `main` after branch checks start, so Cloudflare receives a fresh main push with automatic dependency installation disabled. No site content/design/routes changed in this commit.
+- Next: verify Cloudflare build reaches Wrangler/Hugo custom build, inspect workers.dev output, then cut DNS only after technical validation.
+
 ## 2026-10-19 — OWNER AUTHORIZED CLOUDFLARE PRODUCTION MIGRATION FROM REPOSITORY
 - Owner explicitly authorized production migration of SEOImpuls to Cloudflare and explicitly rejected using/copying the current server contents. Source of truth for this release is the current `white-seo-rebuild` Git history only.
 - Latest pre-release branch head `25377f675ab1` had GitHub checks PASS: audit, preview and context-check. The old `main` branch is only the imported legacy baseline and must not be deployed.
