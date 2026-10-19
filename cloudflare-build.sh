@@ -29,3 +29,7 @@ test -f public/robots.txt
 test -f public/sitemap.xml
 
 echo "Cloudflare production build ready: $(find public -type f | wc -l) files"
+
+# Keep Cloudflare zone performance settings aligned with production.
+# This is non-fatal: a restricted build token must never block site deployment.
+python3 scripts/cloudflare-zone-optimize.py || echo "Cloudflare zone optimization skipped; continuing production deploy."
