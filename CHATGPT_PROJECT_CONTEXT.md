@@ -1,3 +1,10 @@
+## 2026-10-19 — CLOUDFLARE WORKER VERIFIED; PRODUCTION ROUTING ENABLEMENT
+- Fresh Cloudflare build after `SKIP_DEPENDENCY_INSTALL=true` completed successfully. GitHub checks on source `217cc4e7564b`: Cloudflare Workers Build PASS, repository audit PASS, Pages preview PASS, context-check PASS.
+- Verified technical Worker URL before production routing: EN homepage `Professional SEO Services | SeoImpuls`, `/seo-retainer/`, RU homepage, and `robots.txt` render from the repository build. Request to `/.git/config` returns the generated site 404; repository metadata/source is not published.
+- This commit enables Cloudflare Worker zone routes for both `seoimpuls.com/*` and `www.seoimpuls.com/*`. Existing proxied legacy A records remain temporarily as rollback/fallback DNS; Worker routes execute before origin and the Worker redirects www to the apex hostname.
+- No content/design/service copy changes. Current server contents remain explicitly excluded from the migration source.
+- Next: promote this commit to `main`, confirm Cloudflare deployment PASS and production domain renders the repository build, then replace legacy origin A values with a non-origin placeholder while keeping them proxied so the old server is no longer referenced.
+
 ## 2026-10-19 — CLOUDFLARE BUILD INSTALL FIX
 - First Cloudflare manual build for Worker `seoimpuls` stalled in Cloudflare's automatic dependency-install phase before `npx wrangler deploy` executed; no application/deployment error was emitted and the production domain was not switched.
 - Owner added Cloudflare Production build variable `SKIP_DEPENDENCY_INSTALL=true`. This is confirmed in Worker Settings. The stalled build was manually cancelled.
