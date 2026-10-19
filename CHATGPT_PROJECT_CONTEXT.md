@@ -1,3 +1,11 @@
+## 2026-10-19 — OWNER AUTHORIZED CLOUDFLARE PRODUCTION MIGRATION FROM REPOSITORY
+- Owner explicitly authorized production migration of SEOImpuls to Cloudflare and explicitly rejected using/copying the current server contents. Source of truth for this release is the current `white-seo-rebuild` Git history only.
+- Latest pre-release branch head `25377f675ab1` had GitHub checks PASS: audit, preview and context-check. The old `main` branch is only the imported legacy baseline and must not be deployed.
+- This commit adds Cloudflare Workers static deployment infrastructure only: pinned Hugo Extended 0.154.5 production build, `public/` asset-only publication, Worker-first routing support and www canonical redirect. No site copy/design/service content is changed by this deployment commit.
+- Initial Worker configuration deliberately omits production custom-domain routes so a workers.dev build can be verified before DNS cutover. Production DNS remains unchanged at this exact commit.
+- After this release-candidate commit passes branch checks, `main` may be fast-forwarded to it as the authorized production source. DNS cutover and final route activation are separate verified steps.
+- Next: expose this repository to the existing Cloudflare GitHub App, create Worker build from `main`, verify workers.dev output, then remove only the conflicting apex origin record and activate seoimpuls.com routes. Record final migration status in a same-commit context update.
+
 # SEOImpuls — основной контекст проекта (читать первым)
 
 ## 2026-10-16 — Link owner-confirmed Kwork contact from EN About (QA pending)
